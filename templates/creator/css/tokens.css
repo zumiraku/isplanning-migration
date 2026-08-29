@@ -1,0 +1,119 @@
+@charset "UTF-8";
+/* =============================================================================
+   isp-sp.com — design tokens
+   Creator Mode rebuild. Source of truth for colour, type, spacing, layout.
+
+   Palette recovered from m_sys_common.css before it is retired with Basic Mode
+   (see docs/findings-stage0.md S0-13). Usage counts in comments are from that
+   stylesheet, so the hierarchy reflects how the shop actually used each colour
+   rather than a guess.
+
+   Breakpoints match the two the shop already uses (767 / 960), so existing
+   editorial content that assumes them does not reflow unexpectedly.
+   ========================================================================== */
+
+:root {
+  /* --- brand ------------------------------------------------------------- */
+  --c-primary:        #007c5a;   /* 50 uses — brand green */
+  --c-primary-dark:   #00593f;   /* derived, for hover/active */
+  --c-primary-light:  #e6f2ee;   /* derived, for tinted panels */
+
+  --c-accent:         #98cb00;   /* 20 uses — yellow-green */
+  --c-accent-dark:    #90b700;   /* 14 uses — hover/darker */
+  --c-accent-light:   #f2f8e0;   /* derived */
+
+  --c-sale:           #e60012;   /* 14 uses — sale, caution, required */
+  --c-sale-light:     #fdeaec;   /* derived */
+
+  /* --- neutrals ---------------------------------------------------------- */
+  --c-ink:            #333333;   /* 74 uses — body text */
+  --c-ink-2:          #5f6b68;   /* secondary text */
+  --c-ink-3:          #8a938f;   /* meta, captions */
+  --c-rule:           #dddddd;   /* 15 uses — hairlines */
+  --c-rule-soft:      #ececec;
+  --c-surface:        #ffffff;   /* 149 uses */
+  --c-surface-2:      #f5f7f6;   /* panels, table stripes */
+  --c-ground:         #ffffff;
+
+  /* --- semantic ---------------------------------------------------------- */
+  --c-ok:             #007c5a;
+  --c-warn:           #b0782a;
+  --c-error:          #e60012;
+  --c-soldout:        #8a938f;
+
+  /* --- type -------------------------------------------------------------- */
+  --f-display: "Mochiy Pop One", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --f-body:    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --f-num:     "Noto Sans JP", system-ui, sans-serif;
+
+  /* Mobile-first scale. Desktop overrides at the 961 breakpoint below. */
+  --t-xs:   11px;
+  --t-sm:   12px;
+  --t-base: 14px;
+  --t-md:   15px;
+  --t-lg:   17px;
+  --t-xl:   20px;
+  --t-2xl:  24px;
+  --t-3xl:  28px;
+
+  --lh-tight:  1.25;
+  --lh-normal: 1.7;   /* Japanese body copy wants more leading than Latin */
+  --lh-loose:  1.9;
+
+  /* --- spacing (4px base) ------------------------------------------------ */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* --- layout ------------------------------------------------------------ */
+  --container:     1180px;
+  --container-pad: var(--s-4);
+  --radius:        4px;
+  --radius-lg:     8px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow:    0 2px 8px rgba(0,0,0,.08);
+
+  /* --- controls ---------------------------------------------------------- */
+  --tap-min: 44px;   /* minimum touch target */
+  --focus:   0 0 0 3px rgba(0,124,90,.35);
+
+  --ease: cubic-bezier(.2,.6,.3,1);
+}
+
+/* Tablet and up */
+@media screen and (min-width: 768px) {
+  :root {
+    --container-pad: var(--s-6);
+  }
+}
+
+/* Desktop — the widths the current site was designed for */
+@media screen and (min-width: 961px) {
+  :root {
+    --t-base: 15px;
+    --t-md:   16px;
+    --t-lg:   19px;
+    --t-xl:   23px;
+    --t-2xl:  29px;
+    --t-3xl:  36px;
+    --container-pad: var(--s-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --ease: linear; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
