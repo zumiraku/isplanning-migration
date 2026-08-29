@@ -1,0 +1,22 @@
+# Never commit credentials or client secrets
+*.secret
+*credentials*
+*password*
+.env
+.env.*
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+*.swp
+~$*
+
+# Large binaries we can always re-capture
+snapshot/assets/**/*.zip
+*.mp4
+
+# Local scratch
+tmp/
+*.log
