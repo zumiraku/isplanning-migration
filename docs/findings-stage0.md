@@ -294,6 +294,58 @@ Three jQuery builds, two bxSlider builds, and Facebook, Twitter and LINE SDKs �
 of which were visible in the brief. Stage 7 target: one jQuery or none, one slider,
 social SDKs replaced with plain share links.
 
+## S0-15 — Free-page content extracted and bucketed; Stage 5 needs 3 templates, not 4 ✅
+
+All 83 free-page bodies are extracted, de-chromed and converted to UTF-8 →
+`templates/basic-export/freepages/` (83 files, 1.0 MB). This is the raw material
+Stage 5 pours into templates.
+
+Container selectors were useless for this: only 20 of 83 pages use
+`<div class="PageArea">`, and the site's `<h1>` sits in the header chrome. The
+boundaries are instead derived from the corpus — these are template-generated pages,
+so whatever prefix and suffix they all share *is* chrome. Four page-specific values
+had to be normalised first or they broke the comparison: the footer's `return_path`
+hidden input, the `ssl_tempid` session token, and a long per-page hex comment
+MakeShop appends after the footer.
+
+### Archetype distribution
+
+| Archetype | Pages | Avg content | Avg images |
+|---|---:|---:|---:|
+| `article` | **47** | 1,636 chars | 2.4 |
+| `visual-guide` | **28** | 3,122 chars | 8.4 |
+| `form` | 4 | 4,906 chars | 14.5 |
+| `short-notice` | 2 | 207 chars | 1.5 |
+| `link-index` | 1 | 613 chars | 16 |
+| `table` | 1 | 89 chars | 0 |
+
+**Two templates cover 75 of 83 pages.** The `form` group is the system-ish pages
+(ショッピングガイド, 特定商取引法) which need their own treatment anyway. That leaves four
+stragglers to handle individually — a materially smaller job than "60–70 pages".
+
+### Three pages are candidates for retirement rather than migration
+
+The extraction independently confirms S0-6 and S0-11. These three carry the default
+site title, have almost no content, and serve the PC template to phones:
+
+| Page | Extracted content |
+|---|---|
+| `page82` | **14 characters** |
+| `page37` | 400 characters |
+| `page83` | 320 characters |
+
+Recommend confirming with the client and retiring them rather than rebuilding them.
+
+### Also surfaced
+
+- **13 of 83 titles exceed 60 characters** and will truncate in search results.
+  `page75` is **120 characters** — its `<title>` has been filled with what reads as a
+  meta description ("手ぬぐいは粗品として人気です。名入れなら知名度アップにも…"). Straightforward
+  fix during the templating pass, and exactly the "ごちゃごちゃの状態" the client described.
+- **1,902 inline `style=` attributes** across the 83 content bodies. These must be
+  stripped into the Stage 2 token system rather than carried across, or they will
+  defeat the responsive layout at every breakpoint.
+
 ## Corrections to the published dossier
 
 | Item | Was | Now |
