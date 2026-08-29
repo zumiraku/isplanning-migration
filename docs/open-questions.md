@@ -7,11 +7,23 @@ Status: `OPEN` · `ANSWERED` · `BLOCKED`
 
 ---
 
-### Q1 — Is the pricing script ours or the platform's? `OPEN`
-Are `updateOptionPrice()` and `updateOptionPriceAjax()` shop-authored, or MakeShop
-JavaScript that only exists in Basic Mode? If the latter, the whole pricing
-behaviour is a from-scratch rebuild. **This is the highest-value question in the
-project.** See [`spec/option-engine.md`](../spec/option-engine.md).
+### Q1 — Is the pricing script ours or the platform's? `ANSWERED` 2026-08-29
+**The platform's.** Present on 100/100 sampled product pages including option-less
+ones, carries an `ActiveXObject` IE fallback and MakeShop's own Japanese source
+comments, and POSTs to the platform endpoint `/shop/shopdetail_option.html`.
+
+It is emitted by **オプションテーブル形式 / 表形式のオプション**, which Creator Mode
+discontinues. **Stage 4 is therefore the large branch: the client-side pricing
+behaviour is a from-scratch rebuild.** Full verified spec, including the endpoint
+contract and the 3-colour × 7-tier model, in [`spec/option-engine.md`](../spec/option-engine.md).
+
+*Residual check:* confirm in the admin that this code appears in no free-space box.
+Expected to confirm; the evidence is already strong.
+
+**Supersedes Q1 → Q1b (now the question that sizes Stage 4):**
+Does `/shop/shopdetail_option.html` still exist and behave identically under Creator
+Mode? Test it during the rollback rehearsal — two minutes, and it decides whether we
+rebuild only the client side or must bake option pricing into the template.
 
 ### Q2 — Which レコメンド product is installed? `ANSWERED` 2026-08-29
 **さぶみっと！レコメンド (e-Agency)**, account `isplanning`, loaded from

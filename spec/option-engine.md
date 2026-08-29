@@ -1,145 +1,190 @@
 # 商品詳細 pricing engine — behaviour specification
 
-**Status:** partial. Reverse-engineered from the live page source only.
-The authoritative source read happens in the admin console (Stage 0).
+**Status: VERIFIED** against the live Basic Mode site, 2026-08-29.
+Supersedes the earlier hypothesis-based draft.
 
-**Reference page:**
+Reference product: `000000025283` — マックス ハンコ 角型 Ω型 ポンポン木製スタンプ (SP34460)
 `https://www.isp-sp.com/shopdetail/000000025283/003/003/X/page1/order/`
-(マックス ハンコ 角型 Ω型 ポンポン木製スタンプ / SP34460)
-
-This is the single highest-risk component in the migration. It takes money.
-The only acceptable outcome is **identical pricing behaviour on different markup**.
 
 ---
 
-## 1. What the page actually is
+## 1. Headline finding — Q1 is answered 🔴
 
-Not a styled product page — a hand-built quoting tool bolted onto the MakeShop
-cart form. The customer picks a colour and a quantity tier from a radio matrix;
-JavaScript recalculates the displayed price and marshals the selection into the
-hidden field the cart consumes.
+**`updateOptionPrice()` and `updateOptionPriceAjax()` are MakeShop platform
+JavaScript, not shop-authored code.**
 
-## 2. Observed inputs
+Evidence:
 
-### 2.1 Option matrix — 21 radios
+1. Present on **100 / 100** sampled product pages — including `plain` products that
+   have no options at all. Page-level custom code does not behave that way.
+2. Contains an `ActiveXObject("Microsoft.XMLHTTP")` fallback — legacy IE support no
+   shop owner is writing in 2026.
+3. Carries MakeShop's own Japanese source comments (`// 表形式のオプション`,
+   `// プルダウン形式のオプション`).
+4. POSTs to the platform endpoint `/shop/shopdetail_option.html`.
 
-```html
-<input type="radio" name="brand_option" value="1_1" onclick="javascript:updateOptionPrice()">
-<input type="radio" name="brand_option" value="2_1" onclick="javascript:updateOptionPrice()">
-...
-<input type="radio" name="brand_option" value="3_7" onclick="javascript:updateOptionPrice()">
+**Consequence: Stage 4 is the large branch, not the moderate one.** The pricing
+behaviour is not ours to port — it is emitted by a Basic Mode feature
+(**オプションテーブル形式 / 表形式のオプション**) that Creator Mode **discontinues**.
+The client-side behaviour must be rebuilt from scratch.
+
+*Still worth one admin confirmation* (that this code appears in no free-space box),
+but the evidence is strong enough to plan against.
+
+## 2. The option model — verified by probing the endpoint
+
+`brand_option` radio values are `{option1_id}_{option2_id}`.
+
+| | Range | Meaning | Affects price? |
+|---|---|---|---|
+| `option1_id` | 1–3 | **Colour** (SP34460 BK / GE / RD) | **No** |
+| `option2_id` | 1–7 | **Quantity tier** | **Yes** |
+
+Proved by four probes: `1_1` and `2_1` return an identical price; `1_7` and `3_7`
+return an identical price; `_1` and `_7` differ.
+
+### Quantity tiers — all seven confirmed against the endpoint
+
+Every row below is an endpoint response, cross-checked against the on-page unit
+price table. All seven reconcile exactly.
+
+| option2_id | Qty | Unit price | endpoint ex-tax | check |
+|---:|---:|---:|---:|---|
+| 1 | 10 | ¥338 | ¥3,380 | 10 × 338 ✅ |
+| 2 | 15 | ¥292 | ¥4,380 | 15 × 292 ✅ |
+| 3 | 20 | ¥268 | ¥5,360 | 20 × 268 ✅ |
+| 4 | 30 | ¥245 | ¥7,350 | 30 × 245 ✅ |
+| 5 | 40 | ¥233 | ¥9,320 | 40 × 233 ✅ |
+| 6 | 50 | ¥226 | ¥11,300 | 50 × 226 ✅ |
+| 7 | 84 | ¥198 | ¥16,632 | 84 × 198 ✅ |
+
+Tier 7 matches the page's rendered default (`price1='16632'`, `price2="18,295"`),
+so the page renders pre-selected on the largest tier.
+
+The pricing rule is therefore **total = tier_quantity × tier_unit_price**, with
+colour price-neutral. `amount` multiplies on top of this at the cart.
+
+### `uid` is not derivable from the URL 🔴
+
+`uid` is MakeShop's **internal** product id, and only the `000000xxxxxx` scheme
+happens to embed it (`000000025283` → `25283`). The older `cccssxxxxxx` scheme does
+not: `003001000005` → uid **37**, `003001000096` → **128**, `003003000674` → **1337**.
+
+Deriving uid from the URL path returns `price: 0` for every old-scheme product —
+a silent wrong answer, not an error. The uid must be read from the page's own
+`updateOptionPriceAjax(<uid>, …)` call site.
+
+**The rebuild must do the same**, and the Creator Mode template must expose the
+internal product id. Confirm that a Creator Mode variable tag for it exists — if it
+does not, that is a blocker for the ~1,400 option-priced products.
+
+## 3. The endpoint contract
+
+```
+POST /shop/shopdetail_option.html
+Content-Type: application/x-www-form-urlencoded
+
+uid=25283&option1_id=1&option2_id=7
 ```
 
-`value` is `{col}_{row}`, col ∈ 1..3, row ∈ 1..7 — a 3 × 7 grid.
+`uid` is the product id with leading zeros stripped (`000000025283` → `25283`).
 
-| Axis | Cardinality | Almost certainly |
-|---|---:|---|
-| col | 3 | Colour: SP34460**BK** / **GE** / **RD** |
-| row | 7 | Quantity tier: 10 / 15 / 20 / 30 / 40 / 50 / 84 個 |
+Response (HTTP 200, JSON):
 
-**→ VERIFY IN ADMIN:** which axis is which. If col/row are transposed, every
-price in the matrix is wrong in a way that still *looks* plausible.
-
-### 2.2 Quantity
-
-```html
-<input type=text name=amount value="1" size=2 maxlength="9">
-```
-Stepped by `count_change(0)` / `count_change(1)`.
-
-### 2.3 名入れ (name printing)
-
-Stated on the page as: 名入れ可能文字数 252字 · 最低ロット 100個 · 別途 ¥7,500.
-
-**→ VERIFY IN ADMIN:** is the ¥7,500 surcharge applied by this script, by a
-MakeShop option, or handled manually after the order? This changes whether the
-migration must reproduce it in code at all.
-
-## 3. Observed outputs
-
-```html
-<input name="price2" id="M_price2" class="m_price" value="18,295">   <!-- displayed, tax-in -->
-<input type='hidden' name='price1' value='16632'>                     <!-- tax-excluded -->
-<input type='hidden' name='taxview'>
+```json
+{"price":18295,"no_tax_price":"16632","tax":1663,"point":0,"quantity":null,
+ "jan_code":null,"is_member_price":false,"member_price":0,
+ "member_no_tax_price":0,"member_tax":0,"member_point":0}
 ```
 
-`#M_price2` is comma-formatted (`numberFormat()` is defined on the page).
+Note `no_tax_price` is a **string**, the rest numbers. The platform parses this with
+`eval()`; our rebuild will use `JSON.parse`.
 
-## 4. The cart contract — must be preserved byte-for-byte
+### How the response is applied
+
+| Response field | Written to |
+|---|---|
+| `no_tax_price` | `form1.price1` (via `numberFormat()`) |
+| `price` | `form1.price2` → displayed as 円（税込） |
+| `tax` | `form1.taxview` |
+| `point` | `#M_point` innerHTML |
+| `price` × 0.01 | `#gmo_point_value` innerHTML |
+| `quantity == "0"` | `alert("該当商品のオプションは品切れです…")` and focus `spcode` |
+
+`quantity: null` on this product = no per-option stock management.
+
+## 4. Two option UIs share one code path
+
+```js
+if (document.form1.brand_option) {  // 表形式のオプション  → radio matrix
+    ...split(value, '_') → option1_id / option2_id
+} else {                            // プルダウン形式のオプション → select boxes
+    option1_id = form1.spcode.value
+    option2_id = form1.spcode2.value
+    // returns early if either is "0"
+}
+```
+
+The rebuild must handle **both**, because both exist across the catalogue.
+
+## 5. The cart contract — preserve byte-for-byte
 
 ```html
 <form name=form1 method=post action="/shop/basket.html">
-  amount        <!-- quantity -->
-  brandcode     <!-- 000000025283 -->
-  ordertype
-  opts          <!-- serialised option selection -->
-  spcode / spcode2
+  amount · brandcode · ordertype · opts · spcode · spcode2
 ```
 
-Submitted via `send('','')`.
+Whatever markup we build, the POST body reaching `/shop/basket.html` must be
+identical to what Basic Mode sends today. Capture real POST bodies before cutover
+(DevTools → Copy as cURL) and diff after.
 
-**`opts` is the contract.** Whatever markup we build, the POST body that reaches
-`/shop/basket.html` must be identical to what Basic Mode sends today. Capture real
-POST bodies before cutover (DevTools → Copy as cURL) and diff them after.
+## 6. The question that now decides the rebuild
 
-## 5. The open question that decides the workload
+**Does `/shop/shopdetail_option.html` still exist, and behave identically, when the
+shop is in Creator Mode?**
 
-Functions defined on the page:
+- **If yes** → we rebuild only the client side: our own option markup, our own
+  fetch to this endpoint, our own DOM updates. Tractable.
+- **If no** → the option price/stock data must be baked into the template at render
+  time, which is a substantially larger job and needs a data source.
 
-```
-updateOptionPrice()        updateOptionPriceAjax()      send()
-count_change()             numberFormat()               openOptionWindow()
-```
+**Test this during the rollback rehearsal** (`docs/admin-extraction-checklist.md` §H)
+— switch to Creator Mode, POST the same payload, compare the response, switch back.
+It takes two minutes and it sizes the rest of Stage 4.
 
-**Are `updateOptionPrice` / `updateOptionPriceAjax` shop-authored, or MakeShop
-platform JavaScript that only exists in the Basic Mode context?**
+## 7. Ground-truth capture — do it while Basic Mode is live
 
-- **If shop-authored** → we port and harden them. Moderate work.
-- **If platform-provided** → they vanish at the switch and the entire pricing
-  behaviour must be reimplemented from scratch. Large work, and it must be
-  scheduled in week two, not discovered in week nine.
+`tools/probe-options.ps1` walks the endpoint across every option combination for a
+set of products and writes `spec/price-matrix.csv`. This is the oracle the rebuilt
+page is tested against. Without it we are comparing a rebuild to an opinion.
 
-The `Ajax` suffix suggests a call to a platform endpoint. If so, capture:
-the endpoint URL, request payload, response shape, and whether that endpoint is
-reachable from a Creator Mode page.
+Cover: all 3 × 7 combinations for the reference product, plus every other
+`matrix-priced` product in the sample, plus the `select-options` path.
 
-Everything else in this file is secondary to answering this.
+## 8. Rebuild rules
 
-## 6. Ground-truth capture (do this while Basic Mode is still live)
+1. **`data-*` contract, not id/name lookups.** Creator Mode emits different markup.
+2. **No jQuery.** One self-contained module.
+3. **`JSON.parse`, never `eval`.**
+4. **Fail loud.** If expected inputs are missing, disable add-to-cart rather than
+   posting an unpriced order.
+5. **Same payload, different markup.** Visible behaviour and the POST body are the
+   spec; the DOM is not.
 
-Build `spec/price-matrix.csv` from the **live Basic Mode site**, before any switch.
-This is the oracle the migrated page is tested against — without it we are
-comparing a rebuild to an opinion.
+## 9. Catalogue prevalence (100-product stratified sample)
 
-| Case | col | row | qty | 名入れ | expected price1 | expected price2 | expected opts |
-|---|---|---|---|---|---|---|---|
-| 3 colours × 7 tiers | 1–3 | 1–7 | tier qty | off | | | |
-| …same with 名入れ | 1–3 | 1–7 | tier qty | on | | | |
-| below 名入れ minimum | 1 | 1 | 10 | on | | | |
-| no option selected | – | – | 1 | – | | | |
-| qty 0 / negative / non-numeric / 99999999 | 1 | 1 | edge | off | | | |
-| sold-out variant | ? | ? | 1 | off | | | |
-| free-shipping threshold (¥30,000) | 1 | 7 | 84 | off | | | |
+| Class | Sample | Est. of 9,514 |
+|---|---:|---:|
+| `plain` — no options | 85% | ~8,100 |
+| `matrix-priced` — radio option table | 15% | ~1,400 |
 
-42 base cells + edges. Capture programmatically, not by hand.
+Option-group counts seen on matrix pages: 1 group with 1–8 choices is typical; the
+reference product's 3 × 7 is the largest shape found so far. Old-scheme products are
+disproportionately matrix-priced (20% vs 12%).
 
-## 7. Rebuild rules
+25% of sampled pages contain a 単価 table — so some `plain` products carry a static
+price table with no interactive options. Those need no JS, only layout.
 
-1. **No dependency on `id`/`name` collisions.** Bind via `data-*` attributes on a
-   container; look up children within scope. Creator Mode emits different ids.
-2. **No jQuery.** One self-contained module. (The site currently loads three
-   jQuery builds — see README.)
-3. **Fail loud, not silent.** If the expected inputs are missing, disable the
-   add-to-cart button rather than posting an unpriced order.
-4. **Same payload, different markup.** The visible behaviour and the POST body are
-   the spec; the DOM is not.
-
-## 8. Variant classes — this page is not the only one
-
-There are **9,514 product pages** in the sitemap, on two code schemes
-(9,025 × `000000xxxxxx`, 488 × `cccssxxxxxx`). We cannot test them individually.
-
-**→ TODO (Stage 1):** classify product pages into variant classes — plain, colour
-options only, quantity-tier matrix, 名入れ, old-scheme — count each, and test one
-representative per class. Sample the catalogue to build this; do not assume the
-reference page is typical.
+> Sample caveat: the `has_naire` column in `inventory/product-variants.csv` is
+> **unreliable** — 名入れ appears in global header copy on every page, so it returned
+> 100/100. Ignore that column; it does not indicate a name-printing option.
