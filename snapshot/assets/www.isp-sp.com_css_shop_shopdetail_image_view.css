@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+div.M_imageMain {
+    position: relative;
+}
+    
+div.M_imageMain img {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+    
+div.M_imageCatalog {
+    height: auto;
+}
+    
+#makebanner div.M_imageCatalog table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: auto;
+}
+    
+div.M_imageCatalog table td {
+    border: solid 1px #dadada;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+}

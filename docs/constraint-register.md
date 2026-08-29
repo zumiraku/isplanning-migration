@@ -41,5 +41,5 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 | # | Item | Why it's fine |
 |---|---|---|
 | N1 | Rollback | Basic Mode content survives the switch and the shop can be switched back. Makes the cutover rehearsable — this is the project's safety net |
-| N2 | Custom stylesheet on the file server | `gigaplus.makeshop.jp/isplanning/css/default.css` survives the mode switch, so CSS can be staged before cutover |
+| N2 | ~~Custom stylesheet on the file server is our bridge for salvaged rules~~ **WITHDRAWN 2026-08-29** | The surviving `default.css` is 22 KB of spacing utilities with **zero colours and zero fonts**. All the actual design sits in the 171 KB Basic Mode system stylesheet, which dies at the switch. The file server is still useful for *staging new* CSS before cutover, but there is nothing to salvage from it. See `docs/findings-stage0.md` S0-13 |
 | N3 | Client's appetite for change | "見た目そっくりそのままの移行にこだわりはございません" + explicit authorisation to delete unused CSS. Removes the usual pixel-chase constraint |

@@ -189,6 +189,111 @@ point.
 
 ---
 
+## S0-9 — The pricing engine is MakeShop's, not the shop's 🔴 *closes Q1*
+
+Full detail in [`spec/option-engine.md`](../spec/option-engine.md). Summary:
+`updateOptionPrice` / `updateOptionPriceAjax` appear on **100/100** sampled product
+pages including option-less ones, carry an `ActiveXObject` IE fallback and MakeShop's
+own Japanese comments, and POST to `/shop/shopdetail_option.html`. They are emitted by
+**オプションテーブル形式**, which Creator Mode discontinues.
+
+**Stage 4 is the large branch: the client-side pricing behaviour is a rebuild.**
+
+Oracle captured while Basic Mode is live — 73 combinations across 16 products, all
+200, all non-zero → `spec/price-matrix-basic.csv`. Model verified: option1 = colour
+(price-neutral), option2 = quantity tier; all seven tiers reconcile exactly against
+the on-page unit prices.
+
+## S0-10 — `uid` is not derivable from the URL 🔴
+
+MakeShop's internal product id. The `000000xxxxxx` scheme embeds it; the older
+`cccssxxxxxx` scheme does not — `003001000005` → uid **37**, `003003000674` → **1337**.
+Deriving it from the path returns `price: 0`, a silent wrong answer rather than an
+error. It must be read from the page's own `updateOptionPriceAjax(<uid>, …)` call site.
+
+**Open blocker:** the Creator Mode template must expose that internal id. If no
+variable tag provides it, the ~1,400 option-priced products have no way to price
+themselves. Verify early.
+
+## S0-11 — Five free pages serve the PC template to phones 🟡 *live bug*
+
+78 of 83 free pages have a viewport under an iPhone UA. These five do not:
+
+| URL | Title |
+|---|---|
+| `/html/page6.html` | メールマガジン登録 |
+| `/html/page7.html` | うちわ メールでのご注文・お見積方法のご案内 |
+| `/html/page37.html` | *(default site title)* |
+| `/html/page82.html` | *(default site title)* |
+| `/html/page83.html` | *(default site title)* |
+
+`page7` is an order/quotation instruction page — commercially relevant and unusable on
+a phone today. `page37/82/83` are the same three that carry no custom title (S0-6), so
+they are doubly neglected. All five are fixed by definition once the site is responsive.
+
+## S0-12 — News meta descriptions contain raw markup on mobile 🟡 *live SEO bug*
+
+**96 of 101** news pages have a different meta description under an iPhone UA than a
+desktop one — and the mobile variant contains escaped HTML:
+
+```
+desktop: 2013年8月 ホームページをリニューアルさせて頂きました。検索機能の強化…
+mobile : &lt;DIV class=infoh&gt;2013年8月 ホームページを…&lt;BR&gt;検索機能の強化…
+```
+
+The SP template builds the description from the article body without stripping tags.
+Free pages do not have this problem (0 of 83 differ).
+
+## S0-13 — The design lives in the stylesheet that dies 🔴 *corrects an earlier claim*
+
+I previously recorded the shop's own stylesheet as "our bridge for salvaged rules".
+That was wrong, and the correction matters for Stage 2.
+
+| Stylesheet | Fate at switch | Size | Selectors | Colours | Fonts |
+|---|---|---:|---:|---:|---:|
+| `gigaplus…/isplanning/css/default.css` | **survives** | 22.2 KB | 493 | **0** | **0** |
+| `/design/isplanning/m_sys_common.css` | **dies** | 170.9 KB | 1,317 | 785 | 13 |
+
+The surviving file is **entirely spacing utilities** — `.mt0`, `.pl24`, `.ta_c`, every
+rule `!important`, evidently generated. It contains no colour and no typography at all.
+
+So the visual design is not something we port from the shop's CSS; it lives in
+MakeShop's Basic Mode system stylesheet and disappears on its own. Stage 2 rebuilds the
+design from tokens, using the system CSS only as a **reference for what it looked like**.
+
+This also revises what we tell the client. He offered "CSSも不要な部分は消していただいて
+結構です" — in fact almost none of the styling is his to delete.
+
+### Brand tokens recovered from the system CSS
+
+| Token | Hex | Uses | Role |
+|---|---|---:|---|
+| primary | `#007c5a` | 50 | deep green — brand |
+| accent | `#98cb00` | 20 | yellow-green |
+| accent-dark | `#90b700` | 14 | yellow-green, hover/darker |
+| alert | `#e60012` | 14 | red — sale / caution |
+| neutrals | `#fff` `#333` `#ccc` `#ddd` | 250+ | ground, text, rules |
+
+Typefaces: **Mochiy Pop One** (display), **Noto Sans JP** (body), Montserrat, plus a
+legacy `ＭＳ Ｐゴシック` stack. These carry into the Stage 2 token set.
+
+## S0-14 — ~1.22 MB of JavaScript before a single image 🟡
+
+18 distinct CSS/JS references, all archived to `snapshot/assets/` (`inventory/assets.csv`).
+
+| Script | KB |
+|---|---:|
+| `gtag/js` (GA4) | 556 |
+| `d.rcmd.jp` recommend | 276 |
+| jQuery 3.3.1 + 3.2.1 (http) + 3.7.1 | 254 |
+| twitter widgets.js | 92 |
+| bxSlider 4.1.1 + 4.2.14 | 42 |
+| facebook sdk / LINE loader / jquery-migrate | 24 |
+
+Three jQuery builds, two bxSlider builds, and Facebook, Twitter and LINE SDKs — none
+of which were visible in the brief. Stage 7 target: one jQuery or none, one slider,
+social SDKs replaced with plain share links.
+
 ## Corrections to the published dossier
 
 | Item | Was | Now |
