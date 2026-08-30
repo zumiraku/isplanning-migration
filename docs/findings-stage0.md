@@ -323,18 +323,23 @@ MakeShop appends after the footer.
 (ショッピングガイド, 特定商取引法) which need their own treatment anyway. That leaves four
 stragglers to handle individually — a materially smaller job than "60–70 pages".
 
-### Three pages are candidates for retirement rather than migration
+### Three pages are not editorial pages at all *(corrected 2026-08-30)*
 
-The extraction independently confirms S0-6 and S0-11. These three carry the default
-site title, have almost no content, and serve the PC template to phones:
+These three carry the default site title, have almost no content, and serve the PC
+template to phones. I first recorded all three as retirement candidates. Reading
+their actual content shows that was wrong — they are functional pages, and each
+needs different handling:
 
-| Page | Extracted content |
-|---|---|
-| `page82` | **14 characters** |
-| `page37` | 400 characters |
-| `page83` | 320 characters |
+| Page | Content | What it actually is | Handling |
+|---|---:|---|---|
+| `page37` | 400 chars | The **福袋カタログ PDF** landing page — a real, purposeful page | **Keep.** Give it a proper title; do not retire |
+| `page82` | 14 chars | Literally *"spカレンダー用ダミーページ"* — a placeholder for the smartphone calendar | Tied to the SP site, which disappears. Check references, then retire |
+| `page83` | 320 chars | A category-banner fragment, 7 images, likely included by other pages | Check references before removing — deleting an include source breaks its callers |
 
-Recommend confirming with the client and retiring them rather than rebuilding them.
+The lesson generalises: **low character count does not mean disposable.** Two of
+these are machinery rather than content, and one is a genuine page that simply lost
+its title. Every retirement candidate gets its content read before it is proposed
+for deletion.
 
 ### Also surfaced
 
