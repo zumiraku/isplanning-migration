@@ -86,3 +86,48 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 - **Three client sign-off gates** — A: functional changes (wk 2) · B: design direction
   (wk 3) · C: free-page templates (wk 6). Nothing downstream starts until each closes.
 - **Weekly written report to the client, Mondays.**
+
+---
+
+## Current state — 2026-08-30
+
+### Done (no console access required)
+
+| | |
+|---|---|
+| Baseline archive | 195 pages, raw bytes, EUC-JP preserved, desktop + iPhone UA |
+| Asset archive | all 18 referenced CSS/JS files (1.4 MB) |
+| Product sample | 100 products, stratified, classified into variant classes |
+| Free-page content | all 83 bodies extracted, de-chromed, UTF-8 |
+| Pricing oracle | 73 option combinations across 16 products, all verified |
+| Design system | tokens + components + the rebuilt pricing module |
+| Gate B mocks | top page and product detail, real content throughout |
+| Redirect map | 184 at-risk URLs (83 free pages + 101 news) |
+
+### Blocked on the MakeShop console
+
+See [docs/admin-extraction-checklist.md](docs/admin-extraction-checklist.md).
+Two items are urgent because Creator Mode destroys them permanently:
+
+1. **607 category custom titles and descriptions.** If カテゴリ管理 has no CSV
+   export, then inventory/pages-categories-desktop.csv — crawled from the
+   rendered pages — is the only recovery path.
+2. **Full product CSV**, to count products carrying スマホ用商品詳細説明, which
+   stops working at the switch.
+
+### What the survey changed
+
+- Stage 4 is a **rebuild**, not a port: the pricing engine is MakeShop platform
+  JavaScript, emitted by a feature Creator Mode discontinues.
+- Stage 5 is **smaller** than the brief implied: two templates cover 75 of 83 pages.
+- The design must be **rebuilt from tokens**: the stylesheet that survives the
+  switch contains no colours and no typography at all.
+
+### Shell notes for this machine
+
+- Git is installed under Program Files but is **not on PATH**.
+- The Bash tool strips single quotes, so quoted heredocs fail. Use an unquoted
+  delimiter — and remember that backticks and dollar signs still expand, so keep
+  them out of appended content or escape them.
+- PowerShell 5.1 reads a BOM-less UTF-8 script file as ANSI. Japanese literals in
+  the tools are built from code points for that reason.
