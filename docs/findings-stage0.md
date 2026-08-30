@@ -141,7 +141,7 @@ a plan). Answer from the admin before deciding anything above.
 
 ## S0-6 — Free pages are SEO content, not filler 🟡 *revises a client assumption*
 
-All 83 return 200. None has a viewport. 0 are missing an `h1`; 3 are missing a meta
+All 83 return 200. None has a viewport. 0 are missing an h1 (but see S0-16 - all 83 share the SAME h1); 3 are missing a meta
 description. Text length 3,196–9,415 chars (avg 5,717), including shared chrome.
 
 The titles show what these pages actually are:
@@ -365,3 +365,41 @@ Recommend confirming with the client and retiring them rather than rebuilding th
 2. Product-variant sampling across the 9,514 products to build variant classes.
 3. Export all 607 category titles/descriptions before anything is switched.
 4. Admin session: Q1, Q3, Q4, Q5, Q6, Q7 (see `docs/open-questions.md`).
+
+---
+
+## S0-16 — Every page on the site shares one identical h1 🔴 *site-wide SEO defect*
+
+Checked across every archived page type. The value is the same string on all of them:
+
+> 粗品や景品、ノベルティの名入れ通販｜粗品のことなら発見マーケット
+
+| Page type | Pages checked | Distinct h1 values |
+|---|---:|---:|
+| Free pages | 83 | **1** |
+| News articles | 101 | **1** |
+| Top / category / product / cart | 11 | **1** |
+
+That is the site tagline, output by the shared header. The actual page topic is
+marked up as an **h2** underneath it. So:
+
+- No product page has its product name in an h1.
+- No category page has its category name in an h1.
+- All 83 content-marketing pages compete with each other on an identical h1.
+
+Extrapolated across the sitemap this affects all **10,306** URLs.
+
+**This corrects a misleading line in S0-6.** I recorded "0 of 83 missing an h1",
+which was true but hid the real problem: they are not missing, they are all the
+same, which for ranking purposes is worse than absent.
+
+**Why it matters here.** The client asked for the pages to be made "SEO的に有利"
+and this is very likely the single largest on-page issue on the site. It is also
+close to free to fix: in Creator Mode the h1 is set once per template, so the
+product template emits the product name, the category template the category name,
+and the free-page template the page heading. No per-page work, no content decisions,
+and it lands as a side effect of Stage 3.
+
+**Action:** fold into the Stage 3 template rules and the Stage 6 SEO pass. Worth
+telling the client at Gate A, because it is a concrete, measurable improvement he
+gets from the migration rather than a cost of it.
