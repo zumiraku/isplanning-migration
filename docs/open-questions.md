@@ -97,3 +97,39 @@ we have room.
       the live Basic Mode shop (staging-by-design-set).
 - [ ] Rollback rehearsal: switch to Creator Mode off-peak, confirm Basic Mode content
       is intact, switch back. Prove it on **this** shop, not in a manual.
+
+---
+
+## Sub-administrator permissions — added 2026-08-30
+
+The sub-admin account can reach **61 of 124** features. Most of 商品管理 is locked,
+which blocks two items the project depends on:
+
+- **商品データダウンロード** — needed to count products carrying スマホ用商品詳細説明
+- **カテゴリ設定** — needed to read the 607 category titles from the source
+
+Also locked: 商品一覧, 商品設定, オプショングループ, 名入れグループ, カテゴリ内商品管理,
+商品の並び順の変更, 注文一覧, 見積書一覧, 帳票類の設定, 領収書ダウンロード.
+
+Accessible and useful: **テンプレート選択・編集** (the Creator Mode / Basic Mode
+template editor), ストレージ, and the ショップデザイン screens. So template work can
+proceed while permissions are widened.
+
+Request drafted at docs/client/permission-request-draft.md.
+
+### Q3 update — 見積書 is present on this shop
+
+機能一覧 lists **見積書一覧** under 注文管理, described as 会員発行の見積書を検索・管理する.
+
+Presence in the feature list does not prove active use, and the screen is locked to
+the sub-admin so neither we nor the client-facing check can look inside yet. But this
+is the feature with **no Creator Mode equivalent**, and a B2B novelty shop with tiered
+pricing is its natural user. The permission request asks the client directly, since he
+can answer that without granting anything.
+
+### Also noted
+
+**オプショングループ移行** exists: 旧機能：オプショングループをカスタムセレクトへ移行する.
+MakeShop is moving the option system from オプショングループ to カスタムセレクト. That may
+bear directly on how the Stage 4 option UI should be rebuilt — worth investigating once
+商品管理 is unlocked, since the current 3x7 matrix sits on the old model.
