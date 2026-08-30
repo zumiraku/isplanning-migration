@@ -403,3 +403,54 @@ and it lands as a side effect of Stage 3.
 **Action:** fold into the Stage 3 template rules and the Stage 6 SEO pass. Worth
 telling the client at Gate A, because it is a concrete, measurable improvement he
 gets from the migration rather than a cost of it.
+
+---
+
+## S0-17 — The 607 category titles are a real, hand-built SEO asset 🔴 *raises C4*
+
+All 607 category pages crawled, all **200**. The metadata is not boilerplate:
+
+| | |
+|---|---:|
+| Unique **titles** | **604** of 607 |
+| Unique **meta descriptions** | **601** of 607 |
+| Categories with no description | 2 |
+| Titles over 60 characters | **0** |
+| Title length | min 3, max 48, avg 38 |
+
+Someone wrote 604 distinct category titles and 601 distinct descriptions, and
+sized them correctly for search results. Compare that with the free pages, where
+13 titles overflow 60 characters and one is a meta description by mistake — the
+category metadata is in markedly better shape than the rest of the site.
+
+Examples:
+
+- 予算で選ぶの粗品通販ページ100円〜199円まで【粗品と景品の発見マーケット】
+- あぶら取り紙の粗品 【粗品と景品の発見マーケット】
+- イベント・抽選セット 粗品と景品の発見マーケット
+
+**Creator Mode disables per-category custom page titles.** So this is not a
+"likely used" register entry any more — it is used comprehensively, it represents
+real invested work, and all of it is destroyed by the switch.
+
+### The risk is now captured, but not yet solved
+
+**Captured:** inventory/categories-seo-backup.csv holds every URL, title,
+description and h1 for all 607 categories. If カテゴリ管理 turns out to have no CSV
+export, this file is the recovery path. That half of the risk is closed.
+
+**Not solved:** whether Creator Mode can reproduce per-category titles *at all*.
+Three options, in order of preference, to settle at Gate A:
+
+1. **Template-generated pattern.** 574 of 607 titles already end in the same
+   bracketed shop suffix, so a rule like "category name + suffix" reproduces the
+   shape of most of them automatically. Not identical, but consistent and correct.
+2. **Conditional overrides for the highest-value categories.** If Creator Mode
+   supports branching on category id, hand-restore the top categories by traffic.
+   607 conditionals is impractical; the top 50 is not. Needs Search Console and
+   GA4 data to rank them — another reason to get that access early.
+3. **Accept the loss** on the long tail, with the client informed in advance.
+
+**Action:** this belongs in the Gate A message. It is the clearest case yet of a
+Creator Mode limitation costing the client something real, and he should hear it
+from us with the mitigation already worked out rather than discover it later.

@@ -14,7 +14,7 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 | C1 | オプションテーブル形式 | **Gone** | `YES` | The 3×7 `brand_option` matrix on 商品詳細. Layout rebuilt in template markup; behaviour preserved by the Stage 4 rewrite |
 | C2 | 商品見積書 | **Gone** | `?` | **Check first.** B2B novelty shop with tiered pricing is its natural user. No equivalent — would need a custom quote form |
 | C3 | インフォメーション | **Gone** | `?` | 101 `/new/*.html` articles, 2013→2026, indexed. If these are インフォメーション and not ニュース, 101 URLs are at risk. See Q4 |
-| C4 | カテゴリページ独自タイトル・説明文 | **Gone** | `?` | 607 category pages. Export every current value before the switch — unrecoverable afterwards except from our snapshot |
+| C4 | カテゴリページ独自タイトル・説明文 | **Gone** | `YES` | **Confirmed comprehensive (S0-17):** 604 unique titles, 601 unique descriptions across 607 categories. Captured to inventory/categories-seo-backup.csv. Reproduction strategy is a Gate A decision |
 | C5 | スマホ用商品詳細説明 / スマホ商品URL | **Gone** | `?` | Across 9,514 products. Any SP-only copy is silently discarded at cutover unless merged first |
 | C6 | 追加画像レイアウト設定 | **Gone** | `?` | Gallery rebuilt as a template component |
 | C7 | 一発購入 | **Gone** | `?` | Verify; if used, agree a replacement purchase flow |
