@@ -13,10 +13,6 @@
 <style>
   .pd { display: grid; gap: var(--s-6); }
   @media screen and (min-width: 961px) { .pd { grid-template-columns: 5fr 7fr; gap: var(--s-10); align-items: start; } }
-  .pd__gallery { display: grid; gap: var(--s-3); }
-  .pd__main { aspect-ratio: 1/1; background: var(--c-surface-2); border: 1px solid var(--c-rule); border-radius: var(--radius); display: grid; place-items: center; color: var(--c-ink-3); font-size: var(--t-sm); }
-  .pd__thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-2); }
-  .pd__thumb { aspect-ratio: 1/1; background: var(--c-surface-2); border: 1px solid var(--c-rule); border-radius: var(--radius); }
 </style>
 </head>
 <body>
@@ -54,9 +50,24 @@
 
 <main class="container">
   <div class="pd">
-    <div class="pd__gallery">
-      <div class="pd__main">商品画像</div>
-      <div class="pd__thumbs"><div class="pd__thumb"></div><div class="pd__thumb"></div><div class="pd__thumb"></div><div class="pd__thumb"></div></div>
+    <div class="gallery" data-gallery>
+      <div class="gallery__track" data-gallery-track>
+        <div class="gallery__slide" data-gallery-slide="0">メイン画像</div>
+        <div class="gallery__slide" data-gallery-slide="1">サブ画像 1</div>
+        <div class="gallery__slide" data-gallery-slide="2">サブ画像 2</div>
+        <div class="gallery__slide" data-gallery-slide="3">サブ画像 3</div>
+        <div class="gallery__slide" data-gallery-slide="4">サブ画像 4</div>
+      </div>
+      <div class="gallery__dots" aria-hidden="true">
+        <span data-gallery-dot data-active></span><span data-gallery-dot></span><span data-gallery-dot></span><span data-gallery-dot></span><span data-gallery-dot></span>
+      </div>
+      <ul class="gallery__thumbs">
+        <li><button type="button" class="gallery__thumb" data-gallery-thumb aria-current="true">1</button></li>
+        <li><button type="button" class="gallery__thumb" data-gallery-thumb aria-current="false">2</button></li>
+        <li><button type="button" class="gallery__thumb" data-gallery-thumb aria-current="false">3</button></li>
+        <li><button type="button" class="gallery__thumb" data-gallery-thumb aria-current="false">4</button></li>
+        <li><button type="button" class="gallery__thumb" data-gallery-thumb aria-current="false">5</button></li>
+      </ul>
     </div>
 
     <div data-option-pricer data-uid="25283" data-price-source="inline">
@@ -242,5 +253,6 @@
 </footer>
 
 <script src="../js/option-price.js"></script>
+<script src="../js/gallery.js"></script>
 </body>
 </html>
