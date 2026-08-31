@@ -509,3 +509,51 @@ The client granted full admin permissions on the same day, which makes this less
 costly than it looks: the console is now the correct source for product, category and
 template data anyway. Public-site crawling was only ever the workaround for not having
 that access. It is no longer needed and should not resume.
+
+---
+
+## S0-19 — A parallel SP URL space of 912 URLs, none of it in the sitemap 🔴
+
+Recovered offline from the archive, by mining every /smartphone/ reference out of the
+195 captured documents. No crawling was involved, which matters given S0-18.
+
+| Class | URLs | Shape |
+|---|---:|---|
+| SP categories | **616** | /smartphone/list.html?category_code=... |
+| SP products | 110 seen | /smartphone/detail.html?id=... |
+| SP news | 101 | /smartphone/news... |
+| SP free pages | **78** | /smartphone/pageNN.html (page5 - page82) |
+| SP system pages | 7 | basket, company, contract, guide, index, list, policy |
+| **Total** | **912** | |
+
+**Zero of these appear in sitemap.xml** — the sitemap lists 10,306 URLs and not one is
+under /smartphone/. But the PC pages carried rel=alternate pointing at that space, so
+search engines were told about it deliberately.
+
+### Why this matters
+
+1. **The SP site uses a completely different URL scheme.** Products are query-string
+   ids, not the /shopdetail/ path. Categories are category_code parameters, not the
+   /shopbrand/ path. So there is no mechanical mapping from an SP URL to its PC
+   equivalent - each class needs its own redirect rule.
+2. **Every one of these 912 URLs disappears** when the site becomes responsive.
+3. **The same content is reachable at two paths today.** /html/page10.html and
+   /smartphone/page10.html both serve SP content to a phone. That is duplicate
+   content, and collapsing it is a gain, not just a chore.
+4. The SP free pages run page5 to page82, against page1 to page83 on PC - so the two
+   sets are near-parallel rather than separate content. Consistent with S0-11, where
+   five PC free pages had no SP rendering at all.
+
+### Effect on the redirect map
+
+inventory/redirect-map.csv grows from **184 to 1,096 rows**. The earlier figure only
+covered the PC free pages and news. Redirects are now a substantially larger piece of
+Stage 6 than the dossier assumed, and the rules are per-class rather than per-URL.
+
+### How this was found
+
+Not by crawling. The client mentioned the cart quote link, the cart page in the
+archive was captured empty, and its mobile sidebar happened to reveal
+/smartphone/page76.html - which prompted mining the whole archive for that pattern.
+Worth noting because it argues for treating the archive as a dataset to be queried
+repeatedly, not a one-time capture.
