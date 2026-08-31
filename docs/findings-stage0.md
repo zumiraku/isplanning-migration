@@ -82,7 +82,7 @@ that ceases to exist.
 
 ---
 
-## S0-4 — レコメンド identified: さぶみっと！レコメンド (e-Agency) ✅ *closes Q2*
+## S0-4 — レコメンド identified ⚠️ SUPERSEDED BY S0-20 — the product is イーレコメンド, not さぶみっと
 
 ```
 //d.rcmd.jp/isplanning/item/recommend.js     (live, 200, 282,805 B)
@@ -557,3 +557,52 @@ archive was captured empty, and its mobile sidebar happened to reveal
 /smartphone/page76.html - which prompted mining the whole archive for that pattern.
 Worth noting because it argues for treating the archive as a dataset to be queried
 repeatedly, not a one-time capture.
+
+---
+
+## S0-20 — Correction: the recommend engine is イーレコメンド, not さぶみっと ⚠️
+
+In S0-4 I identified the recommend engine as **さぶみっと！レコメンド** from the
+d.rcmd.jp script. **That was wrong.** The client states it is **イーレコメンド**, and has
+supplied its console at e-reco.jp.
+
+Verified against MakeShop help: d.rcmd.jp is イーレコメンド's own tag format —
+script src=//d.rcmd.jp/{shopID}/item/recommend.js charset=UTF-8 — where the path
+segment is the MakeShop shop ID, which is why isplanning appears there.
+
+The practical damage was limited: the installation procedure I cited belonged to the
+wrong product. Corrected details below.
+
+### How イーレコメンド is actually installed
+
+Two tags, not one:
+
+1. **基本タグ** — goes in the head of **every page that uses the service**
+2. **レコメンド表示タグ（計測タグ）** — goes on the product detail page
+
+And for Creator Mode the conversion tag is configured at a known path:
+
+> ショップ構築 → 設定 → SEO・マーケティング → タグの設定 → コンバージョンタグの設定
+
+That is the exact screen Q5 needs. Worth going to first when the tag inventory starts.
+
+### A likely defect worth reporting to the client
+
+The basic tag is supposed to sit on every page. Measured across the archive:
+
+| | pages carrying d.rcmd.jp |
+|---|---|
+| desktop | **3 of 192** — product detail only |
+| mobile | 11 of 11 — every page |
+
+So on the PC site the tracking tag is present on product pages and almost nowhere
+else. A behavioural recommender that only sees product-detail views cannot learn from
+category browsing, search, or free-page visits, so the desktop recommendations are
+very likely weaker than they should be.
+
+This is not something we introduced and not something the migration breaks — but in
+Creator Mode the tag goes into the shared head once and the problem disappears by
+construction. Worth mentioning to the client as another thing he gains.
+
+**Do not treat this as proven.** Confirm the intended placement in the イーレコメンド
+console before telling him it has been mis-installed for years.
