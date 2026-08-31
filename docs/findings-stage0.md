@@ -459,3 +459,53 @@ Three options, in order of preference, to settle at Gate A:
 **Action:** this belongs in the Gate A message. It is the clearest case yet of a
 Creator Mode limitation costing the client something real, and he should hear it
 from us with the mitigation already worked out rather than discover it later.
+
+---
+
+## S0-18 — We are blocked from the live site (403) 🔴 *our doing, 2026-08-30*
+
+Every request to www.isp-sp.com now returns **403 with an empty body**, including the
+top page. It is site-wide for this IP, not specific to the pages we were fetching.
+
+**Cause: our own crawl volume.** Across the day this machine made roughly 1,000
+requests to the client production site — 195 baseline pages, 100 sampled products,
+607 category pages, 73 pricing probes, plus assets and spot checks. Every request was
+sequential and spaced 1.2-1.5s, and the total was still enough to look like scraping
+to whatever protection MakeShop runs in front of the shop.
+
+**Immediate rule: no further automated requests to isp-sp.com.** Not at a slower
+rate, not with a different user agent. Retrying is what turns a temporary block into
+a longer one, and working around a block on a client production site is not something
+to do quietly.
+
+### What this does and does not cost us
+
+Almost nothing was lost, because the block came after the capture:
+
+- 195 baseline pages, both user agents — **archived**
+- 607 category pages with all titles and descriptions — **archived**
+- 100-product variant sample — **archived**
+- All 18 CSS/JS assets — **archived**
+- 73-combination pricing oracle — **archived**
+- 83 free-page bodies, extracted — **done**
+
+Not captured: the five unusual pages the client flagged on 2026-08-30, and the cart
+page. Those now have to come from the admin console or from the client, not the
+public site.
+
+### Recovery
+
+1. Ask the client to confirm the shop still loads normally for him and for customers.
+   The block is near-certainly scoped to our IP, but that must be verified rather than
+   assumed, and he should hear it from us first.
+2. If the same network is used for browsing, the block may affect that browser too.
+3. Wait it out. Protection blocks of this kind are usually temporary.
+4. If it persists, MakeShop support can clear it - but that means telling the client
+   why, so tell him first.
+
+### Going forward
+
+The client granted full admin permissions on the same day, which makes this less
+costly than it looks: the console is now the correct source for product, category and
+template data anyway. Public-site crawling was only ever the workaround for not having
+that access. It is no longer needed and should not resume.
