@@ -131,3 +131,26 @@ Two items are urgent because Creator Mode destroys them permanently:
   them out of appended content or escape them.
 - PowerShell 5.1 reads a BOM-less UTF-8 script file as ANSI. Japanese literals in
   the tools are built from code points for that reason.
+
+## Repository
+
+Pushed to **github.com/Saiko-Seiko/isplanning-migration** (private, confirmed
+2026-08-30). Auth uses a repo-scoped key: a separate ed25519 pair at
+~/.ssh/id_ed25519_isplanning, wired in via a repo-local core.sshCommand so the
+teachingbeauty deploy key on this machine is untouched.
+
+GitHub refuses the same key as both a deploy key and an account key, which is why
+a second pair was needed rather than reusing the existing one.
+
+**Push after each piece of work.** The MakeShop console has no version history, so
+this repository is the only undo button the project has.
+
+### Before every commit
+
+No credential ever gets written to disk. The scan covers the MakeShop sub-admin
+login, the 2FA mailbox, the e-reco password and the lolipop FTP password. Note that
+isp@isp-sp.com appears in ~116 archived files - that is the shop public contact
+address printed on their own web pages, not a secret.
+
+If a MakeShop export ever contains customer or order data, that needs a decision
+before it is committed, not after.
