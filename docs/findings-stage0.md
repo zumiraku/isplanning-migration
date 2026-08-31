@@ -606,3 +606,25 @@ construction. Worth mentioning to the client as another thing he gains.
 
 **Do not treat this as proven.** Confirm the intended placement in the イーレコメンド
 console before telling him it has been mis-installed for years.
+
+### S0-18 update — scope confirmed, 2026-08-30
+
+The shop **loads normally in a browser** from the same network. So the 403 is scoped
+to our automated request signature, not to the IP or the network.
+
+**Customers are unaffected**, and the site remains viewable for QA comparison work
+throughout the project. This does not need to be raised with the client as an
+incident.
+
+That a browser passes tells us the block keys on request characteristics -
+scripted fetches carry no cookies, execute no JavaScript, and present a distinctive
+TLS fingerprint regardless of the User-Agent header sent.
+
+**That is not a route back in.** Disguising automated traffic to get past a
+protection we tripped ourselves, on a client production site, without their
+knowledge, is evasion of a security control. The standing rule is unchanged: no
+further automated requests to isp-sp.com.
+
+It is also unnecessary. With full admin granted the same day, exports beat crawling
+on every measure - they return the source rather than the rendered output, they are
+complete, they take seconds instead of minutes, and they place no load on the shop.
