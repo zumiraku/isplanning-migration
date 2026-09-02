@@ -61,16 +61,26 @@
     });
   };
 
+  /* A `0` in either position means that axis is not used by this product — it is
+     not an unmade choice. 47 of the 73 measured combinations are `n_0`, single-axis
+     products, and the endpoint prices them normally. Rejecting them (which an
+     earlier version of this file did) locks the cart on most of the catalogue
+     while working perfectly on the one 3x7 product we had in front of us.
+     Only `0_0` is a genuine non-selection, i.e. a placeholder option. */
   OptionPricer.prototype.selection = function () {
     for (var i = 0; i < this.inputs.length; i++) {
       var el = this.inputs[i];
-      if (el.checked || (el.tagName === 'SELECT' && el.value)) {
-        var raw = el.tagName === 'SELECT' ? el.value : el.value;
-        var parts = String(raw).split('_');
-        if (parts.length === 2 && parts[0] !== '0' && parts[1] !== '0') {
-          return { option1_id: parts[0], option2_id: parts[1] };
-        }
-      }
+      var chosen = el.tagName === 'SELECT'
+        ? Boolean(el.value)
+        : (el.type === 'radio' || el.type === 'checkbox') ? el.checked : Boolean(el.value);
+      if (!chosen) { continue; }
+
+      var parts = String(el.value).split('_');
+      if (parts.length !== 2) { continue; }
+      if (!/^\d+$/.test(parts[0]) || !/^\d+$/.test(parts[1])) { continue; }
+      if (parts[0] === '0' && parts[1] === '0') { continue; }
+
+      return { option1_id: parts[0], option2_id: parts[1] };
     }
     return null;
   };
@@ -92,7 +102,32 @@
     this.setEnabled(false, message);
   };
 
-  OptionPricer.prototype.render = function (data) {
+  /* 割引設定 / 会員価格 (C23). When the endpoint says a member price applies, that
+     is what the customer actually pays, so that is what the page must show —
+     rendering `price` to a logged-in member displays a number they will not be
+     charged. Every response in the oracle came back is_member_price:false because
+     all 73 probes were anonymous, so this branch is reasoned from the field names,
+     not observed. Confirm it against /shopdetail/003003000870/ while logged in as
+     a member before cutover; until then it fails loud rather than guessing. */
+  function effectivePricing(data) {
+    if (data.is_member_price !== true) { return data; }
+    if (!(Number(data.member_price) > 0)) { return null; }
+    return {
+      price:        data.member_price,
+      no_tax_price: data.member_no_tax_price,
+      tax:          data.member_tax,
+      point:        data.member_point,
+      quantity:     data.quantity
+    };
+  }
+
+  OptionPricer.prototype.render = function (raw) {
+    var data = effectivePricing(raw);
+    if (!data) {
+      this.fail('価格を取得できませんでした。時間をおいて再度お試しください。');
+      return;
+    }
+
     if (this.out.price)  this.out.price.textContent  = yen(data.price);
     if (this.out.noTax)  this.out.noTax.textContent  = yen(data.no_tax_price);
     if (this.out.tax)    this.out.tax.textContent    = yen(data.tax);

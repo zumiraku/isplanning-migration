@@ -11,7 +11,7 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 
 | # | Feature | Creator Mode | Used? | Evidence / plan |
 |---|---|---|---|---|
-| C1 | オプションテーブル形式 | **Gone** | `YES` | The 3×7 `brand_option` matrix on 商品詳細. Layout rebuilt in template markup; behaviour preserved by the Stage 4 rewrite |
+| C1 | オプションテーブル形式 | **Gone** | `YES` | The `brand_option` matrix on 商品詳細 — **one or two axes, not always 3×7** (S0-21): 14 of 16 sampled products use a single option group, and axis 1 drives the price on those. Layout rebuilt in template markup; behaviour preserved by the Stage 4 rewrite and pinned by 103 checks in `templates/creator/preview/verify-pricing.html` |
 | C2 | 商品見積書 | **Gone** | `NO` ✅ | **CLOSED 2026-08-30.** Client confirms it is a paid MakeShop option they do not subscribe to. The risk I rated most likely to derail Stage 4 does not exist. **But see C20/C21** — two other quote flows do |
 | C3 | インフォメーション | **Gone** | `?` | 101 `/new/*.html` articles, 2013→2026, indexed. If these are インフォメーション and not ニュース, 101 URLs are at risk. See Q4 |
 | C4 | カテゴリページ独自タイトル・説明文 | **Gone** | `YES` | **Confirmed comprehensive (S0-17):** 604 unique titles, 601 unique descriptions across 607 categories. Captured to inventory/categories-seo-backup.csv. Reproduction strategy is a Gate A decision |
@@ -51,7 +51,7 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 | C20 | **マルチフォーム 見積依頼** on 商品詳細 | `YES` 🔴 | A quote-request form sits under the カートに入れる button, built with MakeShop マルチフォーム. This is a live commercial flow on the highest-value page type and it was **not** visible in the survey. Confirm マルチフォーム survives Creator Mode, and that the form, its fields and its destination are reproduced exactly |
 | C21 | **カゴ内 見積依頼** via `[BASKET_MAIL]` | `YES` 🟡 | The cart carries 「購入の前に見積もりを依頼をする場合はこちらからどうぞ」. Client believes the Creator Mode equivalents are `$$MAIL_ORDER$$` / `$$MAIL_ORDERTOTAL$$` but wrote "たぶん" — **verify, do not assume**. Our archived cart was empty so the tag never rendered; needs a cart with items |
 | C22 | **サブ画像のスワイプ（SP）** | New request | Client: 「サブ画像使用（スマホではスワイプできればと思います）」. A second explicit UI request alongside the recommend rail. Same CSS scroll-snap technique — no library |
-| C23 | **割引設定** on product pages | `YES` | Client flagged /shopdetail/003003000870/ as using it. Confirm how discounts render and whether the pricing rebuild must account for them — the endpoint returns is_member_price and member_price fields we have not exercised |
+| C23 | **割引設定** on product pages | `YES` 🟡 | Client flagged /shopdetail/003003000870/ as using it. The rebuilt engine now renders `member_price` when `is_member_price` is true and fails loud when the flag is set but the amount is 0 — **but that branch is reasoned, not measured**: all 73 probes were anonymous. Log in as a member on that product, capture the response, re-probe, then promote the synthetic case in `verify-pricing.html` to measured (S0-21) |
 | C24 | **追加説明文1 に独自CSS** | `YES` | Two different patterns flagged (/shopdetail/000000023664/ and /shopdetail/051000000001/order). Per-product CSS inside a description field will not survive a token-based rebuild untouched — needs a component instead |
 | C25 | **カレンダーのカテゴリページ** | `YES` | /shopbrand/051/O/ — captured in the archive before the block. Distinct layout; treat as its own category-template variant |
 

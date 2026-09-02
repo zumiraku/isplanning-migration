@@ -35,6 +35,36 @@ but the evidence is strong enough to plan against.
 
 `brand_option` radio values are `{option1_id}_{option2_id}`.
 
+### The general model *(corrected 2026-09-02)*
+
+Two independent axes. **Either may be unused, and a `0` means exactly that** — the
+product has no second (or no first) option group. It is not an unmade selection, and
+the endpoint prices `n_0` combinations normally.
+
+Measured across all 73 captured combinations:
+
+| | Observed values | Products |
+|---|---|---|
+| `option1_id` | **1 – 12** | present on all 16 |
+| `option2_id` | `0`, or **1 – 7** | non-zero on 2 of 16 |
+
+**47 of 73 combinations are `n_0`** — 14 of the 16 sampled products carry a single
+option group. Only `25283` and `1337` use both axes.
+
+Which axis moves the price is **also product-specific**. On `25283` the first axis
+is colour and is price-neutral; on `1968`, a single-axis product, the first axis is
+the quantity tier and drives the price from ¥5,500 to ¥39,600. Do not assume
+axis 1 = colour anywhere in the rebuild.
+
+> **This cost a real defect.** The first rebuild treated a `0` in either position as
+> an invalid selection — a rule lifted from the platform's *pulldown* branch (§4),
+> which does return early on `"0"`, and wrongly applied to the radio branch. The
+> result priced the one 3×7 product we had been staring at perfectly and left the
+> cart locked on the other 14. Caught by `templates/creator/preview/verify-pricing.html`
+> running the full oracle, and by nothing else. This is what the oracle is for.
+
+### The reference product `25283` specifically
+
 | | Range | Meaning | Affects price? |
 |---|---|---|---|
 | `option1_id` | 1–3 | **Colour** (SP34460 BK / GE / RD) | **No** |
@@ -155,8 +185,9 @@ It takes two minutes and it sizes the rest of Stage 4.
 ## 7. Ground-truth capture — do it while Basic Mode is live
 
 `tools/probe-options.ps1` walks the endpoint across every option combination for a
-set of products and writes `spec/price-matrix.csv`. This is the oracle the rebuilt
-page is tested against. Without it we are comparing a rebuild to an opinion.
+set of products and writes `spec/price-matrix-<label>.csv` — the Basic Mode run is
+`spec/price-matrix-basic.csv`. This is the oracle the rebuilt page is tested
+against. Without it we are comparing a rebuild to an opinion.
 
 Cover: all 3 × 7 combinations for the reference product, plus every other
 `matrix-priced` product in the sample, plus the `select-options` path.
@@ -188,3 +219,54 @@ price table with no interactive options. Those need no JS, only layout.
 > Sample caveat: the `has_naire` column in `inventory/product-variants.csv` is
 > **unreliable** — 名入れ appears in global header copy on every page, so it returned
 > 100/100. Ignore that column; it does not indicate a name-printing option.
+
+---
+
+## 10. Verifying the rebuild against the oracle
+
+`templates/creator/preview/verify-pricing.html` runs the production
+`templates/creator/js/option-price.js` — unmodified, the same file the shop will
+load — against all 73 captured responses plus behavioural cases. Open it in a
+browser; it needs no server and makes **no network requests at all**. The recorded
+responses are replayed by a stub routed on the POST body, so the request the engine
+builds is under test too.
+
+Regenerate the fixture after any re-probe:
+
+```powershell
+.\tools\build-price-oracle.ps1     # spec\price-matrix-basic.csv -> preview\price-oracle.js
+```
+
+Headless, for a pass/fail without opening a window:
+
+```powershell
+& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu `
+  --virtual-time-budget=6000 --dump-dom `
+  "file:///C:/Users/Administrator/Documents/isp-sp/isplanning-migration/templates/creator/preview/verify-pricing.html"
+```
+
+`--virtual-time-budget` matters: the assertions run after the stubbed responses
+settle, which is past the load event.
+
+### What it covers — 103 checks, all passing as of 2026-09-02
+
+| Group | Checks | Source of truth |
+|---|---:|---|
+| A. All measured combinations, remote path | 73 | Oracle — **measured** |
+| B. Inline price-table path (used by the mocks) | 21 | Oracle — **measured** |
+| C. Failure behaviour: cart must lock, never show a plausible wrong price | 6 | Synthetic |
+| D. Member / discount pricing | 1 | **Synthetic — unverified** |
+| E. Endpoint contract (path, method, parameters) | 1 | Basic Mode capture |
+| F. Rapid re-selection: a slow earlier response must not overwrite a newer price | 1 | Synthetic |
+
+### Two things it deliberately does not prove
+
+1. **Member and discount pricing (C23).** Every one of the 73 probes was anonymous,
+   so all returned `is_member_price:false`. The engine now renders `member_price`
+   when the flag is true, and fails loud when the flag is true but the amount is 0 —
+   but that branch is reasoned from field names, not observed. **Confirm against
+   /shopdetail/003003000870/ while logged in as a member before cutover**, then
+   re-probe and promote group D to measured.
+2. **That the endpoint still exists under Creator Mode** (Q1b, §6). The harness
+   replays Basic Mode responses; it cannot tell us the endpoint survives the switch.
+   That is the rollback rehearsal's job.

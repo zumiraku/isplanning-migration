@@ -89,7 +89,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 
 ---
 
-## Current state — 2026-08-30
+## Current state — 2026-09-02
 
 ### Done (no console access required)
 
@@ -100,9 +100,22 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Product sample | 100 products, stratified, classified into variant classes |
 | Free-page content | all 83 bodies extracted, de-chromed, UTF-8 |
 | Pricing oracle | 73 option combinations across 16 products, all verified |
+| Pricing rebuild | **verified against the whole oracle — 103/103** (see below) |
 | Design system | tokens + components + the rebuilt pricing module |
 | Gate B mocks | top page and product detail, real content throughout |
 | Redirect map | 184 at-risk URLs (83 free pages + 101 news) |
+| Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
+
+### Verifying the pricing rebuild
+
+```powershell
+.\tools\build-price-oracle.ps1        # regenerate the fixture from the oracle CSV
+# then open templates\creator\preview\verify-pricing.html in a browser
+```
+
+No network, no live-site requests: recorded endpoint responses are replayed against
+the real `option-price.js`. It found a defect that would have locked the cart on the
+majority of option-priced products (S0-21) — run it after every change to that file.
 
 ### Blocked on the MakeShop console
 

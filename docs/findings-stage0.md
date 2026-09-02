@@ -627,4 +627,57 @@ further automated requests to isp-sp.com.
 
 It is also unnecessary. With full admin granted the same day, exports beat crawling
 on every measure - they return the source rather than the rendered output, they are
-complete, they take seconds instead of minutes, and they place no load on the shop.
+
+---
+
+## S0-21 — The pricing rebuild was wrong for 14 of 16 sampled products 🔴 *found and fixed 2026-09-02*
+
+Built a harness that runs the rebuilt engine against the whole 73-response oracle
+(`templates/creator/preview/verify-pricing.html` — no network, no live site). First
+run: **56 pass, 47 fail.** Every failure shared one shape — `option2_id = 0`.
+
+**The defect.** `option-price.js` treated a `0` in either option position as an
+invalid selection and refused to price it. But `0` does not mean *unchosen*, it means
+*this product has no second option group*. The endpoint prices those combinations
+normally, and **47 of the 73 captured combinations are `n_0`** — 14 of the 16 sampled
+products have a single option group.
+
+Live, that would have shown 「オプションを選択してください」 permanently and left the
+cart button disabled on the majority of option-priced products — while working
+flawlessly on `25283`, the one product the client sent us and the one we had been
+checking by eye.
+
+**Where the bad rule came from.** MakeShop's own code does return early on `"0"` — but
+only in its *pulldown* branch (`spcode` / `spcode2`), not in the radio-matrix branch.
+The guard was correct code read from the wrong branch.
+
+**Two further corrections to the model**, both from the same run:
+
+- `option1_id` reaches **12**, not 3. The 3×7 shape is `25283`'s, not the platform's.
+- Axis 1 is not "colour, price-neutral" in general. On `1968` the first axis *is* the
+  quantity tier and moves the price from ¥5,500 to ¥39,600. Any rebuild assuming
+  axis 1 never affects price is wrong on single-axis products.
+
+After the fix: **103 / 103 pass** — the 73 measured combinations on the production
+request path, the 21 inline-table combinations the mocks use, six failure-behaviour
+cases, the endpoint contract, and a stale-response race.
+
+### Why this one matters beyond itself
+
+The bug was invisible to every check we had been running: reading the code, comparing
+the mock against the live page, exercising the client's example product. It took
+replaying **all** of the captured evidence against the actual shipping file. The
+oracle was worth capturing; running it against the rebuild is what made it worth
+capturing.
+
+It also lands on the one thing the client raised before anything else —
+「商品詳細ページにJavaScriptでオプションを判断しているページもあります」. Shipping this
+would have broken the cart on most option-priced products, quietly, after cutover.
+
+### Still unverified — member and discount pricing (C23)
+
+All 73 probes were anonymous, so every response carried `is_member_price:false`. The
+engine now renders `member_price` when the flag is true, and fails loud when the flag
+is true but the amount is zero — reasoned from the field names, not observed.
+**Confirm against /shopdetail/003003000870/ while logged in as a member before
+cutover**, then re-probe and promote that case from synthetic to measured.
