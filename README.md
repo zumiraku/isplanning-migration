@@ -103,7 +103,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Pricing rebuild | **verified against the whole oracle — 103/103** (see below) |
 | Design system | tokens + components + the rebuilt pricing module |
 | Gate B mocks | top page and product detail, real content throughout |
-| Redirect map | 184 at-risk URLs (83 free pages + 101 news) |
+| Redirect map | **1,096 URLs, 1,011 resolved.** 910 of the 912 `/smartphone/` URLs now have a destination — 889 read straight out of the desktop pages' own `rel="alternate"`. The 101 news URLs stay put (Q4). Only the 83 free pages are still open, and they wait on Q7 |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
 | Stage 5 free pages | all 83 converted, rendered and **83/83 responsive-clean** — see [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 | News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |

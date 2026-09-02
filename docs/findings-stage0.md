@@ -576,6 +576,28 @@ repeatedly, not a one-time capture.
 
 ---
 
+
+### Redirect targets resolved — 2026-09-02
+
+910 of the 912 now have a destination, and **889 of those were not derived but
+measured**: every desktop page carries `rel="alternate"` pointing at its
+smartphone twin, so inverting the captured alternates gives smartphone → desktop
+from the site's own markup.
+
+That mattered most for categories. The smartphone space addresses them by an
+internal id — `ct5`, `ct10`, `ct100` — while desktop uses hierarchical paths like
+`/shopbrand/003/001/X/`. **Only 14 `ct` codes appear anywhere on the desktop
+side, so 592 of the 616 smartphone category URLs cannot be derived by pattern at
+all.** A rule that produced `/shopbrand/ct100/` would have generated 592
+plausible-looking redirects to pages that do not exist. The alternate tags give
+the real target for every one.
+
+The two that remain unresolved are products (`000000017197`, `000000017578`) that
+appear in no sitemap and no alternate — discontinued, most likely. Flagged rather
+than pointed at a guess.
+
+Tool: `tools\build-sp-redirects.ps1`.
+
 ## S0-20 — Correction: the recommend engine is イーレコメンド, not さぶみっと ⚠️
 
 In S0-4 I identified the recommend engine as **さぶみっと！レコメンド** from the
