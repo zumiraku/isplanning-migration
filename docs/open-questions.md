@@ -40,11 +40,27 @@ Check each: 商品見積書 · 一発購入 · 投票 · 懸賞 · 移動イベ�
 **商品見積書 is the one to check first** — a B2B novelty shop with tiered pricing is
 its natural user, and it has no Creator Mode equivalent.
 
-### Q4 — What generates `/new/*.html`? `OPEN`
-101 news articles, 2013 → 2026, all in the sitemap and indexed. Is this the
-**ニュース** feature (Creator Mode has editable ニュース一覧 / ニュース詳細 templates
-→ safe) or **インフォメーション** (discontinued → 101 URLs at risk of 404)?
-Different answers, very different amounts of work.
+### Q4 — What generates `/new/*.html`? `ANSWERED (pending console confirmation)` 2026-09-02
+**Almost certainly ニュース, which Creator Mode keeps.** Answered from the archive,
+no crawling and no console needed — see [`docs/news-plan.md`](news-plan.md).
+
+Evidence across all 100 detail pages: identical platform markup
+(`<div id="newsHead"><span class="date">…</span>TITLE</div>` then
+`<div id="newsContents">`), every one linking to `index.html?mode=list`, and
+`/new/index.html` built on `#newsList`. The URL shape `/new/YYYY-MM-DD-HHMMSS.html`
+is a platform stamp. インフォメーション is a notice block on the shop front, not a set
+of dated article URLs.
+
+**If confirmed, there is no content migration here at all** — the articles live in
+the platform's news store, so the work is two editable templates and the URLs do
+not move. That removes 100 URLs from the redirect risk.
+
+*Residual check (checklist §F):* find which admin screen creates a `/new/…` entry.
+Two minutes, and it turns a strong inference into a fact.
+
+Also corrected while doing this: it is **100 articles plus the list page**, not 101
+articles, and they are mostly catalogue announcements rather than the thin holiday
+notices S0-5 described from a single sample.
 
 ### Q5 — What conversion tags sit on the order-completion page? `OPEN`
 GA4 `G-BK1PPN5MEV` fires site-wide. Google Ads / Yahoo / any other conversion tag on

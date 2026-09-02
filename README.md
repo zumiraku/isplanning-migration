@@ -29,7 +29,7 @@ restore. This repo — not the console — is the source of truth.
 | Class | Count | Notes |
 |---|---:|---|
 | Free pages `/html/*.html` | **83** | The 独自ページ the client estimated at "60〜70" |
-| News articles `/new/*.html` | **101** | 2013 → 2026, still indexed. Plus `/new/index.html` |
+| News articles `/new/*.html` | **100** | 2013 → 2026, ~7/year, still indexed and still being posted to. The 101st URL is `/new/index.html`, the list page |
 | Category pages `/shopbrand/…` | **607** | |
 | Product pages `/shopdetail/…` | **9,514** | 9,025 on `000000xxxxxx`, 488 on an older `cccssxxxxxx` scheme |
 | **Total in sitemap** | **10,306** | |
@@ -106,6 +106,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Redirect map | 184 at-risk URLs (83 free pages + 101 news) |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
 | Stage 5 free pages | all 83 converted, rendered and **83/83 responsive-clean** — see [docs/stage5-freepages.md](docs/stage5-freepages.md) |
+| News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |
 
 ### Verifying the pricing rebuild
 
@@ -125,6 +126,18 @@ majority of option-priced products (S0-21) — run it after every change to that
 .\tools\build-freepage-previews.ps1  # -> rendered pages + review index
 .\tools\check-responsive.ps1         # every page at 375 / 768 / 1440px
 ```
+
+### The news archive
+
+```powershell
+.\tools\extract-news.ps1             # 100 articles out of the archive, classified
+.\tools\build-news-previews.ps1      # -> news-list.html + news-detail.html
+```
+
+`build-news-previews.ps1` is saved **with a UTF-8 BOM** and must stay that way — it
+is the one tool carrying Japanese string literals, and PowerShell 5.1 reads a
+BOM-less UTF-8 script as ANSI. Without the BOM it does not parse. See
+[docs/news-plan.md](docs/news-plan.md), which also answers Q4 from the archive.
 
 ### Blocked on the MakeShop console
 

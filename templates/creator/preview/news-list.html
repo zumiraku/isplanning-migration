@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ja">
+<!--
+  Free-page template — Stage 5.
+
+  This is the shell every one of the 83 free pages renders into. Two archetypes
+  cover 75 of them (article 47, visual-guide 28); the remaining 8 are the four
+  system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
+  one-offs. They share this shell and differ only by the class on <main>.
+
+  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+
+    お知らせ一覧｜粗品・景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
+    発見マーケットからのお知らせ一覧です。  meta description
+    https://www.isp-sp.com/new/index.html    canonical URL
+    お知らせ一覧      the page's own <h1>. Lifted out of the body by the
+                     converter, because the body's leading <h2> WAS the real
+                     heading: every page on the site currently ships the same
+                     <h1> (S0-16). This is where that gets fixed.
+    news-list    article | visual-guide | form | link-index | table | short-notice
+    <li>お知らせ一覧</li>   breadcrumb trail
+      <ul class="newslist">
+    <li><a href="news-detail.html"><time datetime="2026-07-28">2026/07/28</time><span>●夏季休業日のお知らせ　2026年</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2026-07-27">2026/07/27</time><span>エスピーソースカタログ 2026年 秋号　粗品のカタログを無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2026-04-25">2026/04/25</time><span>粗品のカタログを【無料】でお送りいたします。エスピーソースカタログ2026年　夏号等。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2026-02-07">2026/02/07</time><span>2026年　春号　エスピーソースカタログ　粗品のカタログを無料でお送りいたします</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-12-21">2025/12/21</time><span>■年末年始の休業日＆配達日に関するお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-10-29">2025/10/29</time><span>2025年　冬号　エスピーソースカタログ等　粗品景品のカタログを無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-08-23">2025/08/23</time><span>2025年　秋号　エスピーソースカタログ　粗品のカタログを無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-08-01">2025/08/01</time><span>●夏季休業日のお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-04-28">2025/04/28</time><span>エスピーソースカタログ2025年　夏号等。粗品のカタログを【無料】でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-01-29">2025/01/29</time><span>粗品のカタログを無料でお送りいたします■エスピーソースカタログ2025年　春号■</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-12-23">2024/12/23</time><span>■年末年始の休業日＆配達日に関するお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-10-28">2024/10/28</time><span>エスピーソースカタログ　2024年冬号を「無料」でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-08-20">2024/08/20</time><span>エスピーソースカタログ2024年　秋号　粗品カタログを無料でお送りいたします</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-08-02">2024/08/02</time><span>夏季休業日のお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-04-25">2024/04/25</time><span>粗品のカタログを【無料】でお送りいたします。エスピーソースカタログ2024年　夏号等。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-02-07">2024/02/07</time><span>粗品のカタログを無料でお送りいたします※エスピーソースカタログ2024年　春号※</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-12-04">2023/12/04</time><span>■年末年始の休業日・配達日に関するお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-10-30">2023/10/30</time><span>2023年　冬号　エスピーソースカタログ　無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-08-01">2023/08/01</time><span>エスピーソースカタログ2023年　秋号　粗品カタログを無料でお送りいたします</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-08-01">2023/08/01</time><span>夏季休業日のお知らせ</span></a></li>
+  </ul>
+  <ul class="pager">
+    <li><span aria-current="page">1</span></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+  </ul>
+      the converted body fragment from templates/creator/freepages/
+
+  When this becomes a real Creator Mode template, the chrome below is replaced
+  by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared
+  header/footer include — and the placeholders map onto the page's own fields.
+  The markup and the CSS hooks do not change, which is the point of building it
+  this way: the review below is a review of the real thing.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お知らせ一覧｜粗品・景品の発見マーケット</title>
+<meta name="description" content="発見マーケットからのお知らせ一覧です。">
+<link rel="canonical" href="https://www.isp-sp.com/new/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/freepage.css">
+</head>
+<body>
+
+<div class="utilbar">
+  <div class="container utilbar__inner">
+    <span>30,000円(税別)以上で送料無料 ※離島除く／代引無料</span>
+    <span>2000年8月オープン｜25年間の粗品販売実績</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-logo" href="top.html">発見マーケット<small>粗品・景品・ノベルティの名入れ通販</small></a>
+    <form class="searchbox" role="search" action="#">
+      <label class="visually-hidden" for="q">商品を検索</label>
+      <input id="q" type="text" name="search" placeholder="商品名・キーワードで検索">
+      <button type="submit">検索</button>
+    </form>
+    <div class="site-header__contact"><b>072-970-6710</b>平日10時〜12時／13時〜17時（土日祝休）</div>
+    <div class="site-header__tools"><a class="cartlink" href="#">カート <b>0</b>点</a></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" aria-label="パンくず">
+    <ol>
+      <li><a href="top.html">ホーム</a></li>
+      <li>お知らせ一覧</li>
+    </ol>
+  </nav>
+</div>
+
+<main class="container" data-archetype="news-list">
+
+  <h1 class="h-page">お知らせ一覧</h1>
+
+  <div class="article">
+  <ul class="newslist">
+    <li><a href="news-detail.html"><time datetime="2026-07-28">2026/07/28</time><span>●夏季休業日のお知らせ　2026年</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2026-07-27">2026/07/27</time><span>エスピーソースカタログ 2026年 秋号　粗品のカタログを無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2026-04-25">2026/04/25</time><span>粗品のカタログを【無料】でお送りいたします。エスピーソースカタログ2026年　夏号等。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2026-02-07">2026/02/07</time><span>2026年　春号　エスピーソースカタログ　粗品のカタログを無料でお送りいたします</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-12-21">2025/12/21</time><span>■年末年始の休業日＆配達日に関するお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-10-29">2025/10/29</time><span>2025年　冬号　エスピーソースカタログ等　粗品景品のカタログを無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-08-23">2025/08/23</time><span>2025年　秋号　エスピーソースカタログ　粗品のカタログを無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-08-01">2025/08/01</time><span>●夏季休業日のお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-04-28">2025/04/28</time><span>エスピーソースカタログ2025年　夏号等。粗品のカタログを【無料】でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2025-01-29">2025/01/29</time><span>粗品のカタログを無料でお送りいたします■エスピーソースカタログ2025年　春号■</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-12-23">2024/12/23</time><span>■年末年始の休業日＆配達日に関するお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-10-28">2024/10/28</time><span>エスピーソースカタログ　2024年冬号を「無料」でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-08-20">2024/08/20</time><span>エスピーソースカタログ2024年　秋号　粗品カタログを無料でお送りいたします</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-08-02">2024/08/02</time><span>夏季休業日のお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-04-25">2024/04/25</time><span>粗品のカタログを【無料】でお送りいたします。エスピーソースカタログ2024年　夏号等。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2024-02-07">2024/02/07</time><span>粗品のカタログを無料でお送りいたします※エスピーソースカタログ2024年　春号※</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-12-04">2023/12/04</time><span>■年末年始の休業日・配達日に関するお知らせ</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-10-30">2023/10/30</time><span>2023年　冬号　エスピーソースカタログ　無料でお送りいたします。</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-08-01">2023/08/01</time><span>エスピーソースカタログ2023年　秋号　粗品カタログを無料でお送りいたします</span></a></li>
+    <li><a href="news-detail.html"><time datetime="2023-08-01">2023/08/01</time><span>夏季休業日のお知らせ</span></a></li>
+  </ul>
+  <ul class="pager">
+    <li><span aria-current="page">1</span></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+  </ul>
+
+  </div>
+
+  <p class="u-center" style="margin-top:var(--s-10)">
+    <a class="btn btn--primary" href="top.html">粗品・景品をさがす</a>
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container site-footer__cols">
+    <div>
+      <b>粗品と景品の発見マーケット</b>
+      <p>アイエスプランニング株式会社<br>〒581-0014 大阪府八尾市中田4-132-3<br>TEL 072-970-6710</p>
+    </div>
+    <div>
+      <b>ご利用案内</b>
+      <ul class="linklist">
+        <li><a href="freepages/info.html">ショッピングガイド</a></li>
+        <li><a href="freepages/ordercontract.html">特定商取引法に基づく表示</a></li>
+        <li><a href="freepages/company.html">会社概要</a></li>
+        <li><a href="freepages/page1.html">注文・見積用紙ダウンロード</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <small>&copy; アイエスプランニング株式会社</small>
+  </div>
+</footer>
+
+</body>
+</html>

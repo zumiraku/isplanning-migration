@@ -278,3 +278,37 @@ a.scenetile:hover, .scenetile a:hover { background: var(--c-primary-dark); text-
   line-height: var(--lh-tight);
   transition: background var(--ease), color var(--ease);
 }
+
+/* --- news detail ---------------------------------------------------------- */
+.newsmeta {
+  margin: 0 0 var(--s-4);
+  font-family: var(--f-num);
+  font-size: var(--t-sm);
+  color: var(--c-ink-3);
+}
+.newsnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-10);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--c-rule);
+}
+.newsnav__next {
+  display: block;
+  max-width: 24rem;
+  color: var(--c-ink);
+}
+.newsnav__next small {
+  display: block;
+  font-size: var(--t-xs);
+  color: var(--c-ink-3);
+}
+
+/* The reading-measure cap on .article is right for prose and wrong for an index:
+   a list of dates and titles should use the width it has. */
+main[data-archetype="news-list"] .article,
+main[data-archetype="link-index"] .article,
+main[data-archetype="form"] .article,
+main[data-archetype="table"] .article { max-width: none; }

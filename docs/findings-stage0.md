@@ -139,6 +139,22 @@ a plan). Answer from the admin before deciding anything above.
 
 ---
 
+
+### CORRECTED 2026-09-02 — this finding overstated the case
+
+S0-5 measured **one** page and generalised from it. Extracting and classifying all
+100 (see [news-plan.md](news-plan.md)) shows otherwise:
+
+- It is **100 articles plus `/new/index.html`**, the list page — not 101 articles.
+- Median article length is **246 characters**, not one sentence. 68 carry links,
+  57 carry images, and 4 were posted in 2026.
+- Most of it is **catalogue announcements (53)**, not holiday notices (27).
+
+The duplication is real but confined to the closure notices. The recommendation
+changes from "do not port all 101" to **keep them** — and, since the markup shows
+this is the platform's ニュース feature, they are very probably not ours to port at
+all. See the Q4 evidence in news-plan.md.
+
 ## S0-6 — Free pages are SEO content, not filler 🟡 *revises a client assumption*
 
 All 83 return 200. None has a viewport. 0 are missing an h1 (but see S0-16 - all 83 share the SAME h1); 3 are missing a meta
