@@ -72,11 +72,24 @@ foreach ($r in $report) {
   }
   if (-not $title -and $archBySlug.ContainsKey($slug)) { $title = $archBySlug[$slug].title }
 
-  # Heading: what the converter lifted out of the body. Falls back to the title
-  # with the shop suffix removed rather than leaving an empty <h1>.
+  # Heading: what the converter lifted out of the body. Where it found none,
+  # take the first heading that appears anywhere in the fragment; only if there
+  # is none at all does the title get used, trimmed at its first separator.
+  #
+  # The separators are built from code points, not typed as literals: PowerShell
+  # 5.1 reads this BOM-less UTF-8 file as ANSI, so a literal ｜ in the pattern
+  # arrives mangled and matches nothing — which is why an entire 45-character
+  # SEO title was being rendered as an <h1>.
   $heading = $r.page_heading
   if (-not $heading) {
-    $heading = ($title -split "｜|【|～")[0].Trim()
+    $mh = [regex]::Match($content, '(?is)<h[1-4][^>]*>(.*?)</h[1-4]>')
+    if ($mh.Success) {
+      $heading = [regex]::Replace($mh.Groups[1].Value, '(?s)<[^>]+>', '').Trim()
+    }
+  }
+  if (-not $heading -and $title) {
+    $seps = @(0xFF5C, 0x3010, 0xFF5E, 0x301C, 0x7C, 0x5B) | ForEach-Object { [regex]::Escape([string][char]$_) }
+    $heading = (($title -split ($seps -join '|'))[0]).Trim()
   }
 
   $desc = ''

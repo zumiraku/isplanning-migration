@@ -91,7 +91,7 @@ $classMap = @{
   'normal-box2'     = 'linkbox'
   'normal-box3'     = 'linkbox'
   'normal-box4'     = 'linkbox'
-  'textboxisp'      = 'notice'
+  'textboxisp'      = 'tilecap'      # grey centred caption strip under a thumbnail, page8/9 only
   'box_summer'      = 'notice'
   'kome'            = 'note-kome'
   'nameall'         = ''
@@ -129,6 +129,115 @@ $classMap = @{
   'guide-subttl'       = 'h-sub'
   'newshr'             = ''               # <hr> spacing
   'container_summer'   = ''               # seasonal wrapper, colour came from the dying sheet
+
+  # ---------------------------------------------------------------------------
+  # Page-specific classes, mapped 2026-09-02 from what their rules in the dying
+  # system stylesheet actually did. Every one of these has no styling at all
+  # after the switch, so "leave it alone" is not an option: it is rebuild or drop.
+  # ---------------------------------------------------------------------------
+
+  # spacing utilities — the token scale owns spacing now
+  'mt10' = ''; 'mt20' = ''; 'mt30' = ''; 'mt40' = ''; 'mt50' = ''; 'mt70' = ''
+  'mb10' = ''; 'mb20' = ''; 'mb30' = ''; 'mb40' = ''; 'mb50' = ''
+  'u-mb40' = ''; 'u-mb50' = ''; 'u-pt10' = ''; 'u-pt20' = ''; 'u-pt40' = ''
+  'M_mgnT20' = ''; 'M_mgnB10' = ''
+
+  # type-size and inline-colour utilities — the type scale owns these
+  'ft14' = ''; 'ft16' = ''; 'ft20' = ''; 'ft24' = ''
+  'name01' = ''; 'name02' = ''; 'name03' = ''
+  'columnmoji' = ''; 'columnmoji2' = ''
+  'infoa' = ''            # inline link colour; links are styled globally
+  'bggreen' = ''          # th background; .table owns table shading
+  'text' = ''; 'icon' = ''; 'caption' = ''; 'cartHeading' = ''
+
+  # the anchor-offset hack: padding-top:150px / margin-top:-150px to clear a
+  # fixed header. freepage.css does it with scroll-margin-top instead.
+  'guide-inner' = ''
+
+  # bordered boxes -> .notice
+  'seo-text'     = 'notice'
+  'f-txt'        = 'notice'
+  'cube'         = 'notice'
+  'cilid1'       = 'notice'
+  'namefax'      = 'notice'
+  'Order_Number' = 'notice'
+  'txtList01'    = 'notice'
+  'txtList02'    = 'notice'
+
+  # box with its own heading -> .panel
+  'm-box-main'   = 'panel'
+  'm-box-h'      = 'panel__head'
+  'm-box'        = ''       # the <ul> inside it; .article styles lists
+  'nap-box'      = 'panel'
+
+  # big centred colour tiles -> .calloutbox
+  'box-itema'    = 'calloutbox'
+  'box-itemb'    = 'calloutbox'
+  'box-itemc'    = 'calloutbox'
+  'btn_design4'  = 'btn btn--primary'
+
+  # coloured heading bars -> the heading components
+  'guide-ttl'    = 'h-section'
+  'heading-041'  = 'h-section'
+  'namenumber'   = 'h-sub'
+  'nameorder'    = 'h-sub'
+  'nameorderdiv' = ''
+  'minikome'     = 'note-kome'
+  'kome2'        = 'note-kome'
+
+  # numbered process lists -> .flow
+  'flow'         = 'flow'
+  'flow-link'    = ''
+  'step-wrap'    = 'flow'
+  'step-inner'   = ''
+
+  # 用途で選ぶ tiles: a flex <ul> pinned to 900px with six gradient variants
+  'page_scene'   = 'tilegrid'
+  'page_season'  = 'tilegrid'
+  'page_scenep'  = 'scenetile'
+  'page_scene3'  = 'scenetile'
+  'page_scene4'  = 'scenetile'
+  'page_scene5'  = 'scenetile'
+  'page_scene6'  = 'scenetile'
+
+  # fixed-size image tiles -> a grid that reflows
+  'itemwrapping'   = 'tilegrid'
+  'itemwrapping2'  = 'tilecap'
+  'itemwrapping3'  = 'tilegrid'
+  'categotybanner' = 'tilegrid'
+  'guide-list'     = 'tilegrid'
+  'parent1'        = 'tilegrid'
+  'PageList'       = 'linklist'
+  'dabiki-list'    = 'table'
+
+  # flex boxes with hard-coded background colours
+  'flex_test-box'   = 'guide-grid'
+  'flex_test-box3'  = 'guide-grid'
+  'flex_test-item'  = 'guide-item'
+  'flex_test-item3' = 'notice'
+  'fl-wrap'         = 'guide-grid'
+
+  # the image hover-overlay effect: an absolutely positioned mask revealed on
+  # hover, which does nothing on touch. Reduced to a figure with a caption.
+  'sample2' = 'guide-item'
+  'sample4' = 'guide-item'
+  'mask'    = ''
+
+  # the last 14, each used once, each a sibling of something already mapped
+  'containerwrapping'      = 'tilegrid'   # width:100% flex row of image tiles
+  'containerwrapping-wrap' = ''
+  'shipping-list'          = 'table'      # flex <dl> of shipping regions
+  'tblname'                = 'table'
+  'note'                   = 'notice'     # ruled-paper background box
+  'caution'                = 'note-kome'  # 14px note with an icon in the padding
+  'firstView'              = 'lede'       # dotted-border standfirst
+  'sample3'                = 'guide-item'
+  'page_scene7'            = 'scenetile'
+  'syouhin_red'            = 'u-alert'
+  'bgblue'                 = ''           # th background, as bggreen
+  'name04'                 = ''
+  'nameorderp'             = 'h-sub'
+  'heading'                = ''           # defined nowhere; already dead
 
   # floated figures -> a component that unfloats on a phone
   'img-right-s'     = 'figure--right'
@@ -382,6 +491,15 @@ foreach ($f in $files) {
   $attrsStripped = ([regex]::Matches($html, '(?i)\s(width|height|align|bgcolor|border|cellpadding|cellspacing|hspace|vspace)\s*=\s*("[^"]*"|''[^'']*''|[^\s>]+)')).Count
   $html = [regex]::Replace($html, '(?i)\s(width|height|align|bgcolor|border|cellpadding|cellspacing|hspace|vspace)\s*=\s*("[^"]*"|''[^'']*''|[^\s>]+)', '')
 
+  # -- repair attributes that never close their quote -------------------------
+  # page75 line 137: class="u-m0 u-pb1em style="margin:50px 0 0 0;">. The class
+  # attribute swallows the start of the style attribute, so a naive
+  # class="([^"]*)" match reads a class name containing markup and the inline
+  # style is lost. One occurrence in the corpus, repaired rather than tolerated,
+  # because tolerating it means it reappears as a mangled class in the output.
+  $attrsRepaired = ([regex]::Matches($html, '(?i)class="([^">]*?)\s+([a-z-]+)="')).Count
+  $html = [regex]::Replace($html, '(?i)class="([^">]*?)\s+([a-z-]+)="', 'class="$1" $2="')
+
   # -- style="" -> classes ----------------------------------------------------
   $styleAttrs = 0
   $pendingClasses = @{}   # index -> classes to add, keyed by a marker
@@ -432,6 +550,21 @@ foreach ($f in $files) {
     }
     return '<' + $tag + $rest + '>'
   })
+
+  # -- merge adjacent tile grids ----------------------------------------------
+  # The scene pages split their tiles across a <ul> per row, because the old
+  # layout was a fixed 900px flex row that fitted four. A responsive grid decides
+  # its own rows, so consecutive lists must join or the grid restarts every four
+  # items and leaves a lone tile stranded on its own row at every width.
+  $gridsMerged = 0
+  for ($i = 0; $i -lt 20; $i++) {
+    $before = $html
+    $html = [regex]::Replace($html,
+      '(?is)(<ul class="tilegrid">)((?:(?!</ul>).)*)</ul>\s*<ul class="tilegrid">',
+      '$1$2')
+    if ($html -eq $before) { break }
+    $gridsMerged++
+  }
 
   # -- tables get the scroll wrapper: a wide table must not scroll the page ----
   $tables = ([regex]::Matches($html, '(?i)<table')).Count
@@ -527,6 +660,8 @@ foreach ($f in $files) {
     end_marker       = $endMarker
     script_blocks    = $scriptBlocks.Count
     breadcrumbs      = $breadcrumbs
+    attrs_repaired   = $attrsRepaired
+    grids_merged     = $gridsMerged
     comments         = $comments
     chrome_bytes     = $chromeRemoved
     divs_trimmed     = $divsTrimmed

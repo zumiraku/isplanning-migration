@@ -37,11 +37,11 @@ what it does not recognise is how a page loses a phone number.
 | | |
 |---|---:|
 | Pages converted | **83** |
-| Bytes in → out | 1,063,817 → **504,557** (−53%) |
+| Bytes in → out | 1,063,817 → **502,820** (−53%) |
 | Inline `style` attributes processed | **1,545** |
 | Declarations dropped by a named rule | 3,549 |
 | Declarations mapped to a component | 169 |
-| Legacy classes dropped | 1,241 |
+| Legacy classes dropped | **1,313** |
 | Embedded `<style>` blocks lifted out | **18** |
 | `<script>` blocks lifted out | **49** |
 | Duplicate breadcrumb trails removed | **43** |
@@ -129,11 +129,55 @@ at 375px — in shared chrome, so on **every page type**, not just free pages. I
 was landing in an `auto` grid column where its width came from the input's
 intrinsic size rather than the space available. Fixed in `components.css`.
 
+
+## The class map is complete — 2026-09-02
+
+**Zero unmapped classes, zero unmapped declarations.** Every class and every CSS
+declaration across all 83 pages now resolves to a named rule.
+
+The 63 that were open all had the same problem: they were styled *only* by
+stylesheets that do not survive the switch, so "leave them alone" was never an
+option — each was rebuild or drop. Mapped from what their rules actually did,
+never from their names. Five new components absorbed most of them:
+
+| Component | Replaces | What the original did |
+|---|---|---|
+| `.panel` / `.panel__head` | `m-box-main`, `m-box-h`, `nap-box` | bordered box with a dashed heading rule, pinned to `width: 70%` |
+| `.calloutbox` | `box-itema/b/c` | three centred colour tiles differing only in shade of green |
+| `.flow` | `flow`, `step-wrap`, `step-inner`, `icon` | numbered process steps, the number drawn as a 50px circle |
+| `.scenetile` | `page_scenep`, `page_scene3`–`7` | six hard-coded gradient variants |
+| `.tilegrid` / `.tilecap` | `itemwrapping*`, `categotybanner`, `page_scene`, `textboxisp` | 290×290 tiles in a flex row pinned to 900px |
+
+Everything pinned to a pixel width became fluid — those widths are precisely what
+breaks on a phone. Spacing and type-size utilities (`mt30`, `ft14`, `u-pt20` …)
+were dropped: the token scale owns both now.
+
+### Three defects this pass turned up
+
+- **A malformed attribute in the source.** `page75` line 137 reads
+  `class="u-m0 u-pb1em style="margin:50px 0 0 0;">` — the class attribute never
+  closes, so it swallows the start of the style attribute. A naive
+  `class="([^"]*)"` match then reads a "class name" containing markup, and the
+  paragraph's styling is lost. One occurrence corpus-wide, now repaired by a
+  counted rule rather than tolerated.
+- **`textboxisp` was mapped by name, not by behaviour.** It reads like a text
+  box, so it went to `.notice` — but its rule is a grey centred caption strip
+  under a thumbnail, and it appears only on the two scene pages. As a notice it
+  drew a green box around every thumbnail and squeezed the caption into a
+  one-character-per-line column. Fixed to `.tilecap`, and the blanket
+  `.scenegrid a` rule that caused the green box is gone. **This is the argument
+  for screenshots: it passed every automated check.**
+- **A 45-character SEO title was being rendered as an `<h1>`** on the 23 pages
+  with no heading to lift. The fallback split the title on ｜ and 【 — typed as
+  literals in a BOM-less UTF-8 PowerShell file, which 5.1 reads as ANSI, so the
+  pattern arrived mangled and matched nothing. Separators are now built from
+  code points, and the first fallback is the first heading in the page itself.
+
 ## Still open
 
 | | |
 |---|---|
-| **63 unmapped classes** | All styled only by stylesheets that die at the switch (51 in the 171 KB system sheet, 6 in the embedded blocks, 6 defined nowhere and already dead). Each needs a look at the archived rendering to decide: rebuild or drop. `inventory/freepage-unmapped.csv` names each one, its page count and where it was defined |
+| ~~63 unmapped classes~~ | **CLOSED 2026-09-02.** All mapped from what their rules in the dying stylesheet actually did — see "The class map is complete" below. `inventory/freepage-unmapped.csv` is now empty |
 | **19 pages flagged** `over-half-removed` | All 24 chrome-carrying pages plus `page82`. Expected — but each should be eyeballed against `snapshot/` before Gate C |
 | **418 links to `/html/*.html`** | Internal links between free pages. Creator Mode gives free pages new URLs (Q7), so every one of these needs rewriting at cutover, along with the redirect map |
 | **17 inline event handlers** | Mostly `window.open` popups for PDFs and the quote-request form. Needs rebuilding as ordinary links or a small handler — one of them is a commercial route (C20) |

@@ -148,3 +148,133 @@
 /* Old markup used <br> for spacing. Consecutive breaks collapse rather than
    leaving a hole a third of the screen deep on a phone. */
 .article br + br { display: none; }
+
+/* =============================================================================
+   Components for the page-specific classes — added 2026-09-02
+
+   These replace 60-odd classes that were styled only by the 171 KB system
+   stylesheet, which does not survive the switch. Each one is mapped from what
+   its old rules actually did, not from its name. Where the original pinned a
+   pixel width (900px scene lists, 290px wrapping tiles, a 70% box) the
+   replacement is fluid: those widths are exactly what breaks on a phone.
+   ========================================================================== */
+
+/* --- panel: bordered box with a heading (m-box-main, nap-box) -------------- */
+.panel {
+  margin: var(--s-6) 0;
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  overflow: hidden;
+}
+.panel__head {
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-bottom: 1px dashed var(--c-rule);
+  background: var(--c-surface-2);
+  font-weight: 700;
+  font-size: var(--t-base);
+}
+.panel > :not(.panel__head) { padding-inline: var(--s-4); }
+.panel > :last-child { padding-bottom: var(--s-3); }
+
+/* --- calloutbox: the big centred colour tiles (box-itema/b/c) -------------- */
+/* Three variants existed, differing only in green. One tile, one accent: the
+   colours came from the stylesheet that dies, and the client has said he does
+   not need it identical. */
+.calloutbox {
+  margin: var(--s-5) 0;
+  padding: var(--s-4) var(--s-5);
+  border-radius: var(--radius-lg);
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--t-lg);
+  text-align: center;
+  line-height: var(--lh-tight);
+}
+.calloutbox a { color: #fff; text-decoration: underline; }
+
+/* --- flow: the numbered process lists (flow, step-wrap, step-inner) -------- */
+.flow { list-style: none; margin: var(--s-5) 0; padding: 0; counter-reset: flow; }
+.flow > li {
+  position: relative;
+  counter-increment: flow;
+  margin: 0 0 var(--s-4);
+  padding: 0 0 var(--s-4) calc(var(--s-10) + var(--s-2));
+  border-bottom: 1px solid var(--c-rule-soft);
+}
+.flow > li:last-child { border-bottom: 0; padding-bottom: 0; }
+.flow > li::before {
+  content: counter(flow);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: var(--s-10);
+  height: var(--s-10);
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-family: var(--f-num);
+  font-weight: 700;
+}
+.flow h3, .flow h4 { margin-top: 0; border: 0; padding-left: 0; }
+
+/* --- scenetile: the coloured text tiles in the 用途で選ぶ lists ------------- */
+/* Six hard-coded gradient variants (page_scene3…7) become one tile on the brand
+   colour. This styles the LABEL only — an earlier version put it on every <a>
+   in the grid, which painted a green box around each thumbnail and squeezed its
+   caption into a one-character-per-line column. */
+.scenetile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
+  padding: var(--s-3);
+  border-radius: var(--radius);
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background var(--ease);
+}
+a.scenetile:hover, .scenetile a:hover { background: var(--c-primary-dark); text-decoration: none; }
+
+/* --- tilegrid: fixed-size image tiles (itemwrapping, categotybanner) ------- */
+/* 290x290 and 900px-wide banner rows become a grid that reflows. */
+.tilegrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+  margin: var(--s-5) 0;
+  padding: 0;
+}
+.tilegrid li, .tilegrid figure { margin: 0; }
+.tilegrid img { width: 100%; height: auto; border-radius: var(--radius); }
+/* The whole tile is the link: image on top, caption under it, both centred. */
+.tilegrid > li > a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+.tilegrid > li > a:hover { text-decoration: none; }
+.tilegrid > li > a:hover .tilecap { background: var(--c-surface); color: var(--c-primary); }
+
+/* .tilecap was .textboxisp: a light grey centred strip beneath a thumbnail.
+   Kept as a caption, not promoted to a bordered notice box. */
+.tilegrid figcaption, .tilecap {
+  margin-top: var(--s-2);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+  font-size: var(--t-sm);
+  color: var(--c-ink-2);
+  text-align: center;
+  line-height: var(--lh-tight);
+  transition: background var(--ease), color var(--ease);
+}
