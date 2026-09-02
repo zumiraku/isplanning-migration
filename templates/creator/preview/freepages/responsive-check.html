@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レスポンシブ検証 — 独自ページ83件</title>
+<style>
+  body { font: 14px/1.6 system-ui, -apple-system, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+         margin: 0; padding: 24px; background: #f6f7f9; color: #16181d; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #5a616e; margin: 0 0 16px; max-width: 70ch; }
+  .tile { display: inline-block; background: #fff; border: 1px solid #dfe3ea; border-radius: 8px;
+          padding: 10px 14px; margin: 0 8px 16px 0; min-width: 90px; }
+  .tile b { display: block; font-size: 22px; line-height: 1.2; }
+  .tile.pass b { color: #1a7f45; }
+  .tile.fail b { color: #b3261e; }
+  table { border-collapse: collapse; width: 100%; background: #fff; font-size: 13px; }
+  th, td { border: 1px solid #dfe3ea; padding: 5px 8px; text-align: left; }
+  th { background: #eef1f6; position: sticky; top: 0; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.fail { background: #fdf0ef; }
+  tr.fail td.v { color: #b3261e; font-weight: 700; }
+  td.v.ok { color: #1a7f45; }
+  #stage { position: fixed; left: -20000px; top: 0; }
+  #stage iframe { border: 0; height: 900px; }
+  code { background: #eef1f6; padding: 1px 4px; border-radius: 3px; }
+  .note { background: #fff8e6; border: 1px solid #e8d9a8; border-radius: 8px; padding: 12px 16px; margin: 0 0 16px; max-width: 80ch; }
+</style>
+</head>
+<body>
+
+<h1>レスポンシブ検証 — 独自ページ83件</h1>
+<p class="sub">
+  移行後の83ページを、スマートフォン（375px）・タブレット（768px）・PC（1440px）の
+  3つの幅で順に読み込み、<b>横スクロールが発生していないか</b>を自動で確認します。
+  横にはみ出す要素が1つでもあると、スマートフォンで本文が読みにくくなります。
+</p>
+
+<div class="note">
+  <b>実行方法（開発者向け）</b><br>
+  file:// から iframe の中身を測るため、ブラウザに1つフラグが必要です。
+  <code>chrome --allow-file-access-from-files</code> で起動したウィンドウで開いてください。
+  ヘッドレスでの実行方法は <code>docs/stage5-freepages.md</code> に記載しています。
+</div>
+
+<div id="summary"></div>
+<div id="report"></div>
+<div id="stage"><iframe id="frame" title="measurement stage"></iframe></div>
+
+<script src="pages.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var WIDTHS = [375, 768, 1440];
+  var pages = window.FREEPAGES || [];
+  var frame = document.getElementById('frame');
+  var results = [];
+
+  function measure(slug, width) {
+    return new Promise(function (resolve) {
+      frame.style.width = width + 'px';
+      frame.onload = function () {
+        // setTimeout, not requestAnimationFrame: rAF does not fire under
+        // headless Chrome's virtual time, so the run stalls after one page and
+        // reports a pass on 82 pages it never looked at.
+        setTimeout(function () {
+          var out = { slug: slug, width: width, scrollWidth: null, clientWidth: null, error: null };
+          try {
+            var doc = frame.contentDocument;
+            var de = doc.documentElement;
+            out.scrollWidth = de.scrollWidth;
+            out.clientWidth = de.clientWidth;
+
+            // Name the widest offender, so a failure is actionable rather than
+            // just a number.
+            if (de.scrollWidth > de.clientWidth + 1) {
+              var worst = null, worstRight = 0;
+              var all = doc.querySelectorAll('body *');
+              for (var i = 0; i < all.length; i++) {
+                var r = all[i].getBoundingClientRect();
+                if (r.right > worstRight) { worstRight = r.right; worst = all[i]; }
+              }
+              if (worst) {
+                out.culprit = worst.tagName.toLowerCase() +
+                  (typeof worst.className === 'string' && worst.className ? '.' + worst.className.split(' ')[0] : '') +
+                  ' (right ' + Math.round(worstRight) + 'px)';
+              }
+            }
+          } catch (e) {
+            // Cross-origin: the file:// flag is missing.
+            out.error = 'cannot read frame — run Chrome with --allow-file-access-from-files';
+          }
+          resolve(out);
+        }, 0);
+      };
+      frame.src = slug + '.html?w=' + width;
+    });
+  }
+
+  function render() {
+    var fails = results.filter(function (r) {
+      return r.error || (r.scrollWidth > r.clientWidth + 1);
+    });
+    var pass = results.length - fails.length;
+
+    document.getElementById('summary').innerHTML =
+      '<div class="tile pass"><b>' + pass + '</b>問題なし</div>' +
+      '<div class="tile ' + (fails.length ? 'fail' : '') + '"><b>' + fails.length + '</b>横スクロールあり</div>' +
+      '<div class="tile"><b>' + pages.length + '</b>ページ</div>' +
+      '<div class="tile"><b>' + results.length + '</b>検証数</div>';
+
+    var rows = fails.length ? fails : results.slice(0, 12);
+    var html = '<h2 style="font-size:15px;margin:20px 0 8px">' +
+               (fails.length ? '要修正' : '全ページ問題なし（先頭12件を表示）') + '</h2>';
+    html += '<table><thead><tr><th>ページ</th><th class="num">幅</th><th class="num">実際の幅</th>' +
+            '<th>結果</th><th>はみ出している要素</th></tr></thead><tbody>';
+    rows.forEach(function (r) {
+      var bad = r.error || (r.scrollWidth > r.clientWidth + 1);
+      html += '<tr class="' + (bad ? 'fail' : '') + '">' +
+              '<td><a href="' + r.slug + '.html" target="_blank">' + r.slug + '</a></td>' +
+              '<td class="num">' + r.width + '</td>' +
+              '<td class="num">' + (r.scrollWidth === null ? '-' : r.scrollWidth) + '</td>' +
+              '<td class="v ' + (bad ? '' : 'ok') + '">' + (bad ? '横スクロール' : 'OK') + '</td>' +
+              '<td>' + (r.error || r.culprit || '') + '</td>' +
+              '</tr>';
+    });
+    html += '</tbody></table>';
+    document.getElementById('report').innerHTML = html;
+    document.title = (fails.length ? 'NG ' + fails.length : 'OK ' + pass) + ' / ' + results.length + ' responsive-check';
+  }
+
+  function run() {
+    var queue = [];
+    pages.forEach(function (p) { WIDTHS.forEach(function (w) { queue.push([p, w]); }); });
+
+    function next(i) {
+      if (i >= queue.length) { render(); return; }
+      measure(queue[i][0], queue[i][1]).then(function (r) {
+        results.push(r);
+        if (i % 15 === 0) { render(); }
+        next(i + 1);
+      });
+    }
+    next(0);
+  }
+
+  /* -------------------------------------------------------------------------
+     Single-page mode: ?page=<slug>
+
+     Headless Chrome ends its virtual time budget once the main frame goes idle,
+     which happens after the FIRST iframe finishes loading — so the sequential
+     run above reports "1 of 1 OK" and never looks at the other 82 pages. A pass
+     you did not earn is worse than no check at all.
+
+     So in this mode every width gets its own iframe, all created up front and
+     loaded in parallel during the initial page load, which virtual time does
+     cover. tools/check-responsive.ps1 loops it over all 83 pages.
+     ---------------------------------------------------------------------- */
+  function singlePage(slug) {
+    var stage = document.getElementById('stage');
+    stage.innerHTML = '';
+    var done = 0, out = [];
+
+    WIDTHS.forEach(function (w) {
+      var f = document.createElement('iframe');
+      f.style.width = w + 'px';
+      f.style.height = '900px';
+      f.onload = function () {
+        setTimeout(function () {
+          var rec = w + ':';
+          try {
+            var de = f.contentDocument.documentElement;
+            if (de.scrollWidth > de.clientWidth + 1) {
+              var worst = null, worstRight = 0;
+              var all = f.contentDocument.querySelectorAll('body *');
+              for (var i = 0; i < all.length; i++) {
+                var r = all[i].getBoundingClientRect();
+                if (r.right > worstRight) { worstRight = r.right; worst = all[i]; }
+              }
+              rec += 'NG(' + de.scrollWidth + '>' + de.clientWidth + ')';
+              if (worst) {
+                rec += '[' + worst.tagName.toLowerCase() +
+                       (typeof worst.className === 'string' && worst.className ? '.' + worst.className.split(' ')[0] : '') + ']';
+              }
+            } else {
+              rec += 'OK';
+            }
+          } catch (e) {
+            rec += 'ERR(file-access)';
+          }
+          out.push(rec);
+          if (++done === WIDTHS.length) {
+            out.sort();
+            document.title = 'RC ' + slug + ' ' + out.join(' ');
+          }
+        }, 0);
+      };
+      stage.appendChild(f);
+      f.src = slug + '.html';
+    });
+  }
+
+  var qs = new URLSearchParams(location.search);
+  var one = qs.get('page');
+
+  if (!pages.length && !one) {
+    document.getElementById('report').textContent =
+      'pages.js が見つかりません。tools\\build-freepage-previews.ps1 を実行してください。';
+  } else if (one) {
+    singlePage(one);
+  } else {
+    run();
+  }
+})();
+</script>
+
+</body>
+</html>

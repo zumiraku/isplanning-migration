@@ -30,7 +30,7 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 
 | # | Constraint | Impact |
 |---|---|---|
-| C15 | **No 独自ページ → フリーページ converter.** MakeShop states pages must be created anew | 83 free pages rebuilt by hand. Client's "テンプレート化で結構です" is what makes this tractable — 3–4 templates, then content |
+| C15 | **No 独自ページ → フリーページ converter.** MakeShop states pages must be created anew | **Largely closed 2026-09-02.** All 83 converted mechanically, rendered into one template and verified responsive at 375/768/1440 (83/83). Not by hand: `tools/convert-freepages.ps1`. Remaining is judgement work — 63 classes whose styling dies at the switch, 19 chrome-heavy pages to eyeball, 418 inter-page `/html/` links to rewrite once Q7 gives us the new URL shape. See [stage5-freepages.md](stage5-freepages.md) |
 | C16 | **No variable tag for an arbitrary category's product list.** Only 新商品 / おすすめ商品 / スペシャル商品 / ランキング / 最近見た商品 | The top page's seasonal blocks must be re-sourced via 商品グループ, スペシャル商品, or curated static markup. Editorial cost to the client → belongs in Gate A |
 | C17 | **EUC-JP → UTF-8.** Basic Mode is EUC-JP throughout; Creator Mode is UTF-8 | Every salvaged string passes through explicit conversion with a mojibake check. Copy-paste between editors is the classic failure |
 | C18 | **Separate `/smartphone/` site disappears.** `rel="alternate"` + UA detection today | Two URL spaces collapse to one. SEO migration, not just layout: dismantle alternate/canonical, handle indexed `/smartphone/*`, merge SP-only copy |

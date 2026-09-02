@@ -105,6 +105,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Gate B mocks | top page and product detail, real content throughout |
 | Redirect map | 184 at-risk URLs (83 free pages + 101 news) |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
+| Stage 5 free pages | all 83 converted, rendered and **83/83 responsive-clean** — see [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 
 ### Verifying the pricing rebuild
 
@@ -116,6 +117,14 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 No network, no live-site requests: recorded endpoint responses are replayed against
 the real `option-price.js`. It found a defect that would have locked the cart on the
 majority of option-priced products (S0-21) — run it after every change to that file.
+
+### Rebuilding and checking the free pages
+
+```powershell
+.\tools\convert-freepages.ps1        # 83 Basic Mode bodies -> content fragments
+.\tools\build-freepage-previews.ps1  # -> rendered pages + review index
+.\tools\check-responsive.ps1         # every page at 375 / 768 / 1440px
+```
 
 ### Blocked on the MakeShop console
 

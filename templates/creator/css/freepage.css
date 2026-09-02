@@ -1,0 +1,150 @@
+/* =============================================================================
+   freepage.css — the 83 free pages
+   isp-sp.com Creator Mode rebuild. Loads after tokens.css and components.css.
+
+   This file replaces two things:
+
+   1. The parts of the 171 KB Basic Mode system stylesheet the free pages leaned
+      on. That stylesheet does not survive the switch, so every class it styled
+      is unstyled the moment the shop changes mode.
+   2. Thirteen near-identical ~4 KB <style> blocks pasted into pages 68-80 —
+      about 54 KB of duplicated CSS, one copy per page, differing only in
+      per-page anchor offsets. One shared set of rules, defined once, here.
+
+   Every class below is a target of the class map in tools/convert-freepages.ps1.
+   Change one and change the other.
+   ========================================================================== */
+
+/* --- lede: the standing-first paragraph on the column pages ---------------- */
+.lede {
+  font-size: var(--t-md);
+  line-height: var(--lh-loose);
+  color: var(--c-ink-2);
+  margin-bottom: var(--s-6);
+}
+/* The old rule centred this text and hid its <br> below 768px. Centred body
+   copy is harder to read at any width, so it is left ranged-left; the <br>
+   handling is kept because the line breaks were placed for a desktop measure. */
+.lede br { display: none; }
+@media screen and (min-width: 768px) {
+  .lede br { display: inline; }
+}
+
+/* --- linkbox: the "● ...はこちら" call-to-action blocks -------------------- */
+/* Was a fixed 300-420px wide, 42px tall div. Fixed heights clip Japanese text
+   the moment it wraps, which it does on a phone, so this is min-height instead
+   and the width is a max, not a fixed. */
+.linkbox {
+  margin: 0 0 var(--s-4);
+  max-width: 32rem;
+  border: 1px solid var(--c-rule);
+  border-left: 4px solid var(--c-accent);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  transition: background var(--ease), border-color var(--ease);
+}
+.linkbox:hover { background: var(--c-surface-2); border-color: var(--c-accent); }
+.linkbox a {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: var(--s-3) var(--s-4);
+  color: var(--c-ink);
+  text-decoration: none;
+  font-weight: 700;
+}
+.linkbox a p { margin: 0; }
+
+/* --- linklist: the download / guide link lists ----------------------------- */
+.linklist { list-style: none; margin: 0 0 var(--s-5); padding: 0; }
+.linklist li { margin: 0 0 var(--s-2); }
+.linklist li a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: var(--tap-min);
+  padding: var(--s-2) 0;
+}
+.linklist li a::before {
+  content: "";
+  flex: 0 0 auto;
+  width: .5em; height: .5em;
+  border-top: 2px solid var(--c-accent);
+  border-right: 2px solid var(--c-accent);
+  transform: rotate(45deg);
+}
+.linklist p { margin: 0; }
+
+/* --- toc: the numbered in-page contents on the column pages ---------------- */
+/* Replaces .c-pagelink plus the #i1..#i4 anchor-offset hack, which set
+   margin-top:-200px and padding-top:200px on every target so a fixed header
+   would not cover it. scroll-margin-top does that in one line, and does not
+   leave 200px of invisible clickable padding over the preceding element. */
+.toc {
+  margin: 0 0 var(--s-6);
+  padding: var(--s-4) var(--s-5);
+  background: var(--c-surface-2);
+  border-radius: var(--radius);
+  list-style: decimal;
+}
+.toc li { margin: 0 0 var(--s-2) var(--s-4); padding-right: var(--s-2); }
+.toc li:last-child { margin-bottom: 0; }
+.article [id] { scroll-margin-top: var(--s-16); }
+
+/* --- note-kome: the ※ notes ----------------------------------------------- */
+.note-kome {
+  font-size: var(--t-sm);
+  color: var(--c-ink-2);
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+
+/* --- figures that used to float ------------------------------------------- */
+/* 37 images carried float:right with a fixed px width. On a phone that leaves a
+   35%-wide image with body copy squeezed into the remaining column. Below 768px
+   they run full width in the flow; above it, the original intent is restored. */
+.figure--right,
+.figure--left {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 var(--s-4);
+  border-radius: var(--radius);
+}
+@media screen and (min-width: 768px) {
+  .figure--right {
+    float: right;
+    width: 35%;
+    margin: 0 0 var(--s-4) var(--s-5);
+  }
+  .figure--left {
+    float: left;
+    width: 35%;
+    margin: 0 var(--s-5) var(--s-4) 0;
+  }
+}
+/* A float must not escape its section and drag the next heading up beside it. */
+.article h2, .article h3 { clear: both; }
+
+/* --- utilities the conversion maps inline styles onto ---------------------- */
+.u-center { display: block; margin-inline: auto; text-align: center; }
+.u-right  { text-align: right; }
+.u-bold   { font-weight: 700; }
+.u-muted  { color: var(--c-ink-3); }
+.u-alert  { color: var(--c-sale); font-weight: 700; }
+.u-strike { text-decoration: line-through; }
+
+/* --- inherited content safety net ----------------------------------------- */
+/* These pages were written against a fixed 950px desktop column over 12 years.
+   Whatever slips through the conversion must still not break the layout: no
+   image, table, iframe or long unbroken string may push the page sideways. */
+.article img,
+.article iframe,
+.article video { max-width: 100%; }
+.article iframe { width: 100%; aspect-ratio: 4 / 3; border: 0; }
+.article table { max-width: 100%; }
+.article { overflow-wrap: anywhere; word-break: normal; }
+
+/* Old markup used <br> for spacing. Consecutive breaks collapse rather than
+   leaving a hole a third of the screen deep on a phone. */
+.article br + br { display: none; }

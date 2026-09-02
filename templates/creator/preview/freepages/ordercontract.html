@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ja">
+<!--
+  Free-page template — Stage 5.
+
+  This is the shell every one of the 83 free pages renders into. Two archetypes
+  cover 75 of them (article 47, visual-guide 28); the remaining 8 are the four
+  system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
+  one-offs. They share this shell and differ only by the class on <main>.
+
+  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+
+    粗品と景品の発見マーケット 特定商取引に関する法律に基づく表示        <title> — from inventory/freepage-seo-plan.csv
+    粗品と景品の発見マーケット 特定商取引に関する法律に基づく表示  meta description
+    https://www.isp-sp.com/html/ordercontract.html    canonical URL
+    特定商取引に関する法律に基づく表示      the page's own <h1>. Lifted out of the body by the
+                     converter, because the body's leading <h2> WAS the real
+                     heading: every page on the site currently ships the same
+                     <h1> (S0-16). This is where that gets fixed.
+    form    article | visual-guide | form | link-index | table | short-notice
+    <li>特定商取引に関する法律に基づく表示</li>   breadcrumb trail
+    <div class="table-scroll"><table class="table table">
+		<tr>
+			<th>販売業者</th>
+			<td>アイエスプランニング株式会社　　<A class="infoa" href=http://www.isp-sp.com/html/company.html?code=isplanning>会社概要</a></td>
+		</tr>
+<TR>
+        <TH>サイト名称</TH>
+        <TD>粗品と景品の発見マーケット</TD>
+      </TR>
+		<tr>
+			<th>運営統括責任者</th>
+			<td>山口裕二</td>
+		</tr>
+		<tr>
+			<th>所在地</th>
+			<td>〒581-0014<br />大阪府八尾市中田4-132-3</td>
+		</tr>
+		<tr>
+			<th>電話番号</th>
+			<td>072-970-6710</td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td>isp@isp-sp.com</td>
+		</tr>
+		<tr>
+			<th>適格請求書事業者登録番号</th>
+			<td>T6122001024522</td>
+		</tr>
+		<tr>
+			<th>営業時間</th>
+			<td>10時～12時・13時～17時<br>
+			お電話受付時間は、季節により変更となる場合がございます。</td>
+		</tr>
+		<tr>
+			<th>定休日</th>
+			<td>土・日・祝・年末年始・夏季休業日</td>
+		</tr>
+		<tr>
+			<th>販売価格</th>
+			<td>各商品詳細ページに税込価格で表示（一部税別表示）</td>
+		</tr>
+		<tr>
+			<th>商品以外の必要代金</th>
+			<td>
+			・銀行振込でご購入の際の振込手数料<br>
+			・送料（必要時）<br>
+			・名入れ代（必要時）<br>
+			・版代（必要時）<br>
+			・包装代（必要時）<br>
+			・のし代（必要時）<br>
+			・代引手数料は無料です。（サンプル購入時等一部除く）
+			</td>
+		</tr>
+		<tr>
+			<th>申し込みの有効期限</th>
+			<td>原則、受注確認（受注確認の為の自動送信メール発信）後、5日間とします。</td>
+		</tr>
+		<tr>
+			<th>不良品</th>
+			<td>商品到着日から7日間以内に生じました初期不良に付きましては交換もしくは不良数量分のご返金にて対応をいたします。先ずメール、FAXにてご連絡の程お願いいたします。</td>
+		</tr>
+		<tr>
+			<th>販売数量</th>
+			<td>特に指定はございません（商品によって設定あり）</td>
+		</tr>
+		<tr>
+			<th>引き渡し時期</th>
+			<td>
+			ご注文受付後、10日以内にお届けいたします。<br>
+			在庫切れはお客様確認後入荷次第発送。<br>
+			（実質翌営業日～3日程で発送、名入れ・包装・のし商品等は都度ご案内いたします）<br>
+			天候不順・配送業者の都合・その他何らかの理由により遅延する場合はメール等でお知らせいたします。<br>
+			また、海外からの輸入事情・在庫数量・または運送上の事故等により、お約束の納期に遅れる場合があります。<br>
+			メーカー品は都合上、急な製造打ち切りや、不慮の事故等もございますので、代替商品等でお願いいたします場合もございますのでご理解の程お願いいたします。
+			</td>
+		</tr>
+		<tr>
+			<th>お支払い方法</th>
+			<td>
+			銀行振込・代金引換<br>
+			お振込みの場合はご入金確認後の出荷準備になります。<br>
+			（利用予定銀行：三菱ＵＦＪ銀行）<br>
+			代引きの場合、デビットカード（選択時）・クレジットカード（選択時）でのお支払いも可能です（佐川急便e-collect ）<br>
+			代引きの場合、領収書は代金をお支払いと引き換えに佐川急便の配達ドライバーさんが発行いたしますので必ず受け取るようにお願いいたします。
+		</tr>
+		<tr>
+			<th>お支払い期限</th>
+			<td>
+				<p>
+				-銀行振込の場合<br>
+				ご注文日より5日以内に当店指定の口座へお振込みください。（三菱ＵＦＪ銀行）<br>
+				5日を超えた場合は一旦キャンセル扱いとさせていただきます。<br>
+				再度、御注文いただきますようお願いします。
+				</p>
+				<p>
+				-代金引換の場合<br>
+				商品のお届け時に、佐川急便配達員に代金のお支払いをお願いします。
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<th>返品期限</th>
+			<td>商品の返品・交換には初期不良、発送商品間違いの場合以外では応じられません。</td>
+		</tr>
+		<tr>
+			<th>返品送料</th>
+			<td>初期不良、発送商品間違いの場合、当店着払いにて対応いたします。      the converted body fragment from templates/creator/freepages/
+
+  When this becomes a real Creator Mode template, the chrome below is replaced
+  by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared
+  header/footer include — and the placeholders map onto the page's own fields.
+  The markup and the CSS hooks do not change, which is the point of building it
+  this way: the review below is a review of the real thing.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粗品と景品の発見マーケット 特定商取引に関する法律に基づく表示</title>
+<meta name="description" content="粗品と景品の発見マーケット 特定商取引に関する法律に基づく表示">
+<link rel="canonical" href="https://www.isp-sp.com/html/ordercontract.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../../css/freepage.css">
+</head>
+<body>
+
+<div class="utilbar">
+  <div class="container utilbar__inner">
+    <span>30,000円(税別)以上で送料無料 ※離島除く／代引無料</span>
+    <span>2000年8月オープン｜25年間の粗品販売実績</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-logo" href="../top.html">発見マーケット<small>粗品・景品・ノベルティの名入れ通販</small></a>
+    <form class="searchbox" role="search" action="#">
+      <label class="visually-hidden" for="q">商品を検索</label>
+      <input id="q" type="text" name="search" placeholder="商品名・キーワードで検索">
+      <button type="submit">検索</button>
+    </form>
+    <div class="site-header__contact"><b>072-970-6710</b>平日10時〜12時／13時〜17時（土日祝休）</div>
+    <div class="site-header__tools"><a class="cartlink" href="#">カート <b>0</b>点</a></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" aria-label="パンくず">
+    <ol>
+      <li><a href="../top.html">ホーム</a></li>
+      <li>特定商取引に関する法律に基づく表示</li>
+    </ol>
+  </nav>
+</div>
+
+<main class="container" data-archetype="form">
+
+  <h1 class="h-page">特定商取引に関する法律に基づく表示</h1>
+
+  <div class="article">
+<div class="table-scroll"><table class="table table">
+		<tr>
+			<th>販売業者</th>
+			<td>アイエスプランニング株式会社　　<A class="infoa" href=http://www.isp-sp.com/html/company.html?code=isplanning>会社概要</a></td>
+		</tr>
+<TR>
+        <TH>サイト名称</TH>
+        <TD>粗品と景品の発見マーケット</TD>
+      </TR>
+		<tr>
+			<th>運営統括責任者</th>
+			<td>山口裕二</td>
+		</tr>
+		<tr>
+			<th>所在地</th>
+			<td>〒581-0014<br />大阪府八尾市中田4-132-3</td>
+		</tr>
+		<tr>
+			<th>電話番号</th>
+			<td>072-970-6710</td>
+		</tr>
+		<tr>
+			<th>メールアドレス</th>
+			<td>isp@isp-sp.com</td>
+		</tr>
+		<tr>
+			<th>適格請求書事業者登録番号</th>
+			<td>T6122001024522</td>
+		</tr>
+		<tr>
+			<th>営業時間</th>
+			<td>10時～12時・13時～17時<br>
+			お電話受付時間は、季節により変更となる場合がございます。</td>
+		</tr>
+		<tr>
+			<th>定休日</th>
+			<td>土・日・祝・年末年始・夏季休業日</td>
+		</tr>
+		<tr>
+			<th>販売価格</th>
+			<td>各商品詳細ページに税込価格で表示（一部税別表示）</td>
+		</tr>
+		<tr>
+			<th>商品以外の必要代金</th>
+			<td>
+			・銀行振込でご購入の際の振込手数料<br>
+			・送料（必要時）<br>
+			・名入れ代（必要時）<br>
+			・版代（必要時）<br>
+			・包装代（必要時）<br>
+			・のし代（必要時）<br>
+			・代引手数料は無料です。（サンプル購入時等一部除く）
+			</td>
+		</tr>
+		<tr>
+			<th>申し込みの有効期限</th>
+			<td>原則、受注確認（受注確認の為の自動送信メール発信）後、5日間とします。</td>
+		</tr>
+		<tr>
+			<th>不良品</th>
+			<td>商品到着日から7日間以内に生じました初期不良に付きましては交換もしくは不良数量分のご返金にて対応をいたします。先ずメール、FAXにてご連絡の程お願いいたします。</td>
+		</tr>
+		<tr>
+			<th>販売数量</th>
+			<td>特に指定はございません（商品によって設定あり）</td>
+		</tr>
+		<tr>
+			<th>引き渡し時期</th>
+			<td>
+			ご注文受付後、10日以内にお届けいたします。<br>
+			在庫切れはお客様確認後入荷次第発送。<br>
+			（実質翌営業日～3日程で発送、名入れ・包装・のし商品等は都度ご案内いたします）<br>
+			天候不順・配送業者の都合・その他何らかの理由により遅延する場合はメール等でお知らせいたします。<br>
+			また、海外からの輸入事情・在庫数量・または運送上の事故等により、お約束の納期に遅れる場合があります。<br>
+			メーカー品は都合上、急な製造打ち切りや、不慮の事故等もございますので、代替商品等でお願いいたします場合もございますのでご理解の程お願いいたします。
+			</td>
+		</tr>
+		<tr>
+			<th>お支払い方法</th>
+			<td>
+			銀行振込・代金引換<br>
+			お振込みの場合はご入金確認後の出荷準備になります。<br>
+			（利用予定銀行：三菱ＵＦＪ銀行）<br>
+			代引きの場合、デビットカード（選択時）・クレジットカード（選択時）でのお支払いも可能です（佐川急便e-collect ）<br>
+			代引きの場合、領収書は代金をお支払いと引き換えに佐川急便の配達ドライバーさんが発行いたしますので必ず受け取るようにお願いいたします。
+		</tr>
+		<tr>
+			<th>お支払い期限</th>
+			<td>
+				<p>
+				-銀行振込の場合<br>
+				ご注文日より5日以内に当店指定の口座へお振込みください。（三菱ＵＦＪ銀行）<br>
+				5日を超えた場合は一旦キャンセル扱いとさせていただきます。<br>
+				再度、御注文いただきますようお願いします。
+				</p>
+				<p>
+				-代金引換の場合<br>
+				商品のお届け時に、佐川急便配達員に代金のお支払いをお願いします。
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<th>返品期限</th>
+			<td>商品の返品・交換には初期不良、発送商品間違いの場合以外では応じられません。</td>
+		</tr>
+		<tr>
+			<th>返品送料</th>
+			<td>初期不良、発送商品間違いの場合、当店着払いにて対応いたします。
+  </div>
+
+  <p class="u-center" style="margin-top:var(--s-10)">
+    <a class="btn btn--primary" href="../top.html">粗品・景品をさがす</a>
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container site-footer__cols">
+    <div>
+      <b>粗品と景品の発見マーケット</b>
+      <p>アイエスプランニング株式会社<br>〒581-0014 大阪府八尾市中田4-132-3<br>TEL 072-970-6710</p>
+    </div>
+    <div>
+      <b>ご利用案内</b>
+      <ul class="linklist">
+        <li><a href="info.html">ショッピングガイド</a></li>
+        <li><a href="ordercontract.html">特定商取引法に基づく表示</a></li>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="page1.html">注文・見積用紙ダウンロード</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <small>&copy; アイエスプランニング株式会社</small>
+  </div>
+</footer>
+
+</body>
+</html>

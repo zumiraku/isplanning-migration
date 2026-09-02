@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+<!--
+  Free-page template — Stage 5.
+
+  This is the shell every one of the 83 free pages renders into. Two archetypes
+  cover 75 of them (article 47, visual-guide 28); the remaining 8 are the four
+  system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
+  one-offs. They share this shell and differ only by the class on <main>.
+
+  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+
+    粗品と景品の発見マーケット ISPLANNING        <title> — from inventory/freepage-seo-plan.csv
+    粗品と景品の発見マーケット ISPLANNING  meta description
+    https://www.isp-sp.com/html/page83.html    canonical URL
+    粗品・景品の発見マーケット　カテゴリー　バナー      the page's own <h1>. Lifted out of the body by the
+                     converter, because the body's leading <h2> WAS the real
+                     heading: every page on the site currently ships the same
+                     <h1> (S0-16). This is where that gets fixed.
+    visual-guide    article | visual-guide | form | link-index | table | short-notice
+    <li>粗品・景品の発見マーケット　カテゴリー　バナー</li>   breadcrumb trail
+    <ul class="categotybanner">
+<div class="sample3">
+<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_unit3.png" alt="数量選択可能"></li><a href="/shopbrand/ct667/"><div class="mask"><div class="caption">ロット単位で多すぎる場合は、<br>数量選択可能商品ページでご検討ください</div></div></a></div>
+<div class="sample4">
+<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner5.svg" alt="季節で選ぶ"></li><a href="/html/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
+<div class="sample4">
+<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname.svg" alt="包装のし名入れ"></li><a href="/html/page2.html"><div class="mask"><div class="caption">粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
+</ul>
+
+<ul class="categotybanner">
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner7.png" alt="季節で選ぶ"></li><a href="/html/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname3.png" alt="包装のし名入れ"></li><a href="/html/page2.html"><div class="mask"><div class="caption">粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
+</ul>
+
+<ul class="categotybanner">
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_sp_spring2.png" alt="春画像"></li><div class="mask"><div class="caption">春の粗品に最適な、母の日、バレンタインデー、<br>桜柄の景品をお探しの方は、<br>発見マーケットをご利用ください。<br>販売単位もご相談可能商品もございます。</div></div></div>
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_mothersday.jpg" alt="母の日画像"></li><div class="mask"><div class="caption">母の日に最適な粗品の販売ページです。カーネーションやバラをモチーフにした商品が人気です。バッグやポーチなどの小物、日傘やアームカバーなどの紫外線対策グッズなどもおすすめです。</div></div></div>
+</ul>
+
+</div      the converted body fragment from templates/creator/freepages/
+
+  When this becomes a real Creator Mode template, the chrome below is replaced
+  by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared
+  header/footer include — and the placeholders map onto the page's own fields.
+  The markup and the CSS hooks do not change, which is the point of building it
+  this way: the review below is a review of the real thing.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粗品と景品の発見マーケット ISPLANNING</title>
+<meta name="description" content="粗品と景品の発見マーケット ISPLANNING">
+<link rel="canonical" href="https://www.isp-sp.com/html/page83.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/tokens.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../../css/freepage.css">
+</head>
+<body>
+
+<div class="utilbar">
+  <div class="container utilbar__inner">
+    <span>30,000円(税別)以上で送料無料 ※離島除く／代引無料</span>
+    <span>2000年8月オープン｜25年間の粗品販売実績</span>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-logo" href="../top.html">発見マーケット<small>粗品・景品・ノベルティの名入れ通販</small></a>
+    <form class="searchbox" role="search" action="#">
+      <label class="visually-hidden" for="q">商品を検索</label>
+      <input id="q" type="text" name="search" placeholder="商品名・キーワードで検索">
+      <button type="submit">検索</button>
+    </form>
+    <div class="site-header__contact"><b>072-970-6710</b>平日10時〜12時／13時〜17時（土日祝休）</div>
+    <div class="site-header__tools"><a class="cartlink" href="#">カート <b>0</b>点</a></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" aria-label="パンくず">
+    <ol>
+      <li><a href="../top.html">ホーム</a></li>
+      <li>粗品・景品の発見マーケット　カテゴリー　バナー</li>
+    </ol>
+  </nav>
+</div>
+
+<main class="container" data-archetype="visual-guide">
+
+  <h1 class="h-page">粗品・景品の発見マーケット　カテゴリー　バナー</h1>
+
+  <div class="article">
+<ul class="categotybanner">
+<div class="sample3">
+<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_unit3.png" alt="数量選択可能"></li><a href="/shopbrand/ct667/"><div class="mask"><div class="caption">ロット単位で多すぎる場合は、<br>数量選択可能商品ページでご検討ください</div></div></a></div>
+<div class="sample4">
+<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner5.svg" alt="季節で選ぶ"></li><a href="/html/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
+<div class="sample4">
+<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname.svg" alt="包装のし名入れ"></li><a href="/html/page2.html"><div class="mask"><div class="caption">粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
+</ul>
+
+<ul class="categotybanner">
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner7.png" alt="季節で選ぶ"></li><a href="/html/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname3.png" alt="包装のし名入れ"></li><a href="/html/page2.html"><div class="mask"><div class="caption">粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
+</ul>
+
+<ul class="categotybanner">
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_sp_spring2.png" alt="春画像"></li><div class="mask"><div class="caption">春の粗品に最適な、母の日、バレンタインデー、<br>桜柄の景品をお探しの方は、<br>発見マーケットをご利用ください。<br>販売単位もご相談可能商品もございます。</div></div></div>
+<div class="sample2"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_mothersday.jpg" alt="母の日画像"></li><div class="mask"><div class="caption">母の日に最適な粗品の販売ページです。カーネーションやバラをモチーフにした商品が人気です。バッグやポーチなどの小物、日傘やアームカバーなどの紫外線対策グッズなどもおすすめです。</div></div></div>
+</ul>
+
+</div
+  </div>
+
+  <p class="u-center" style="margin-top:var(--s-10)">
+    <a class="btn btn--primary" href="../top.html">粗品・景品をさがす</a>
+  </p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container site-footer__cols">
+    <div>
+      <b>粗品と景品の発見マーケット</b>
+      <p>アイエスプランニング株式会社<br>〒581-0014 大阪府八尾市中田4-132-3<br>TEL 072-970-6710</p>
+    </div>
+    <div>
+      <b>ご利用案内</b>
+      <ul class="linklist">
+        <li><a href="info.html">ショッピングガイド</a></li>
+        <li><a href="ordercontract.html">特定商取引法に基づく表示</a></li>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="page1.html">注文・見積用紙ダウンロード</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <small>&copy; アイエスプランニング株式会社</small>
+  </div>
+</footer>
+
+</body>
+</html>

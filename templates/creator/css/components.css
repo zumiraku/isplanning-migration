@@ -295,8 +295,21 @@ ul, ol { margin: 0; padding: 0; }
   .site-header__contact { display: block; }
 }
 
-.searchbox { display: flex; width: 100%; max-width: 26rem; }
-.searchbox input { flex: 1; min-height: var(--tap-min); padding: var(--s-2) var(--s-3); border: 1px solid var(--c-rule); border-right: 0; border-radius: var(--radius) 0 0 var(--radius); font-size: 16px; font-family: var(--f-body); }
+/* Below the desktop breakpoint the search box takes its own row. In the two
+   column grid it was landing in the `auto` column beside the logo, where its
+   size came from the input's intrinsic width (~290px with the button) rather
+   than from the space available — which pushed the header, and therefore every
+   page, into a horizontal scroll at 375px. `min-width: 0` on both the flex
+   container and the input is what actually lets it shrink. */
+.searchbox { display: flex; width: 100%; max-width: 26rem; min-width: 0; }
+/* Stated as max-width and placed after the base rule, not as a reset inside the
+   min-width block above: those two selectors have equal specificity, so the one
+   further down the file wins whatever the media query says, and the desktop
+   header stayed stacked at 1440px. */
+@media screen and (max-width: 960px) {
+  .searchbox { grid-column: 1 / -1; }
+}
+.searchbox input { flex: 1; min-width: 0; min-height: var(--tap-min); padding: var(--s-2) var(--s-3); border: 1px solid var(--c-rule); border-right: 0; border-radius: var(--radius) 0 0 var(--radius); font-size: 16px; font-family: var(--f-body); }
 .searchbox button { min-height: var(--tap-min); padding-inline: var(--s-4); border: 0; border-radius: 0 var(--radius) var(--radius) 0; background: var(--c-primary); color: #fff; font-weight: 700; cursor: pointer; }
 .searchbox button:hover { background: var(--c-primary-dark); }
 
