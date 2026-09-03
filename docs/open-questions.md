@@ -76,7 +76,9 @@ member registration, login and mypage. This sets the ceiling on design consisten
 the client should hear it from us before he notices it himself.
 
 ### Q7 — What is the フリーページ URL pattern, and are redirects possible? `OPEN`
-Current free pages are `/html/pageNN.html` (83 of them). No converter exists from
+Current free pages are `/html/pageNN.html`. The sitemap listed 83; the admin list
+shows **120** (confirmed 2026-09-03), so 37 are unaccounted for. No converter
+exists from
 独自ページ to フリーページ. If the new URLs differ and MakeShop offers no redirect
 facility, we need a mitigation plan (internal link rewriting, sitemap, Search Console)
 and the client needs to know before Gate A.

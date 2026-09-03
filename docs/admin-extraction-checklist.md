@@ -39,32 +39,37 @@ does `/shop/shopdetail_option.html` still work under Creator Mode?
 
 ---
 
-## B. Independent page source — 83 in the sitemap, **at least 87 in reality** 🔴
+## B. Independent page source — **120 pages**, we hold 83 🔴
 
-`デザイン管理 → 独自ページ`. For each, capture the **source HTML as entered** plus its
-title and URL → `templates/basic-export/freepages/pageNN.html`.
+`デザイン管理 → 独自ページ` (the client's console may label this menu differently —
+the path above is from the MakeShop manual, not from his screen).
 
-**Start by counting the list, before exporting anything.** The sitemap says 83. Four
-more are linked from the live site and appear in neither the sitemap nor our
-archive (found 2026-09-03 by diffing every `/html/` link in the corpus):
+**The list shows 120.** The client confirmed the count on 2026-09-03. The sitemap
+listed 83, which is what we crawled and converted, so **37 pages have never been
+seen** — no URL, no title, no idea whether they are live.
 
-| Page | Linked from |
-|---|---:|
-| `/html/page4.html` | 30 free pages |
-| `/html/page19.html` | 20 free pages |
-| `/html/privacy.html` | 20 free pages |
-| `/html/email.html` | 2 free pages |
+The single most valuable thing from this screen is **the list itself**: names or
+numbers for all 120, however rough. That turns 37 unknowns into a finite list.
 
-`privacy.html` is the privacy policy. `page4` is linked from more than a third of
-the free pages. None can be crawled — the shop returns 403 to our automated
-requests and that rule stands — so **this screen is the only way to get them**, and
-its list is authoritative in a way the sitemap has now twice failed to be (the
-other time being the 912-URL smartphone space, S0-19).
+Then capture the source HTML as entered, plus title and URL, for the pages we do
+not hold → `templates/basic-export/freepages/pageNN.html`.
 
-If the admin list shows more than 87, capture those too and tell us the count.
+Four are known by name because the live site links to them:
 
-We can reconstruct the 83 from `snapshot/` if needed, but the admin source is free
-of the surrounding chrome and far cleaner to port.
+| Page | Title to look for |
+|---|---|
+| `page4.html` | エスピーソース / SP SOURCE カタログ・名入れのご案内 |
+| `page19.html` | 卓上カレンダーを使うメリット |
+| `email.html` | お問い合わせ |
+| `privacy.html` | 個人情報保護ポリシー |
+
+`privacy` has no ordinary link anywhere — the footer opens it with JavaScript —
+which is why neither the sitemap nor the crawl ever found it.
+
+These four can also be fetched without the admin at all: they are live, and a
+person opening them in a browser and saving the HTML into `snapshot/manual/`
+gives us the same thing. See that folder's README.
+
 ---
 
 ## C. All 607 category titles and descriptions 🔴 *unrecoverable after the switch*

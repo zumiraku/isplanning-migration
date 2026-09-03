@@ -345,6 +345,41 @@ Worth writing down, because each wrong answer looked plausible:
 A diff between two templates of the same content is mostly noise. The number
 only became trustworthy once each source of noise was named and removed.
 
+
+## The admin lists 120 free pages, not 83 🔴 *2026-09-03*
+
+The client read the count off the 独自ページ list in the console: **120**.
+
+| Source | Count | |
+|---|---:|---|
+| Client's original estimate | 60〜70 | in the brief |
+| sitemap.xml | 83 | what we crawled and converted |
+| Links found in the corpus | ≥87 | page4, page19, privacy, email |
+| **Admin 独自ページ list** | **120** | the only authoritative source |
+
+**So 37 pages are invisible from outside.** Not in the sitemap, not linked from
+anything in the 195-page archive, never crawled. We do not know their URLs, their
+titles or whether they are live, orphaned drafts or seasonal pages left in place.
+
+That makes this the third time the sitemap has under-reported — after the 912-URL
+smartphone space (S0-19) and the four linked-but-unlisted pages. It is not an
+inventory of anything and should not be treated as one again.
+
+### What this changes
+
+- **Stage 5 is 83 of 120, not complete.** Every count in this document describes
+  the 83 we hold; they are all still true of those 83.
+- The two archetypes cover 75 of 83. Whether they cover the other 37 is unknown —
+  a third template may be needed.
+- The redirect map is missing 37 rows.
+- Gate C cannot honestly be called ready on 83 pages while 37 are unexamined.
+
+### What is needed
+
+The page list itself: names or numbers for all 120, however rough. That turns 37
+unknown pages into a finite list, and it is the difference between "we converted
+what the sitemap showed" and "we converted the shop".
+
 ## Still open
 
 | | |
