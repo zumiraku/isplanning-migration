@@ -522,3 +522,14 @@ ul, ol { margin: 0; padding: 0; }
   .utilbar__inner { justify-content: space-between; }
   .utilbar__links { margin-left: auto; }
 }
+
+/* A card whose whole surface is the link: the anchor has to be the flex column,
+   or .card__body never stretches and .card__price loses its margin-top:auto -
+   which leaves prices sitting at different heights across a row, tied to how
+   many lines each product name happens to take. */
+.card > a {
+  display: flex; flex-direction: column; flex: 1;
+  color: inherit; text-decoration: none;
+}
+.card > a:hover { text-decoration: none; }
+.card > a:hover .card__name { color: var(--c-primary); }

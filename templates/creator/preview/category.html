@@ -71,35 +71,54 @@
     <li><a href="#">500円〜599円</a></li>
   </ul>
 
+  <!--
+    The five sort options the live category page actually offers, with the
+    platform values behind them: 新着順 order / おすすめ順 recommend /
+    単価順 product / 価格 price / 商品名 brandname.
+
+    The mock previously listed four, invented rather than observed, and dropped
+    単価順 - which on this shop is not a minor option. Everything is priced by
+    tiered unit price, and a buyer choosing between 500 novelty items compares
+    単価 before anything else.
+  -->
   <div class="listbar">
-    <span class="listbar__count">全 <b>128</b> 件中 1〜20件を表示</span>
-    <label class="listbar__sort">並び順
+    <span class="listbar__count">全 <b>1,983</b> 件中 1〜20件を表示</span>
+    <label class="listbar__sort">並び替え
       <select>
-        <option>おすすめ順</option>
-        <option>価格の安い順</option>
-        <option>価格の高い順</option>
-        <option>新着順</option>
+        <option value="order">新着順</option>
+        <option value="recommend">おすすめ順</option>
+        <option value="product">単価順</option>
+        <option value="price">価格</option>
+        <option value="brandname">商品名</option>
       </select>
     </label>
   </div>
 
+  <!--
+    Real rows from the archived listing (shopbrand/003/003/X), not invented.
+    The information order follows the live card, which is the B2B one: 単価 and
+    the lot size first, because a buyer choosing between novelty items compares
+    unit price before anything else, then 販売価格 as the tax-inclusive total.
+    The mock previously led with a 税別 headline, which is not the number the
+    live listing shows.
+  -->
   <ul class="grid">
-    <li class="card"><div class="card__media"><div class="card__flags"><span class="badge badge--naire">名入れ可</span></div></div>
-      <div class="card__body"><span class="card__code">SP34460</span><span class="card__name">マックス ハンコ 角型 Ω型 ポンポン木製スタンプ</span><span class="card__unit">10個〜／単価 ¥338</span><span class="card__price">¥3,380 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"></div>
-      <div class="card__body"><span class="card__code">SP21870</span><span class="card__name">今治タオル ハンドタオル 名入れ対応</span><span class="card__unit">50個〜／単価 ¥226</span><span class="card__price">¥11,300 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"><div class="card__flags"><span class="badge badge--new">新商品</span></div></div>
-      <div class="card__body"><span class="card__code">SP19022</span><span class="card__name">エコカイロ 繰り返し使えるあったかグッズ</span><span class="card__unit">100個〜／単価 ¥198</span><span class="card__price">¥19,800 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"></div>
-      <div class="card__body"><span class="card__code">SP30114</span><span class="card__name">防災セット 5点入り 非常用持ち出し袋</span><span class="card__unit">30個〜／単価 ¥245</span><span class="card__price">¥7,350 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"><div class="card__flags"><span class="badge badge--sale">SALE</span></div></div>
-      <div class="card__body"><span class="card__code">SP11204</span><span class="card__name">名入れボールペン 多機能タイプ</span><span class="card__unit">100個〜／単価 ¥168</span><span class="card__price">¥16,800 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"></div>
-      <div class="card__body"><span class="card__code">SP27731</span><span class="card__name">扇子 和柄 名入れ対応</span><span class="card__unit">50個〜／単価 ¥192</span><span class="card__price">¥9,600 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"><div class="card__flags"><span class="badge badge--soldout">品切れ</span></div></div>
-      <div class="card__body"><span class="card__code">SP15588</span><span class="card__name">ブランケット ひざ掛け 起毛タイプ</span><span class="card__unit">40個〜／単価 ¥233</span><span class="card__price">¥9,320 <small>(税別)</small></span></div></li>
-    <li class="card"><div class="card__media"></div>
-      <div class="card__body"><span class="card__code">SP22940</span><span class="card__name">卓上カレンダー 2027年版</span><span class="card__unit">15個〜／単価 ¥292</span><span class="card__price">¥4,380 <small>(税別)</small></span></div></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">JM2623302</span><span class="card__name">健康長寿フェイスタオル(小紋ストライプ柄)</span><span class="card__unit">単価 158円（税別）／200個入</span><span class="card__price">¥34,760 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">JM2623301</span><span class="card__name">健康長寿フェイスタオル(来福亀甲柄)</span><span class="card__unit">単価 158円（税別）／200個入</span><span class="card__price">¥34,760 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377301</span><span class="card__name">備えて安心 エマ缶3点セット</span><span class="card__unit">単価 199円（税別）／120個入</span><span class="card__price">¥26,268 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377341</span><span class="card__name">ネイティブ柄スティックレジャーシート1個</span><span class="card__unit">単価 199円（税別）／120個入</span><span class="card__price">¥26,268 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377381</span><span class="card__name">あったかアイマスク2枚組</span><span class="card__unit">単価 159円（税別）／160個入</span><span class="card__price">¥27,984 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377501</span><span class="card__name">マルチセルフケア ガラスリムーバー</span><span class="card__unit">単価 199円（税別）／120個入</span><span class="card__price">¥26,268 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2326640</span><span class="card__name">繰り返し使えるシリコンラップ大・小セット</span><span class="card__unit">単価 199円（税別）／200個入</span><span class="card__price">¥43,780 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2326670</span><span class="card__name">再生アルミニウムボールペン</span><span class="card__unit">単価 100円（税別）／360個入</span><span class="card__price">¥39,600 <small>(税込)</small></span></div></a></li>
   </ul>
 
   <ul class="pager">
