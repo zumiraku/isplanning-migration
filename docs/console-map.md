@@ -262,3 +262,59 @@ something that might not need reproducing.
 The blue 更新 button at the bottom writes the setting for every page of the
 chosen type. Changing 対象設定 or expanding a section is safe; pressing 更新 is
 not, and anyone sent to this screen needs telling.
+
+### SEO設定 — the three page types, and where the 607 titles really live
+
+The 対象設定 dropdown holds exactly three entries:
+
+```
+商品詳細ページ ✓
+カテゴリページ
+その他のページ
+```
+
+**No site-wide option.** So the body-tag message exists in three slots, not one.
+
+#### カテゴリページ: 個別設定を適用する 🔴
+
+The radio is set to **個別設定を適用する**, and the screen states plainly:
+
+> 個別設定を選択した場合、SEO設定は**カテゴリ設定画面**から設定出来ます。
+
+The 一括設定 fields are greyed out, showing only their defaults
+(`[category]｜粗品と景品の発見マーケット`).
+
+**That is where the 607 titles are: one per category, in カテゴリ設定画面, not
+here.** It also means the shop deliberately chose per-category titles over a
+rule — the bulk setting exists and is switched off.
+
+So Gate A's decision (A) is not "can a rule reproduce them" alone. It is:
+
+| | |
+|---|---|
+| Keep 個別設定 | If Creator Mode keeps per-category SEO fields, nothing needs reproducing at all and C4 dissolves |
+| Switch to 一括設定 | A rule reproduces 294 of 607 exactly (measured), the rest drift in wording |
+
+**C4's premise — that Creator Mode disables per-category titles — has to be
+checked against カテゴリ設定画面 before the client is asked anything.** If it
+survives, we have been planning to solve a problem that does not exist.
+
+#### Both category variables are available
+
+For カテゴリページ the variable list is:
+
+| 項目 | 変数 |
+|---|---|
+| カテゴリ名 | `[category]` |
+| 現在カテゴリ名 | `[currentcategory]` |
+| ショップ名 | `[shopname]` |
+
+So the two-variable rule is implementable in principle. Whether `[category]`
+means the parent is still unproven — the shop uses 個別設定, so its own templates
+do not demonstrate it.
+
+#### The tags are not here either
+
+`bodyタグ直下メッセージ` for カテゴリページ: **残り50,000文字**, empty. Two of the
+three slots checked, both empty. One left (その他のページ), and if that is empty
+too then GA4 comes from somewhere outside this screen entirely.
