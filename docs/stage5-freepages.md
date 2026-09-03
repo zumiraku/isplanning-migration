@@ -247,6 +247,59 @@ Q10 still stands: whether the calendar is a platform feature or pasted HTML deci
 whether we embed a tag or generate it. The markup is platform-shaped
 (`<font color=#FF0033>`, `bgcolor`), so a tag is likely.
 
+
+## Navigation coverage sweep — 2026-09-03
+
+Converting a page is not much use if nothing links to it. This sweep took every
+class and every link destination out of the four archived page types (top,
+category, product, cart) and asked which ones nothing in our templates accounts
+for.
+
+### What it found: six free pages had become unreachable
+
+The Basic Mode left sidebar (`#M_leftContents` / `#O_sideMenu`) was the only
+route to these:
+
+| Page | | In our set |
+|---|---|---|
+| `page3` | 名入れサンプル・名入れのメリット | yes |
+| `page5` | 季節で選ぶ粗品 | yes |
+| `page6` | メールマガジン登録 | yes |
+| `page8` | シーンで選ぶ | yes |
+| `page9` | 商品別カテゴリー | yes |
+| `page4` | エスピーソースカタログ | **never captured** |
+
+Plus `info.html#about_receipt`, the インボイス制度 anchor.
+
+Dropping the sidebar was right — a fixed left column of links is a poor use of a
+phone screen, and the category tree lives in the header nav now. But nothing
+picked up its content, so five converted pages and one uncaptured one had no
+inbound link from anywhere in the rebuild. They would have shipped as orphans:
+still at their URLs, still indexed for a while, reachable only by typing the
+address.
+
+All of it now lives in a four-column footer, present on every template.
+
+### page4 and privacy now have placeholder pages
+
+Both are linked from the live site and neither was ever captured. Rather than
+leave two dead links in the review, each has a fragment saying plainly that the
+page is still to be recovered from the admin. The preview builder was changed to
+walk the fragments on disk rather than the conversion report, so pages we do not
+yet hold still appear — the gap stays visible instead of being skipped.
+
+### One bug this turned up in the tooling
+
+The builders rewrote free-page links for root-level pages from a fixed list of
+four names. The new footer links to nine, so the other five silently pointed at
+files that were not there — the same class of bug the footer was added to fix.
+Now a pattern, not a list.
+
+### Verified
+
+**1,679 internal links across 98 pages, none broken.** 85 free pages and 8
+templates all pass at 375 / 768 / 1440.
+
 ## Still open
 
 | | |

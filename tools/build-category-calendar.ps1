@@ -218,10 +218,12 @@ $page = $page.Replace('{{BREADCRUMB}}',  '<li>卓上カレンダー</li>')
 $page = $page.Replace('{{CSSPATH}}',     '../css/')
 $page = $page.Replace('{{CONTENT}}',     $sb.ToString())
 $page = $page.Replace('href="../top.html"', 'href="top.html"')
-$page = $page.Replace('href="info.html"', 'href="freepages/info.html"')
-$page = $page.Replace('href="ordercontract.html"', 'href="freepages/ordercontract.html"')
-$page = $page.Replace('href="company.html"', 'href="freepages/company.html"')
-$page = $page.Replace('href="page1.html"', 'href="freepages/page1.html"')
+# The shell is written for pages inside preview/freepages/, so every free-page
+# link has to be rewritten for a page sitting one level up. Done as a pattern
+# rather than a list of four names: the footer now links to nine free pages, and
+# the fixed list silently left the other five pointing at files that are not
+# there - which is precisely the class of bug this footer was added to fix.
+$page = [regex]::Replace($page, 'href="((?:page\d+|info|company|ordercontract|privacy)\.html)', 'href="freepages/$1')
 
 [System.IO.File]::WriteAllText($out, $page, $enc)
 

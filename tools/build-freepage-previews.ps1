@@ -55,10 +55,21 @@ function HtmlEscape([string]$s) {
 
 $rows = New-Object System.Collections.Generic.List[object]
 
-foreach ($r in $report) {
-  $slug = $r.slug
-  $fragPath = Join-Path $fragDir ($slug + '.html')
-  if (-not (Test-Path $fragPath)) { continue }
+# Driven by the fragments on disk, not by the conversion report.
+#
+# The report covers the 83 pages the sitemap listed. Two more - page4 and
+# privacy - are linked from the live site, were never captured, and now carry a
+# placeholder fragment so the footer links resolve and the gap is visible in the
+# review rather than showing up as a dead link. Iterating the report would skip
+# exactly the pages we most want to keep in front of us.
+$reportBySlug = @{}
+foreach ($row in $report) { $reportBySlug[$row.slug] = $row }
+
+foreach ($frag in (Get-ChildItem $fragDir -Filter '*.html' | Sort-Object Name)) {
+  $slug = $frag.BaseName
+  $fragPath = $frag.FullName
+  $r = $reportBySlug[$slug]
+  if (-not $r) { $r = [pscustomobject]@{ slug = $slug; page_heading = ''; bytes_out = $frag.Length; images = 0; tables = 0; review = 'not yet captured'; classes_unmapped = 0; freepage_links = 0 } }
   $content = [System.IO.File]::ReadAllText($fragPath, $utf8)
 
   $arch = 'article'
