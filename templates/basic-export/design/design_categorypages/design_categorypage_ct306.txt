@@ -1,0 +1,90 @@
+<div class="M_mainContents" id="M_category">
+	<!--▼商品分類段階リンク-->
+	<div class="M_topicPath">
+	<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]
+	</div>
+	
+	<!--▼商品カテゴリー名-->
+	<h2>[NAMECURRENT]の粗品</h2>
+
+	<div id="O_subCategory">
+	[GROUP4_0]
+	</div>
+
+<ul class="categotybanner">
+<div class="sample2">
+<li>[CATEGORY_IMAGE]</li><div class="mask"><div class="caption">防災グッズは非常時に活躍してくれる実用性の高いアイテムです。粗品として配ると、災害に対する意識を高めるだけでなく、企業やお店、自治会団体の防災意識の取り組み方を印象付ける事ができます。</div></div></div>
+<div class="sample2">
+<li><img src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner7.png" alt="季節で選ぶ"></li><a href="/html/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
+<div class="sample2">
+<li><img src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname3.png" alt="包装のし名入れ"></li><a href="/html/page2.html"><div class="mask"><div class="caption">粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
+</ul>
+
+	<div class="O_ItemLine">
+	<p class="total">全 [TOTAL] 件</p> <div class="list-link">並び替え：<a href=[NEWSORT]>新着順</a> <a href=[SORTRECOMMEND]>おすすめ順</a> <a href=[SORTPRODUCT]>単価順</a> <a href=[SORTPRICE]>価格</a> <a href=[SORTBRANDNAME]>商品名</a></div>
+	</div>
+
+
+<table class="tbl02">
+	[PRODUCTION_START]
+	<tr>
+		[PRODUCTION_ITEM4_START]
+		<td class="[ADDCLASS] categorylist">
+			<table>
+				<tr>
+					<td class="itemimg">
+						<a href="[BRAND_URL]"><img border="0" align="middle" alt="[BRANDNAME]"
+						src="[IMAGE_URL]" class="M_cl_img"></a>
+					</td>
+					<td class="itemtext">
+						<div style="padding-left:10px;">
+							[DETAIL]
+							<p class="soldout2">[IF][END][ELSE]＝ 品切れ中 ＝[ENDIF]</p>
+							<p class="M_mgnT5">[ICON]</p> <p class="M_mgnT5">品番：[UBRANDCODE]</p>
+							<p class="item-name"><span>品名：</span><a href="[BRAND_URL]">[BRANDNAME]</a></p>
+							<p class="red">[ADDCODE]</p>
+							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice">[TAXPRICE]</span>円<span class="M_outtax">（税込）</span></p>
+						</div>
+						<!-- <div class="btnWrap">
+                        	[IF]<a href=[BASKET]>カートに入れる</a><a href=[SUGU]>すぐに購入</a>[END][ELSE]<p class="soldout">品切れ</p>[ENDIF]
+                        </div>
+						<a href=[WISHLIST] class="wishbtn">お気に入りリストに追加</a> -->
+					</td>
+				</tr>
+			</table>
+		</td>
+		[PRODUCTION_ITEM_END]
+	</tr>
+	[PRODUCTION_END]
+</table>
+	<div id="pager">
+		[PAGER]
+	</div>
+
+  <h2 class="categorybottom">粗品選びは【発見マーケット】にお任せ！</h2>
+  <p style="margin: 0; padding: 1px 100px 30px 100px; line-height: 1.8; font-size:18px; text-align:left;">
+  防災グッズは非常時に活躍してくれる実用性の高いアイテムです。粗品として配ると、災害に対する意識を高めるだけでなく、企業やお店、自治会団体の防災意識の取り組み方を印象付ける事ができます。多くの方に利用してもらうという実用性の高さは、粗品として魅力的です。</p>
+<p style="margin: 0 0 50px 0; padding: 1px 100px 30px 100px; line-height: 1.8; font-size:18px; text-align:left;"><a class="btn_design3" href="/shopbrand/ct667/">少量でも購入OK！数量選択可能商品はこちら</a></p>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+  $('title').html('粗品の通販なら【発見マーケット】 | 防災グッズ | 通販で粗品をご提供');
+  $('meta[name=description]').attr({content: '通販で粗品をお求めなら【発見マーケット】をご利用ください。名入れや包装から熨斗までご用意。こちらでは、防災グッズをご紹介しております。粗品のお求めは【発見マーケット】の通販へ。'});
+  $('#M_headerInner h1').html('粗品の通販 | 防災グッズ | 通販で粗品や景品、ノベルティの名入れをご提供');});
+</script>
+
+<div style=" border: solid 1px #ccc; padding: 5px;margin: 30px auto;text-align:left;">
+  <h2 style="border-top:none;background:none; color: #009B44;margin: 5px; padding: 0px 5px 0px  5px;font-size: 15px;font-weight:bold;border-left: solid 5px #009B44;">粗品選びは【発見マーケット】にお任せ！</h2>
+  <p style="margin: 0; padding: 7px 5px 5px; line-height: 1.8;">
+   【発見マーケット】でお取り扱いしている粗品の定番アイテムには、タオルやボールペン、卓上カレンダーなどの実用品が揃っています。宣伝効果や販売促進を目的とした粗品には、普段の生活でよく使う実用性が高いものを選ぶことが<strong style="font-weight: normal;color: #333;">おすすめ</strong>です。<br />
+    <strong style="font-weight: normal;color: #333;">粗品</strong>選びに困ったら【発見マーケット】へ。定番アイテムだけでなく、<strong style="font-weight: normal;color: #333;">スマートフォン</strong>を使う際に便利な<em style="font-style: normal;color: #333;">スマホグッズ</em>もご用意しています。<em style="font-style: normal;color: #333;">人気</em>の<em style="font-style: normal;color: #333;">スマホ</em>グッズを景品やノベルティとして活用したい方は、ぜひご利用ください。
+  </p>
+</div>
+
+	<h3>こちらの商品もおすすめです。</h3>
+<div class="section" id="r_recommend_ct">
+	[SUISEN4_2]
+</div>
+
+<!--.mainContents--></div>

@@ -1,0 +1,3 @@
+<!-- ここに入力したデザインは未ログインの状態に表示されます -->
+<a href=[MEMBER] class="sinki">新規会員登録</a>
+<a href=[LOGIN]  class="login">ログイン</a>

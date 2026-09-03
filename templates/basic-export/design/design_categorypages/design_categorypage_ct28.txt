@@ -1,0 +1,73 @@
+<div class="M_mainContents" id="M_category">
+	<!--▼商品分類段階リンク-->
+	<div class="M_topicPath">
+	<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]
+	</div>
+	
+	<!--▼商品カテゴリー名-->
+	<h2>[NAMECURRENT]</h2>
+
+	<div id="O_subCategory">
+	[GROUP4_0]
+	</div>
+
+[IF_CATEGORY_CODE_ct28]<div class="box_cate"><p>秋の粗品に最適なアイテムをお探しの方、敬老の日、敬老会、ハロウィンの景品をお探しの方は、発見マーケットをご利用ください。販売単位もご相談可能商品もございますのでお問い合わせください。</p></div>[ENDIF_CATEGORY_CODE]
+[IF_CATEGORY_CODE_ct29]<div class="box_cate"><p>敬老の日、敬老会の贈り物として記念になる粗品を多数ご用意しております。<br>「いつまでもお元気で」などの文言がパッケージにプリントされた商品もございます、ぜひご利用くださいませ。</p></div>[ENDIF_CATEGORY_CODE]
+[IF_CATEGORY_CODE_ct30]<div class="box_cate"><p>ハロウィンのイベントの粗品、景品を幅広くそろえております。<br>ハロウィンらしいパッケージのティッシュや食品、お菓子のセットなどが人気で、店舗で開催するキャンペーンの宣伝効果や集客効果が期待できます。</p></div>[ENDIF_CATEGORY_CODE]
+<div align="center"><table border="0" cellspacing="10">
+<tr>
+ <td style="padding: 0 0 50px 0;"><a href="/shopbrand/006/002/Y/"><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_halloween2.jpg" alt="ハロウィン"><p  style="text-align:center; margin:10px 0 0 0;">ハロウィンの粗品ページはこちら</a></p></td><!-- 管理画面「カテゴリー別イメージの登録」画像 -->
+ <td style="padding: 0 0 50px 0;"><a href="/shopbrand/006/001/Y/"><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_keirou2.jpg" alt="敬老の日"><p style="text-align:center; margin:10px 0 0 0;">敬老の日の粗品ページはこちら</a></p></td>
+</tr></table></div>
+
+	<div class="O_ItemLine">
+	<p class="total">全 [TOTAL] 件</p> <div class="list-link">並び替え：<a href=[NEWSORT]>新着順</a> <a href=[SORTRECOMMEND]>おすすめ順</a> <a href=[SORTPRODUCT]>単価順</a> <a href=[SORTPRICE]>価格</a> <a href=[SORTBRANDNAME]>商品名</a></div>
+	</div>
+
+<table class="tbl02">
+	[PRODUCTION_START]
+	<tr>
+		[PRODUCTION_ITEM4_START]
+		<td class="[ADDCLASS] categorylist">
+			<table>
+				<tr>
+					<td class="itemimg">
+						<a href="[BRAND_URL]"><img border="0" align="middle" alt="[BRANDNAME]"
+						src="[IMAGE_URL]" class="M_cl_img"></a>
+					</td>
+					<td class="itemtext">
+						<div style="padding-left:10px;">
+							[DETAIL]
+							<p class="soldout2">[IF][END][ELSE]＝ 品切れ中 ＝[ENDIF]</p>
+							<p class="M_mgnT5">[ICON]</p> <p class="M_mgnT5">品番：[UBRANDCODE]</p>
+							<p class="item-name"><span>品名：</span><a href="[BRAND_URL]">[BRANDNAME]</a></p>
+							<p class="red">[ADDCODE]</p>
+							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice">[PRICE]</span>円<span class="M_outtax">（税込）</span></p>
+						</div>
+						<!-- <div class="btnWrap">
+                        	[IF]<a href=[BASKET]>カートに入れる</a><a href=[SUGU]>すぐに購入</a>[END][ELSE]<p class="soldout">品切れ</p>[ENDIF]
+                        </div>
+						<a href=[WISHLIST] class="wishbtn">お気に入りリストに追加</a> -->
+					</td>
+				</tr>
+			</table>
+		</td>
+		[PRODUCTION_ITEM_END]
+	</tr>
+	[PRODUCTION_END]
+</table>
+	<div id="pager">
+		[PAGER]
+	</div>
+
+  <h2 class="categorybottom">粗品選びは【発見マーケット】にお任せ！</h2>
+  <p style="margin: 0; padding: 1px 100px 30px 100px; line-height: 1.8; font-size:18px; text-align:left;">
+  秋の粗品に最適なアイテムをお探しの方、敬老の日、ハロウィンの景品をお探しの方は、発見マーケットをご利用ください。販売単位もご相談可能商品もございますのでお問い合わせください。紅葉やモミジなどをモチーフにした商品もございます。個人様、店舗様から企業様までご利用くださいませ。</p>
+<p style="margin: 0 0 50px 0; padding: 1px 100px 30px 100px; line-height: 1.8; font-size:18px; text-align:left;"><a class="btn_design3" href="/shopbrand/ct667/">少量でも購入OK！数量選択可能商品はこちら</a></p>
+
+	<h3>こちらの商品もおすすめです。</h3>
+<div class="section" id="r_recommend_ct">
+	[SUISEN4_2]
+</div>
+
+<!--.mainContents--></div>

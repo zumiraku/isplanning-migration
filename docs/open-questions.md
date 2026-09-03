@@ -62,13 +62,17 @@ Also corrected while doing this: it is **100 articles plus the list page**, not 
 articles, and they are mostly catalogue announcements rather than the thin holiday
 notices S0-5 described from a single sample.
 
-### Q5 — What conversion tags sit on the order-completion page? `OPEN`
-GA4 `G-BK1PPN5MEV` fires site-wide. Google Ads / Yahoo / any other conversion tag on
-完了ページ cannot be seen from outside. Losing one is invisible for weeks.
-**Now known to include at least one more candidate:** さぶみっと！レコメンド's PV-CV
-feature requires a CV acquisition tag on the completion screen (see Q2). Check for it
-explicitly — if it exists and we drop it, the client's recommendation engine stops
-attributing revenue.
+### Q5 — What conversion tags sit on the order-completion page? `OPEN — and the design backup does NOT answer it`
+**Refined 2026-09-03.** The full Basic Mode design source is now in hand
+(`templates/basic-export/design/`) and it contains **no GA4, no Google Ads, no
+Yahoo tag** — the only third-party tag in the entire design is the recommend
+engine on the product templates. GA4 `G-BK1PPN5MEV` nevertheless fires site-wide,
+so the platform injects it from a settings screen.
+
+That matters because it is a trap: having "the whole design" invites the
+conclusion that the tags are captured. They are not. They must be read from
+ショップ構築 → SEO・マーケティング → タグの設定, and the completion page checked
+specifically. See [design-backup.md](design-backup.md).
 
 ### Q6 — Which checkout / member / mypage screens are template-editable? `OPEN`
 Creator Mode's editable list covers cart but is unclear on the checkout steps,

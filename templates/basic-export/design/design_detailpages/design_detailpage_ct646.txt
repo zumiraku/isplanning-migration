@@ -1,0 +1,196 @@
+<script src="/js/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/jqueryplugin/migrate/3.0.0/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="/js/jqueryplugin/makeshop_bxslider/4.1.1/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/jqueryplugin/makeshop_bxslider/4.1.1/jquery.bxslider.css">
+
+<div class="M_mainContents" id="O_itemDetail">	
+	<div class="M_topicPath">
+	<a href="/">ホーム</a> >[LIST_NO_ICON]
+	</div>
+	
+	<h2 class="brandname"><p>[BRANDNAME]</p></h2>
+
+
+<!--<div id="NextPage"><span class="PageLeft">[IF_PREV]<a href=[PREV]>< 前の商品</a>[ENDIF_PREV][IF_NEXT]</span><span class="PageRight"><a href=[NEXT]>次の商品 ></a>[ENDIF_NEXT]</span></div>-->
+	<div class="O_itemDetailTop">	
+		<div id="O_itemDetailL">
+		<div id="Item_detail_Image">[RESIZE_IMAGE_500]<!-- 商品画像 -->
+			[IF_VIEWBUTTON]<img src="https://gigaplus.makeshop.jp/isplanning/images/kakudais2.png" alt="拡大画像">[ENDIF_VIEWBUTTON]</div>
+		<div id="Other_img">
+			[IF_ITEMIMAGE_1]<div><a href=[ITEMIMAGE_VIEW_1]><img src=[ITEMIMAGE_1_M]></a></div>[ENDIF_ITEMIMAGE_1]<!-- 商品追加画像1 -->
+			[IF_ITEMIMAGE_2]<div><a href=[ITEMIMAGE_VIEW_2]><img src=[ITEMIMAGE_2_M]></a></div>[ENDIF_ITEMIMAGE_2]<!-- 商品追加画像2 -->
+			[IF_ITEMIMAGE_3]<div><a href=[ITEMIMAGE_VIEW_3]><img src=[ITEMIMAGE_3_M]></a></div>[ENDIF_ITEMIMAGE_3]<!-- 商品追加画像3 -->
+		</div>
+
+	</div><!-- Item_Detail_Left -->
+
+		<div id="O_itemDetailR">
+				
+		[DETAIL_EXT]
+		<div class="Item_detail_txt">
+			[DETAIL]<!-- 商品詳細説明 -->		
+			
+		<div id="Item_detail_caption2">[ITEMCAPTION_2]<!-- 追加画像説明文2 --></div>		
+		
+		</div>
+
+	</div>
+	</div>
+	<div class="O_itemDetailBottom">
+		<div id="O_itemDetailBottomL">
+		<div class="daibiki-txt">代引き手数料 当社負担で<span>無料！</span></div>
+		<div class="price-box">
+			<dl class="itemPrice-wrap">
+				<dt><span>価格：</span></dt>
+				<dd class="itemPrice"><span>[TAXPRICE]</span>円（税込）<!-- [RESERVE] ポイント --></dd>
+			</dl><!-- <dl>【税込み33000円未満の場合は送料が必要です】</dl> -->
+			<dl class="itemPrice-wrap">
+				<dt><span>数量：</span></dt>
+				<dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]<ul class="count"><li class="up"><a href=[UPCOUNT]><img src="https://gigaplus.makeshop.jp/isplanning/images/item-up.png" alt="up"></a></li><li class="down"><a href=[DOWNCOUNT]><img src="https://gigaplus.makeshop.jp/isplanning/images/item-down.png" alt="down"></a></li></ul></dd>
+			</dl>
+		</div>
+		</div>
+		<div id="O_itemDetailBottomR">
+			<div class="detailcart-wrap">
+					<p class="goCart">[IF]<a href=[GETBASKET] class="detail-cart">カートに入れる</a>[END][ELSE]<a href=[GETBASKET] class="detaol-soldout">品切れ[ENDIF]</p>
+		<ul><!--<li><a href=[MAIL]><img src="https://gigaplus.makeshop.jp/isplanning/images/detail_ml.png" alt="友達にメールですすめる" /></a></li>-->
+			<ul class="mailestimation">
+				<li class="detail-btn"><a href=[WISHLIST] class="detail-fav">お気に入りリストに追加</a></li>
+				<li class="detail-btn"><a class="detail-mail" href=[QUESTION_MAIL]>この商品について問い合わせる</a><span>販売単位数量、納期、在庫等上記よりお問合せ下さい</span></li>
+				<li class="detail-btn"><a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600,height=600'); return false;" class="detail-mitsumori">見積依頼フォーム</a></li></ul>
+			</ul>
+			</div>
+		</div>
+	</div>
+	<div class="option-wrap">
+		<p class="detail_option">[OPTION1]</p>
+        <p class="detail_option">[OPTION2]</p>
+[IFNAMEOPTION]<!-- ご希望数量を記入して下さい-->
+[NAMEOPTION]
+[IFELSENAMEOPTION]<!-- 販売単位数量ご相談不可商品です-->
+[IFENDNAMEOPTION]
+<p class="zaiko9">[ZAIKO] </p>
+
+		<div id="Item_detail_caption3">[ITEMCAPTION_3]<!-- 追加画像説明文3 --></div>
+	</div>
+
+<!-- O_itemDetailR -->
+<!-- 商品詳細説明 -->
+[ENDFORM]<!-- 商品詳細フォームの終わりに必ず入力するタグ -->
+
+	
+	<div class="tab-area">
+ 
+<input id="tab-btn1" class="tab-btn" name="tab" type="radio" checked>
+<input id="tab-btn2" class="tab-btn" name="tab" type="radio">
+<input id="tab-btn3" class="tab-btn" name="tab" type="radio">
+ 
+<ul class="tab-list-wrap">
+<li><label id="tab-list1" class="tab-list" for="tab-btn1">送料について</label></li>
+<li><label id="tab-list2" class="tab-list" for="tab-btn2">その他おすすめ商品</label></li>
+<li><label id="tab-list3" class="tab-list" for="tab-btn3">この商品の類似品<br>レビュー</label></li>
+</ul>
+
+<div class="tab-content-wrap">
+<div id="tab-content1" class="tab-content">
+<div><img src="https://gigaplus.makeshop.jp/isplanning/uploads/souryou2022.png" alt="送料・代引き手数料表" /></div>
+		<p><div class="red txta-l mt10 mb20 ft16 lh28">送料は個数、種類に関係なく1回のご注文での料金です。（例：2、3種類かごに入れても送料は800円（税別）です）<br />離島・北海道・沖縄は別途送料、中継料が必要となります。（カゴでは自動計算されません）</div><br />
+		<a href="/html/info.html#about_payment" class="link_green wd320">送料・代引き手数料のご案内</a></p>
+
+		<ul class="detail_postage">
+			<li>ご購入前に<a href="/new/index.html">「お知らせページ」</a>をご覧ください</li>
+			<li>販売単位数量以外は「買物カゴ（カート）」ではご注文できませんので<a href="JavaScript:top_sendmail()">メール</a>・<a href="/html/page1.html">ＦＡＸ注文・見積用紙</a>にてお気軽に見積依頼又はご注文してください。</li>
+			<li>商品のデザイン・色が若干変更になる場合がありますがご了承願います。</li>
+			<li>画像は商品の色・素材感が実物とは異なる場合、商品以外の品が添えられている場合があります。</li>
+			<li>納期は余裕を持ってご注文お願いいたします。品切れの際はご容赦願います。</li>
+			</ul>
+	
+	<!--最近チェックした商品-->
+	[IF_RECENT]
+    <div class="M_section border" id="middle_recent">
+		<h2 class="main-ttl">最近チェックした商品</h2>
+        [RECENT]
+	</div>
+    [ENDIF_RECENT]
+	
+</div>
+		
+<div id="tab-content2" class="tab-content">
+<!-- イーレコメンド設置タグ -->
+<script type="text/javascript">
+if (!window._rcmdjp) document.write(unescape("%3Cscript src='" + document.location.protocol + "//d.rcmd.jp/isplanning/item/recommend.js' type='text/javascript' charset='UTF-8'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+  _rcmdjp._displayHistory({
+    template: 'deco_history_scroll2-copy'
+  });
+  _rcmdjp._displayRecommend({
+    type: 'pv',
+    template: 'deco_recommend_scroll1-copy'
+  });
+  _rcmdjp._displayRanking({
+    type: 'pv',
+    span: 'week',
+    template: 'deco_ranking_scroll3-copy'
+  });
+  _rcmdjp._displayPickup({
+    label: 'pickup-1',
+    template: 'deco_pikup_2018-copy'
+  });
+} catch(err) {}
+</script>
+
+
+
+
+</div>
+<div id="tab-content3" class="tab-content">
+
+<!--商品グループ--><div id="brandgroupsend"></div>
+<div class="M_section" id="middle_recent">
+        [BRANDGROUP]
+</div>
+<div class="Review">
+	
+			<h4>この商品のレビュー</h4>
+			[REVIEW_WRITE]
+			<a href=[REVIEW_BUTTON]>［レビューを書きこむ］</a>
+		</div>
+
+		<div class="M_section">
+			[REVIEW_VIEW_ALL]
+		</div>
+</div>
+</div>
+</div>
+
+
+</div><!--.M_mainContents-->
+
+<script>
+jQuery.noConflict();
+(function($) {
+    $(window).load(function(){
+        $('.M_imageMainList').bxSlider({
+            mode: 'fade',
+            useCSS: false,
+            pagerCustom: '.M_imageThumbnail'
+        });
+    });
+})(jQuery);
+</script>
+<script>
+$(function(){
+var $grid = $('.M_imageThumbnail'),   
+    emptyCells = [],
+    i;
+
+// 子パネル (div.M_imageThumbnail-item) の数だけ空の子パネル (div.M_imageThumbnail-item.is-empty) を追加する。
+for (i = 0; i < $grid.find('.M_imageThumbnail-item').length; i++) {
+    emptyCells.push($('<div>', { class: 'M_imageThumbnail-item is-empty' }));
+}
+
+$grid.append(emptyCells);
+});
+</script>

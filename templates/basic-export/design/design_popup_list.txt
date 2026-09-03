@@ -1,0 +1,12 @@
+<tr><td><!--崩れ防止-->
+
+<div class="rightContents" id="news">
+	<h2 class="middle-ttl">お知らせ一覧</h2>
+
+    <div class="section" id="r_news">
+		<div id="newsList">
+        [LISTING]
+        </div>
+		<div id="pager">[PAGING]</div>
+	</div>   
+</div>

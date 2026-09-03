@@ -1,0 +1,299 @@
+<div class="M_mainContents" id="M_category">
+	<!--▼商品分類段階リンク-->
+	<div class="M_topicPath">
+	<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]
+	</div>
+	
+	<!--▼商品カテゴリー名-->
+	<h2>[NAME]</h2>
+
+	<div id="Category_calender">
+
+<div id="fan_contents" style="margin: 0 0 20px 0;"><h4 style="width:880px;">2027年卓上カレンダー 粗品</h4></div>
+
+<div align="center"><table border="0" cellspacing="10">
+<tr>
+ <td  style="padding: 0 100px 50px 0;">[CATEGORY_IMAGE] </td>
+ <td style="padding:  0 0 30px 0; vertical-align: middle;"><p style="margin:0 0 15px 4px;"><a class="btn_design3" href="/html/page19.html">コラム　：卓上カレンダーを使うメリット</a></p><br><div class="normal-box2" style="padding: 15px;"><p>● 2027年のカレンダー販売中！</p></div>
+</td>
+</tr></table></div>
+
+<!--<a href="#calendar"><span style="line-height: 1.8; font-size:20px;">▼他の2027年　卓上カレンダーはこちら</span></a>-->
+
+		<div class="box_cate"><p style="font-size:20px; ">卓上カレンダーは1年間使用して頂けるので、名入れをしてお配りすれば宣伝効果も高くおすすめです。フルカラーでも名入れできる商品もございます。</p>
+<p style="font-size:18px; ">2027年（令和9年）マルチ卓上カレンダー・ＤＭサイズカレンダー・CDサイズカレンダー・ＦＤサイズカレンダー・リバーシブル卓上カレンダー・各種卓上カレンダー　名入れももちろんOKです。<br />
+		日本製で品質も万全な卓上カレンダーです。（一部除く）</p>
+
+		<p>表示価格は税別です。版代・送料等別途必要です。<br />
+		名入れ無しでも販売できますのでお問い合わせくださいませ。<br />
+		名入れ納期　約２週間〜３週間前後必要です。お早めにご検討くださいませ。</p>
+              </div>
+
+<p>2027年卓上カレンダー販売中です。一部画像は古い年代のものを使用している場合がございます。価格が「０円」と表示されている商品は別途お見積りが必要です、買い物カゴでのご購入はできません、単価（価格）はお問い合わせください。</p>
+
+		<table class="calender_List">
+<tr>
+				<td>
+					<p class="calender_name">■カラフルメモリー卓上カレンダー<br><b>K-V010057　2027年</b></p>
+					<a href="/shopdetail/003003000870/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/kv010057h.jpg" alt="カラフルメモリー卓上カレンダー" />
+					<p>カラフルメモリー卓上カレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■パステルメモリー卓上カレンダー<br><b>K-V010311　2027年</b></p>
+					<a href="/shopdetail/000000011002/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/kv010311h.jpg" alt="パステルメモリー卓上カレンダー" />
+					<p>パステルメモリー卓上カレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■シンプルスケジュール卓上カレンダー<br><b>K-V010310　2027年</b></p>
+					<a href="/shopdetail/000000011003/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/kv010310h.jpg" alt="シンプルスケジュール卓上カレンダー" />
+					<p>シンプルスケジュール卓上レンダーのページ</p></a>
+				</td>
+			</tr>
+<tr>
+				<td>
+					<p class="calender_name">■ペーパーリング卓上カレンダー<br><b>K-V010612　2027年</b></p>
+					<a href="/shopdetail/000000022183/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/kv010612h.jpg" alt="ペーパーリング卓上カレンダー" />
+					<p>ペーパーリング卓上カレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■木質ボードエコカレンダー<br><b>TS-960　2027年　<SPAN style="color: yellow;">NEW</span></b></p>
+					<a href="/shopdetail/000000023663/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts960c25h.jpg" alt="木質ボードエコカレンダー" />
+					<p>木質ボードエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■ヴェルデインデックスエコカレンダー<br><b>TS-370　2027年　<SPAN style="color: yellow;">NEW</span></b></p>
+					<a href="/shopdetail/000000023664/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts370c26h.jpg" alt="ヴェルデインデックスエコカレンダー" />
+					<p>ヴェルデインデックスエコカレンダーのページ</p></a>
+				</td>
+			</tr>
+<tr>
+				<td>
+					<p class="calender_name">■森にやさしいエコカレンダー<br><b>TS-400　2027年</b></p>
+					<a href="/shopdetail/000000022185/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts400c25h.jpg" alt="森にやさしいエコカレンダー" />
+					<p>森にやさしいエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■スタンダードエコカレンダーＢ６<br><b>TS-340　2027年</b></p>
+					<a href="/shopdetail/000000022184/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts340c26h.jpg" alt="スタンダードエコカレンダー" />
+					<p>スタンダードエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■インデックスエコカレンダー<br><b>TS-360　2027年</b></p>
+					<a href="/shopdetail/000000017580/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts360c23h.jpg" alt="インデックスエコカレンダー" />
+					<p>インデックスエコカレンダーのページ</p></a>
+				</td>
+			</tr>
+<tr>
+				<td>
+					<p class="calender_name">■カラフルエコカレンダー<br><b>TS-320　2027年</b></p>
+					<a href="/shopdetail/000000009294/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts320c17h.jpg" alt="カラフルエコカレンダー" />
+					<p>カラフルエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■シンプルエコカレンダー<br><b>TS-330　2027年</b></p>
+					<a href="/shopdetail/000000023610/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts330c18h.jpg" alt="シンプルエコカレンダー" />
+					<p>シンプルエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■グリーンエコカレンダーA6<br><b>TS-100　2027年</b></p>
+					<a href="/shopdetail/051000000007/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts100c07h.jpg" alt="グリーンエコカレンダーA6" />
+					<p>グリーンエコカレンダーA6のページ</p></a>
+				</td>
+			</tr>
+<tr>
+				<td>
+					<p class="calender_name">■グリーンエコカレンダーB6<br><b>TS-300　2027年</b></p>
+					<a href="/shopdetail/051000000006/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts300c06h.jpg" alt="グリーンエコカレンダーB6" />
+					<p>グリーンエコカレンダーB6のページ</p></a>
+				</td>
+
+				<td>
+					<p class="calender_name">■ツートンエコカレンダー<br><b>TS-600　2027年</b></p>
+					<a href="/shopdetail/051000000009/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts600c20h.jpg" alt="ツートンエコカレンダー" />
+					<p>ツートンエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■５連エコカレンダーＢ６<br><b>TS-500　2027年</b></p>
+					<a href="/shopdetail/000000015986/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts500c21h.jpg" alt="５連エコカレンダーＢ６" />
+					<p>５連エコカレンダーＢ６のページ</p></a>
+				</td>
+			</tr>
+<tr>
+				<td>
+					<p class="calender_name">■５連エコカレンダーＡ５<br><b>TS-550　2027年</b></p>
+					<a href="/shopdetail/000000015987/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts550c22h.jpg" alt="５連エコカレンダーＡ５" />
+					<p>５連エコカレンダーＡ５のページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■2month セパレートエコカレンダー<br><b>TS-200　2027年</b></p>
+					<a href="/shopdetail/000000014346/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts200c19h.jpg" alt="2monthセパレートエコカレンダー" />
+					<p>2month セパレートエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■マジカルエコカレンダー<br><b>TS-1101　2027年</b></p>
+					<a href="/shopdetail/000000022186/"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts1101c24h.jpg" alt="マジカルエコカレンダー" /><br />
+					<p>マジカルエコカレンダーのページ</p></a>
+				</td>
+			</tr>
+<tr>
+				<td>
+					<p class="calender_name">■3か月カスタムエコカレンダー<br><b>TS-230　2027年 NEW!</b></p>
+					<a href="/shopdetail/000000025459/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts230h.jpg" alt="3か月カスタムエコカレンダー" />
+					<p>3か月カスタムエコカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■カレンダー光学式対応マウスパッド<br><b>MC-001　2027年</b></p>
+					<a href="/shopdetail/051000000011/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/tsmc001c11h.jpg" alt="カレンダー光学式対応マウスパッド" />
+					<p>カレンダー光学式対応マウスパッドのページ</p></a>
+				</td>
+				<td>
+					<img src="https://gigaplus.makeshop.jp/isplanning/uploads/calendar_blank.jpg" alt="カレンダー画像" style="margin:100px 10px 10px 10px;">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p class="calender_name">■マルチ卓上カレンダー<br><b>TS-701A　2027年</b></p>
+					<a href="/shopdetail/051000000001/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts701ac01h.jpg" alt="マルチ卓上カレンダー" />
+					<p>マルチ卓上カレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■ＣＤサイズカレンダー<br><b>TS-651A　2027年</b></p>
+					<a href="/shopdetail/051000000002/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts651c02h.jpg" alt="ＣＤサイズカレンダー" />
+					<p>ＣＤサイズカレンダーのページ</p></a>
+				</td>
+
+				<td>
+					<p class="calender_name">■ＤＭサイズカレンダー<br><b>TS-521A　2027年</b></p>
+					<a href="/shopdetail/051000000003/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts521c03h.jpg" alt="ＤＭサイズカレンダー" />
+					<p>ＤＭサイズカレンダーのページ</p></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p class="calender_name">■ＦＤサイズカレンダー<br><b>TS-350A　2027年</b></p>
+					<a href="/shopdetail/051000000004/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts350c04h.jpg" alt="ＦＤサイズカレンダー" />
+					<p>ＦＤサイズカレンダーのページ</p></a>
+				</td>
+				<td>
+					<p class="calender_name">■3WAYマルチカレンダー<br><b>TS-821A　2027年</b></p>
+					<a href="/shopdetail/051000000008/order"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/ts821c08h.jpg" alt="3WAYマルチカレンダー" />
+					<p>3WAYマルチカレンダーのページ</p></a>
+				</td>
+				<td>
+					<img src="https://gigaplus.makeshop.jp/isplanning/uploads/calendar_blank.jpg" alt="カレンダー画像" style="margin:100px 10px 10px 10px;">
+				</td>
+			</tr>
+		</table>
+
+卓上カレンダーは便利なアイテムなので、会社の粗品や販促品としても利用することができます。
+とにかくあって損はしないので、貰った方は誰もが喜んでくれると思います。
+オフィスのデスクなどよく見る場所に飾ってもらえるので、販促品としてきちんと役目を果たしてくれるのではないでしょうか。
+粗品として卓上カレンダーをお探しの方はぜひ当店をご利用ください。当店ではさまざまな粗品を幅広く取り揃えております。
+卓上カレンダーは種類も豊富で、お好きなものを選ぶことができます。どのカレンダーも名入れが可能となっており、日本製（一部除く）なので品質も安心できるはずです。
+<TABLE class="calender_List2">
+  <TBODY>
+    <TR>
+      <TD>
+      <TABLE>
+        <TBODY>
+          <TR>
+            <TH><IMG src="https://gigaplus.makeshop.jp/isplanning/uploads/e7511s.jpg" alt="スタイリッシュ万年カレンダー" width="150"></TH>
+            <TD>■品番 E7511<BR>
+            ■品名 スタイリッシュ万年カレンダー<BR>
+            ■販売単価 <SPAN style="color: red;">＠ 168円</SPAN>（税別）<BR>
+            ■販売単位 200個<BR>
+            ■販売価格 33600 円（税込）<BR>
+            <A href="/shopdetail/000000025138/">詳しく見る</A></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </TD>
+      <TD>
+      <TABLE>
+        <TBODY>
+          <TR>
+            <TH><IMG src="https://gigaplus.makeshop.jp/isplanning/uploads/sp64030s.jpg" alt="万年カレンダー＆スマホスタンド" width="150"></TH>
+            <TD>■品番 SP64030<BR>
+            ■品名 万年カレンダー＆スマホスタンド<BR>
+            ■販売単価 <SPAN style="color: red;">＠ 600円</SPAN>（税別）<BR>
+            ■販売単位 50個<BR>
+            ■販売価格 30000 円（税込）<BR>
+            <A href="/shopdetail/000000015871/">詳しく見る</A></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </TD>
+    </TR>
+  
+    </TR>
+  </TBODY>
+</TABLE>
+
+		<!--カレンダーの大きさ比較の参考画像です（古い年代のサンプルです）<p class="calender_bn1"><img src="https://gigaplus.makeshop.jp/isplanning/uploads/calender_size2014.jpg" alt="卓上カレンダー大きさ比較" /></p>-->
+	<!--.Category_calender--></div>
+
+	<!--▼商品分類段階リンク-->
+	<div class="M_topicPath">
+	<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]
+	</div>
+
+	<div id="O_subCategory">
+	[GROUP4_0]
+	</div>
+
+	<div id="O_categotyBnr">
+		[CATEGORY_IMAGE]<!-- 管理画面「カテゴリー別イメージの登録」画像 -->
+	</div>
+
+<h3 id="calendar">カレンダー一覧</h3>
+
+
+
+	<div class="O_ItemLine">
+	<p class="total">全 [TOTAL] 件</p> <div class="list-link">並び替え：<a href=[NEWSORT]>新着順</a> <a href=[SORTRECOMMEND]>おすすめ順</a> <a href=[SORTPRODUCT]>単価順</a> <a href=[SORTPRICE]>価格</a> <a href=[SORTBRANDNAME]>商品名</a></div>
+	</div>
+
+
+<table class="tbl02">
+	[PRODUCTION_START]
+	<tr>
+		[PRODUCTION_ITEM4_START]
+		<td class="[ADDCLASS] categorylist">
+			<table>
+				<tr>
+					<td class="itemimg">
+						<a href="[BRAND_URL]"><img border="0" align="middle" alt="[BRANDNAME]"
+						src="[IMAGE_URL]" class="M_cl_img"></a>
+					</td>
+					<td class="itemtext">
+						<div style="padding-left:10px;">
+							[DETAIL]
+							<p class="soldout2">[IF][END][ELSE]＝ 品切れ中 ＝[ENDIF]</p>
+							<p class="M_mgnT5">[ICON]</p> <p class="M_mgnT5">品番：[UBRANDCODE]</p>
+							<p class="item-name"><span>品名：</span><a href="[BRAND_URL]">[BRANDNAME]</a></p>
+							<p class="red">[ADDCODE]</p>
+							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice">[TAXPRICE]</span>円<span class="M_outtax">（税込）</span></p>
+						</div>
+						<!-- <div class="btnWrap">
+                        	[IF]<a href=[BASKET]>カートに入れる</a><a href=[SUGU]>すぐに購入</a>[END][ELSE]<p class="soldout">品切れ</p>[ENDIF]
+                        </div>
+						<a href=[WISHLIST] class="wishbtn">お気に入りリストに追加</a> -->
+					</td>
+				</tr>
+			</table>
+		</td>
+		[PRODUCTION_ITEM_END]
+	</tr>
+	[PRODUCTION_END]
+</table>
+	<div id="pager">
+		[PAGER]
+	</div>
+
+
+	<h3>こちらの商品もおすすめです。</h3>
+<div class="section" id="r_recommend_ct">
+	[SUISEN4_2]
+</div>
+
+<!--.mainContents--></div>

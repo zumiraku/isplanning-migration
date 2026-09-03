@@ -21,6 +21,7 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 | C8 | 移動イベントバナー | **Gone** | `?` | Possible on the top page. Reproduce as a normal banner/slider component |
 | C9 | 投票 / 懸賞 | **Gone** | `?` | Unlikely. Verify and close |
 | C10 | アクセス統計 | **Gone** | `?` | Client may still consult it. Move him to GA4 before cutover; walkthrough at handover |
+| C28 | **カテゴリ別テンプレート53件＋商品詳細3件** | **Verify** | `YES` 🔴 | **Found 2026-09-03** in the design backup. `design_categorypages/` holds 53 files, all different, each the standard category page plus `[IF_CATEGORY_CODE_ctNN]` conditional blocks; `design_detailpages/` holds 3 per-category product templates (ct261, ct646, ct664). The plan assumed one category template and one product template. Most of the 53 likely differ only in a banner block and collapse into one template plus data, but that has to be checked per file. See [design-backup.md](design-backup.md) |
 | C11 | RSS配信 / WebFTP複数画像管理 | **Gone** | `?` | Usually low impact |
 | C12 | 商品レビューのデザイン設定 | **Gone** | `?` | Restyle via the review templates instead |
 | C13 | レコメンド＝**イーレコメンド** | **Verify** | `YES` | Corrected 2026-08-30 (S0-20) — not さぶみっと. Console at e-reco.jp. Two tags: 基本タグ in every page head, 表示タグ on 商品詳細. Creator Mode conversion tag at ショップ構築→設定→SEO・マーケティング→タグの設定. SP horizontal scroll approved by client |

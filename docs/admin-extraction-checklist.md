@@ -10,32 +10,21 @@ Save everything under the paths given. Commit after each section.
 
 ---
 
-## A. Export the Basic Mode template source 🔴 *unblocks Q1 — the whole pricing question*
+## A. Basic Mode template source ✅ **CLOSED 2026-09-03**
 
-We have 195 **rendered** pages in `snapshot/`. We do not have the **source** as it was
-typed into the admin, which is what we actually port.
+The client ran デザイン一括バックアップ and sent the ZIP. Unpacked, converted to
+UTF-8 and committed to `templates/basic-export/design/` — 73 files including the
+header, sidebar, footer, top page, category, product detail, cart, search,
+the head blocks, 53 per-category templates, 3 per-category product templates
+and the system stylesheet.
 
-`ショップデザイン → ベーシックモード` — for each editable area, copy the raw
-contents of the HTML box into a file:
+**Read [design-backup.md](design-backup.md) before relying on it.** Two things
+it changes: the tracking tags are NOT in the design (Q5 stays open), and there
+are 56 per-category templates nobody had counted (C28).
 
-| Area | Save as |
-|---|---|
-| 共通ヘッダ | `templates/basic-export/header.html` |
-| 共通フッタ | `templates/basic-export/footer.html` |
-| トップページ フリースペース (all of them) | `templates/basic-export/top-freespace-NN.html` |
-| 商品詳細 フリースペース (all of them) | `templates/basic-export/detail-freespace-NN.html` |
-| カテゴリページ フリースペース | `templates/basic-export/category-freespace-NN.html` |
-| カゴの中 / 会員関連 free areas | `templates/basic-export/<area>.html` |
-| 独自CSS 欄 | `templates/basic-export/custom.css` |
-| 独自JS 欄 (if separate) | `templates/basic-export/custom.js` |
-
-**Residual check only — this is now largely answered.** `updateOptionPrice` /
-`updateOptionPriceAjax` have been shown to be MakeShop platform JS (see
-`spec/option-engine.md` §1). While you are in these boxes, just confirm the code does
-**not** also appear in any free-space area. Expected: it does not.
-
-The question that replaced it is **Q1b**, and it is answered in §H below, not here:
-does `/shop/shopdetail_option.html` still work under Creator Mode?
+The 210 Basic Mode variable tags the templates use are inventoried in
+`inventory/basic-mode-tags.csv` — that list is what the Creator Mode rebuild has
+to satisfy.
 
 ---
 

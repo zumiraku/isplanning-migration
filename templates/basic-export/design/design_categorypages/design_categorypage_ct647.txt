@@ -1,0 +1,160 @@
+<div class="M_mainContents" id="M_category">
+	<!--▼商品分類段階リンク-->
+	<div class="M_topicPath">
+	<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]
+	</div>
+	
+	<!--▼商品カテゴリー名-->
+	<h2>[NAMECURRENT]（ブランケットやカイロ等冬向け粗品）</h2>
+
+	<!--▼商品分類段階リンク-->
+	<div class="M_topicPath">
+	<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]
+	</div>
+
+<div id="O_subCategory">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+<tbody><tr><td colspan="4" height="4" class="line">&nbsp;</td></tr>
+<tr height="25">
+<td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/001/Y/">クリスマス </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/002/Y/">干支・正月 </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/006/Y/">ブランケット </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/007/Y/">湯たんぽ </a>
+</td>
+</tr></tbody></table></td></tr><tr height="25">
+<td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/008/Y/">カイロ </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/009/Y/">マフラー </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/010/Y/">グローブ </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/011/Y/">ソックス･腹巻・ベスト・ネックウォーマー・ブーツ・シューズ(40) </a>
+</td>
+</tr></tbody></table></td></tr><tr height="25">
+<td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/012/Y/">キャラクター </a>
+</td>
+</tr></tbody></table></td><td width="147">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr height="22">
+<td><img src="https://shop38-makeshop.akamaized.net/images/white.gif" width="10" height="22"></td>
+<td width="18"><img src="https://shop38-makeshop.akamaized.net/images/common/brand_mcode_dot0.gif" align="absmiddle"></td>
+<td width="119">
+<a href="/shopbrand/007/005/Y/">その他 </a>
+</td>
+</tr></tbody></table></td><td width="147">&nbsp;</td><td width="147">&nbsp;</td>
+</tr>
+</tbody></table>
+
+	</div>
+
+<div id="O_categotyBnr">[CATEGORY_IMAGE] </div>
+	<div id="O_categotyBnr">
+<a href="/shopbrand/030/014/Y/"><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_etofukubukuro.jpg" alt="抽選セット、福袋" class="M_categoryImage"></a>　
+<a href="/shopbrand/030/015/Y/"><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_xmasfukubukuro.jpg" alt="クリスマス福袋" class="M_categoryImage"></a>
+<!-- 管理画面「カテゴリー別イメージの登録」画像 -->
+	</div>
+
+	<div class="O_ItemLine">
+	<p class="total">全 [TOTAL] 件</p> <div class="list-link">並び替え：<a href=[NEWSORT]>新着順</a> <a href=[SORTRECOMMEND]>おすすめ順</a> <a href=[SORTPRODUCT]>単価順</a> <a href=[SORTPRICE]>価格</a> <a href=[SORTBRANDNAME]>商品名</a></div>
+	</div>
+
+
+<table class="tbl02">
+	[PRODUCTION_START]
+	<tr>
+		[PRODUCTION_ITEM4_START]
+		<td class="[ADDCLASS] categorylist">
+			<table>
+				<tr>
+					<td class="itemimg">
+						<a href="[BRAND_URL]"><img border="0" align="middle" alt="[BRANDNAME]"
+						src="[IMAGE_URL]" class="M_cl_img"></a>
+					</td>
+					<td class="itemtext">
+						<div style="padding-left:10px;">
+							[DETAIL]
+							<p class="soldout2">[IF][END][ELSE]＝ 品切れ中 ＝[ENDIF]</p>
+							<p class="M_mgnT5">[ICON]</p> <p class="M_mgnT5">品番：[UBRANDCODE]</p>
+							<p class="item-name"><span>品名：</span><a href="[BRAND_URL]">[BRANDNAME]</a></p>
+							<p class="red">[ADDCODE]</p>
+							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice">[TAXPRICE]</span>円<span class="M_outtax">（税込）</span></p>
+						</div>
+						<!-- <div class="btnWrap">
+                        	[IF]<a href=[BASKET]>カートに入れる</a><a href=[SUGU]>すぐに購入</a>[END][ELSE]<p class="soldout">品切れ</p>[ENDIF]
+                        </div>
+						<a href=[WISHLIST] class="wishbtn">お気に入りリストに追加</a> -->
+					</td>
+				</tr>
+			</table>
+		</td>
+		[PRODUCTION_ITEM_END]
+	</tr>
+	[PRODUCTION_END]
+</table>
+	<div id="pager">
+		[PAGER]
+	</div>
+
+	<h3>こちらの商品もおすすめです。</h3>
+<div class="section" id="r_recommend_ct">
+	[SUISEN4_2]
+</div>
+
+<!--.mainContents--></div>

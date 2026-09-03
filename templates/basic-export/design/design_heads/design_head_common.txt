@@ -1,0 +1,74 @@
+<meta name="googlebot" content="NOODP">
+<meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s" />
+<meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo" />
+<meta name="google-site-verification" content="LvZm_KlYvKyFf9HCkCnvyRUTHeNFcweS7S6_I1qJ9pw" />
+
+
+<script src="/js/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">
+
+	
+<script>
+$(window).scroll(function () {
+  if($(window).scrollTop() > 20) {
+    $('#headerWrap').addClass('fixed');
+  } else {
+    $('#headerWrap').removeClass('fixed');
+  }
+});	
+
+</script>	
+	
+	
+
+<script>
+//ページトップに戻る
+$(function() {
+     // トップに戻るボタン追従型＋最終位置指定
+    $(function () {
+      var footerInfo = $('.pageTop');
+      footerInfo.hide();
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
+          footerInfo.fadeIn();
+        } else {
+          footerInfo.fadeOut();
+        }
+      });
+      footerInfo.click(function () {
+        $('body,html').animate({
+          scrollTop: 0
+        }, 500);
+        return false;
+      });
+    });
+	
+});
+</script>
+
+<script async>
+$(function(){
+  var cartIn = $('#M_headBasketIn em').html();
+  var noItem = /^0点/;
+    $('#M_headBasketIn em').text(
+     cartIn.replace(/点/g, '')
+    )
+    $('#M_headBasketIn em').prependTo('#M_basket');
+
+console.log("ok");
+});
+</script>
+ 
+
+<script>
+$(function(){
+  $('#MakeShopTopSearchInput').attr('placeholder','キーワードを入力して検索');
+});
+</script>

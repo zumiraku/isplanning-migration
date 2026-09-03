@@ -104,6 +104,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Design system | tokens + components + the rebuilt pricing module |
 | Gate B mocks | top page and product detail, real content throughout |
 | Redirect map | **1,100 URLs, 1,011 resolved.** 910 of the 912 `/smartphone/` URLs have a destination — 889 read straight out of the desktop pages own `rel="alternate"`. The 101 news URLs stay put (Q4). Open: the 83 free pages, waiting on Q7, plus 4 pages we have never seen |
+| Basic Mode design source | **acquired 2026-09-03** — 73 files, checklist §A closed. 210 variable tags inventoried. See [docs/design-backup.md](docs/design-backup.md) |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
 | Stage 5 free pages | **complete — all 82 独自ページ converted**, plus company/info/ordercontract. 86 pages rendered, 86/86 responsive-clean. See [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 | News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |
@@ -127,6 +128,7 @@ majority of option-priced products (S0-21) — run it after every change to that
 .\tools\check-responsive.ps1         # every page at 375 / 768 / 1440px
 sh  tools/compare-sp-content.sh       # content the SP pages have and the desktop ones do not (C27)
 sh  tools/check-content-preserved.sh   # prove no text was damaged by the conversion
+sh  tools/inventory-basic-tags.sh      # the 210 Basic Mode tags the templates use
 .\tools\analyse-category-titles.ps1  # how far a rule reproduces the 607 category titles (C4)
 ```
 

@@ -20,3 +20,7 @@ snapshot/assets/**/*.zip
 # Local scratch
 tmp/
 *.log
+
+# The raw design ZIP is kept; its unpacked copy is not (templates/basic-export/design/
+# holds the same files converted to UTF-8, which is what tools read).
+templates/basic-export/design-backup/backup_original_design_*/

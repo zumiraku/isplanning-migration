@@ -1,0 +1,12 @@
+<meta name="google-site-verification" content="hRI1XPOd2iY0Fk0Y4rbP3oN8mAzjd5wXItFMXQSPjRE" />
+<script>
+$(function(){
+	if ($('#review_inner').find('.M_reviewAll').length) {
+		console.log("find");
+
+	}else{
+		console.log("none");
+		$('#r_review_wrap').css('display', 'none');
+	}
+});
+</script>
