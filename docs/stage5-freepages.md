@@ -1,10 +1,11 @@
-# Stage 5 — the 83 free pages
+# Stage 5 — the 82 独自ページ
 
 `独自ページ` → Creator Mode `フリーページ`. Client's instruction was
 **「独自ページ：テンプレート化で結構です…見やすくして頂ければ結構です」**, with
 titles to be tidied and unused CSS free to delete.
 
-Status: **converted, rendered and verified responsive. Awaiting Gate C sign-off.**
+Status: **complete — all 82 converted, rendered, responsive-verified and proven
+text-intact. Awaiting Gate C sign-off.**
 
 ---
 
@@ -434,6 +435,39 @@ That is C27's divergence at source: 77 pairs of separately maintained pages, and
 the pairs have drifted — including the 特定商取引法 delivery period. It also means
 77 SP pages disappear at the switch, which is why merging their content had to be
 looked at at all.
+
+
+## Nothing in the text was damaged — 85 of 85 🟢 *2026-09-03*
+
+Each fragment goes through roughly fifteen regex passes: chrome windowing, style
+and script extraction, attribute stripping, class mapping, inline-style mapping,
+div balancing, grid merging, heading lifting, tidying. Any one of them can eat a
+character it was not meant to, and that failure is invisible — a sentence with a
+word missing still reads like a sentence.
+
+`tools/check-content-preserved.sh` checks the property that must hold:
+
+> Every line of text in the converted fragment appears **verbatim** in its
+> source. Conversion may remove text and may change markup; it may never invent
+> or alter text.
+
+**85 of 85 pages, zero altered lines.** → `inventory/content-preserved.csv`
+
+### The check cried wolf twice before it was trustworthy
+
+Both were faults in the checker, not the output, and both are worth recording
+because they are easy to repeat:
+
+- `grep -qF "$line"` treated lines beginning with `-` or `●` as options, and
+  reported them as corrupted. Fixed with `--`.
+- Stripping tags with `sed` reports a false positive on any tag that spans two
+  lines — this corpus has `<img>` tags with their `src` on the next line, so
+  `<imgloading="lazy"…` leaked through as text and looked like invented content.
+  Tags are now stripped with `perl -0777` in slurp mode.
+
+A quality gate that raises false alarms is worse than none: the first run's four
+"corrupted" pages would have sent someone hunting through fragments that were
+perfectly fine.
 
 ## Still open
 

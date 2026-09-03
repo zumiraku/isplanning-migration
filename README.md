@@ -126,6 +126,7 @@ majority of option-priced products (S0-21) — run it after every change to that
 .\tools\build-freepage-previews.ps1  # -> rendered pages + review index
 .\tools\check-responsive.ps1         # every page at 375 / 768 / 1440px
 sh  tools/compare-sp-content.sh       # content the SP pages have and the desktop ones do not (C27)
+sh  tools/check-content-preserved.sh   # prove no text was damaged by the conversion
 .\tools\analyse-category-titles.ps1  # how far a rule reproduces the 607 category titles (C4)
 ```
 
