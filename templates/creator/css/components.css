@@ -452,3 +452,48 @@ ul, ol { margin: 0; padding: 0; }
 @media screen and (min-width: 768px) {
   .gallery__dots { display: none; }
 }
+
+/* --- cart ----------------------------------------------------------------
+   The Basic Mode cart is a six-column table: 3 columns of product info, then
+   quantity, price and a remove button. At 375px that is unreadable and it is
+   the last screen before payment, so below 768px each row becomes a card with
+   its column headings carried in data-label. Above it, the table stays a table.
+   ------------------------------------------------------------------------ */
+.carttable { width: 100%; border-collapse: collapse; }
+.carttable th, .carttable td { padding: var(--s-3); border-bottom: 1px solid var(--c-rule); text-align: left; vertical-align: middle; }
+.carttable thead th { background: var(--c-surface-2); font-size: var(--t-sm); color: var(--c-ink-2); }
+.carttable__media img { width: 72px; height: 72px; object-fit: contain; background: var(--c-surface-2); border-radius: var(--radius); }
+.carttable__name { font-weight: 700; }
+.carttable__code { display: block; font-size: var(--t-xs); color: var(--c-ink-3); }
+.carttable__opt { display: block; font-size: var(--t-sm); color: var(--c-ink-2); }
+.carttable__price { font-family: var(--f-num); font-weight: 700; white-space: nowrap; }
+.carttable__price small { font-weight: 400; color: var(--c-ink-3); }
+.carttable__empty { padding: var(--s-10) var(--s-4); text-align: center; color: var(--c-ink-2); }
+
+.qtyfield { display: inline-flex; align-items: center; gap: var(--s-2); }
+.qtyfield input { width: 5rem; min-height: var(--tap-min); padding: var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-num); text-align: right; }
+
+@media screen and (max-width: 767px) {
+  .carttable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .carttable tr { display: grid; grid-template-columns: 72px 1fr; gap: 0 var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--c-rule); }
+  .carttable td { border: 0; padding: var(--s-1) 0; }
+  .carttable .carttable__media { grid-row: span 3; }
+  .carttable td[data-label]::before { content: attr(data-label) "："; font-size: var(--t-xs); color: var(--c-ink-3); margin-right: var(--s-1); }
+  .carttable__empty, .carttable tr.is-empty { display: block; }
+  /* Everything except the thumbnail belongs in the content column; without this
+     the remove button lands in the 72px image track and wraps mid-word. */
+  .carttable td:not(.carttable__media) { grid-column: 2; }
+  .carttable td:last-child { justify-self: start; margin-top: var(--s-2); }
+}
+
+.cartsum { margin: var(--s-6) 0; border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.cartsum__row { display: flex; justify-content: space-between; gap: var(--s-4); padding: var(--s-2) 0; }
+.cartsum__row + .cartsum__row { border-top: 1px dashed var(--c-rule-soft); }
+.cartsum__total { font-family: var(--f-num); font-size: var(--t-xl); font-weight: 700; color: var(--c-sale); }
+.cartsum__note { font-size: var(--t-sm); color: var(--c-ink-2); margin-top: var(--s-2); }
+
+.cartactions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin: var(--s-6) 0; }
+.cartactions .btn { flex: 1 1 14rem; justify-content: center; }
+.cartquote { margin: var(--s-6) 0 0; padding: var(--s-4); border: 1px solid var(--c-accent); border-radius: var(--radius); background: var(--c-accent-light); }
+.cartquote p { margin: 0 0 var(--s-2); font-size: var(--t-sm); }
+.cartquote form { margin: 0; }
