@@ -318,3 +318,43 @@ do not demonstrate it.
 `bodyタグ直下メッセージ` for カテゴリページ: **残り50,000文字**, empty. Two of the
 three slots checked, both empty. One left (その他のページ), and if that is empty
 too then GA4 comes from somewhere outside this screen entirely.
+
+#### その他のページ — per-URL SEO, and the third empty body field
+
+Selecting その他のページ shows a **per-URL** form. The entry visible is:
+
+```
+ページURL     /index.html
+title         粗品・景品の通販 発見マーケット｜粗品・景品用グッズ、ノベルティの名入れ
+description   粗品・景品の通販なら発見マーケット。粗品・景品用グッズを多数販売！…
+bodyタグ直下メッセージ   残り50,000文字   (empty)
+```
+
+So the top page's own title and description are set here, not in the design. Note
+also the constraint printed on this page type only: **「|（半角パイプ）」は使用でき
+ません** — the shop's own titles use the full-width ｜ throughout, which is
+consistent.
+
+This form is per-URL, so it is very likely where the free pages' titles live too.
+Worth confirming when the free-page titles are finalised, since
+`inventory/freepage-seo-plan.csv` assumes we set them somewhere.
+
+### 🔴 GA4 is not in the SEO screen at all
+
+All three body-tag message slots are empty:
+
+| 対象設定 | bodyタグ直下メッセージ |
+|---|---|
+| 商品詳細ページ | 残り50,000文字 — empty |
+| カテゴリページ | 残り50,000文字 — empty |
+| その他のページ (/index.html) | 残り50,000文字 — empty |
+
+And the design backup contains no analytics tag either. Yet `G-BK1PPN5MEV` fires
+on every page — measured from the crawl, not assumed.
+
+**So the tag comes from somewhere neither the design nor the SEO settings covers**,
+most likely 分析・販促管理. Q5 stays open and the search continues there.
+
+This is worth the effort it is taking. A tag nobody can find is a tag nobody will
+think to re-apply, and the loss shows up weeks later as a silent hole in the
+client's advertising numbers.
