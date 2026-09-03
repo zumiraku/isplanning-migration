@@ -175,3 +175,90 @@ placeholders.
 ### 独自ページは最大で10,000ページまで
 
 No ceiling worth planning around.
+
+---
+
+## ショップ構築 → 設定 → SEO設定
+
+`console.makeshop.jp/settings/seo-and-marketing/seo-all-config?shopId=isplanning`
+
+Screenshots, 2026-09-03. This screen matters more than its name suggests.
+
+```
+対象設定    [ 商品詳細ページ ▼ ]        <- per page type
+適用設定    (o) 一括設定を適用する   ( ) 個別設定を適用する
+title       [product]｜粗品と景品の発見マーケット          max 255
+description 粗品の[product]の販売。エスピーソースカタログの…   max 500
+bodyタグ直下メッセージ   HTML可 / 最大50000文字            (collapsible)
+利用可能な変数
+```
+
+### 🔴 The body-tag message is empty — the tags are still not found
+
+Opened for 商品詳細ページ: **残り50,000文字**, nothing entered. So GA4
+`G-BK1PPN5MEV` is not injected from here either, at least not for this page type.
+
+Two places left to look, and Q5 stays open until one of them has it:
+
+- the same field under a different 対象設定 (a site-wide or top-page setting)
+- a separate tag screen under 分析・販促管理
+
+Worth stating plainly: the design backup did not contain the tags, and neither
+does this. Whatever is emitting GA4 on every page has not been found yet, and
+"we looked in the obvious places" is not the same as having it.
+
+### 🟢 利用可能な変数 — this decides the 607 category titles
+
+| 項目 | 変数 |
+|---|---|
+| 商品名 | `[product]` |
+| **カテゴリ名** | **`[category]`** |
+| **現在カテゴリ名** | **`[currentcategory]`** |
+| ショップ名 | `[shopname]` |
+| JANコード | `[jan]` |
+| 製造元 | `[seizou]` |
+| 原産地 | `[gensan]` |
+| 検索語 | `[kensaku]` |
+| 商品別特殊表示 | `[tokushu]` |
+
+**Two distinct category variables exist.** `[category]` and `[currentcategory]`
+are separate, and the second is documented as 現在表示中のカテゴリ名 — which reads
+as: `[currentcategory]` is the page's own category, `[category]` something
+broader, most likely the parent or top-level one.
+
+If that reading holds, the dominant title shape measured in
+[category-titles.md](category-titles.md) —
+
+```
+{PARENT}の粗品通販ページ{CATEGORY}まで【粗品と景品の発見マーケット】
+```
+
+— becomes
+
+```
+[category]の粗品通販ページ[currentcategory]まで【[shopname]】
+```
+
+which reproduces **294 of 607 titles exactly**, the outcome that was in doubt.
+
+**Do not treat this as settled.** The variable names are suggestive, not proof.
+Switching 対象設定 to the category page and reading its title field shows which
+variable the shop itself uses, and that is the confirmation.
+
+### And a possible correction to C4 waiting behind it
+
+C4 records that Creator Mode disables per-category custom titles, so all 607
+would be lost. But this screen is under **ショップ構築 → 設定**, not under the
+design — a shop setting rather than a template. Settings of that kind normally
+survive a mode switch.
+
+If the 607 titles are the 個別設定 on this screen, they may not be lost at all,
+and a large piece of Gate A's decision (A) dissolves. That is worth confirming
+before the client is asked to choose between reproduction strategies for
+something that might not need reproducing.
+
+### ⚠️ 更新 saves shop-wide
+
+The blue 更新 button at the bottom writes the setting for every page of the
+chosen type. Changing 対象設定 or expanding a section is safe; pressing 更新 is
+not, and anyone sent to this screen needs telling.
