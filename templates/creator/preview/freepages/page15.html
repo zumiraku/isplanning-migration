@@ -8,57 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    盛り上がるパーティーゲーム 粗品と景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    盛り上がるパーティーゲーム 粗品と景品の発見マーケット  meta description
-    https://www.isp-sp.com/html/page15.html    canonical URL
-    盛り上がるパーティーゲーム      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>盛り上がるパーティーゲーム</li>   breadcrumb trail
-    <p>おいしい食事と気の合う仲間との時間はかけがえのないものです。 <br>
-会場選びに料理メニューの選定、そして出席者の数が決まれば、あとは余興やゲームで盛り上げることを考えましょう。 <br>
-    さて、パーティーゲームといえば、ビンゴゲームや王様ゲームが定番です。 <br>
-      ビンゴゲームは結婚式の二次会でもおなじみではないでしょうか。 <br>
-      しかし、あまりにも定番で飽きてしまい、パーティーの場がだらけてしまうケースもあるようです。 <br>
-    こちらでは盛り上がるパーティーゲームについてご紹介したいと思います。 <br>
-どうやってパーティーを盛り上げるかお悩みの方はご参考ください。</p>
-
-	<h3>ロシアンルーレット</h3>
-
-	<p>ピザなどのカットされた料理のうちの一つにタバスコなどの辛いものを仕込んで5～6人の参加者でいっせいに食べるゲームです。 <br>
-ロシアンルーレットの要領ですので、ルールも仕込みも簡単です。 <br>
-参加者以外の方でも、辛いものを食べてしまった人のリアクションなどを見て楽しめるところもポイントです。</p>
-
-	<h3>パートナーゲーム</h3>
-
-	<p>まず紙を用意し、有名人の夫婦やカップルの名前を書きます。 <br>
-男性と女性で分かれて行うゲームですので、名前はそれぞれ別々に分けて書きましょう。 </p>
-    <p>そして、男性には男性有名人の名前が書かれた紙を背中に貼ります。 <br>
-      女性も同じく、女性有名人の名前が入った紙を背中に貼ります。 <br>
-      参加者は背中に貼った芸能人の名前を知りません。 </p>
-    <p>ここからゲームのスタートです。 <br>
-      参加者は自分が貼られている芸能人のパートナーを探します。 </p>
-    <p>そこで活躍するのが司会者です。 <br>
-      司会者は誰と誰がパートナーか分かるので、実況しながら参加者へヒントを出すことができます。 <br>
-      パートナーを見つけたと思ったカップルは、手を挙げて司会者の前で答え合わせをします。 </p>
-    <p>男女ともに初対面でも仲良くなれますのでおすすめです。 <br>
-      司会者の方のヒントの出し方次第でさらに盛り上がることでしょう。 </p>
-    <p>パーティーに参加している人数や、会場の雰囲気によって盛り上げ方も変わってきます。 </p>
-<p>また、参加者同士でゆっくり話をしたいという方もいらっしゃいますので、パーティーの流れや雰囲気を見て、メリハリをつけるとゲームも盛り上がりますし、そうする事で参加者全員が楽しめるのではないでしょうか。</p>
-
-	<p>またパーティーには欠かせない景品や粗品、名入れのノベルティグッズでしたら、当店におまかせください。 <br>
-結婚式の二次会、クリスマスパーティー、忘新年会、表彰式などに必要な粗品を販売しております。 </p>
-    <p>当店では、ネットでの注文に加え、エスピーソースカタログを無料でお送りしておりますので、そちらでも注文することが可能です。 </p>
-<p>名入りの景品、粗品、販促品でしたら当店におまかせください。</p>
-
-<div class="linkbox"><a href="/shopbrand/030/Y/"><p>● イベントやパーティにおすすめ商品<br>クリスマス用やお正月向けもあります</p></a></div>
-
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a>
-</div>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

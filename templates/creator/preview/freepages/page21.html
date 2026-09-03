@@ -8,65 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    粗品の販売数量        <title> — from inventory/freepage-seo-plan.csv
-    粗品の販売数量  meta description
-    https://www.isp-sp.com/html/page21.html    canonical URL
-    例）販売単位数量が100個の場合で50個や175個ご購入予定の場合は下記ご確認ください。      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>例）販売単位数量が100個の場合で50個や175個ご購入予定の場合は下記ご確認ください。</li>   breadcrumb trail
-    <h3>粗品の販売単位数量はほとんどの商品でご希望数量でご相談可能です。</h3>
-
-<div class="h-section">
-商品詳細ページの画像の下部分をご確認ください。下記赤丸部分。</div>
-
-<ul class="linklist">
-<li><p>●詳細ページに表示画像</p>
-<p><img loading="lazy" decoding="async" alt="数量相談可能商品詳細ページに表示画像" src="https://gigaplus.makeshop.jp/isplanning/images/soudan01.jpg" ></p></li>
-<li><p>●カテゴリーに表示画像</p>
-<p><img loading="lazy" decoding="async" alt="数量相談可能カテゴリーに表示画像" src="https://gigaplus.makeshop.jp/isplanning/images/sp35436s.jpg"></p></li>
-</ul>
-
-<div class="h-section">「ご相談可能」と表示されていましたらご希望数量で販売数量はご相談可能です。<br>（一部商品は半数以上等条件が付く場合がございます）</div>
-
-<div class="h-section">かごは販売単位数量の倍数でしかご注文できません、<br>端数をご希望の場合は買い物かごの下の「この商品について問合わせる」ボタンから<br>ご希望数量をご記載の上お問い合わせください。</div>
-
-<ul class="linklist">
-<li><p>●折り返しお見積りのメールをお送りさせていただきます。</p>
-<p><img loading="lazy" decoding="async" alt="問い合わせボタン画像" src="https://gigaplus.makeshop.jp/isplanning/images/soudan02.jpg"></p></li>
-<li><p>●問い合わせ例</p>
-<p>「この商品を50個でほしいのですが可能でしょうか、可能であれば見積りをお願いします。」</p>
-<p>※ご住所も記載頂けましたら送料を含めたお見積りも可能です。</p>
-<p>※名入れ、包装、熨斗もご希望があれば記載願います。</p>
-</li>
-</ul>
-
-<div class="h-section">販売単位数量未満の場合は、ご希望数量に対し商品単価は上がります、お見積りを折り返しメールさせていただきます。</div>
-<p>ご住所を記載いただけましたら、送料等含めました詳細のお見積りもできます。</br>
-下記の「見積り依頼フォーム」もご利用ください。</p>
-
-<p><a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600,height=600'); return false;"><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/estimation_cart2.png" alt="見積り依頼フォーム" /></a></p>
-
-<hr>
-
-<p>一部商品で「少量購入できる粗品・数量選択可能商品」もございますのでご確認ください。</p>
-<div class="u-center"><a href="/shopbrand/ct667/"><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_unit3.png" alt="数量選択可能"></a></div>
-
-<div class="linkbox"><a href="/shopbrand/ct667/"><p>● 少量購入できる粗品・数量選択可能商品はこちら</p></a></div>
-<div class="linkbox"><a href="/html/page81.html"><p>● 数量選択可能商品の説明</p></a></div>
-
-<p class="btn btn--ghost"><a class="u-center" href="/html/page5.html">季節で選ぶ粗品の一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page8.html">シーンで選ぶ粗品一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page9.html">商品別カテゴリー一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page4.html">SP SOURCE、名入れのご案内</a></p>
-
-<hr>
-
-＜＜商品詳細画面のご説明＞＞      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

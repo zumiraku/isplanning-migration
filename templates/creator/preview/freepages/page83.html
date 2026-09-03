@@ -8,33 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    粗品と景品の発見マーケット ISPLANNING        <title> — from inventory/freepage-seo-plan.csv
-    粗品と景品の発見マーケット ISPLANNING  meta description
-    https://www.isp-sp.com/html/page83.html    canonical URL
-    粗品・景品の発見マーケット　カテゴリー　バナー      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>粗品・景品の発見マーケット　カテゴリー　バナー</li>   breadcrumb trail
-    <ul class="tilegrid">
-<div class="guide-item">
-<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_unit3.png" alt="数量選択可能"></li><a href="/shopbrand/ct667/"><div><div>ロット単位で多すぎる場合は、<br>数量選択可能商品ページでご検討ください</div></div></a></div>
-<div class="guide-item">
-<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner5.svg" alt="季節で選ぶ"></li><a href="/html/page5.html"><div><div>季節で選ぶ<br>粗品はこちら</div></div></a></div>
-<div class="guide-item">
-<li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname.svg" alt="包装のし名入れ"></li><a href="/html/page2.html"><div><div>粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
-
-<div class="guide-item"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner7.png" alt="季節で選ぶ"></li><a href="/html/page5.html"><div><div>季節で選ぶ<br>粗品はこちら</div></div></a></div>
-<div class="guide-item"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname3.png" alt="包装のし名入れ"></li><a href="/html/page2.html"><div><div>粗品の包装・のし・<br>名入れもおまかせください</div></div></a></div>
-
-<div class="guide-item"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_sp_spring2.png" alt="春画像"></li><div><div>春の粗品に最適な、母の日、バレンタインデー、<br>桜柄の景品をお探しの方は、<br>発見マーケットをご利用ください。<br>販売単位もご相談可能商品もございます。</div></div></div>
-<div class="guide-item"><li><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_mothersday.jpg" alt="母の日画像"></li><div><div>母の日に最適な粗品の販売ページです。カーネーションやバラをモチーフにした商品が人気です。バッグやポーチなどの小物、日傘やアームカバーなどの紫外線対策グッズなどもおすすめです。</div></div></div>
-</ul>
-
-</div      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

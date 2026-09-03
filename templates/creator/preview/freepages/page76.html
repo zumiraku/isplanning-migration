@@ -8,99 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    粗品を販売する「発見マーケット」のコラム一覧｜粗品をお求めなら        <title> — from inventory/freepage-seo-plan.csv
-    粗品を販売する「発見マーケット」のコラム一覧｜粗品をお求めなら  meta description
-    https://www.isp-sp.com/html/page76.html    canonical URL
-    粗品とは？選び方や年末年始に配布するときのポイント      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    article    article | visual-guide | form | link-index | table | short-notice
-    <li>粗品とは？選び方や年末年始に配布するときのポイント</li>   breadcrumb trail
-    <div>
-
-      <div>
-        <p>
-          粗品をお求めなら発見マーケットをご利用ください。商品によっては名入れも可能です。粗品とは、様々なシーンにご利用いただける贈る品物のことです。選び方や配布するときは、贈る相手との関係性や年末年始など贈る時期を考えることも大切です。
-        </p>
-      </div>
-
-    </div>
-
-  <div class="linkbox">
-    <div>
-      <h3>粗品・ノベルティを選ぶ際のお役立ちコラム</h3>
-      <ul class="toc">
-        <li><a href="/html/page77.html">粗品とは？選び方や年末年始に配布するときのポイント</a></li>
-        <li><a href="/html/page78.html">名入れの粗品・ノベルティを配布するメリット・選ぶポイント・作る際の注意点</a></li>
-        <li><a href="/html/page79.html">粗品にタオルが適している理由・配るタイミングと使い道・手土産を渡す際のマナー</a></li>
-        <li><a href="/html/page80.html">オープン記念用の粗品とは？業種別の事例や準備する際の注意点</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="notice">
-      <h3>ノベルティ・手土産に大活躍！幅広いシーンに活用できる粗品をお探しなら</h2>
-      <p>幅広いシーンに活用できる粗品をお探しなら、発見マーケットをご利用ください。発見マーケットでは生活用品やイベント用など、様々な粗品を豊富に取り揃えています。粗品とは、四季のご挨拶やお礼の気持ちを込めて贈る品物のことです。日頃の感謝の気持ちを伝える際や年末年始などの季節の挨拶回りなど、様々なシーンに粗品はご利用いただけます。</p>
-      <p>粗品の選び方や配布するときのポイントは、贈る相手の関係性や贈る時期を考えて選ぶようにしましょう。人の心を掴む魅力的な粗品をお探しの方は、ぜひ発見マーケットでお選びください。</p>
-  </div>
-
-  <div>
-    <h3>粗品を多数取り扱う発見マーケット</h3>
-    <div class="table-scroll"><table class="table table">
-      <tr>
-        <th>社名</th>
-        <td>アイエスプランニング株式会社</td>
-      </tr>
-      <tr>
-        <th>サイト名称</th>
-        <td>粗品と景品の発見マーケット</td>
-      </tr>
-      <tr>
-        <th>住所</th>
-        <td>〒581-0014 大阪府八尾市中田4丁目132－3</td>
-      </tr>
-      <tr>
-        <th>電話番号</th>
-        <td><a href="tel:072-970-6710">072-970-6710</a></td>
-      </tr>
-      <tr>
-        <th>FAX</th>
-        <td>072-970-6720</td>
-      </tr>
-      <tr>
-        <th>メール</th>
-        <td><a href="mailto:isp@isp-sp.com">isp@isp-sp.com</a></td>
-      </tr>
-      <tr>
-        <th>URL</th>
-        <td><a href="https://www.isp-sp.com">https://www.isp-sp.com</a></td>
-      </tr>
-      <tr>
-        <th>営業時間</th>
-        <td>
-          <dl>
-            <dt>10時&#12316;12時・13時&#12316;17時</dt>
-            <dd>お電話受付時間は、季節により変更となる場合がございます。</dd>
-          </dl>
-        </td>
-      </tr>
-      <tr>
-        <th>定休日</th>
-        <td>土・日・祝・年末年始・夏季休業日</td>
-      </tr>
-      <tr>
-        <th>説明</th>
-        <td>粗品や景品をバリエーション豊富に取り揃え、季節に合わせた商品の販売や、粗品の名入れを行っております。</td>
-      </tr>
-    </table></div>
-  </div>
-
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
-
-</div      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

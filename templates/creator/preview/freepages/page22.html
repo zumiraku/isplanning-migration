@@ -8,49 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    エスピーソースのカタログで季節感のあるギフトを 粗品と景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    エスピーソースのカタログで季節感のあるギフトを 粗品と景品の発見マーケット  meta description
-    https://www.isp-sp.com/html/page22.html    canonical URL
-    エスピーソースのカタログで季節感のあるギフトを      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    article    article | visual-guide | form | link-index | table | short-notice
-    <li>エスピーソースのカタログで季節感のあるギフトを</li>   breadcrumb trail
-    <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/fan_image/slide4.jpg" alt="エスピーソースカタログ"/>
-
-<p>ギフトを贈る際の便利なカタログとして、エスピーソースをご活用頂いている方も多いです。<br>
-
-こちらでは贈り物をする際の重要なポイントである季節感に注目してみました。</p>
-
-<h3>ギフトに必要な季節感</h3>
-
-<p>お中元やお歳暮など何かとギフトの機会が、多い方もいらっしゃるかと思います。その際に季節感を重視して贈る方も少なくありませんが、そもそも季節感とは何なのでしょうか？季節感とはその季節らしさを感じさせる事です。</p>
-
-<p>例えば、エスピーソースでもお掃除グッズはお歳暮として人気です。お歳暮を贈る時季から考えて、年末の大掃除で役に立つものを贈りたい思う気づかいや季節の移り変わりのわびさびを感じられます。つまり、季節感をプラスする事で、単なるギフトではない奥行きのあるギフトになります。</p>
-
-<h3>どのような理由で贈るかも大事</h3>
-
-<p>季節感はギフトに重要な要素の1つですが、贈る理由や目的を考える事も重要です。例えば、最近人気のサマーギフトは贈る時季がお中元と同じなので、品物も当然同じものになりがちです。しかし、お中元は普段からお世話になっている目上の方に感謝の意を示すもの、サマーギフトは立場の違いを考えずに贈るものという違いがあります。</p>
-
-<p>つまり、お中元は贈る方に合わせて相応の品物を選ぶ必要がありますが、サマーギフトは気軽な雰囲気の品物が喜ばれるという事を念頭においた品物選びが求められます。</p>
-
-<h3>便利なカタログギフト</h3>
-<img loading="lazy" decoding="async" class="figure--right" src="/shopimages/isplanning/enq_201306270.jpg" alt="エスピーソースカタログ"/>
-<p>ギフトは贈る相手にとって実用的なもので立場や年齢相応のもの、且つ季節感のある粋なものという事が求められます。<br>
-どんな品物を贈ろうか、毎回お悩みになる方も少なくありません。そんな時にギフトカタログは心強い味方になってくれます。</p>
-
-<p>当店ではエスピーソース掲載のギフトを取り扱っており、粗品やノベルティとしても活用しやすい名入れサービスも可能です。<br>
-<strong>エスピーソース</strong>のカタログをご希望の方だけでなく、他社ですでに入手したという方もお気軽にお問い合わせください。</p>
-
-<div class="linkbox"><a href="/html/page4.html"><p>● エスピーソースカタログの詳細はこちら</p></a></div>
-
-<div class="linkbox"><a href="https://www.makeshop.jp/ssl/enquete/index.html?db=isplanning&form_code=201306270" Target="_blank"><p>● エスピーソースカタログを無料でお送りいたします</p></a></div>
-
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a>
-</div>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

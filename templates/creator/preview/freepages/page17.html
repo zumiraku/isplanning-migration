@@ -8,55 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    おすすめのスマートフォングッズ 粗品と景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    おすすめのスマートフォングッズ 粗品と景品の発見マーケット  meta description
-    https://www.isp-sp.com/html/page17.html    canonical URL
-    おすすめのスマートフォングッズ      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>おすすめのスマートフォングッズ</li>   breadcrumb trail
-    <p>携帯電話をお持ちの方はたくさんいらっしゃると思います。 <br>
-現在ではガラケーに変わって、スマートフォンが携帯電話の主流となってきました。 </p>
-    <p>スマートフォンの魅力はその性能、操作性の魅力もありますが、スマホグッズの魅力も大きいのです。 </p>
-<p>ここでは、便利でおすすめのスマホグッズについてご紹介したいと思います。</p>
-
-	<h3>ケース</h3>
-
-	<p>定番中の定番ですが、ご紹介したいと思います。 <br>
-スマホを汚れや衝撃から守るために必須のグッズです。 <br>
-また、そのデザインも多種多様ありますので、スマホケースを見ているだけでも楽しくなります。 </p>
-<p>その日の気分に応じて、ケースを変えるなど、アクセサリー感覚で楽しまれている方も多いようです。</p>
-
-	<h3>コンパクトモバイルチャージャー</h3>
-
-	<p>スマホは性能が高く非常に便利ですので、使用頻度が高くなりがちです。 <br>
-そこで気になってくるが、バッテリーの問題です。 <br>
-スマホを使っている方でバッテリーが足りないと感じる方は非常に多いようです。 </p>
-<p>そこで役に立つのがモバイルチャージャーです。外出先や電源がない場所での使用に効果的です。</p>
-
-	<h3>タッチペン</h3>
-
-	<p>スマホは指で操作しますが、タッチペンを使う事でさらに快適な操作が可能になります。 </p>
-<p>メモや絵を描くアプリや画像、動画の編集の際、タッチペンを使うとかなり快適です。</p>
-
-	<h3>スタンド</h3>
-	<img loading="lazy" decoding="async" class="figure--right" src="https://gigaplus.makeshop.jp/isplanning/fan_image/smartphonegoods.jpg" alt="スマートフォングッズ">
-
-	<p>机に置いて操作することができたり、動画鑑賞やインターネットを使用するときに便利です。 <br>
-また、セルフタイマーなどを用いて写真を撮ったりする時にも活躍します。 </p>
-    <p>スマホグッズは種類やデザインが豊富でありながら、実用的な商品が多いので、ちょっとした贈り物にもおすすめです。 </p>
-    <p>当店で景品や粗品、名入りのノベルティグッズなどをオンラインにて注文、販売を行っております。 </p>
-<p>スマートフォンのためのスマホグッズ、名入りボールペンやのエコバッグなど、様々な商品を取り揃えております。</p>
-<p>スマホグッズのノベルティ商品なら当店におまかせください。</p>
-
-<div class="linkbox"><a href="/shopbrand/036/P/"><p>● スマートフォングッズはこちら</p></a></div>
-
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a>
-</div>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

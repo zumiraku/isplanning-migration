@@ -8,73 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    アウトドアに役立つ便利アイテム        <title> — from inventory/freepage-seo-plan.csv
-    アウトドアに役立つ便利アイテム  meta description
-    https://www.isp-sp.com/html/page45.html    canonical URL
-    アウトドアに役立つ便利アイテム      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    article    article | visual-guide | form | link-index | table | short-notice
-    <li>アウトドアに役立つ便利アイテム</li>   breadcrumb trail
-    <div id=fan_contents>
-<h2>アウトドアに役立つ便利アイテム</h2>
-
-    <div>
-    <div>
-        <img loading="lazy" decoding="async" alt="アウトドアに役立つ便利アイテム" src="/design/isplanning/g_08_01.jpg">
-      </div>
-      </div>
-
-    <h3>折りたたみ式のテーブル・チェア</h3>
-    <div>
-      <p>
-        キャンプやBBQなどの<em>アウトドア</em>シーンに必需品なのが、折りたたみ式のテーブル・<em>チェア</em>です。テーブルはサッと用意できるよう簡単に設置できる組み立て式が便利です。また、テーブル・チェアはコップや<em>タンブラー</em>が入るポケット付きタイプを選ぶと、山や川などのデコボコの地面に設置してもこぼさずに済みます。
-      </p>
-    </div>
-
-    <h3>保冷温バッグ</h3>
-    <div>
-      <p>
-        クーラーボックスは定番のアイテムですが、「保冷温バッグ」もアウトドアにとても役立つアイテムです。クーラーボックスは保冷の役割だけをするのに対し、保冷温バッグは夏には保冷、冬には保温と季節を問わず活躍します。
-      </p>
-    </div>
-
-    <h3>ランタンライト</h3>
-    <div>
-      <p>
-        アウトドアで使うライトは、ランタンタイプがおすすめです。ランタン型のライトは自立できるため、夜の作業やイベントなどに重宝します。通常タイプはもちろん、折りたためて場所を取らないポップアップ式タイプ、水濡れトラブルを気にせずに済む防滴タイプのランタンライトはレジャーに最適です。
-      </p>
-    </div>
-
-    <h3>ブランケット</h3>
-    <div>
-      <p>
-        山や川でのキャンプには<em>ブランケット</em>を持っていく事をおすすめします。山の天気は変わりやすく、夏場であっても夜になると一気に冷え込む場合があります。コンパクトに畳めるブランケットを1枚持っていくと重宝します。
-      </p>
-    </div>
-
-    <h3>簡易トイレ</h3>
-    <div>
-      <p>
-        トイレがないレジャースポットでは、簡易トイレがとても役立ちます。種類も色々ある簡易トイレは、アウトドアシーンだけでなく、災害時や車の渋滞時など、様々なシーンで大活躍します。
-      </p>
-    </div>
-
-    <div>
-      <p>
-        アウトドア商品を<strong>粗品</strong>にとお考えの方は、粗品や景品、ノベルティの名入れ販売を行う当店へご<strong>注文</strong>ください。粗品の定番である<em>石鹸</em>やタオルをはじめ、レジャーやアウトドア向け、お子様向け、イベント向けなど幅広い種類の粗品・景品・ノベルティをご用意しております。粗品・景品・ノベルティには名入れも可能なので、ぜひご注文ください。名入れやご購入数量、注文方法など、ご不明点はご遠慮なくお問い合わせください。
-      </p>
-    </div>
-<div class="linkbox"><a href="/shopbrand/014/Y/"><p>● レジャー・アウトドアに最適な粗品販売ページ</p></a>
-</div>
-
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
-
-</div>
-</div      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

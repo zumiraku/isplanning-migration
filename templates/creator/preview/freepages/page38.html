@@ -8,75 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    人気の粗品をご紹介 粗品で日頃の感謝を表そう        <title> — from inventory/freepage-seo-plan.csv
-    人気の粗品をご紹介 粗品で日頃の感謝を表そう  meta description
-    https://www.isp-sp.com/html/page38.html    canonical URL
-    人気の粗品をご紹介　粗品で日頃の感謝を表そう      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>人気の粗品をご紹介　粗品で日頃の感謝を表そう</li>   breadcrumb trail
-    <div id="fan_contents">
-<h2>人気の粗品をご紹介　粗品で日頃の感謝を表そう</h2>
-
-    <div>
-      <p>
-        開業・開店祝い、シーズンごとのイベントなどには、お世話になっているお客様や仕事関係の方々にちょっとした<strong>粗品</strong>をお配りする事で、日頃の感謝の気持ちを伝える事ができます。こちらでは、業種ごとによく選ばれる<em>おすすめ</em>の粗品をご紹介します。
-      </p>
-    </div>
-
-    <h3>美容関係の開店祝いにおすすめの粗品</h3>
-    <div>
-    <div class="figure--right">
-        <img loading="lazy" decoding="async" alt="美容関係の開店祝いにおすすめの粗品" src="/design/isplanning/g_01_01.jpg">
-      </div>
-      <p>
-        エステサロンやネイルサロン、美容院、リラクゼーションサロンなど、美容関係の開店祝いや周年祝いの記念品には、美意識が感じられるような粗品がおすすめです。
-      </p>
-      <p>
-        例えば、目で見て香りでも楽しめる石鹸、入浴剤、バスタイムギフト、何枚あっても嬉しいタオルなどは、美容のイメージにピッタリな粗品です。また、ちょっとした個包装のお菓子もサービスでそっとお渡しできるので最適です。
-      </p>
-<div class="linkbox"><a href="/shopbrand/039/Y/"><p>● 女性向きの粗品景品の販売ページ</p></a>
-</div>
-    </div>
-
-    <h3>会社や事務所の開業祝いにおすすめの粗品</h3>
-    <div>
-    <div class="figure--left">
-        <img loading="lazy" decoding="async" alt="会社や事務所の開業祝いにおすすめの粗品" src="/design/isplanning/g_01_02.jpg">
-      </div>
-      <p>
-        会社設立や事務所の開業祝いには、オフィスを連想させるような粗品がおすすめです。
-      </p>
-      <p>
-        例えば、会社の名前が入ったボールペンや卓上カレンダー、卓上時計、付箋、<em>スマホグッズ</em>といった仕事に欠かせない物、いくつあっても困らないような物が<em>人気</em>です。
-        </p>
-      <p>
-        また、これまでお世話になった方々・これからお世話になる方々への挨拶品には、お菓子などの食べ物も喜ばれます。
-      </p>
-<div class="linkbox figure--left"><a href="/shopbrand/016/Y/"><p>● ステーショナリーの粗品販売ページ</p></a>
-</div>
-    </div>
-
-    <h3>飲食店のイベントにおすすめの粗品</h3>
-    <div>
-      <p>
-        レストランやカフェ、ベーカリー、居酒屋、バーなど、飲食関係のプレオープンやイベントには、お店のスタイルやイメージが伝わるような粗品が最適です。お店のロゴが入ったマグカップやグラス、カトラリー、コースターといったお店の雰囲気が伝わるようなアイテムは、印象的なオリジナルグッズにもなります。
-      </p>
-<div class="linkbox"><a href="/shopbrand/021/Y/"><p>● マグカップや陶器類の粗品販売ページ</p></a>
-</div>
-    </div>
-
-    <div>
-      <p>
-        日頃の感謝が伝わるような粗品をお探しなら、当店の通販サイトをご利用ください。当店では人気のタオルや石鹸、感謝のメッセージが入ったお菓子、<em>スマートフォン</em>スタンドなどの便利な<em>スマホ</em>アイテムといった感謝の気持ちを伝えるのに最適なグッズを多数ご用意しております。粗品の事であればお気軽に当店までご相談ください。
-      </p>
-    </div>
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
-</div>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

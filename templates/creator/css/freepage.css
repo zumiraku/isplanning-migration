@@ -312,3 +312,17 @@ main[data-archetype="news-list"] .article,
 main[data-archetype="link-index"] .article,
 main[data-archetype="form"] .article,
 main[data-archetype="table"] .article { max-width: none; }
+
+/* --- two business-day calendars side by side ------------------------------ */
+/* The original floats them at fixed widths. Side by side from 560px, stacked
+   below it: two 7-column date grids in a 375px viewport are unreadable. */
+.calgrid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: 1fr;
+  margin: 0 0 var(--s-8);
+}
+@media screen and (min-width: 560px) {
+  .calgrid { grid-template-columns: repeat(2, 1fr); }
+}
+main[data-archetype="category-calendar"] .article { max-width: none; }

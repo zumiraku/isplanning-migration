@@ -53,7 +53,7 @@ Status: `?` unverified · `YES` in use · `NO` not in use · `DECIDED` client ha
 | C22 | **サブ画像のスワイプ（SP）** | New request | Client: 「サブ画像使用（スマホではスワイプできればと思います）」. A second explicit UI request alongside the recommend rail. Same CSS scroll-snap technique — no library |
 | C23 | **割引設定** on product pages | `YES` 🟡 | Client flagged /shopdetail/003003000870/ as using it. The rebuilt engine now renders `member_price` when `is_member_price` is true and fails loud when the flag is set but the amount is 0 — **but that branch is reasoned, not measured**: all 73 probes were anonymous. Log in as a member on that product, capture the response, re-probe, then promote the synthetic case in `verify-pricing.html` to measured (S0-21) |
 | C24 | **追加説明文1 に独自CSS** | `YES` | Two different patterns flagged (/shopdetail/000000023664/ and /shopdetail/051000000001/order). Per-product CSS inside a description field will not survive a token-based rebuild untouched — needs a component instead |
-| C25 | **カレンダーのカテゴリページ** | `YES` | /shopbrand/051/O/ — captured in the archive before the block. Distinct layout; treat as its own category-template variant |
+| C25 | **カレンダーのカテゴリページ** | `YES` | /shopbrand/051/O/ — **rebuilt 2026-09-02..03**, `templates/creator/preview/category-calendar.html`. Not a listing: a hand-built 3-column table of 25 curated products under two business-day calendars, in the category free space. Now a responsive card grid; the invisible yellow NEW badge and the colour-only closed-day marking are both fixed. See [stage5-freepages.md](stage5-freepages.md) |
 
 ### Client decisions already given
 

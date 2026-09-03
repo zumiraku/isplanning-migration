@@ -8,51 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    少量購入できる粗品・数量選択可能商品 発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    少量購入できる粗品・数量選択可能商品 発見マーケット  meta description
-    https://www.isp-sp.com/html/page81.html    canonical URL
-    少量購入できる粗品・数量選択可能商品の説明      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>少量購入できる粗品・数量選択可能商品の説明</li>   breadcrumb trail
-    div id="fan_contents"><h4>少量購入できる粗品・数量選択可能商品の説明</h2>
-
-<div class="u-center"><img loading="lazy" decoding="async" alt="数量選択可能商品画像" src="https://gigaplus.makeshop.jp/isplanning/images/slide3.jpg"></div>
-
-<img loading="lazy" decoding="async" alt="数量選択可能アイコン" src="https://gigaplus.makeshop.jp/isplanning/images/unit10.gif">
-
-<div class="u-center">
-<div class="h-section"><a href="/shopbrand/ct667/">少量購入できる粗品・数量選択可能商品</a></div>
-<p>上記バナーを表示した商品のみの対応です</p></div>
-
-<div class="guide-grid">
-<div class="guide-item">
-
-<p>ロット単位で購入は、1個単価がお安くなるメリットがありますが、300個や100個も必要では無いお客様に少量購入できる粗品・数量選択可能商品を設定いたしました。<br>
-「発見マーケット」では、数量のご相談できる商品もたくさんございますが、お問い合わせや見積りなく買い物カゴでご注文できるように少量購入できる粗品・数量選択可能商品の中からご検討くださいませ。<br>
-商品単価は数量により変動は致しますが、少ない数量でもご購入可能です。</p>
-</div>
-
-<div class="guide-item"><p><span>1.</span><span>オプションから希望の数量をお選びください。商品色が選択できる場合は色や種類も選択ください。</span></p> <img loading="lazy" decoding="async" class="figure--right" alt="説明画像1" src="https://gigaplus.makeshop.jp/isplanning/images/unit01.png"></div>
-
-<div class="guide-item"><p><span>2.</span><span>数量を選択した時点で税込み価格が変わります。金額をご確認ください。</span></p> <img loading="lazy" decoding="async" class="figure--right" alt="説明画像2" src="https://gigaplus.makeshop.jp/isplanning/images/unit02.png"></div>
-
-<div class="guide-item"><p><span>3.</span><span>ご希望数量が無い場合は、近い数量を選択して頂き、買い物カゴ内の備考欄に希望数量を記載ください。合計金額は自動送信メールの後にお送りするメールにて修正させて頂きます。</span></p><img loading="lazy" decoding="async" class="figure--right" alt="説明画像3" src="https://gigaplus.makeshop.jp/isplanning/images/unit03.png"></div>
-
-<div class="guide-item"><p><span>4.</span><span>色柄の指定不可商品はお任せでの扱いになります。ほぼ均等にはさせて頂きます。</span></p></div>
-
-<hr>
-
-<p class="btn btn--ghost"><a class="u-center" href="/shopbrand/ct667/">数量選択可能商品</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page5.html">季節で選ぶ粗品の一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page8.html">シーンで選ぶ粗品一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page9.html">商品別カテゴリー一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page4.html">SP SOURCE、名入れのご案内</a></p>
-</div>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

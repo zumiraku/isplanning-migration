@@ -8,34 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    ●夏季休業日のお知らせ　2026年｜粗品・景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    ■夏季休業日のお知らせ 2026年■ 8月8日（土）～8月16日（日）は休業とさせていただきます。 お盆期間の粗品等のご注文はお早めにご検討ください。 （名入れ・包装・のし 有りの場合通常約2週間～3週間必要となります（夏季休業日除く）ので  meta description
-    https://www.isp-sp.com/new/2026-07-28-033258.html    canonical URL
-    ●夏季休業日のお知らせ　2026年      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    news-detail    article | visual-guide | form | link-index | table | short-notice
-    <li><a href="news-list.html">お知らせ</a></li><li>●夏季休業日のお知らせ　2026年</li>   breadcrumb trail
-      <p class="newsmeta"><time datetime="2026-07-28">2026/07/28</time></p>
-<div style="margin: 0; padding: 0 0 10px 0; text-align: left; font-size: 14px; letter-spacing: 0.1em; line-height: 24px;">
-<img alt="夏の風物" style="padding: 0 0 10px 0;"src="https://gigaplus.makeshop.jp/isplanning/images/summer2026.jpg">
-<h4 style="margin: 0; padding: 0 0 10px 0; text-align: left; font-size: 18px; letter-spacing: 0.1em; line-height: 24px;">■夏季休業日のお知らせ　2026年■</h4>
-
-<p class=btn_link>8月8日（土）～8月16日（日）は休業とさせていただきます。</p>
-<p style="padding: 12px 0 10px 0;">お盆期間の粗品等のご注文はお早めにご検討ください。</p>
-<p>（名入れ・包装・のし　有りの場合通常約2週間～3週間必要となります（夏季休業日除く）ので御了承ください）</p>
-<p style="padding: 12px 0 0 0;">8月17日（月）より通常通り営業致します。</p>
-
-<p style="padding: 12px 0 0 0;">休業期間に頂きましたご注文・お問い合わせのお返事は　8月17日（月）からとなりますのでご了承下さいませ。</p>
-<p>ご注文品が品切れの場合はご容赦くださいませ。</p>
-  <nav class="newsnav">
-    <a class="btn btn--ghost" href="news-list.html">お知らせ一覧へ</a>
-    <a class="newsnav__next" href="#"><small>前の記事</small>エスピーソースカタログ 2026年 秋号　粗品のカタログを無料でお送りいたします。</a>
-  </nav>
-      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

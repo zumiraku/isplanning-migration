@@ -202,6 +202,51 @@ at cutover.
 
 **Until they are recovered, Stage 5 is 83 of at least 87 pages, not complete.**
 
+
+## C25 — the calendar category page
+
+`https://www.isp-sp.com/shopbrand/051/O/`, one of the five 変わった作りのページ the
+client flagged. Rebuilt: `tools\build-category-calendar.ps1` →
+`templates/creator/preview/category-calendar.html`.
+
+It is not a category listing. It is a hand-built 3-column
+`<table class="calender_List">` of 25 curated products sitting under two
+business-day calendars, all inside the category free space. Since no Creator Mode
+variable tag reproduces an arbitrary curated list (C16), the layout is rebuilt as
+template markup and the content carried across from the archive — the closed days,
+the 25 cells and the intro copy all come out of the captured page.
+
+Three things deliberately change:
+
+- **The 3-column table becomes a responsive card grid.** Three product photos
+  across a 375px screen is unusable, and this page is reached from a phone in Q4
+  by people buying next year's calendars.
+- **The NEW badge stops being invisible.** The live markup is
+  `<SPAN style="color: yellow;">NEW</span>` — yellow text on a white background.
+  It becomes the design system's `.badge--new`.
+- **Closed days stop being colour-only.** The platform marks them with
+  `bgcolor=#cccccc` and nothing else; each closed cell now also carries a label
+  that only assistive technology reads.
+
+### Two defects caught in building it, both worth remembering
+
+**A regex that spanned two cells produced a card with one product's name and
+another product's image and link** (マジカルエコカレンダー's name against
+3か月カスタムエコカレンダー's photo and `/shopdetail/000000025459/`). One cell had a
+`<br />` the others did not, the whole-cell expression failed there, and the lazy
+group expanded across the boundary. On a shop page that sends the customer to the
+wrong product — worse than dropping the row, because nothing looks wrong. Cells are
+now isolated before being parsed.
+
+**The month length was derived from the cells we managed to scrape**, which
+silently truncated August at the 30th and September at the 27th. A business-day
+calendar missing the end of the month is wrong information. It now comes from
+`[DateTime]::DaysInMonth`.
+
+Q10 still stands: whether the calendar is a platform feature or pasted HTML decides
+whether we embed a tag or generate it. The markup is platform-shaped
+(`<font color=#FF0033>`, `bgcolor`), so a tag is likely.
+
 ## Still open
 
 | | |

@@ -8,51 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    退職祝いには名入れの記念品がおすすめ        <title> — from inventory/freepage-seo-plan.csv
-    退職祝いには名入れの記念品がおすすめ  meta description
-    https://www.isp-sp.com/html/page42.html    canonical URL
-    退職祝いには名入れの記念品がおすすめ      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    article    article | visual-guide | form | link-index | table | short-notice
-    <li>退職祝いには名入れの記念品がおすすめ</li>   breadcrumb trail
-    <div id=fan_contents>
-<h2>退職祝いには名入れの記念品がおすすめ</h2>
-
-<div>
-<div><img loading="lazy" decoding="async" alt="退職祝いには名入れの記念品がおすすめ" src="https://gigaplus.makeshop.jp/isplanning/images/column/open-commemorative-gift.jpg"></div>
-
-<p>結婚や出産を機に退職される方・定年を迎えて退職される方など、退職祝いはこれまで会社のために尽くしてきた方へ感謝の気持ちと今後の充実した生活を祈ってギフトを贈ります。お世話になった方の喜ぶ顔を見たくて、ギフト選びに悩んでいる方は、<em>名入れ</em>の記念品を贈ってはいかがでしょうか。</p>
-</div>
-
-<h3>退職祝いで名入れの記念品が喜ばれる理由</h3>
-
-<div>
-<p>退職される方の名前やその方に向けたメッセージを入れる事で、感謝の気持ちをダイレクトに伝える事ができます。贈られた方も真心が感じられ、心に残る特別なアイテムとなるでしょう。<br>
-また、名入れをする事で世界にひとつだけのアイテムとなり、仕事に打ち込んだ日々を振り返るきっかけも与えてくれます。そういった理由から、名入れアイテムは多くの方に喜ばれています。</p>
-
-<p>最近では、名入れサービスも充実しており、グラスや時計、<em>ボールペン</em>、トートバッグなど様々なアイテムに名入れができるようになっています。相手の好みに合わせてアイテムが選べるのも魅力のひとつです。</p>
-</div>
-
-<h3>名入れならエスピーソースカタログ！</h3>
-
-<div>
-<p>手軽に名入れアイテムを選びたいという方には、<strong>エスピーソース</strong>（<em>SP</em> <em>SOURCE</em>）<em>カタログ</em>がおすすめです。エスピーソースカタログは、人気の定番品から旬のアイテムまで様々な商品が幅広く掲載され、春・夏・秋・冬と年4回発行されています。<br>
-エスピーソースカタログに掲載されている商品の名入れも可能なので、「名入れ」の初めての方、よく分からない方はご遠慮なくお問い合わせください。</p>
-</div>
-
-<div>
-<p>退職祝いに名入れの記念品を贈りたい、素敵な粗品を贈りたいという方は、ぜひ当店をご利用ください。当店では、企業様やお店様に欠かせない、粗品や景品を多種多彩に販売しております。名入れが可能な商品も豊富に取り揃えており、粗品・景品・ノベルティをお考えの方にはエスピーソースカタログを無料でご提供しております。ご不明な点がありましたらお気軽にお問い合わせください。</p>
-</div>
-</div>
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
-<p class="btn btn--ghost"><a class="u-center" href="/shopbrand/040/Y/">名入れ可能商品一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page4.html">SP SOURCE、名入れのご案内</a></p>
-
-</div      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

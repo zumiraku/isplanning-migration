@@ -8,44 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    粗品と景品の発見マーケット ご注文用紙ダウンロード        <title> — from inventory/freepage-seo-plan.csv
-    粗品と景品の発見マーケット ご注文用紙ダウンロード  meta description
-    https://www.isp-sp.com/html/page1.html    canonical URL
-    ご注文用紙ダウンロード      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>ご注文用紙ダウンロード</li>   breadcrumb trail
-    <p>粗品のご注文用紙ダウンロードページです。FAX注文の際に印刷頂きましてご使用ください。<br>FAXは24時間受け付けております。</p>
-
-<img loading="lazy" decoding="async" class="figure--right" src="https://gigaplus.makeshop.jp/isplanning/images/ordersheet_s.gif" alt="注文書画像">
-
-	<ul class="linklist">
-		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxorder02.pdf" target="_blank">ＦＡＸ注文用紙（PDF版）</a></li>
-		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxorder03.pdf" target="_blank">名入れ専用ＦＡＸ注文用紙（PDF版）</a></li>
-		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxmitumori.pdf" target="_blank">見積依頼書（PDF版）</a></li>
-		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxorder_calendar.pdf" target="_blank">カレンダー専用ＦＡＸ注文用紙（PDF版）</a></li>
-		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxorder_uchiwa.pdf" target="_blank">うちわ専用ＦＡＸ注文用紙（PDF版）</a></li>
-	</ul>
-
-<ul class="linklist">
-<li><p>●お見積は各商品ページの「この商品を問合せ」からもご利用ください。</p>
-<p><img loading="lazy" decoding="async" alt="問い合わせボタン画像" src="https://gigaplus.makeshop.jp/isplanning/images/soudan02.gif"></p></li>
-<li><p>●下記の「見積り依頼フォーム」もご利用ください。</p>
-<p><a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600,height=600'); return false;"><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/estimation_cart2.png" alt="見積り依頼フォーム" /></a></p></li>
-</ul>
-
-<div class="linkbox"><a href="/shopbrand/ct667/"><p>● 少量購入できる粗品・数量選択可能商品はこちら</p></a></div>
-<div class="linkbox"><a href="/html/page81.html"><p>● 数量選択可能商品の説明</p></a></div>
-
-	<p>ＰＤＦ版の表示にはAdobeAcrobatReader4.0以上が必要です。お持ちでない場合は下記よりダウンロードできます。（無料です）</p>
-	<p><a href="http://www.adobe.com/jp/products/acrobat/readstep2.html" target="_blank"><img loading="lazy" decoding="async" src="https://www.adobe.com/content/dam/cc/en/legal/images/badges/Get-Adobe-Acrobat-Reader-badge.png"></a></p>
-
-	<h3>プライバシーについて</h3>
-	<p>お客様からいただいた個人情報は商品の発送とご連絡以外には、一切使用致しません。当社が責任をもって安全に蓄積・保管し、第三者に譲渡・提供することはございません。（メーカー直送の場合はメーカーにて管理又は出荷後速やかに破棄いたします。）</p>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

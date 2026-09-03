@@ -26,7 +26,10 @@
 param(
   [string]$Only = '',
   [string]$Chrome = '',
-  [int]$TimeoutSec = 25
+  [int]$TimeoutSec = 25,
+  # Pages outside preview/freepages/ - given relative to it, e.g.
+  # ../category-calendar. The harness resolves the slug against its own folder.
+  [string[]]$Also = @()
 )
 
 $ErrorActionPreference = 'Stop'
@@ -52,6 +55,8 @@ if (-not $Chrome -or -not (Test-Path $Chrome)) { throw 'no Chrome or Edge found 
 $js = [System.IO.File]::ReadAllText($pagesJs, [System.Text.Encoding]::UTF8)
 $slugs = [regex]::Matches($js, '"([^"]+)"') | ForEach-Object { $_.Groups[1].Value }
 if ($Only) { $slugs = $slugs | Where-Object { $_ -eq $Only } }
+if ($Also) { $slugs = @($slugs) + $Also }
+if ($Only -and $Also) { $slugs = $Also }
 if (-not $slugs) { throw "no pages to check (Only='$Only')" }
 
 $profile = Join-Path $env:TEMP ('rc-' + [guid]::NewGuid().ToString('N').Substring(0, 8))

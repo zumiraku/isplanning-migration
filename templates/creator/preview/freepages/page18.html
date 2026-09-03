@@ -8,56 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    熱中症を予防しよう 粗品と景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    熱中症を予防しよう 粗品と景品の発見マーケット  meta description
-    https://www.isp-sp.com/html/page18.html    canonical URL
-    熱中症を予防しよう      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>熱中症を予防しよう</li>   breadcrumb trail
-    <img loading="lazy" decoding="async" class="figure--right" src="https://gigaplus.makeshop.jp/isplanning/fan_image/summer.jpg" alt="熱中症の画像">
-
-	<p>地球温暖化に伴い、ニュースでもよく熱中症について取り上げられています。熱中症になってしまう方は、夏の強い日差しの中で運動をしている方と思われがちですが、暑い部屋で過ごしている時や梅雨明けの時期にも症状が現れます。 <br>
-熱中症は最悪な場合、命に関わることもありますので、しっかりと熱中症対策を取りましょう。 </p>
-<p>そこで今回は、熱中症の知識をご紹介いたします。</p>
-
-	<h3>熱中症の原因</h3>
-	<p>熱中症とは簡単にいうと体温のコントロールがうまくできない機能障害のことをいいます。人は、皮膚の表面から熱を空気中に放出して体温調節を行っています。気温が体温よりも低いなら、空気中に熱が移りやすいですし、湿度が低ければ汗をかくことによって熱を空気中に放出することができます。 </p>
-<p>しかし、気温が体温よりも高いと熱を空気中に放出することが難しくなります。こういった原因で、人は熱中症になってしまいます。</p>
-
-	<h3>応急処置の仕方</h3>
-
-	<p>熱中症の初期症状を感じたら、すぐに身体を休ませて水分を摂取するようにしましょう。熱中症には、様々な症状がありますので、それぞれの症状に合った熱中症対策をご紹介いたします。</p>
-
-	<h4>■熱痙攣</h4>
-
-	<p>この症状は生理食塩水を摂取すれば回復します。</p>
-
-	<h4>■熱失神・熱疲労</h4>
-
-	<p>この症状は涼しい場所に移動させましょう。そして、水分補給をすればこの症状は回復します。</p>
-
-	<h4>■熱射病</h4>
-
-	<p>この症状は、命に関わるものです。すぐに救急車を呼び、集中治療室のある病院に運んでもらいましょう。<br>
-	  そして救急車を呼んでいる間に、身体を冷やすなどの処置を行ってください。</p>
-
-	<h3>熱中症対策グッズなら</h3><img loading="lazy" decoding="async" class="figure--right" alt="熱中症予防カード画像" src="https://gigaplus.makeshop.jp/isplanning/fan_image/P-NC-15.jpg">
-	<p>当店では、熱中症対策グッズの販売を行っております。熱中症は、とても怖いものなので、しっかりと対策を取ってください。 </p>
-<p>熱中症対策グッズ以外にも、粗品やノベルティに最適な商品の販売なども行っておりますので、興味のある方はぜひご利用ください。</p>
-
-<div class="linkbox"><a href="/shopbrand/005/001/Y/"><p>● 熱中症対策粗品いろいろ揃えております</p></a></div>
-<div class="linkbox"><a href="/shopdetail/003002000186/"><p>● 熱中症予防カードの商品ページ</p></a></div>
-
-<a href="https://www.hitosuzumi.jp/" target="_blank"><img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/images/hitosuzumi.jpg" alt="熱中症予防声かけプロジェクト" /><br>アイエスプランニング（株）は熱中症予防声かけプロジェクトを応援しています。</a>
-
-<div class="guide-item"><a href="#colum-wrap"><img loading="lazy" decoding="async" alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a>
-</div>
-</div      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared

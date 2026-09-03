@@ -8,103 +8,22 @@
   system-ish pages (ショッピングガイド, 会社概要, 特定商取引法, page32) plus four
   one-offs. They share this shell and differ only by the class on <main>.
 
-  Placeholders, substituted by tools/build-freepage-previews.ps1 for review:
+  Placeholders, substituted by the build tools. Written below WITHOUT their
+  braces on purpose: with the real tokens in this comment, every generated page
+  carried a second copy of its own content inside the comment - about a third of
+  each file - and any content containing a comment terminator would have escaped
+  and rendered twice.
 
-    季節で選ぶ粗品 粗品と景品の発見マーケット        <title> — from inventory/freepage-seo-plan.csv
-    季節で選ぶ粗品 粗品と景品の発見マーケット  meta description
-    https://www.isp-sp.com/html/page5.html    canonical URL
-    季節で選ぶ粗品      the page's own <h1>. Lifted out of the body by the
+    TITLE:        <title> — from inventory/freepage-seo-plan.csv
+    DESCRIPTION:  meta description
+    CANONICAL:    canonical URL
+    HEADING:      the page's own <h1>. Lifted out of the body by the
                      converter, because the body's leading <h2> WAS the real
                      heading: every page on the site currently ships the same
                      <h1> (S0-16). This is where that gets fixed.
-    visual-guide    article | visual-guide | form | link-index | table | short-notice
-    <li>季節で選ぶ粗品</li>   breadcrumb trail
-    <h3>季節で選べる粗品、景品のご紹介ページです。</h3>
-    <p><span class="scenetile">春</span><span class="scenetile">では<a class="btn btn--ghost" href="/shopbrand/004/001/Y/">母の日</a><a class="btn btn--ghost" href="/shopbrand/004/002/Y/">バレンタインデー</a></span></p>
-    <p><span class="scenetile">夏</span><span class="scenetile">では<a class="btn btn--ghost" href="/shopbrand/005/001/Y/">熱中症対策</a><a class="btn btn--ghost" href="/shopbrand/ct665/">ハンディファン</a><a class="btn btn--ghost"href="/shopbrand/005/003/Y/">風鈴</a><a class="btn btn--ghost" href="/shopbrand/005/006/Y/">扇子</a><a class="btn btn--ghost" href="/shopbrand/005/004/Y/">うちわ</a><a class="btn btn--ghost" href="/shopbrand/ct656/">そうめん</a></span></p>
-    <p><span class="scenetile">秋</span><span class="scenetile">では<a class="btn btn--ghost" href="/shopbrand/006/001/Y/">敬老の日・敬老会</a><a class="btn btn--ghost" href="/shopbrand/006/002/Y/">ハロウィン</a></span></p>
-    <p><span class="scenetile">冬</span><span class="scenetile">では<a class="btn btn--ghost" href="/shopbrand/007/001/Y/">クリスマス</a><a class="btn btn--ghost" href="/shopbrand/007/002/Y/">干支</a><a class="btn btn--ghost" href="/shopbrand/030/014/Y/">福袋</a><a class="btn btn--ghost" href="/shopbrand/007/006/Y/">ブランケット</a><a class="btn btn--ghost" href="/shopbrand/007/007/Y/">湯たんぽ</a><a class="btn btn--ghost" href="/shopbrand/007/008/Y/">カイロ</a>等</span></p>
-    <p>季節別に粗品を掲載しております。<br>
-    季節に応じた粗品をお探しの際はこのページからご覧下さい。季節の商品は早期品切れ終了となるものも多くございますので
-    お早めにご検討くださいませ。
-    季節商品は、単価別のカテゴリーには含まれておりませんので、ご必要時はこのページからお願いいたします。</p>
-
-            <ul class="tilegrid">
-                <li><a href="/shopbrand/004/Y/"><img loading="lazy" decoding="async" class="u-center" src="https://gigaplus.makeshop.jp/isplanning/images/season_spring.jpg" alt="春向け粗品" /><p class="scenetile"><span class="scenetile">春向け粗品はこちらから</span></p></a><p>春には母の日やバレンタインデーに最適な商品をご紹介しております。女性が喜ぶバッグやポーチ、おふろグッズなどが人気です。</p></li>
-                <li><a href="/shopbrand/005/Y/"><img loading="lazy" decoding="async" class="u-center" src="https://gigaplus.makeshop.jp/isplanning/images/season_summer.jpg" alt="夏向け粗品" /><p class="scenetile"><span class="scenetile">夏向け粗品はこちらから</span></p></a><p>定番のうちわや扇子、風鈴、アウトドアグッズなど、夏に必要不可欠なアイテムを多数ご用意しております。 熱中症対策に嬉しいグッズもご好評頂いております。</p></li><li><a href="/shopbrand/006/Y/"><img loading="lazy" decoding="async" class="u-center" src="https://gigaplus.makeshop.jp/isplanning/images/season_autumn.jpg" alt="秋向け粗品" /><p class="scenetile"><span class="scenetile">秋向け粗品はこちらから</span></p></a><p>秋には敬老の日など、ご年配の方に嬉しい商品がおすすめです。 ブランケットやタンブラー、健康グッズを贈ってみてはいかがでしょうか。</p></li>
-                <li><a href="/shopbrand/007/Y/"><img loading="lazy" decoding="async" class="u-center" src="https://gigaplus.makeshop.jp/isplanning/images/season_winter.jpg" alt="冬向け粗品" /><p class="scenetile"><span class="scenetile">冬向け粗品はこちらから</span></p></a><p>クリスマスやお正月、掃除グッズなどの商品が人気です。クリスマスブーツ、干支の根付け、福袋や福箱、イベントの抽選セット等シーンにあわせてご利用できます。</p></li>
-    <li><a href="/shopbrand/051/O/"><img loading="lazy" decoding="async" class="u-center" src="https://gigaplus.makeshop.jp/isplanning/images/season_calendar.jpg" alt="卓上カレンダー" /><p class="scenetile"><span class="scenetile">卓上カレンダーはこちらから</span></p></a><p>名入れの卓上カレンダーはノベルティグッズでも特に人気のアイテムとなっております。年末年始の粗品に1年間使えるカレンダーをおすすめいたします。</p></li>
-    </ul>
-
-<div>
-  <div class="notice">
-    <a href="/shopbrand/007/001/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/winter_xmas.jpg" alt="クリスマス画像">
-        <p>クロスマスの粗品</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/007/002/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/winter_newyear.jpg" alt="干支正月画像">
-        <p>干支・正月の粗品</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/007/006/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/winter_blanket.jpg" alt="ブランケット画像">
-       <p>冬の粗品に人気！ブランケット</p> </a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/007/008/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/winter_heatpack.jpg" alt="カイロ画像">
-        <p>カイロ・エコカイロ</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/007/010/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/winter_gloves.jpg" alt="手袋画像">
-        <p>グローブ・手袋</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/007/011/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/winter_neckwarmer.jpg" alt="ネックウォーマー画像">
-        <p>ネックウォーマー・ベスト等</p></a>
-  </div>
-</div>
-
-<div>
-  <div class="notice">
-    <a href="/shopbrand/005/006/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_sensu2.jpg" alt="扇子画像">
-        <p>夏に人気の扇子！</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/ct665/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_handyfan2.jpg" alt="ハンディファン画像">
-        <p>暑さ対策にハンディファン</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/005/001/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_Heatstroke%20measures2.jpg" alt="熱中対策画像">
-       <p>熱中対策にひんやりグッズ</p> </a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/ct656/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_soumen2.jpg" alt="素麺画像">
-        <p>人気定番「そうめん」</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/005/004/Y/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_uchiwa2.jpg" alt="団扇画像">
-        <p>名入れもできる「うちわ」</p></a>
-  </div>
-  <div class="notice">
-    <a href="/shopbrand/ct658/">
-      <img loading="lazy" decoding="async" src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_food2.jpg" alt="夏食品画像">
-        <p>夏の食品・冷やし中華・ゼリー等</p></a>
-  </div>
-</div>
-
-<p class="btn btn--ghost"><a class="u-center" href="/html/page8.html">シーンで選ぶ粗品一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page9.html">商品別カテゴリー一覧</a></p>
-<p class="btn btn--ghost"><a class="u-center" href="/html/page4.html">SP SOURCE、名入れのご案内</a></p>      the converted body fragment from templates/creator/freepages/
+    ARCHETYPE:    article | visual-guide | form | link-index | table | short-notice
+    BREADCRUMB:   breadcrumb trail
+    CONTENT:      the converted body fragment from templates/creator/freepages/
 
   When this becomes a real Creator Mode template, the chrome below is replaced
   by the platform's variable tags — $$TITLE$$, $$FREEPAGE_BODY$$ and the shared
