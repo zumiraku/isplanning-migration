@@ -323,6 +323,151 @@
       <li class="card"><div class="card__media"></div><div class="card__body"><span class="card__name">扇子 和柄 名入れ対応</span><span class="card__price">¥5,360</span></div></li>
     </ul>
   </section>
+
+  <!--
+    The three-tab block that closes the Basic Mode product page. It was missing
+    from this rebuild altogether, and it is not a small omission: it carried the
+    shipping fee table, the five pre-purchase cautions, 46 category tiles, four
+    recommend-engine slots, 商品グループ and the entire review widget.
+
+    design_detailpage.txt builds it from three hidden radio inputs and three
+    <label>s. Here it is progressive enhancement instead (js/tabs.js): all three
+    panels ship visible with their own <h2>, and only once the script runs do
+    they collapse into a tab strip. Nothing is behind JavaScript.
+
+    Two deliberate departures from the original, both recorded in
+    docs/product-tabs.md:
+
+    1. The recommend rail (_displayRecommend, type pv) stays visible above this
+       block rather than being buried in tab 1. It is the client's named SP
+       horizontal-scroll request, and a feature asked for by name should not
+       open behind a tab. The other three rcmd slots and [BRANDGROUP] are here,
+       so every block appears exactly once.
+    2. The native review tags ([REVIEW_WRITE], [REVIEW_BUTTON],
+       [REVIEW_VIEW_ALL]) stay commented out, as they are in the source - this
+       shop replaced MakeShop reviews with u-komi years ago.
+  -->
+  <div class="tabs" data-tabs>
+    <ul class="tabs__list">
+      <li><button type="button" class="tabs__tab" data-tab-for="tab-shipping">送料・類似品</button></li>
+      <li><button type="button" class="tabs__tab" data-tab-for="tab-categories">商品カテゴリー一覧</button></li>
+      <li><button type="button" class="tabs__tab" data-tab-for="tab-reviews">この商品の<br>レビューを見る</button></li>
+    </ul>
+
+    <div class="tabs__panel" id="tab-shipping">
+      <h2 class="h-section">送料・類似品</h2>
+
+      <img src="https://gigaplus.makeshop.jp/isplanning/uploads/souryou2022.png"
+           alt="送料・代引き手数料表" loading="lazy" style="width:100%;height:auto">
+
+      <p class="notice notice--warn" style="margin-top:var(--s-4)">
+        送料は個数、種類に関係なく1回のご注文での料金です。（例：2、3種類かごに入れても送料は800円（税別）です）<br>
+        離島・北海道・沖縄は別途送料、中継料が必要となります。（カゴでは自動計算されません）
+      </p>
+
+      <p><a class="btn btn--ghost" href="freepages/info.html#about_payment">送料・代引き手数料のご案内</a></p>
+
+      <ul class="stack" style="margin-top:var(--s-6)">
+        <li>ご購入前に<a href="news-list.html">「お知らせページ」</a>をご覧ください</li>
+        <li>販売単位数量以外は「買物カゴ（カート）」ではご注文できませんので<a href="#quote">メール</a>・<a href="freepages/page1.html">ＦＡＸ注文・見積用紙</a>にてお気軽に見積依頼又はご注文してください。</li>
+        <li>商品のデザイン・色が若干変更になる場合がありますがご了承願います。</li>
+        <li>画像は商品の色・素材感が実物とは異なる場合、商品以外の品が添えられている場合があります。</li>
+        <li>納期は余裕を持ってご注文お願いいたします。品切れの際はご容赦願います。</li>
+      </ul>
+
+      <!--
+        Three of the four さぶみっと！レコメンド slots. Each renders from a
+        template stored on rcmd.jp under a name ending "-copy", i.e. a
+        customised copy we cannot read from here - the markup these produce is
+        not in this repository and not in the design backup. They must be
+        re-declared in the Creator Mode template with the same template names.
+      -->
+      <h3 class="h-sub">最近チェックした商品</h3>
+      <div id="rcmd-history" data-rcmd="_displayHistory" data-rcmd-template="deco_history_scroll2-copy"></div>
+
+      <h3 class="h-sub">週間ランキング</h3>
+      <div id="rcmd-ranking" data-rcmd="_displayRanking" data-rcmd-template="deco_ranking_scroll3-copy"></div>
+
+      <h3 class="h-sub">ピックアップ</h3>
+      <div id="rcmd-pickup" data-rcmd="_displayPickup" data-rcmd-template="deco_pikup_2018-copy"></div>
+
+      <!-- [BRANDGROUP] - the platform's own same-group product list. -->
+      <h3 class="h-sub">同じグループの商品</h3>
+      <div id="brandgroupsend"></div>
+    </div>
+
+    <div class="tabs__panel" id="tab-categories">
+      <h2 class="h-section">商品カテゴリー一覧</h2>
+      <ul class="tilegrid">
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_spring.jpg" alt="季節商品※春" loading="lazy" width="290" height="290"><div class="tilecap">季節商品※春</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_summer.jpg" alt="季節商品※夏" loading="lazy" width="290" height="290"><div class="tilecap">季節商品※夏</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_autumn.jpg" alt="季節商品※秋" loading="lazy" width="290" height="290"><div class="tilecap">季節商品※秋</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_winter.jpg" alt="季節商品※冬" loading="lazy" width="290" height="290"><div class="tilecap">季節商品※冬</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_budget.jpg" alt="予算別" loading="lazy" width="290" height="290"><div class="tilecap">予算で探す</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_sm2.jpg" alt="スマートフォン" loading="lazy" width="290" height="290"><div class="tilecap">スマートフォン粗品グッズ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_iya2.jpg" alt="癒し健康" loading="lazy" width="290" height="290"><div class="tilecap">癒し・健康</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_benri2.jpg" alt="便利グッズ" loading="lazy" width="290" height="290"><div class="tilecap">便利グッズ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_osyare2.jpg" alt="おしゃれ小物" loading="lazy" width="290" height="290"><div class="tilecap">おしゃれ・小物</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_eco2.jpg" alt="エコロジー" loading="lazy" width="290" height="290"><div class="tilecap">エコロジー</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_leisure2.jpg" alt="レジャー関係" loading="lazy" width="290" height="290"><div class="tilecap">レジャーアウトドア</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_flower2.jpg" alt="花" loading="lazy" width="290" height="290"><div class="tilecap">フラワー花</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_stationery2.jpg" alt="ステーショナリーグッズ" loading="lazy" width="290" height="290"><div class="tilecap">ステーショナリー</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_pen2.jpg" alt="ボールペン" loading="lazy" width="290" height="290"><div class="tilecap">ボールペン</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_character2.jpg" alt="キャラクター" loading="lazy" width="290" height="290"><div class="tilecap">キャラクター</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_bag2.jpg" alt="バッグ鞄" loading="lazy" width="290" height="290"><div class="tilecap">バッグ・鞄</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_clock2.jpg" alt="時計クロック" loading="lazy" width="290" height="290"><div class="tilecap">時計</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_Ceramic2.jpg" alt="陶器、ガラス製品" loading="lazy" width="290" height="290"><div class="tilecap">陶器・ガラス</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_kitchen2.jpg" alt="キッチン用品" loading="lazy" width="290" height="290"><div class="tilecap">キッチン</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_taoru2.jpg" alt="タオル類" loading="lazy" width="290" height="290"><div class="tilecap">タオル</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_spa3.jpg" alt="バス、お風呂関係" loading="lazy" width="290" height="290"><div class="tilecap">バス・お風呂</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_umbrella2.jpg" alt="傘" loading="lazy" width="290" height="290"><div class="tilecap">傘 カサ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_bousai2.jpg" alt="防災グッズ" loading="lazy" width="290" height="290"><div class="tilecap">防災グッズ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_food2.jpg" alt="食品" loading="lazy" width="290" height="290"><div class="tilecap">食品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_tissue2.jpg" alt="日用品" loading="lazy" width="290" height="290"><div class="tilecap">日用品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_gift2.jpg" alt="ギフト詰め合わせ" loading="lazy" width="290" height="290"><div class="tilecap">ギフト詰合せ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_event2.jpg" alt="イベント用抽選セット" loading="lazy" width="290" height="290"><div class="tilecap">イベント・抽選</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_blotting_paper2.jpg" alt="あぶら取り紙" loading="lazy" width="290" height="290"><div class="tilecap">あぶら取紙</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_bicycle2.jpg" alt="自転車" loading="lazy" width="290" height="290"><div class="tilecap">自転車</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_etc2.jpg" alt="その他" loading="lazy" width="290" height="290"><div class="tilecap">その他</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_unit.png" alt="数量選択可能" loading="lazy" width="290" height="290"><div class="tilecap">数量選択可能</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_mask.jpg" alt="マスク" loading="lazy" width="290" height="290"><div class="tilecap">マスク・除菌類</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_thankyou.jpg" alt="感謝の言葉入り" loading="lazy" width="290" height="290"><div class="tilecap">感謝の言葉入り粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_women-1.jpg" alt="女性向粗品" loading="lazy" width="290" height="290"><div class="tilecap">女性向き粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_animal-1.jpg" alt="アニマルグッズ" loading="lazy" width="290" height="290"><div class="tilecap">アニマルグッズ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_children-1.jpg" alt="子供向け" loading="lazy" width="290" height="290"><div class="tilecap">お子さま向け粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_wagara2-1.jpg" alt="和柄" loading="lazy" width="290" height="290"><div class="tilecap">和柄の粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_light-1.jpg" alt="ライト類" loading="lazy" width="290" height="290"><div class="tilecap">ライト類の粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_tumbler-1.jpg" alt="タンブラー" loading="lazy" width="290" height="290"><div class="tilecap">タンブラーの粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_bottle-1.jpg" alt="ボトル" loading="lazy" width="290" height="290"><div class="tilecap">ボトルの粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_clean-1.jpg" alt="掃除グッズ" loading="lazy" width="290" height="290"><div class="tilecap">掃除グッズ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_pc-1.jpg" alt="パソコン関係" loading="lazy" width="290" height="290"><div class="tilecap">パソコングッズ</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg" alt="カラーが選べる粗品" loading="lazy" width="290" height="290"><div class="tilecap">カラーが選べる粗品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_original-1.jpg" alt="オリジナル印刷できる商品" loading="lazy" width="290" height="290"><div class="tilecap">オリジナル印刷商品</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_soap-1.jpg" alt="石鹸、石鹸セット" loading="lazy" width="290" height="290"><div class="tilecap">石鹸・石鹸セット</div></a></li>
+        <li><a href="category.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/i_calendar.jpg" alt="卓上カレンダー" loading="lazy" width="290" height="290"><div class="tilecap">卓上カレンダー</div></a></li>
+      </ul>
+    </div>
+
+    <div class="tabs__panel" id="tab-reviews">
+      <h2 class="h-section">この商品のレビュー</h2>
+      <!--
+        u-komi. The loader script is injected by the platform on every page
+        (it appears above 共通head管理 in every archived page), so it survives
+        the mode switch on its own. This mount does not: it is design markup,
+        and its data-gname / data-pid are both [SYSTEM_CODE], the Basic Mode
+        product code.
+
+        🔴 That tag has no Creator Mode equivalent yet. Ship this with the
+        placeholder still in it and every product's reviews bind to the literal
+        string, so the whole catalogue shows one product's reviews or none.
+        Tracked as Q13.
+      -->
+      <div class="review-container"
+           data-gname="{{PRODUCT_CODE}}" data-pid="{{PRODUCT_CODE}}"
+           data-group="true" data-action="widget"></div>
+      <p class="notice">レビューは u-komi により表示されます。</p>
+    </div>
+  </div>
 </main>
 
 <footer class="site-footer">
@@ -378,5 +523,6 @@
 
 <script src="../js/option-price.js"></script>
 <script src="../js/gallery.js"></script>
+<script src="../js/tabs.js"></script>
 </body>
 </html>

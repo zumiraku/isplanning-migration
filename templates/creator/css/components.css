@@ -579,3 +579,109 @@ ul, ol { margin: 0; padding: 0; }
 .spectable__state--no  { background: var(--c-surface-2); border-top-color: var(--c-rule); color: var(--c-ink-3); }
 .spectable__state--act { background: #fdf7d8; border-top-color: #e2c94a; color: var(--c-ink); }
 a.spectable__state:hover { filter: brightness(0.97); text-decoration: none; }
+
+/* --- tilegrid: image tile + caption ---------------------------------------
+   Moved here from freepage.css on 2026-09-03. It is no longer a free-page
+   component: the product detail template's 商品カテゴリー一覧 tab is 46 of
+   these tiles, so both page families need it and only components.css is
+   loaded by both.
+
+   .tilecap was .textboxisp. Mapping that class by name to .notice once drew
+   a bordered box round every thumbnail and squeezed the captions to one
+   character per line; it is a caption strip, not a notice.
+   -------------------------------------------------------------------------- */
+.tilegrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+  margin: var(--s-5) 0;
+  padding: 0;
+}
+.tilegrid li, .tilegrid figure { margin: 0; }
+.tilegrid img { width: 100%; height: auto; border-radius: var(--radius); }
+/* The whole tile is the link: image on top, caption under it, both centred. */
+.tilegrid > li > a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+.tilegrid > li > a:hover { text-decoration: none; }
+.tilegrid > li > a:hover .tilecap { background: var(--c-surface); color: var(--c-primary); }
+.tilegrid figcaption, .tilecap {
+  margin-top: var(--s-2);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+  font-size: var(--t-sm);
+  color: var(--c-ink-2);
+  text-align: center;
+  line-height: var(--lh-tight);
+  transition: background var(--ease), color var(--ease);
+}
+
+/* --- tabs -----------------------------------------------------------------
+   The Basic Mode product page ends in a three-tab block - 送料・類似品 /
+   商品カテゴリー一覧 / この商品のレビューを見る - built from three hidden
+   radio inputs and three <label>s. It was missing from the rebuild entirely,
+   which dropped the shipping table, 46 category tiles and the whole review
+   widget off the page.
+
+   Rebuilt as progressive enhancement rather than as radios: every panel is
+   visible by default, so with JavaScript off the page is three stacked
+   sections with headings. tabs.js then hides all but one and adds the ARIA
+   roles. Same principle as gallery.js - the content is never behind a script.
+
+   On a phone the tab strip scrolls horizontally instead of wrapping to three
+   lines; 44px minimum tap target, matching the rest of the rebuild.
+   -------------------------------------------------------------------------- */
+.tabs { margin-top: var(--s-12); }
+
+.tabs__list {
+  display: flex;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-6);
+  padding: 0;
+  list-style: none;
+  border-bottom: 2px solid var(--c-border);
+}
+.tabs__tab {
+  appearance: none;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  background: none;
+  color: var(--c-ink-2);
+  font: inherit;
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease), background var(--ease);
+}
+.tabs__tab:hover { color: var(--c-primary); background: var(--c-surface-2); }
+.tabs__tab[aria-selected="true"] {
+  color: var(--c-primary);
+  border-bottom-color: var(--c-primary);
+  font-weight: 700;
+}
+.tabs__tab:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* Without JS the list is not a tablist and the headings carry the page. */
+.tabs__panel > .h-section { margin-top: 0; }
+.tabs[data-enhanced="true"] .tabs__panel > .h-section { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media screen and (max-width: 767px) {
+  .tabs__list {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+    scrollbar-width: thin;
+  }
+  .tabs__tab { flex: 0 0 auto; scroll-snap-align: start; font-size: var(--t-sm); }
+}

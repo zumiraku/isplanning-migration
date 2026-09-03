@@ -29,33 +29,52 @@ detailpages/*.txt           3 files (ct261, ct646, ct664)
 title_images/*.gif          2 files
 ```
 
+
+> `design_detailpage.txt` is the one to read first. Its last two thirds are a
+> three-tab block — 送料表, 46 category tiles, four recommend slots and the
+> review widget — that the rebuild had missed entirely, because two of the three
+> panels are invisible in the rendered page the rebuild was driven from. See
+> [product-tabs.md](product-tabs.md).
+
 ---
 
-## 🔴 The tracking tags are NOT in the design
+## The tracking tags are not in the design — and that turned out to be good news ✅
 
 Searched every template for `gtag(`, `googletagmanager`, `G-…`, `AW-…`, Yahoo,
-Criteo, Meta, Clarity, `conversion`. **The only third-party tag anywhere in the
-design is the recommend engine** (`rcmd.jp`), on `design_detailpage.txt` and the
-three per-category detail templates.
+Criteo, Meta, Clarity, `conversion`. **The only third-party tag in the design is
+the recommend engine** (`rcmd.jp`), on `design_detailpage.txt` and the three
+per-category detail templates.
 
-But GA4 `G-BK1PPN5MEV` fires site-wide — we measured that from the crawl. So it
-is injected by the platform from a separate settings screen, not from the design
-templates.
+GA4 `G-BK1PPN5MEV` nevertheless fires site-wide. This section used to end there,
+warning that the tags were somewhere we might forget to copy.
 
-**Two consequences, and the second is the point of writing this down:**
+**Resolved 2026-09-03 from the archive** (see [analytics-tags.md](analytics-tags.md)).
+`design_head_common.txt` begins with `<meta name="googlebot" content="NOODP">`,
+so that line marks the boundary between platform output and shop content in any
+archived page — and GA4 sits **above** it in every page type, on both the
+desktop and smartphone sites. Its wrapper is named `makeshop_ga_gtag`, and the
+cart page emits `makeshop_ga_gtag("event", "view_cart", …)` carrying the basket
+contents, which no design template could produce.
 
-1. **Q5 is not answered by this backup.** The conversion tags on the
-   order-completion page still have to be read from the tag settings screen
-   (ショップ構築 → SEO・マーケティング → タグの設定, per C13).
-2. **Taking the design backup and assuming everything is captured would lose
-   them.** Anyone reasoning "we have the full design, so we have everything"
-   switches mode and finds the analytics gone. They are not in the thing that was
-   backed up.
+**GA4 is a shop setting, not design. It survives the mode switch.** The same
+goes for the u-komi loader, which is the only other third-party host above the
+boundary.
+
+So the conclusion inverts. The residue of Q5 is one screen: the
+**order-completion page**, which the crawl could never reach because it needs a
+completed order. If a Google Ads or Yahoo conversion tag was pasted into a
+Basic-Mode-only slot, that is where it is — and さぶみっと！レコメンド's PV-CV
+tag would be on the same page.
+
+⚠️ **One place where a surviving platform tag is a hazard rather than a
+relief.** u-komi's loader keeps running after the switch, but its mount div is
+design markup and binds reviews with `[SYSTEM_CODE]`. Carry the mount across
+with that placeholder unresolved and the widget loads on all 9,514 products with
+one identical id. Tracked as C30 / Q13 in [product-tabs.md](product-tabs.md).
 
 `design_head_common.txt` does hold three `google-site-verification` meta tags,
 jQuery, the Google Fonts links, `default.css`, and page-behaviour scripts
 (sticky header, back-to-top, cart-count text). Those we now have verbatim.
-
 ## The core migration inventory: 210 Basic Mode tags
 
 `tools/inventory-basic-tags.sh` → `inventory/basic-mode-tags.csv`

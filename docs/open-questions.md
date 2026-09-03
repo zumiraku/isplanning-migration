@@ -62,17 +62,22 @@ Also corrected while doing this: it is **100 articles plus the list page**, not 
 articles, and they are mostly catalogue announcements rather than the thin holiday
 notices S0-5 described from a single sample.
 
-### Q5 — What conversion tags sit on the order-completion page? `OPEN — and the design backup does NOT answer it`
-**Refined 2026-09-03.** The full Basic Mode design source is now in hand
-(`templates/basic-export/design/`) and it contains **no GA4, no Google Ads, no
-Yahoo tag** — the only third-party tag in the entire design is the recommend
-engine on the product templates. GA4 `G-BK1PPN5MEV` nevertheless fires site-wide,
-so the platform injects it from a settings screen.
+### Q5 — What conversion tags sit on the order-completion page? `NARROWED — GA4 is safe`
+**Answered from the archive 2026-09-03**, without the console. GA4
+`G-BK1PPN5MEV` is **injected by the platform, not by the design**: in every
+archived page type it appears above the first line of 共通head管理, its wrapper
+is named `makeshop_ga_gtag`, and the cart page emits a `view_cart` ecommerce
+event carrying the basket contents — which no design template could produce. It
+is a shop setting, so it survives the mode switch. Same for the u-komi loader.
 
-That matters because it is a trap: having "the whole design" invites the
-conclusion that the tags are captured. They are not. They must be read from
-ショップ構築 → SEO・マーケティング → タグの設定, and the completion page checked
-specifically. See [design-backup.md](design-backup.md).
+The design backup finding stands but its conclusion inverts: the tags are not
+missing from our copy, they are somewhere we cannot break.
+
+What is left is narrow and is one screen: **the order-completion page**. The
+crawl never reached `/shop/thanks.html` — it needs a completed order — so if a
+Google Ads or Yahoo conversion tag was pasted into a Basic-Mode-only slot, that
+is where it is. さぶみっと！レコメンド's PV-CV tag would be on the same page.
+See [analytics-tags.md](analytics-tags.md).
 
 ### Q6 — Which checkout / member / mypage screens are template-editable? `OPEN`
 Creator Mode's editable list covers cart but is unclear on the checkout steps,
@@ -80,13 +85,18 @@ member registration, login and mypage. This sets the ceiling on design consisten
 the client should hear it from us before he notices it himself.
 
 ### Q7 — What is the フリーページ URL pattern, and are redirects possible? `OPEN`
-Current free pages are `/html/pageNN.html`. The sitemap listed 83; the admin list
-shows **120** (confirmed 2026-09-03), so 37 are unaccounted for. No converter
-exists from
-独自ページ to フリーページ. If the new URLs differ and MakeShop offers no redirect
-facility, we need a mitigation plan (internal link rewriting, sitemap, Search Console)
-and the client needs to know before Gate A.
+Current free pages are `/html/pageNN.html`. The admin's 独自ページ list holds
+**82 pages** (the sitemap had shown 83; the "120" written here on 2026-09-03 was
+wrong and is withdrawn). All 82 are converted.
 
+A converter **does** exist: the 独自ページ form carries a
+**「フリーページへ転送」** field and the list has a 「クリエイターモードのフリー
+ページへ転送設定済み」 column — see C15. What it does to the markup is still
+untested; try it on page82 first, which is a spare.
+
+The open part is the URLs. If they differ from `/html/pageNN.html` we need
+internal link rewriting (418 `/html/` links are waiting on this), a new sitemap,
+and Search Console, and the client needs to know before Gate A.
 ### Q8 — How many products carry SP-only description text or an SP-specific URL? `OPEN`
 スマホ用商品詳細説明 and スマホ商品URL both stop working in Creator Mode. Across
 9,514 products, any SP-only copy is silently discarded at cutover unless merged first.
@@ -107,6 +117,15 @@ total (9,514) against the actual product count in 商品管理.
 ### Q12 — What is the shop's busy season? `OPEN`
 Ask the client directly. Cutover is planned for Wed 2026-11-11; novelty and 景品
 demand is seasonal and year-end may already be ramping. If 11/11 is bad, move it —
+
+### Q13 — What is the Creator Mode equivalent of `[SYSTEM_CODE]`? `OPEN 🔴`
+**Raised 2026-09-03.** The product page's u-komi review mount binds reviews to
+the product with `data-gname="[SYSTEM_CODE]" data-pid="[SYSTEM_CODE]"`. The
+loader script is platform-injected and keeps running after the switch, so if
+this tag is not resolved to its Creator Mode counterpart the widget loads on
+every product with an identical id — every product shows one product's reviews,
+or none. It fails silently and it fails on all 9,514 products at once. See
+[product-tabs.md](product-tabs.md).
 we have room.
 
 ---
