@@ -497,3 +497,18 @@ ul, ol { margin: 0; padding: 0; }
 .cartquote { margin: var(--s-6) 0 0; padding: var(--s-4); border: 1px solid var(--c-accent); border-radius: var(--radius); background: var(--c-accent-light); }
 .cartquote p { margin: 0 0 var(--s-2); font-size: var(--t-sm); }
 .cartquote form { margin: 0; }
+
+/* --- buystack: the routes under カートに入れる ---------------------------
+   Favourites, the product enquiry and the quote-request form. Two of the three
+   are commercial, so they get real tap targets rather than the text links the
+   Basic Mode page uses, and they stack full-width on a phone.
+   ------------------------------------------------------------------------ */
+.buystack { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: grid; gap: var(--s-3); }
+.buystack > li { margin: 0; }
+.buystack form { margin: 0; }
+.buystack .btn { width: 100%; justify-content: center; }
+.buystack__note { display: block; margin-top: var(--s-1); font-size: var(--t-xs); color: var(--c-ink-2); line-height: var(--lh-normal); }
+@media screen and (min-width: 768px) {
+  .buystack { grid-template-columns: repeat(2, 1fr); align-items: start; }
+  .buystack > li:last-child { grid-column: 1 / -1; }
+}

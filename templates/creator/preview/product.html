@@ -212,6 +212,43 @@
         </div>
       </div>
 
+      <!--
+        The routes that sit under カートに入れる on the live page, recovered from
+        snapshot/desktop/shopdetail_000000025283.*.html. Two of them are
+        commercial and neither is decorative:
+
+        この商品について問い合わせる — product_mail() submits a POST to
+          /ssl/contact/ carrying admin_id, login_id, return_path and
+          **brandcode**. The brandcode is what tells the enquiry which product it
+          is about; drop it and the message arrives asking about nothing. Kept as
+          a real form.
+
+        見積依頼フォーム — C20. A MakeShop マルチフォーム, form code 202208200, at
+          /shop/enq202208200. On the live site it opens in a 600x600 popup via
+          onclick. Popups are blocked by default on phones and awkward on
+          desktop, so this opens in a new tab instead - the destination and the
+          form are unchanged.
+      -->
+      <ul class="buystack">
+        <li>
+          <a class="btn btn--ghost" href="#">お気に入りリストに追加</a>
+        </li>
+        <li>
+          <form method="post" action="https://www.isp-sp.com/ssl/contact/">
+            <input type="hidden" name="admin_id" value="isplanning">
+            <input type="hidden" name="login_id" value="">
+            <input type="hidden" name="return_path" value="/shopdetail/000000025283/003/003/X/page1/order/">
+            <input type="hidden" name="brandcode" value="000000025283">
+            <button class="btn btn--ghost" type="submit">この商品について問い合わせる</button>
+          </form>
+          <small class="buystack__note">販売単位数量、納期、在庫等はこちらからお問い合わせください。</small>
+        </li>
+        <li>
+          <a class="btn btn--primary" href="https://www.isp-sp.com/shop/enq202208200" target="_blank" rel="noopener">見積依頼フォーム</a>
+          <small class="buystack__note">数量・名入れの有無によって単価が変わります。お気軽にご依頼ください。</small>
+        </li>
+      </ul>
+
       <div class="notice" style="margin-top:var(--s-5)">
         <p><strong>名入れについて</strong><br>名入れ可能文字数 252字／最低ロット 100個／別途 ¥7,500</p>
       </div>
