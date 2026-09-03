@@ -195,7 +195,7 @@ have and which the footer's own JavaScript opened.
 smartphone space (S0-19): live, linked, indexed, and absent from the sitemap.
 
 They cannot be crawled — the site returns 403 to our automated requests and the
-no-crawl rule stands. They come from the console: `デザイン管理 → 独自ページ`, whose
+no-crawl rule stands. They come from the console: `ショップデザイン → 独自ページ`, whose
 list is authoritative in a way the sitemap has now twice proven not to be
 (checklist §B). Added to the redirect map as `MISSING` so they cannot be forgotten
 at cutover.
@@ -386,7 +386,7 @@ what the sitemap showed" and "we converted the shop".
 |---|---|
 | ~~63 unmapped classes~~ | **CLOSED 2026-09-02.** All mapped from what their rules in the dying stylesheet actually did — see "The class map is complete" below. `inventory/freepage-unmapped.csv` is now empty |
 | **19 pages flagged** `over-half-removed` | All 24 chrome-carrying pages plus `page82`. Expected — but each should be eyeballed against `snapshot/` before Gate C |
-| **4 missing free pages** | `page4`, `page19`, `privacy`, `email` — linked from the live site, absent from the sitemap and the archive. Recover from `デザイン管理 → 独自ページ` (checklist §B), convert, and fill in their redirect rows |
+| **4 missing free pages** | `page4`, `page19`, `privacy`, `email` — linked from the live site, absent from the sitemap and the archive. Recover from `ショップデザイン → 独自ページ` (checklist §B), convert, and fill in their redirect rows |
 | **66 images on `/design/isplanning/`** | Root-relative into the Basic Mode design folder, across 35 pages. Whether that path survives the switch is a console question — the design set moves. Counted in the report as `design_imgs`, deliberately not rewritten |
 | **418 links to `/html/*.html`** | Internal links between free pages. Creator Mode gives free pages new URLs (Q7), so every one of these needs rewriting at cutover, along with the redirect map |
 | **17 inline event handlers** | Mostly `window.open` popups for PDFs and the quote-request form. Needs rebuilding as ordinary links or a small handler — one of them is a commercial route (C20) |

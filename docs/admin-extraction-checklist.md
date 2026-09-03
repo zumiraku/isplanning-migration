@@ -15,7 +15,7 @@ Save everything under the paths given. Commit after each section.
 We have 195 **rendered** pages in `snapshot/`. We do not have the **source** as it was
 typed into the admin, which is what we actually port.
 
-`ショップ作成 → デザイン管理 → ベーシックモード` — for each editable area, copy the raw
+`ショップデザイン → ベーシックモード` — for each editable area, copy the raw
 contents of the HTML box into a file:
 
 | Area | Save as |
@@ -41,10 +41,14 @@ does `/shop/shopdetail_option.html` still work under Creator Mode?
 
 ## B. Independent page source — **120 pages**, we hold 83 🔴
 
-`デザイン管理 → 独自ページ` (the client's console may label this menu differently —
-the path above is from the MakeShop manual, not from his screen).
+**Console reality, confirmed from a screenshot 2026-09-03:** the menu is
+**ショップデザイン**, not デザイン管理, and the surest route to any screen is
+ホーム → 機能一覧 → the keyword box, which searches feature names, descriptions
+and aliases. See [console-map.md](console-map.md). Search it for 独自ページ.
+`ショップデザイン → 独自ページ`. The count of 120 came from the client and still
+needs confirming against that list itself — see the note at the end of console-map.md.
 
-**The list shows 120.** The client confirmed the count on 2026-09-03. The sitemap
+**The list is reported as 120, not yet confirmed against this screen.** The sitemap
 listed 83, which is what we crawled and converted, so **37 pages have never been
 seen** — no URL, no title, no idea whether they are live.
 
@@ -150,7 +154,7 @@ platform feature, or a third-party widget.
 
 ## G. Creator Mode reconnaissance *(read-only — do not apply anything)*
 
-`ショップ作成 → デザイン管理 → クリエイターモード`
+`ショップデザイン → クリエイターモード`
 
 - [ ] How many design sets exist, and can we build a **second** set without affecting
       the live Basic Mode shop? If yes, that is our staging environment and it changes
