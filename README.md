@@ -28,7 +28,7 @@ restore. This repo — not the console — is the source of truth.
 
 | Class | Count | Notes |
 |---|---:|---|
-| Free pages `/html/*.html` | **82 独自ページ** (admin list, 2026-09-03) | page1–19 and page21–83; page20 is a gap. `company` / `info` / `ordercontract` are NOT 独自ページ — they come from their own admin features. `email.html` is the `[EMAIL]` system tag. We hold 80 of the 82 converted; only **page19** is missing outright and `page4` has a placeholder |
+| Free pages `/html/*.html` | **82 独自ページ, all 82 converted** (admin list, 2026-09-03) | page1–19 and page21–83; page20 is a gap. Plus company / info / ordercontract, which come from their own admin features and are converted too. `email.html` is the `[EMAIL]` system tag, not a page; `privacy.html` is probably the same |
 | News articles `/new/*.html` | **100** | 2013 → 2026, ~7/year, still indexed and still being posted to. The 101st URL is `/new/index.html`, the list page |
 | Category pages `/shopbrand/…` | **607** | |
 | Product pages `/shopdetail/…` | **9,514** | 9,025 on `000000xxxxxx`, 488 on an older `cccssxxxxxx` scheme |
@@ -105,7 +105,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Gate B mocks | top page and product detail, real content throughout |
 | Redirect map | **1,100 URLs, 1,011 resolved.** 910 of the 912 `/smartphone/` URLs have a destination — 889 read straight out of the desktop pages own `rel="alternate"`. The 101 news URLs stay put (Q4). Open: the 83 free pages, waiting on Q7, plus 4 pages we have never seen |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
-| Stage 5 free pages | **80 of the 82 独自ページ converted**, plus company/info/ordercontract from their own features. Missing: `page19` entirely, `page4` placeholder only. All rendered and responsive-clean. See [docs/stage5-freepages.md](docs/stage5-freepages.md) |
+| Stage 5 free pages | **complete — all 82 独自ページ converted**, plus company/info/ordercontract. 86 pages rendered, 86/86 responsive-clean. See [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 | News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |
 
 ### Verifying the pricing rebuild

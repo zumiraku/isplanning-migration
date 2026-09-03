@@ -379,9 +379,9 @@ the previous entry in this document, which assumed 120 from a miscommunication.
 | | |
 |---|---:|
 | 独自ページ in the admin | **82** |
-| Converted and rendered | **80** |
-| Placeholder only | 1 (`page4`) |
-| Never seen | **1 (`page19`)** |
+| Converted and rendered | **82 — all of them** |
+| Placeholder only | 0 |
+| Never seen | **0** — `page19` and `page4` recovered from the live site 2026-09-03 |
 | Have a linked スマホ独自ページ | **77 of 82** |
 | Already transferred to a フリーページ | **0** |
 
@@ -401,13 +401,20 @@ system-generated contact form, which is why neither the sitemap nor the crawl
 ever found it and why it is not in the list. `privacy.html` is absent for the
 same likely reason and needs one check.
 
-So of the four pages recorded as missing, **only `page19` is genuinely a missing
-独自ページ**, and `page4` needs its real content in place of the placeholder:
+So of the four pages recorded as missing, only two were real 独自ページ, and
+**both are now in** — saved from the live site by the client and run through the
+same pipeline as the other 80, needing no admin access at all:
 
-| | |
-|---|---|
-| `page4` | SP SOURCE（エスピーソースカタログ）名入れのご案内 |
-| `page19` | 卓上カレンダーを使うメリット |
+| | | |
+|---|---|---:|
+| `page4` | SP SOURCE（エスピーソースカタログ）名入れのご案内 | 60,229 → 10,093 bytes |
+| `page19` | 卓上カレンダーを使うメリット | 52,482 → 3,690 bytes |
+
+Both came out with zero unmapped classes, which is worth noting: the class map
+built from the other 80 pages absorbed two pages it had never seen without a
+single addition.
+
+**Stage 5 is complete: 82 of 82.**
 
 ### 🔴 page82 must not be retired
 
@@ -434,7 +441,7 @@ looked at at all.
 |---|---|
 | ~~63 unmapped classes~~ | **CLOSED 2026-09-02.** All mapped from what their rules in the dying stylesheet actually did — see "The class map is complete" below. `inventory/freepage-unmapped.csv` is now empty |
 | **19 pages flagged** `over-half-removed` | All 24 chrome-carrying pages plus `page82`. Expected — but each should be eyeballed against `snapshot/` before Gate C |
-| **2 pages outstanding** | `page19` (卓上カレンダーを使うメリット) has never been seen; `page4` (SP SOURCE 名入れのご案内) has a placeholder. Both are in the admin list, so both are recoverable from that screen. `privacy` and `email` came off this list — `email` is the `[EMAIL]` system tag, and `privacy` is almost certainly the same |
+| ~~2 pages outstanding~~ | **CLOSED 2026-09-03.** `page19` and `page4` were saved from the live site and converted. All **82 of 82** 独自ページ are done. `privacy` keeps a placeholder: it is not in the admin's 独自ページ list and is very likely a system page like `email.html` |
 | **`page82`** | Keep. The admin calls it 「スマホ用カレンダー（削除しないでください）」 |
 | **66 images on `/design/isplanning/`** | Root-relative into the Basic Mode design folder, across 35 pages. Whether that path survives the switch is a console question — the design set moves. Counted in the report as `design_imgs`, deliberately not rewritten |
 | **418 links to `/html/*.html`** | Internal links between free pages. Creator Mode gives free pages new URLs (Q7), so every one of these needs rewriting at cutover, along with the redirect map |
