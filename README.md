@@ -28,7 +28,7 @@ restore. This repo — not the console — is the source of truth.
 
 | Class | Count | Notes |
 |---|---:|---|
-| Free pages `/html/*.html` | **83** | The 独自ページ the client estimated at "60〜70" |
+| Free pages `/html/*.html` | **83 in the sitemap, at least 87 in reality** | The 独自ページ the client estimated at "60〜70". Four more (page4, page19, privacy, email) are linked from the live site but appear in neither the sitemap nor our archive — recover from the admin (2026-09-03) |
 | News articles `/new/*.html` | **100** | 2013 → 2026, ~7/year, still indexed and still being posted to. The 101st URL is `/new/index.html`, the list page |
 | Category pages `/shopbrand/…` | **607** | |
 | Product pages `/shopdetail/…` | **9,514** | 9,025 on `000000xxxxxx`, 488 on an older `cccssxxxxxx` scheme |
@@ -103,7 +103,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Pricing rebuild | **verified against the whole oracle — 103/103** (see below) |
 | Design system | tokens + components + the rebuilt pricing module |
 | Gate B mocks | top page and product detail, real content throughout |
-| Redirect map | **1,096 URLs, 1,011 resolved.** 910 of the 912 `/smartphone/` URLs now have a destination — 889 read straight out of the desktop pages' own `rel="alternate"`. The 101 news URLs stay put (Q4). Only the 83 free pages are still open, and they wait on Q7 |
+| Redirect map | **1,100 URLs, 1,011 resolved.** 910 of the 912 `/smartphone/` URLs have a destination — 889 read straight out of the desktop pages own `rel="alternate"`. The 101 news URLs stay put (Q4). Open: the 83 free pages, waiting on Q7, plus 4 pages we have never seen |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
 | Stage 5 free pages | all 83 converted, rendered and **83/83 responsive-clean** — see [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 | News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |

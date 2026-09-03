@@ -173,12 +173,43 @@ were dropped: the token scale owns both now.
   pattern arrived mangled and matched nothing. Separators are now built from
   code points, and the first fallback is the first heading in the page itself.
 
+
+## Four free pages are missing from the inventory 🔴 *found 2026-09-03*
+
+Diffing every `/html/*.html` link in the corpus against the 83 we hold turns up
+four pages the live site links to and we have never seen:
+
+| Page | Linked from | In sitemap | Archived |
+|---|---:|---|---|
+| `/html/page4.html` | **30** free pages | no | no |
+| `/html/page19.html` | **20** free pages | no | no |
+| `/html/privacy.html` | **20** free pages | no | no |
+| `/html/email.html` | 2 free pages | no | no |
+
+These are not obscure. `page4` is linked from more than a third of the free pages,
+and `privacy.html` is the privacy policy — a page a shop is legally expected to
+have and which the footer's own JavaScript opened.
+
+**The sitemap is therefore not a complete inventory of the free pages.** It listed
+83; there are at least 87. That is the same shape of problem as the 912-URL
+smartphone space (S0-19): live, linked, indexed, and absent from the sitemap.
+
+They cannot be crawled — the site returns 403 to our automated requests and the
+no-crawl rule stands. They come from the console: `デザイン管理 → 独自ページ`, whose
+list is authoritative in a way the sitemap has now twice proven not to be
+(checklist §B). Added to the redirect map as `MISSING` so they cannot be forgotten
+at cutover.
+
+**Until they are recovered, Stage 5 is 83 of at least 87 pages, not complete.**
+
 ## Still open
 
 | | |
 |---|---|
 | ~~63 unmapped classes~~ | **CLOSED 2026-09-02.** All mapped from what their rules in the dying stylesheet actually did — see "The class map is complete" below. `inventory/freepage-unmapped.csv` is now empty |
 | **19 pages flagged** `over-half-removed` | All 24 chrome-carrying pages plus `page82`. Expected — but each should be eyeballed against `snapshot/` before Gate C |
+| **4 missing free pages** | `page4`, `page19`, `privacy`, `email` — linked from the live site, absent from the sitemap and the archive. Recover from `デザイン管理 → 独自ページ` (checklist §B), convert, and fill in their redirect rows |
+| **66 images on `/design/isplanning/`** | Root-relative into the Basic Mode design folder, across 35 pages. Whether that path survives the switch is a console question — the design set moves. Counted in the report as `design_imgs`, deliberately not rewritten |
 | **418 links to `/html/*.html`** | Internal links between free pages. Creator Mode gives free pages new URLs (Q7), so every one of these needs rewriting at cutover, along with the redirect map |
 | **17 inline event handlers** | Mostly `window.open` popups for PDFs and the quote-request form. Needs rebuilding as ordinary links or a small handler — one of them is a commercial route (C20) |
 | **`page82`** | 「spカレンダー用ダミーページ」, 14 characters. Tied to the SP site, which disappears. Check for references, then retire |

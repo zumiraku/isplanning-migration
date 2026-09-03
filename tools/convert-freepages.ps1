@@ -624,6 +624,48 @@ foreach ($f in $files) {
   }
 
   if ($Trace) { Write-Host ("  after heading    : " + $html.Length) }
+  # -- dead JavaScript: links -------------------------------------------------
+  # top_sendmail() / bottom_sendmail() / top_email() all resolve to ssl_contact(),
+  # which submits document.ssl_contact_form - a form posting to
+  # https://www.isp-sp.com/ssl/contact/. bottom_privercy() opened
+  # /html/privacy.html. Those helpers lived in the Basic Mode chrome, which is
+  # gone, so the six links carrying them would be dead on arrival. Pointed at what
+  # the function actually did, rather than removed or guessed at.
+  $jsLinks = ([regex]::Matches($html, '(?i)href\s*=\s*"javascript:')).Count
+  $html = [regex]::Replace($html, '(?i)href\s*=\s*"javascript:\s*(top_sendmail|bottom_sendmail|top_email|sendmail)\s*\(\s*\)\s*"', 'href="/ssl/contact/"')
+  $html = [regex]::Replace($html, '(?i)href\s*=\s*"javascript:\s*(bottom_privercy|top_privercy)\s*\(\s*\)\s*"', 'href="/html/privacy.html"')
+
+  # -- design-folder images ---------------------------------------------------
+  # Root-relative into the Basic Mode design folder. Whether that path survives
+  # the switch is a console question - the design set moves - so these are counted
+  # and reported, never rewritten on a guess.
+  $designImgs = ([regex]::Matches($html, '(?i)src\s*=\s*"/design/')).Count
+
+  # -- balance the divs -------------------------------------------------------
+  # The source deliberately leaves tags unclosed (S0-3) and cutting a content
+  # window out of it leaves the imbalance behind: 32 fragments carried a surplus
+  # </div> that closes .article early and lets the rest of the page escape its
+  # container, and 2 carried an unclosed <div> that swallows whatever follows.
+  # Stack-based and scoped to div: an unmatched closer is dropped, an unclosed
+  # opener is closed at the end.
+  $divsFixed = 0
+  $tagRx = [regex]'(?i)<div(?:\s[^>]*)?>|</div\s*>'
+  $depth = 0
+  $drop = New-Object System.Collections.Generic.List[object]
+  foreach ($m in $tagRx.Matches($html)) {
+    if ($m.Value.StartsWith('</')) {
+      if ($depth -gt 0) { $depth-- } else { $drop.Add($m) }
+    } else { $depth++ }
+  }
+  for ($k = $drop.Count - 1; $k -ge 0; $k--) {
+    $html = $html.Remove($drop[$k].Index, $drop[$k].Length)
+    $divsFixed++
+  }
+  if ($depth -gt 0) {
+    $html = $html + "`r`n" + ('</div>' * $depth)
+    $divsFixed += $depth
+  }
+
   # -- tidy -------------------------------------------------------------------
   $html = [regex]::Replace($html, '[ \t]+\r?\n', "`r`n")
   $html = [regex]::Replace($html, '(\r?\n){3,}', "`r`n`r`n")
@@ -662,6 +704,9 @@ foreach ($f in $files) {
     breadcrumbs      = $breadcrumbs
     attrs_repaired   = $attrsRepaired
     grids_merged     = $gridsMerged
+    js_links_fixed   = $jsLinks
+    design_imgs      = $designImgs
+    divs_fixed       = $divsFixed
     comments         = $comments
     chrome_bytes     = $chromeRemoved
     divs_trimmed     = $divsTrimmed

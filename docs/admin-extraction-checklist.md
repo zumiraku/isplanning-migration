@@ -39,14 +39,32 @@ does `/shop/shopdetail_option.html` still work under Creator Mode?
 
 ---
 
-## B. Independent page source — 83 pages
+## B. Independent page source — 83 in the sitemap, **at least 87 in reality** 🔴
 
-`デザイン管理 → 独自ページ`. For each of the 83, capture the **source HTML as entered**
-plus its title and URL → `templates/basic-export/freepages/pageNN.html`.
+`デザイン管理 → 独自ページ`. For each, capture the **source HTML as entered** plus its
+title and URL → `templates/basic-export/freepages/pageNN.html`.
 
-We can reconstruct these from `snapshot/` if needed, but the admin source is free of
-the surrounding chrome and far cleaner to port.
+**Start by counting the list, before exporting anything.** The sitemap says 83. Four
+more are linked from the live site and appear in neither the sitemap nor our
+archive (found 2026-09-03 by diffing every `/html/` link in the corpus):
 
+| Page | Linked from |
+|---|---:|
+| `/html/page4.html` | 30 free pages |
+| `/html/page19.html` | 20 free pages |
+| `/html/privacy.html` | 20 free pages |
+| `/html/email.html` | 2 free pages |
+
+`privacy.html` is the privacy policy. `page4` is linked from more than a third of
+the free pages. None can be crawled — the shop returns 403 to our automated
+requests and that rule stands — so **this screen is the only way to get them**, and
+its list is authoritative in a way the sitemap has now twice failed to be (the
+other time being the 912-URL smartphone space, S0-19).
+
+If the admin list shows more than 87, capture those too and tell us the count.
+
+We can reconstruct the 83 from `snapshot/` if needed, but the admin source is free
+of the surrounding chrome and far cleaner to port.
 ---
 
 ## C. All 607 category titles and descriptions 🔴 *unrecoverable after the switch*
