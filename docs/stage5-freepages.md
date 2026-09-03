@@ -300,6 +300,51 @@ Now a pattern, not a list.
 **1,679 internal links across 98 pages, none broken.** 85 free pages and 8
 templates all pass at 375 / 768 / 1440.
 
+
+## The smartphone pages carry content the desktop pages do not 🔴 *2026-09-03*
+
+Every free page was converted from its **desktop** capture. The separate
+`/smartphone/` URL space disappears at the switch (C18). So anything that exists
+only in the SP document is lost, silently, and nobody would notice until a
+customer asked why a price had vanished.
+
+`tools/compare-sp-content.sh` answers it: **135 lines of page-specific content,
+across 46 of the 83 pages**, present in the smartphone document and nowhere in
+the desktop one. → `inventory/sp-only-content.csv`
+
+Most are cross-sell links the SP template carries and the desktop one does not
+(●防災粗品販売ページはこちら, ●卓上カレンダーの販売ページ). Some are not.
+
+**`page2` — 名入れ・包装・熨斗のご案内 — has 28 lines of it**, and they are the
+kind a buyer reads before committing to an order:
+
+- 「■「のし」・「包装」は別途1個に付、のし20円(税別)・包装50円(税別)の追加料金になります」
+- 「1色刷り〜4色刷り:」
+- 「■名入れ代・版代・名入れスペース」
+- 「(ページ上に記載の名入れ最低数量以下でも名入れ出来る物もございますのでご希望数量でお問合せください)」
+
+Pricing, print-colour options, and the note that the stated minimum quantity is
+negotiable. On a shop where most traffic is mobile, that is the page the SP
+template was clearly maintained for.
+
+**Action:** merge the SP-only lines into the converted fragments before Gate C,
+starting with page2, ordercontract, page47, page3 and page16. The CSV is ordered
+by page for exactly that.
+
+### The measurement was wrong three times before it was right
+
+Worth writing down, because each wrong answer looked plausible:
+
+| Attempt | Answer | Why it was wrong |
+|---|---:|---|
+| Line diff, raw | 2,162 lines | Desktop writes ＦＡＸ, smartphone writes FAX. Character width, not content |
+| Normalised, `\s` stripped | 0 lines | `\s` includes the newline, so every document collapsed to one line |
+| Normalised correctly | 2,075 lines | Text both documents carry but split differently across tags — the invoice number is one table cell on desktop and one sentence on SP |
+| Substring test + frequency split | **135 lines** | Only counts text absent from the desktop document entirely, and separates the 24 chrome lines that appear on all 78 pages |
+
+A diff between two templates of the same content is mostly noise. The number
+only became trustworthy once each source of noise was named and removed.
+
 ## Still open
 
 | | |

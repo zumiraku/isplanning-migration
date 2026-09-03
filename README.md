@@ -125,6 +125,7 @@ majority of option-priced products (S0-21) — run it after every change to that
 .\tools\convert-freepages.ps1        # 83 Basic Mode bodies -> content fragments
 .\tools\build-freepage-previews.ps1  # -> rendered pages + review index
 .\tools\check-responsive.ps1         # every page at 375 / 768 / 1440px
+sh  tools/compare-sp-content.sh       # content the SP pages have and the desktop ones do not (C27)
 ```
 
 ### The news archive
