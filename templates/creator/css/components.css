@@ -533,3 +533,49 @@ ul, ol { margin: 0; padding: 0; }
 }
 .card > a:hover { text-decoration: none; }
 .card > a:hover .card__name { color: var(--c-primary); }
+
+/* --- spectable: the per-product availability table ------------------------
+   Item_detail_caption2 on the live site: 販売単位 / 見積依頼 / 名入れ / 熨斗 /
+   包装, each with a state box. Present on 101 of the 102 sampled products, and
+   it answers the questions this shop's buyers actually ask - can I get it
+   name-printed, can it be gift-wrapped.
+
+   The original is a five-column <table> of coloured divs (box20 available,
+   box22 an action link, box23 unavailable) whose colours live in the stylesheet
+   that dies at the switch. Rebuilt as a grid so five cells reflow to two or
+   three on a phone instead of squeezing, and the state is carried by a label as
+   well as a colour.
+   ------------------------------------------------------------------------ */
+.spectable {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: var(--s-2);
+  list-style: none;
+  margin: var(--s-5) 0;
+  padding: 0;
+}
+.spectable > li { margin: 0; text-align: center; }
+.spectable__label {
+  display: block;
+  font-size: var(--t-xs);
+  color: var(--c-ink-2);
+  margin-bottom: var(--s-1);
+}
+.spectable__label a { color: inherit; }
+.spectable__state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+  border-top: 2px solid transparent;
+  font-size: var(--t-sm);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  text-decoration: none;
+}
+.spectable__state--yes { background: #f4f9e4; border-top-color: var(--c-accent); color: var(--c-ink); }
+.spectable__state--no  { background: var(--c-surface-2); border-top-color: var(--c-rule); color: var(--c-ink-3); }
+.spectable__state--act { background: #fdf7d8; border-top-color: #e2c94a; color: var(--c-ink); }
+a.spectable__state:hover { filter: brightness(0.97); text-decoration: none; }

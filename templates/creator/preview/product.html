@@ -260,6 +260,40 @@
         </li>
       </ul>
 
+      <!--
+        Item_detail_caption2, the per-product availability table. Values here are
+        this product's real ones, read from the archived page: ご相談可能 /
+        FAX用紙 / 名入れ可能 / のし可能 / 包装不可.
+
+        On the live site the state is carried by background colour alone -
+        box20 pale green for 可能, box23 grey for 不可 - and those colours come
+        from the stylesheet that does not survive the switch. Here the word says
+        it too, so the meaning does not depend on either the colour or that
+        stylesheet.
+      -->
+      <ul class="spectable">
+        <li>
+          <span class="spectable__label">販売単位</span>
+          <a class="spectable__state spectable__state--yes" href="freepages/page21.html">ご相談可能</a>
+        </li>
+        <li>
+          <span class="spectable__label">見積依頼</span>
+          <a class="spectable__state spectable__state--act" href="freepages/page1.html">ＦＡＸ用紙</a>
+        </li>
+        <li>
+          <span class="spectable__label"><a href="freepages/page2.html">名入れ</a></span>
+          <span class="spectable__state spectable__state--yes">名入れ可能</span>
+        </li>
+        <li>
+          <span class="spectable__label"><a href="freepages/page2.html">熨斗</a></span>
+          <span class="spectable__state spectable__state--yes">のし可能</span>
+        </li>
+        <li>
+          <span class="spectable__label"><a href="freepages/page2.html">包装</a></span>
+          <span class="spectable__state spectable__state--no">包装不可</span>
+        </li>
+      </ul>
+
       <div class="notice" style="margin-top:var(--s-5)">
         <p><strong>名入れについて</strong><br>名入れ可能文字数 252字／最低ロット 100個／別途 ¥7,500</p>
       </div>
