@@ -50,6 +50,17 @@
   <div class="container utilbar__inner">
     <span>30,000円(税別)以上で送料無料 ※離島除く／代引無料</span>
     <span>2000年8月オープン｜25年間の粗品販売実績</span>
+    <!--
+      The member routes. The live site carries these in #subNav and every mock
+      here was missing them, which matters more than it looks: 割引設定 prices
+      (C23) only appear to a logged-in member, so without a login route the
+      member price is unreachable.
+    -->
+    <nav class="utilbar__links" aria-label="会員メニュー">
+      <a href="info.html">ご利用ガイド</a>
+      <a href="#">新規会員登録</a>
+      <a href="#">ログイン</a>
+    </nav>
   </div>
 </div>
 

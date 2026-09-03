@@ -512,3 +512,13 @@ ul, ol { margin: 0; padding: 0; }
   .buystack { grid-template-columns: repeat(2, 1fr); align-items: start; }
   .buystack > li:last-child { grid-column: 1 / -1; }
 }
+
+/* Member routes in the top strip: guide, register, login. On a phone they wrap
+   under the shipping notice rather than being hidden - a customer who cannot
+   find the login cannot reach their 割引設定 price. */
+.utilbar__links { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+.utilbar__links a { white-space: nowrap; }
+@media screen and (min-width: 961px) {
+  .utilbar__inner { justify-content: space-between; }
+  .utilbar__links { margin-left: auto; }
+}

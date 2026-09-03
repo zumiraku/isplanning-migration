@@ -17,6 +17,17 @@
   <div class="container utilbar__inner">
     <span>30,000円(税別)以上で送料無料 ※離島除く／代引無料</span>
     <span>2000年8月オープン｜25年間の粗品販売実績</span>
+    <!--
+      The member routes. The live site carries these in #subNav and every mock
+      here was missing them, which matters more than it looks: 割引設定 prices
+      (C23) only appear to a logged-in member, so without a login route the
+      member price is unreachable.
+    -->
+    <nav class="utilbar__links" aria-label="会員メニュー">
+      <a href="freepages/info.html">ご利用ガイド</a>
+      <a href="#">新規会員登録</a>
+      <a href="#">ログイン</a>
+    </nav>
   </div>
 </div>
 
@@ -134,6 +145,46 @@
           <span class="card__price">¥7,350 <small>(税別)</small></span>
         </div>
       </li>
+    </ul>
+  </section>
+
+  <!--
+    新着商品 and 定番（人気）の商品, both present on the live top page and both
+    missing from this mock until now. Product names come from the archived page,
+    not invented.
+
+    Creator Mode supplies these as variable tags - 新商品 and おすすめ商品 - so
+    they are among the few top-page blocks that need no editorial work from the
+    client (C16 covers the ones that do: the seasonal blocks have no tag and must
+    be re-sourced through 商品グループ or curated markup).
+  -->
+  <section style="margin-top:var(--s-10)">
+    <h2 class="h-section">新着商品</h2>
+    <p class="catintro" style="margin-bottom:var(--s-4)">最近追加の粗品をピックアップ、下記は一例です。</p>
+    <ul class="grid">
+      <li class="card"><a href="product.html"><div class="card__media"><div class="card__flags"><span class="badge badge--new">NEW</span></div></div>
+        <div class="card__body"><span class="card__name">モシモニソナエル 難燃リュック16点セット</span></div></a></li>
+      <li class="card"><a href="product.html"><div class="card__media"><div class="card__flags"><span class="badge badge--new">NEW</span></div></div>
+        <div class="card__body"><span class="card__name">備えて安心 エマ缶5点セット</span></div></a></li>
+      <li class="card"><a href="product.html"><div class="card__media"></div>
+        <div class="card__body"><span class="card__name">モシモニソナエル 安心救急6点セット</span></div></a></li>
+      <li class="card"><a href="product.html"><div class="card__media"></div>
+        <div class="card__body"><span class="card__name">スリムな救急ボトル お役立ち8点セット</span></div></a></li>
+    </ul>
+  </section>
+
+  <section style="margin-top:var(--s-10)">
+    <h2 class="h-section">定番（人気）の商品</h2>
+    <p class="catintro" style="margin-bottom:var(--s-4)">人気粗品のご紹介、下記は一例です。販売単位数量はほとんどの商品でご相談可能です。</p>
+    <ul class="grid">
+      <li class="card"><a href="product.html"><div class="card__media"></div>
+        <div class="card__body"><span class="card__name">5ＷＡＹスクエアファン</span></div></a></li>
+      <li class="card"><a href="product.html"><div class="card__media"></div>
+        <div class="card__body"><span class="card__name">リル　再生ＰＥＴクールタオル</span></div></a></li>
+      <li class="card"><a href="product.html"><div class="card__media"></div>
+        <div class="card__body"><span class="card__name">暑さ対策の手引きせんす</span></div></a></li>
+      <li class="card"><a href="product.html"><div class="card__media"></div>
+        <div class="card__body"><span class="card__name">讃岐そうめん２食組　水魚の如き　良きご縁を</span></div></a></li>
     </ul>
   </section>
 
