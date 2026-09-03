@@ -113,3 +113,65 @@ product/cart templates in one action — most of §A — but **every 独自ペ�
 be exported individually**. With 120 of them, that is the single largest manual
 job left in the project, and it is worth knowing before the switch rather than
 after.
+
+---
+
+## ショップデザイン → 独自ページ
+
+The client pasted this screen's text, 2026-09-03. It settles more than the page
+count.
+
+### The form
+
+| Field | Options |
+|---|---|
+| ページ選択 | 新しいページ / an existing page |
+| ページ名 | free text — the management label, not the `<title>` |
+| IP接続制限 | 適用する / 適用しない |
+| ページ制限 | 制限なし / 会員専用 / パスワード制限 |
+| 左メニュー選択 | 左側基本メニューデザイン(default) |
+| **独自ページタイプ** | 左側メニューを含む / 上段メニューだけを含む / ブランクページA（ヘッダータグの出力あり）/ ブランクページB（タグの自動出力なし） |
+| **フリーページへ転送** | — see below |
+
+Plus an HTML editor with a preview, and バックアップを読み込む /
+バックアップを取る **per page** — which is the only backup 独自ページ get, since
+the bulk design backup excludes them.
+
+### 🟢 「フリーページへ転送」 exists
+
+The form has that field, and the URL list has a column legend reading
+**「クリエイターモードのフリーページへ転送設定済み」**.
+
+C15 recorded that no 独自ページ → フリーページ converter exists and that all 83
+pages would be rebuilt by hand. That was taken from the manual's statement that
+pages must be created anew. **The platform provides a transfer.** None of the 82
+pages is transferred yet, so nothing has moved, but the assumption underneath a
+large slice of the plan was wrong.
+
+What it does to the markup is the next question: if it carries the Basic Mode
+HTML across as-is, our converted fragments remain the thing to paste in, and the
+transfer just creates the destination page. Worth testing on `page82` or another
+page nobody reads, not on `page2`.
+
+### The four tags available inside a 独自ページ
+
+Only when the type is 左側メニューを含む or 上段メニューだけを含む:
+
+```
+<a href=[MEMBER]>新規会員登録</a>
+<a href=[LOGIN]>ログイン</a>
+<a href=[MYPAGE]>マイページ</a>
+<a href=[EMAIL]>お問い合わせ</a>
+```
+
+**`[EMAIL]` is why `/html/email.html` exists** and why nothing we did could find
+it: it is not a page in this list, it is a system-generated contact form. The
+same is very likely true of `privacy.html`.
+
+Note also `[MEMBER]` and `[LOGIN]`: the member routes we added to the shared
+chrome have real tags behind them, so they are implementable rather than
+placeholders.
+
+### 独自ページは最大で10,000ページまで
+
+No ceiling worth planning around.

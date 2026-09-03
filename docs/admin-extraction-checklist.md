@@ -48,9 +48,9 @@ and aliases. See [console-map.md](console-map.md). Search it for 独自ページ
 `ショップデザイン → 独自ページ`. The count of 120 came from the client and still
 needs confirming against that list itself — see the note at the end of console-map.md.
 
-**The list is reported as 120, not yet confirmed against this screen.** The sitemap
-listed 83, which is what we crawled and converted, so **37 pages have never been
-seen** — no URL, no title, no idea whether they are live.
+**The list holds 82** (confirmed from the client's paste, 2026-09-03). The sitemap
+listed 83, we hold 80 of the 82, and only **page19 has never been
+seen** (page4 has a placeholder). See inventory/freepages-admin-list.csv.
 
 The single most valuable thing from this screen is **the list itself**: names or
 numbers for all 120, however rough. That turns 37 unknowns into a finite list.

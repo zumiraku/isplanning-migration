@@ -346,39 +346,87 @@ A diff between two templates of the same content is mostly noise. The number
 only became trustworthy once each source of noise was named and removed.
 
 
-## The admin lists 120 free pages, not 83 🔴 *2026-09-03*
+## ~~The admin lists 120 free pages, not 83~~ — WRONG, superseded ⚠️
 
-The client read the count off the 独自ページ list in the console: **120**.
+Written on 2026-09-03 and wrong the same day. I asked the client how many pages
+the 独自ページ list showed, he answered **120**, and I rewrote the README, C15, Q7,
+the checklist and the review index around "82 pages invisible from outside"
+before the number was confirmed against the screen it supposedly came from.
 
-| Source | Count | |
-|---|---:|---|
-| Client's original estimate | 60〜70 | in the brief |
-| sitemap.xml | 83 | what we crawled and converted |
-| Links found in the corpus | ≥87 | page4, page19, privacy, email |
-| **Admin 独自ページ list** | **120** | the only authoritative source |
+The 独自ページ list actually holds **82**. The 120 was a different figure on a
+different screen — the feature catalogue shows 125 features, which is the number
+that was in front of him.
 
-**So 37 pages are invisible from outside.** Not in the sitemap, not linked from
-anything in the 195-page archive, never crawled. We do not know their URLs, their
-titles or whether they are live, orphaned drafts or seasonal pages left in place.
+Two lessons, both mine:
 
-That makes this the third time the sitemap has under-reported — after the 912-URL
-smartphone space (S0-19) and the four linked-but-unlisted pages. It is not an
-inventory of anything and should not be treated as one again.
+- A count that changes the shape of the project is worth one confirming question
+  before it is written into six documents as fact. I did flag it as unconfirmed
+  in the next commit, which is why it was caught, but the flag came after the
+  rewrite rather than before.
+- Asking "how many does the list show" while the client is on an unfamiliar
+  screen invites exactly this. Asking for the list itself — which is what
+  eventually settled it — costs him the same effort and cannot be misread.
 
-### What this changes
+Superseded by the section below.
 
-- **Stage 5 is 83 of 120, not complete.** Every count in this document describes
-  the 83 we hold; they are all still true of those 83.
-- The two archetypes cover 75 of 83. Whether they cover the other 37 is unknown —
-  a third template may be needed.
-- The redirect map is missing 37 rows.
-- Gate C cannot honestly be called ready on 83 pages while 37 are unexamined.
+## The admin list settles the free-page question — 82, not 120 🟢 *2026-09-03*
 
-### What is needed
+The client pasted the whole 独自ページURL一覧. It is authoritative and it corrects
+the previous entry in this document, which assumed 120 from a miscommunication.
 
-The page list itself: names or numbers for all 120, however rough. That turns 37
-unknown pages into a finite list, and it is the difference between "we converted
-what the sitemap showed" and "we converted the shop".
+→ `inventory/freepages-admin-list.csv`
+
+| | |
+|---|---:|
+| 独自ページ in the admin | **82** |
+| Converted and rendered | **80** |
+| Placeholder only | 1 (`page4`) |
+| Never seen | **1 (`page19`)** |
+| Have a linked スマホ独自ページ | **77 of 82** |
+| Already transferred to a フリーページ | **0** |
+
+`page1`–`page19` and `page21`–`page83`. **`page20` is a gap** — deleted at some
+point, and nothing links to it.
+
+### What is not a 独自ページ after all
+
+`company`, `info` and `ordercontract` do not appear in this list. They come from
+their own admin features — the left menu carries 会社概要の設定 and ショップ案内画面
+— which is why they behave differently from the `pageNN` set. We converted them
+anyway and they are fine; they simply are not edited on this screen.
+
+`email.html` is not a page at all. The screen documents `<a href=[EMAIL]>` as one
+of four available tags, alongside `[MEMBER]`, `[LOGIN]` and `[MYPAGE]`. It is a
+system-generated contact form, which is why neither the sitemap nor the crawl
+ever found it and why it is not in the list. `privacy.html` is absent for the
+same likely reason and needs one check.
+
+So of the four pages recorded as missing, **only `page19` is genuinely a missing
+独自ページ**, and `page4` needs its real content in place of the placeholder:
+
+| | |
+|---|---|
+| `page4` | SP SOURCE（エスピーソースカタログ）名入れのご案内 |
+| `page19` | 卓上カレンダーを使うメリット |
+
+### 🔴 page82 must not be retired
+
+The admin's own name for it is **「スマホ用カレンダー（削除しないでください）」**.
+
+This document previously listed it as a retirement candidate on the grounds that
+it holds 14 characters and serves the SP site. The shop has written *do not
+delete* into its name. Whatever depends on it, it is not ours to remove — and the
+14-character judgement was made without seeing what the shop calls it.
+
+### 77 of 82 have a separate smartphone page
+
+Confirmed by the 「スマホ独自ページと紐付け済み」 column. The five without are
+`page6`, `page7`, `page37`, `page82`, `page83`.
+
+That is C27's divergence at source: 77 pairs of separately maintained pages, and
+the pairs have drifted — including the 特定商取引法 delivery period. It also means
+77 SP pages disappear at the switch, which is why merging their content had to be
+looked at at all.
 
 ## Still open
 
@@ -386,11 +434,11 @@ what the sitemap showed" and "we converted the shop".
 |---|---|
 | ~~63 unmapped classes~~ | **CLOSED 2026-09-02.** All mapped from what their rules in the dying stylesheet actually did — see "The class map is complete" below. `inventory/freepage-unmapped.csv` is now empty |
 | **19 pages flagged** `over-half-removed` | All 24 chrome-carrying pages plus `page82`. Expected — but each should be eyeballed against `snapshot/` before Gate C |
-| **4 missing free pages** | `page4`, `page19`, `privacy`, `email` — linked from the live site, absent from the sitemap and the archive. Recover from `ショップデザイン → 独自ページ` (checklist §B), convert, and fill in their redirect rows |
+| **2 pages outstanding** | `page19` (卓上カレンダーを使うメリット) has never been seen; `page4` (SP SOURCE 名入れのご案内) has a placeholder. Both are in the admin list, so both are recoverable from that screen. `privacy` and `email` came off this list — `email` is the `[EMAIL]` system tag, and `privacy` is almost certainly the same |
+| **`page82`** | Keep. The admin calls it 「スマホ用カレンダー（削除しないでください）」 |
 | **66 images on `/design/isplanning/`** | Root-relative into the Basic Mode design folder, across 35 pages. Whether that path survives the switch is a console question — the design set moves. Counted in the report as `design_imgs`, deliberately not rewritten |
 | **418 links to `/html/*.html`** | Internal links between free pages. Creator Mode gives free pages new URLs (Q7), so every one of these needs rewriting at cutover, along with the redirect map |
 | **17 inline event handlers** | Mostly `window.open` popups for PDFs and the quote-request form. Needs rebuilding as ordinary links or a small handler — one of them is a commercial route (C20) |
-| **`page82`** | 「spカレンダー用ダミーページ」, 14 characters. Tied to the SP site, which disappears. Check for references, then retire |
 
 ## For Gate C
 

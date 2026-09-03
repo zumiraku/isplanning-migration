@@ -28,7 +28,7 @@ restore. This repo — not the console — is the source of truth.
 
 | Class | Count | Notes |
 |---|---:|---|
-| Free pages `/html/*.html` | **120** (admin, 2026-09-03) | The sitemap listed 83 and we hold those. The client read the count off the 独自ページ list: **120**. So 37 pages are invisible from outside — not in the sitemap, not linked from anything we archived, never crawled. His own estimate was "60〜70" |
+| Free pages `/html/*.html` | **82 独自ページ** (admin list, 2026-09-03) | page1–19 and page21–83; page20 is a gap. `company` / `info` / `ordercontract` are NOT 独自ページ — they come from their own admin features. `email.html` is the `[EMAIL]` system tag. We hold 80 of the 82 converted; only **page19** is missing outright and `page4` has a placeholder |
 | News articles `/new/*.html` | **100** | 2013 → 2026, ~7/year, still indexed and still being posted to. The 101st URL is `/new/index.html`, the list page |
 | Category pages `/shopbrand/…` | **607** | |
 | Product pages `/shopdetail/…` | **9,514** | 9,025 on `000000xxxxxx`, 488 on an older `cccssxxxxxx` scheme |
@@ -105,7 +105,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Gate B mocks | top page and product detail, real content throughout |
 | Redirect map | **1,100 URLs, 1,011 resolved.** 910 of the 912 `/smartphone/` URLs have a destination — 889 read straight out of the desktop pages own `rel="alternate"`. The 101 news URLs stay put (Q4). Open: the 83 free pages, waiting on Q7, plus 4 pages we have never seen |
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
-| Stage 5 free pages | **83 of 120 converted.** The 83 the sitemap listed are done, rendered and 83/83 responsive-clean. The admin says 120 exist — 37 have never been seen. See [docs/stage5-freepages.md](docs/stage5-freepages.md) |
+| Stage 5 free pages | **80 of the 82 独自ページ converted**, plus company/info/ordercontract from their own features. Missing: `page19` entirely, `page4` placeholder only. All rendered and responsive-clean. See [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 | News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |
 
 ### Verifying the pricing rebuild
@@ -155,7 +155,7 @@ Two items are urgent because Creator Mode destroys them permanently:
 ### What the survey changed
 
 - Stage 4 is a **rebuild**, not a port: the pricing engine is MakeShop platform
-  JavaScript, emitted by a feature Creator Mode discontinues.
+- Stage 5 is close to the brief after all: the admin lists **82** 独自ページ, not the 120 briefly assumed from a miscommunication. Two templates cover 75 of them.
 - Stage 5 is **larger** than the brief implied: the admin lists 120 独自ページ, not the 83 the sitemap showed. Two templates still cover 75 of the 83 we hold.
 - The design must be **rebuilt from tokens**: the stylesheet that survives the
   switch contains no colours and no typography at all.
