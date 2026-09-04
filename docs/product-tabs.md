@@ -34,8 +34,21 @@ HTML comment:
      data-group="true" data-action="widget"></div>
 ```
 
-The shop switched off MakeShop's own reviews and replaced them with **u-komi**.
-That splits across the mode boundary in an awkward way:
+**This change is days old.** Every one of the 40 archived product pages - crawled
+2026-08-29 - renders MakeShop's native review block, uncommented, and carries no
+u-komi mount at all. The design source obtained 2026-09-03 has it exactly the
+other way round. The two are otherwise the same template: same three tab labels,
+same 46 tiles, same four rcmd slots. **Only the review block differs, and it is
+inverted.** So the live 商品詳細 template was edited between 2026-08-29 and
+2026-09-03, and not by us. Who did it, and whether it was deliberate, is a
+question for the client - see docs/client/report-2026-09-07.md.
+
+One consequence is already live, independent of the migration: the block that
+displayed existing customer reviews is now commented out, so whatever reviews
+those products had accumulated stopped being shown at that moment.
+
+Either way, u-komi is what the current design uses, and it splits across the mode
+boundary in an awkward way:
 
 - **The loader survives.** `api.u-komi.com/…/widget.js` is injected by the
   platform, not by the design — it appears *above* the first line of
@@ -127,9 +140,12 @@ they do not agree:
 
 So a product's review system depends on which category it is in. Products in
 ct261, ct646 and ct664 write reviews into MakeShop's own store; every other
-product writes into u-komi; **neither shows the other's.** When u-komi was
-adopted the three per-category templates were not updated with it, and nobody
-has noticed since.
+product writes into u-komi; **neither shows the other's.**
+
+The three per-category templates were simply not touched by the edit that changed
+the main one between 2026-08-29 and 2026-09-03. They still hold what the whole
+shop held a week ago. So this split is days old, not years - which makes it more
+likely, not less, that nobody has looked at it yet.
 
 Two things follow, and the second is a data question rather than a layout one:
 
@@ -146,3 +162,19 @@ block that C28 assumed — its tabs are differently labelled and its third tab i
 類似品, not reviews at all. That is one more reason the 53 + 3 need reading
 individually rather than being collapsed on the assumption they are the standard
 template plus a banner.
+
+### Which categories those three are
+
+The `ctNNN` codes are MakeShop's internal category codes, and the smartphone
+site uses the same ones — so the desktop pages' own `rel="alternate"` names
+them:
+
+| code | category | note |
+|---|---|---|
+| ct261 | タオル類 | `/shopbrand/023/Y/` |
+| ct646 | 卓上カレンダー | `/shopbrand/051/O/` — the same category the client flagged as unusual (C25) |
+| ct664 | 資材 | `/shopbrand/ct664/` |
+
+Worth naming rather than leaving as codes: these are categories the client can
+look at and check for review activity himself, which is what settles whether
+unifying on u-komi loses anything.
