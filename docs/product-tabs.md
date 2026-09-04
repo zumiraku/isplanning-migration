@@ -178,3 +178,40 @@ them:
 Worth naming rather than leaving as codes: these are categories the client can
 look at and check for review activity himself, which is what settles whether
 unifying on u-komi loses anything.
+
+---
+
+## Removing the retired review feature (client instruction, 2026-09-04)
+
+> 旧タグはPC・スマホ共、コメントアウトにしましたが、11月に終了ですでに移行して
+> いるのでついでに消して頂ければと思います。
+
+`tools/strip-old-review-tags.sh` → `templates/basic-export/design-cleaned/`
+
+The archive is never edited: `templates/basic-export/design/` stays
+byte-identical as the "before" record, and cleaned copies go to a parallel
+directory so the two can be diffed before anything is pasted into the console.
+
+| template | live tags | commented | after |
+|---|---:|---:|---:|
+| `design_detailpage.txt` | 0 | 3 | 0 |
+| `design_detailpage_ct261.txt` | **3** | 0 | 0 |
+| `design_detailpage_ct646.txt` | **3** | 0 | 0 |
+| `design_detailpage_ct664.txt` | **3** | 0 | 0 |
+
+The diff is eleven lines per file, and it is the review block and nothing else.
+
+### 🔴 The part worth telling the client
+
+He said he commented the tags out **PC・スマホ共** — and for the main product
+template he did. **The three per-category product templates still had the tags
+live** in the 2026-09-03 export: not commented, three uncommented tags each.
+
+He may well have done those on 9/4 along with everything else, after our export
+was taken; we cannot see the current state without a fresh one. But if they were
+missed, then products in ct261, ct646 and ct664 are still showing a review
+feature that stops working at the end of November — and they are the same three
+templates that C28 already flags as having drifted from the standard one.
+
+**This is not something to fix quietly.** Which templates were missed is more
+useful to him than the edit itself, because he is the one who can check.

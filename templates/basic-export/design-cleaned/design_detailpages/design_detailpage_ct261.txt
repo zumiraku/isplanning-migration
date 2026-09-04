@@ -1,0 +1,268 @@
+<script src="/js/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/jqueryplugin/migrate/3.0.0/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="/js/jqueryplugin/makeshop_bxslider/4.1.1/jquery.bxslider.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/jqueryplugin/makeshop_bxslider/4.1.1/jquery.bxslider.css">
+
+<div class="M_mainContents" id="O_itemDetail">	
+	<div class="M_topicPath">
+	<a href="/">ホーム</a> >[LIST_NO_ICON]
+	</div>
+	
+	<h2 class="brandname"><p>[BRANDNAME]</p>粗品におすすめタオル類</h2>
+
+
+<!--<div id="NextPage"><span class="PageLeft">[IF_PREV]<a href=[PREV]>< 前の商品</a>[ENDIF_PREV][IF_NEXT]</span><span class="PageRight"><a href=[NEXT]>次の商品 ></a>[ENDIF_NEXT]</span></div>-->
+	<div class="O_itemDetailTop">	
+		<div id="O_itemDetailL">
+		<div id="Item_detail_Image">[RESIZE_IMAGE_500]<!-- 商品画像 -->
+			[IF_VIEWBUTTON]<img src="https://gigaplus.makeshop.jp/isplanning/images/kakudais2.png" alt="拡大画像">[ENDIF_VIEWBUTTON]</div>
+		<div id="Other_img">
+			[IF_ITEMIMAGE_1]<div><a href=[ITEMIMAGE_VIEW_1]><img src=[ITEMIMAGE_1_M]></a></div>[ENDIF_ITEMIMAGE_1]<!-- 商品追加画像1 -->
+			[IF_ITEMIMAGE_2]<div><a href=[ITEMIMAGE_VIEW_2]><img src=[ITEMIMAGE_2_M]></a></div>[ENDIF_ITEMIMAGE_2]<!-- 商品追加画像2 -->
+			[IF_ITEMIMAGE_3]<div><a href=[ITEMIMAGE_VIEW_3]><img src=[ITEMIMAGE_3_M]></a></div>[ENDIF_ITEMIMAGE_3]<!-- 商品追加画像3 -->
+		</div>
+
+	</div><!-- Item_Detail_Left -->
+
+		<div id="O_itemDetailR">
+				
+		[DETAIL_EXT]
+		<div class="Item_detail_txt">
+			[DETAIL]<!-- 商品詳細説明 -->		
+			
+		<div id="Item_detail_caption2">[ITEMCAPTION_2]<!-- 追加画像説明文2 --></div>		
+		
+		</div>
+
+	</div>
+	</div>
+	<div class="O_itemDetailBottom">
+		<div id="O_itemDetailBottomL">
+		<div class="daibiki-txt">代引き手数料 当社負担で<span>無料！</span></div>
+		<div class="price-box">
+			<dl class="itemPrice-wrap">
+				<dt><span>価格：</span></dt>
+				<dd class="itemPrice"><span>[TAXPRICE]</span>円（税込）<!-- [RESERVE] ポイント --></dd>
+			</dl><!-- <dl>【税込み33000円未満の場合は送料が必要です】</dl> -->
+			<dl class="itemPrice-wrap">
+				<dt><span>数量：</span></dt>
+				<dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]<ul class="count"><li class="up"><a href=[UPCOUNT]><img src="https://gigaplus.makeshop.jp/isplanning/images/item-up.png" alt="up"></a></li><li class="down"><a href=[DOWNCOUNT]><img src="https://gigaplus.makeshop.jp/isplanning/images/item-down.png" alt="down"></a></li></ul></dd>
+			</dl>
+		</div>
+[SALESTART]
+<div class="saleBox">
+<p class="sale">在庫一掃特別セール [DCDAY]</p>
+<p class="price">通常価格 [ORGPRICE]</p>
+<p class="saleRate">[DCRATE]％OFF</p>
+</div>
+[SALEEND]
+		</div>
+		<div id="O_itemDetailBottomR">
+			<div class="detailcart-wrap">
+					<p class="goCart">[IF]<a href=[GETBASKET] class="detail-cart">カートに入れる</a>[END][ELSE]<a href=[GETBASKET] class="detaol-soldout">品切れ[ENDIF]</p>
+		<ul><!--<li><a href=[MAIL]><img src="https://gigaplus.makeshop.jp/isplanning/images/detail_ml.png" alt="友達にメールですすめる" /></a></li>-->
+			<ul class="mailestimation">
+				<li class="detail-btn"><a href=[WISHLIST] class="detail-fav">お気に入りリストに追加</a></li>
+				<li class="detail-btn"><a class="detail-mail" href=[QUESTION_MAIL]>この商品について問い合わせる</a><span>販売単位数量、納期、在庫等上記よりお問合せ下さい</span></li>
+				<li class="detail-btn"><a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600,height=600'); return false;" class="detail-mitsumori">見積依頼フォーム</a></li></ul>
+			</ul>
+			</div>
+		</div>
+	</div>
+	<div class="option-wrap">
+		<p class="detail_option">[OPTION1]</p>
+        <p class="detail_option">[OPTION2]</p>
+[IFNAMEOPTION]<!-- ご希望数量を記入して下さい-->
+[NAMEOPTION]
+[IFELSENAMEOPTION]<!-- 販売単位数量ご相談不可商品です-->
+[IFENDNAMEOPTION]
+<p class="zaiko9">[ZAIKO] </p>
+
+		<div id="Item_detail_caption3">[ITEMCAPTION_3]<!-- 追加画像説明文3 --></div>
+	</div>
+
+<!-- O_itemDetailR -->
+<!-- 商品詳細説明 -->
+[ENDFORM]<!-- 商品詳細フォームの終わりに必ず入力するタグ -->
+
+	
+	<div class="tab-area">
+ 
+<input id="tab-btn1" class="tab-btn" name="tab" type="radio" checked>
+<input id="tab-btn2" class="tab-btn" name="tab" type="radio">
+<input id="tab-btn3" class="tab-btn" name="tab" type="radio">
+ 
+<ul class="tab-list-wrap">
+<li><label id="tab-list1" class="tab-list" for="tab-btn1">送料・類似品</label></li>
+<li><label id="tab-list2" class="tab-list" for="tab-btn2">商品カテゴリー一覧</label></li>
+<li><label id="tab-list3" class="tab-list" for="tab-btn3">この商品の<br>レビューを見る</label></li>
+</ul>
+
+<div class="tab-content-wrap">
+<div id="tab-content1" class="tab-content">
+<div><img src="https://gigaplus.makeshop.jp/isplanning/uploads/souryou2022.png" alt="送料・代引き手数料表" /></div>
+		<p><div class="red txta-l mt10 mb20 ft16 lh28">送料は個数、種類に関係なく1回のご注文での料金です。（例：2、3種類かごに入れても送料は800円（税別）です）<br />離島・北海道・沖縄は別途送料、中継料が必要となります。（カゴでは自動計算されません）</div><br />
+		<a href="/html/info.html#about_payment" class="link_green wd320">送料・代引き手数料のご案内</a></p>
+
+		<ul class="detail_postage">
+			<li>ご購入前に<a href="/new/index.html">「お知らせページ」</a>をご覧ください</li>
+			<li>販売単位数量以外は「買物カゴ（カート）」ではご注文できませんので<a href="JavaScript:top_sendmail()">メール</a>・<a href="/html/page1.html">ＦＡＸ注文・見積用紙</a>にてお気軽に見積依頼又はご注文してください。</li>
+			<li>商品のデザイン・色が若干変更になる場合がありますがご了承願います。</li>
+			<li>画像は商品の色・素材感が実物とは異なる場合、商品以外の品が添えられている場合があります。</li>
+			<li>納期は余裕を持ってご注文お願いいたします。品切れの際はご容赦願います。</li>
+			</ul>
+	
+	<!--最近チェックした商品-->
+	<!--[IF_RECENT]
+    <div class="M_section border" id="middle_recent">
+		<h2 class="main-ttl">最近チェックした商品</h2>
+        [RECENT]
+	</div>
+    [ENDIF_RECENT]-->
+
+<!-- イーレコメンド設置タグ -->
+<script type="text/javascript">
+if (!window._rcmdjp) document.write(unescape("%3Cscript src='" + document.location.protocol + "//d.rcmd.jp/isplanning/item/recommend.js' type='text/javascript' charset='UTF-8'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+  _rcmdjp._displayHistory({
+    template: 'deco_history_scroll2-copy'
+  });
+  _rcmdjp._displayRecommend({
+    type: 'pv',
+    template: 'deco_recommend_scroll1-copy'
+  });
+  _rcmdjp._displayRanking({
+    type: 'pv',
+    span: 'week',
+    template: 'deco_ranking_scroll3-copy'
+  });
+  _rcmdjp._displayPickup({
+    label: 'pickup-1',
+    template: 'deco_pikup_2018-copy'
+  });
+} catch(err) {}
+</script>
+
+
+<!--商品グループ--><div id="brandgroupsend"></div>
+<div class="M_section" id="middle_recent">
+        [BRANDGROUP]
+</div>
+
+	
+</div>
+		
+<div id="tab-content2" class="tab-content">
+<div class="PageArea">
+<p>販売単位はほとんどの商品でご相談できますのでお問い合わせください。</p>
+<ul class="page_scene">
+			<li><a href="/shopbrand/004/Y/"><img alt="季節商品※春" src="https://gigaplus.makeshop.jp/isplanning/images/i_spring.jpg"><div class="textboxisp">季節商品※春</div></a></li>
+			<li><a href="/shopbrand/005/Y/"><img alt="季節商品※夏" src="https://gigaplus.makeshop.jp/isplanning/images/i_summer.jpg"><div class="textboxisp">季節商品※夏</div></a></li>
+			<li><a href="/shopbrand/006/Y/"><img alt="季節商品※秋" src="https://gigaplus.makeshop.jp/isplanning/images/i_autumn.jpg"><div class="textboxisp">季節商品※秋</div></a></li>
+			<li><a href="/shopbrand/007/Y/"><img alt="季節商品※冬" src="https://gigaplus.makeshop.jp/isplanning/images/i_winter.jpg"><div class="textboxisp">季節商品※冬</div></a></li></ul>
+
+<ul class="page_scene">
+			<li><a href="/shopbrand/003/X/"><img alt="予算別" src="https://gigaplus.makeshop.jp/isplanning/images/i_budget.jpg"><div class="textboxisp">予算で探す</div></a></li>
+                        <li><a href="/shopbrand/036/P/"><img alt="スマートフォン" src="https://gigaplus.makeshop.jp/isplanning/images/i_sm2.jpg"><div class="textboxisp">スマートフォン粗品グッズ</div></a></li>
+			<li><a href="/shopbrand/009/Y/"><img alt="癒し健康" src="https://gigaplus.makeshop.jp/isplanning/images/i_iya2.jpg"><div class="textboxisp">癒し・健康</div></a></li>
+			<li><a href="/shopbrand/010/Y/"><img alt="便利グッズ" src="https://gigaplus.makeshop.jp/isplanning/images/i_benri2.jpg"><div class="textboxisp">便利グッズ</div></a></li></ul>
+
+<ul class="page_scene">		
+			<li><a href="/shopbrand/012/Y/"><img alt="おしゃれ小物" src="https://gigaplus.makeshop.jp/isplanning/images/i_osyare2.jpg"><div class="textboxisp">おしゃれ・小物</div></a></li>
+			<li><a href="/shopbrand/013/Y/"><img alt="エコロジー" src="https://gigaplus.makeshop.jp/isplanning/images/i_eco2.jpg"><div class="textboxisp">エコロジー</div></a></li>
+			<li><a href="/shopbrand/014/Y/"><img alt="レジャー関係" src="https://gigaplus.makeshop.jp/isplanning/images/i_leisure2.jpg"><div class="textboxisp">レジャーアウトドア</div></a></li>
+			<li><a href="/shopbrand/015/Y/"><img alt="花" src="https://gigaplus.makeshop.jp/isplanning/images/i_flower2.jpg"><div class="textboxisp">フラワー花</div></a></li></ul>
+
+<ul class="page_scene">	
+			<li><a href="/shopbrand/016/Y/"><img alt="ステーショナリーグッズ" src="https://gigaplus.makeshop.jp/isplanning/images/i_stationery2.jpg"><div class="textboxisp">ステーショナリー</div></a></li>
+			<li><a href="/shopbrand/017/Y/"><img alt="ボールペン" src="https://gigaplus.makeshop.jp/isplanning/images/i_pen2.jpg"><div class="textboxisp">ボールペン</div></a></li>
+			<li><a href="/shopbrand/018/Y/"><img alt="キャラクター" src="https://gigaplus.makeshop.jp/isplanning/images/i_character2.jpg"><div class="textboxisp">キャラクター</div></a></li>
+			<li><a href="/shopbrand/019/Y/"><img alt="バッグ鞄" src="https://gigaplus.makeshop.jp/isplanning/images/i_bag2.jpg"><div class="textboxisp">バッグ・鞄</div></a></li></ul>
+
+<ul class="page_scene">
+			<li><a href="/shopbrand/020/Y/"><img alt="時計クロック" src="https://gigaplus.makeshop.jp/isplanning/images/i_clock2.jpg"><div class="textboxisp">時計</div></a></li>
+			<li><a href="/shopbrand/021/Y/"><img alt="陶器、ガラス製品" src="https://gigaplus.makeshop.jp/isplanning/images/i_Ceramic2.jpg"><div class="textboxisp">陶器・ガラス</div></a></li>
+			<li><a href="/shopbrand/022/Y/"><img alt="キッチン用品" src="https://gigaplus.makeshop.jp/isplanning/images/i_kitchen2.jpg"><div class="textboxisp">キッチン</div></a></li>
+			<li><a href="/shopbrand/023/Y/"><img alt="タオル類" src="https://gigaplus.makeshop.jp/isplanning/images/i_taoru2.jpg"><div class="textboxisp">タオル</div></a></li></ul>
+
+<ul class="page_scene">
+			<li><a href="/shopbrand/024/Y/"><img alt="バス、お風呂関係" src="https://gigaplus.makeshop.jp/isplanning/images/i_spa3.jpg"><div class="textboxisp">バス・お風呂</div></a></li>
+			<li><a href="/shopbrand/025/Y/"><img alt="傘" src="https://gigaplus.makeshop.jp/isplanning/images/i_umbrella2.jpg"><div class="textboxisp">傘 カサ</div></a></li>
+			<li><a href="/shopbrand/026/Y/"><img alt="防災グッズ" src="https://gigaplus.makeshop.jp/isplanning/images/i_bousai2.jpg"><div class="textboxisp">防災グッズ</div></a></li>
+			<li><a href="/shopbrand/027/Y/"><img alt="食品" src="https://gigaplus.makeshop.jp/isplanning/images/i_food2.jpg"><div class="textboxisp">食品</div></a></li></ul>
+
+<ul class="page_scene">
+			<li><a href="/shopbrand/028/Y/"><img alt="日用品" src="https://gigaplus.makeshop.jp/isplanning/images/i_tissue2.jpg"><div class="textboxisp">日用品</div></a></li>
+			<li><a href="/shopbrand/029/Y/"><img alt="ギフト詰め合わせ" src="https://gigaplus.makeshop.jp/isplanning/images/i_gift2.jpg"><div class="textboxisp">ギフト詰合せ</div></a></li>
+			<li><a href="/shopbrand/030/Y/"><img alt="イベント用抽選セット" src="https://gigaplus.makeshop.jp/isplanning/images/i_event2.jpg"><div class="textboxisp">イベント・抽選</div></a></li>
+			<li><a href="/shopbrand/031/Y/"><img alt="あぶら取り紙" src="https://gigaplus.makeshop.jp/isplanning/images/i_blotting_paper2.jpg"><div class="textboxisp">あぶら取紙</div></a></li></ul>
+
+<ul class="page_scene">
+			<li><a href="/shopbrand/032/P/"><img alt="自転車" src="https://gigaplus.makeshop.jp/isplanning/images/i_bicycle2.jpg"><div class="textboxisp">自転車</div></a></li>
+			<li><a href="/shopbrand/033/Y/"><img alt="その他" src="https://gigaplus.makeshop.jp/isplanning/images/i_etc2.jpg"><div class="textboxisp">その他</div></a></li>
+<li><a href="/shopbrand/ct667/"><img alt="数量選択可能" src="https://gigaplus.makeshop.jp/isplanning/images/i_unit.png"><div class="textboxisp">数量選択可能</div></a></li>
+<li><a href="/shopbrand/ct662/"><img alt="マスク" src="https://gigaplus.makeshop.jp/isplanning/images/i_mask.jpg"><div class="textboxisp">マスク・除菌類</div></a></li></ul>
+
+<ul class="page_scene">
+<li><a href="/shopbrand/ct659/"><img alt="感謝の言葉入り" src="https://gigaplus.makeshop.jp/isplanning/images/i_thankyou.jpg"><div class="textboxisp">感謝の言葉入り粗品</div></a></li>
+<li><a href="/shopbrand/039/Y/"><img alt="女性向粗品" src="https://gigaplus.makeshop.jp/isplanning/images/i_women-1.jpg"><div class="textboxisp">女性向き粗品</div></a></li>
+<li><a href="/shopbrand/038/Y/"><img alt="アニマルグッズ" src="https://gigaplus.makeshop.jp/isplanning/images/i_animal-1.jpg"><div class="textboxisp">アニマルグッズ</div></a></li>
+<li><a href="/shopbrand/037/Y/"><img alt="子供向け" src="https://gigaplus.makeshop.jp/isplanning/images/i_children-1.jpg"><div class="textboxisp">お子さま向け粗品</div></a></li></ul>
+
+<ul class="page_scene">
+<li><a href="/shopbrand/011/Y/"><img alt="和柄" src="https://gigaplus.makeshop.jp/isplanning/images/i_wagara2-1.jpg"><div class="textboxisp">和柄の粗品</div></a></li>
+<li><a href="/shopbrand/041/Y/"><img alt="ライト類" src="https://gigaplus.makeshop.jp/isplanning/images/i_light-1.jpg"><div class="textboxisp">ライト類の粗品</div></a></li>
+<li><a href="/shopbrand/042/Y/"><img alt="タンブラー" src="https://gigaplus.makeshop.jp/isplanning/images/i_tumbler-1.jpg"><div class="textboxisp">タンブラーの粗品</div></a></li>
+<li><a href="/shopbrand/043/Y/"><img alt="ボトル" src="https://gigaplus.makeshop.jp/isplanning/images/i_bottle-1.jpg"><div class="textboxisp">ボトルの粗品</div></a></li></ul>
+
+<ul class="page_scene">
+<li><a href="/shopbrand/044/Y/"><img alt="掃除グッズ" src="https://gigaplus.makeshop.jp/isplanning/images/i_clean-1.jpg"><div class="textboxisp">掃除グッズ</div></a></li>
+<li><a href="/shopbrand/045/Y/"><img alt="パソコン関係" src="https://gigaplus.makeshop.jp/isplanning/images/i_pc-1.jpg"><div class="textboxisp">パソコングッズ</div></a></li>
+<li><a href="/shopbrand/035/Y/"><img alt="カラーが選べる粗品" 
+src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="textboxisp">カラーが選べる粗品</div></a></li>
+<li><a href="/shopbrand/047/P/"><img alt="オリジナル印刷できる商品" src="https://gigaplus.makeshop.jp/isplanning/images/i_original-1.jpg"><div class="textboxisp">オリジナル印刷商品</div></a></li></ul>
+
+<ul class="page_scene">
+<li><a href="/shopbrand/ct655"><img alt="石鹸、石鹸セット" src="https://gigaplus.makeshop.jp/isplanning/images/i_soap-1.jpg"><div class="textboxisp">石鹸・石鹸セット</div></a></li>
+<li><a href="/shopbrand/051/O/"><img alt="卓上カレンダー" src="https://gigaplus.makeshop.jp/isplanning/images/i_calendar.jpg"><div class="textboxisp">卓上カレンダー</div></a></li>
+</ul>
+</div>
+
+
+
+</div>
+<div id="tab-content3" class="tab-content">
+</div>
+</div>
+
+
+</div><!--.M_mainContents-->
+
+<script>
+jQuery.noConflict();
+(function($) {
+    $(window).load(function(){
+        $('.M_imageMainList').bxSlider({
+            mode: 'fade',
+            useCSS: false,
+            pagerCustom: '.M_imageThumbnail'
+        });
+    });
+})(jQuery);
+</script>
+<script>
+$(function(){
+var $grid = $('.M_imageThumbnail'),   
+    emptyCells = [],
+    i;
+
+// 子パネル (div.M_imageThumbnail-item) の数だけ空の子パネル (div.M_imageThumbnail-item.is-empty) を追加する。
+for (i = 0; i < $grid.find('.M_imageThumbnail-item').length; i++) {
+    emptyCells.push($('<div>', { class: 'M_imageThumbnail-item is-empty' }));
+}
+
+$grid.append(emptyCells);
+});
+</script>

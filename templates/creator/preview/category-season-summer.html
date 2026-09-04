@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夏向け粗品｜発見マーケット</title>
+<meta name="description" content="商品単価100円〜199円まで。バラエティに富んだ粗品をご用意しており、季節商品など多種多様です。商品によりましては包装、のし、名入れが可能です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+<div class="utilbar">
+  <div class="container utilbar__inner">
+    <span>30,000円(税別)以上で送料無料 ※離島除く／代引無料</span>
+    <span>2000年8月オープン｜25年間の粗品販売実績</span>
+    <!--
+      The member routes. The live site carries these in #subNav and every mock
+      here was missing them, which matters more than it looks: 割引設定 prices
+      (C23) only appear to a logged-in member, so without a login route the
+      member price is unreachable.
+    -->
+    <nav class="utilbar__links" aria-label="会員メニュー">
+      <a href="freepages/info.html">ご利用ガイド</a>
+      <a href="#">新規会員登録</a>
+      <a href="#">ログイン</a>
+    </nav>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-logo" href="top.html">発見マーケット<small>粗品・景品・ノベルティの名入れ通販</small></a>
+    <form class="searchbox" role="search" action="#">
+      <label class="visually-hidden" for="q">商品を検索</label>
+      <input id="q" type="text" name="search" placeholder="商品名・キーワードで検索">
+      <button type="submit">検索</button>
+    </form>
+    <div class="site-header__contact"><b>072-970-6710</b>平日10時〜12時／13時〜17時（土日祝休）</div>
+    <div class="site-header__tools"><a class="cartlink" href="#">カート <b>0</b>点</a></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" aria-label="パンくず">
+    <ol>
+      <li><a href="top.html">ホーム</a></li>
+      <li><a href="#">予算で選ぶ</a></li>
+      <li>100円〜199円</li>
+    </ol>
+  </nav>
+</div>
+
+<main class="container">
+
+  <h1 class="h-page">夏向け粗品</h1>
+
+  <div class="catintro">
+    <p>熱中症対策グッズ、扇子・うちわ、ハンディファン、風鈴、素麺など、夏の粗品・景品・ノベルティを集めました。名入れ・包装・のしに対応する商品も多数ご用意しております。</p>
+  </div>
+
+  <!--
+    The summer half of the client's request. Same shape as category-season.html,
+    and the same reason for existing: these six tiles are links today, and they
+    stop looking like anything at the switch because .box_summer is styled from
+    the dying system stylesheet.
+
+    Two differences from the winter page, both from the live markup:
+
+      - Three of the six tiles point at ct-coded categories (ct665 ハンディファン,
+        ct656 そうめん, ct658 夏の食品) rather than 005/NNN sub-categories. So the
+        tiles are not a subset of the sub-category list here - they cut across
+        it, and dropping either list would lose entries the other does not have.
+      - 素麺（そうめん） appears in both, under two different names: the tile says
+        人気定番「そうめん」 and the sub-category list says 素麺（そうめん）(80).
+        Both are kept as written; renaming one to match would be tidying away a
+        distinction the shop may have made deliberately.
+  -->
+  <ul class="tilegrid">
+    <li><a href="#"><img src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_sensu2.jpg" alt="扇子" loading="lazy"><div class="tilecap">夏に人気の扇子！</div></a></li>
+    <li><a href="#"><img src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_handyfan2.jpg" alt="ハンディファン" loading="lazy"><div class="tilecap">暑さ対策にハンディファン</div></a></li>
+    <li><a href="#"><img src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_Heatstroke%20measures2.jpg" alt="ひんやりグッズ" loading="lazy"><div class="tilecap">熱中対策にひんやりグッズ</div></a></li>
+    <li><a href="#"><img src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_soumen2.jpg" alt="そうめん" loading="lazy"><div class="tilecap">人気定番「そうめん」</div></a></li>
+    <li><a href="#"><img src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_uchiwa2.jpg" alt="うちわ" loading="lazy"><div class="tilecap">名入れもできる「うちわ」</div></a></li>
+    <li><a href="#"><img src="https://gigaplus.makeshop.jp/isplanning/oshirase/summer_food2.jpg" alt="夏の食品" loading="lazy"><div class="tilecap">夏の食品・冷やし中華・ゼリー等</div></a></li>
+  </ul>
+
+  <ul class="subcats">
+    <li><a href="#">熱中症対策（387）</a></li>
+    <li><a href="#">素麺（そうめん）（80）</a></li>
+    <li><a href="#">扇子（52）</a></li>
+    <li><a href="#">うちわ（40）</a></li>
+    <li><a href="#">風鈴（38）</a></li>
+    <li><a href="#">節電グッズ（4）</a></li>
+    <li><a href="#">その他（195）</a></li>
+  </ul>
+
+  <!--
+    The five sort options the live category page actually offers, with the
+    platform values behind them: 新着順 order / おすすめ順 recommend /
+    単価順 product / 価格 price / 商品名 brandname.
+
+    The mock previously listed four, invented rather than observed, and dropped
+    単価順 - which on this shop is not a minor option. Everything is priced by
+    tiered unit price, and a buyer choosing between 500 novelty items compares
+    単価 before anything else.
+  -->
+  <div class="listbar">
+    <span class="listbar__count">全 <b>1,983</b> 件中 1〜20件を表示</span>
+    <label class="listbar__sort">並び替え
+      <select>
+        <option value="order">新着順</option>
+        <option value="recommend">おすすめ順</option>
+        <option value="product">単価順</option>
+        <option value="price">価格</option>
+        <option value="brandname">商品名</option>
+      </select>
+    </label>
+  </div>
+
+  <!--
+    Real rows from the archived listing (shopbrand/003/003/X), not invented.
+    The information order follows the live card, which is the B2B one: 単価 and
+    the lot size first, because a buyer choosing between novelty items compares
+    unit price before anything else, then 販売価格 as the tax-inclusive total.
+    The mock previously led with a 税別 headline, which is not the number the
+    live listing shows.
+  -->
+  <ul class="grid">
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">JM2623302</span><span class="card__name">健康長寿フェイスタオル(小紋ストライプ柄)</span><span class="card__unit">単価 158円（税別）／200個入</span><span class="card__price">¥34,760 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">JM2623301</span><span class="card__name">健康長寿フェイスタオル(来福亀甲柄)</span><span class="card__unit">単価 158円（税別）／200個入</span><span class="card__price">¥34,760 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377301</span><span class="card__name">備えて安心 エマ缶3点セット</span><span class="card__unit">単価 199円（税別）／120個入</span><span class="card__price">¥26,268 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377341</span><span class="card__name">ネイティブ柄スティックレジャーシート1個</span><span class="card__unit">単価 199円（税別）／120個入</span><span class="card__price">¥26,268 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377381</span><span class="card__name">あったかアイマスク2枚組</span><span class="card__unit">単価 159円（税別）／160個入</span><span class="card__price">¥27,984 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2377501</span><span class="card__name">マルチセルフケア ガラスリムーバー</span><span class="card__unit">単価 199円（税別）／120個入</span><span class="card__price">¥26,268 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2326640</span><span class="card__name">繰り返し使えるシリコンラップ大・小セット</span><span class="card__unit">単価 199円（税別）／200個入</span><span class="card__price">¥43,780 <small>(税込)</small></span></div></a></li>
+    <li class="card"><a href="product.html"><div class="card__media"></div>
+      <div class="card__body"><span class="card__code">UT2326670</span><span class="card__name">再生アルミニウムボールペン</span><span class="card__unit">単価 100円（税別）／360個入</span><span class="card__price">¥39,600 <small>(税込)</small></span></div></a></li>
+  </ul>
+
+  <ul class="pager">
+    <li><span aria-current="page">1</span></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">次へ</a></li>
+  </ul>
+
+</main>
+
+<footer class="site-footer">
+  <!--
+    Everything the Basic Mode left sidebar linked to lives here now.
+
+    Dropping the sidebar was the right call - a fixed left column of links is
+    poor use of a phone screen - but it was the only route to six free pages,
+    and converting a page is not much use if nothing links to it. page3, page5,
+    page6, page8 and page9 had become unreachable from every template; page4 is
+    one of the four we have never captured, so it is listed with the others and
+    will link up once it is recovered from the admin.
+  -->
+  <div class="container site-footer__cols">
+    <div>
+      <b>粗品と景品の発見マーケット</b>
+      <p>アイエスプランニング株式会社<br>〒581-0014 大阪府八尾市中田4-132-3<br>TEL 072-970-6710</p>
+      <p><a href="freepages/page6.html">メールマガジン登録</a></p>
+    </div>
+    <div>
+      <b>ご利用案内</b>
+      <ul class="linklist">
+        <li><a href="freepages/info.html">ショッピングガイド</a></li>
+        <li><a href="freepages/page2.html">名入れ・包装・熨斗のご案内</a></li>
+        <li><a href="freepages/page3.html">名入れサンプル・名入れのメリット</a></li>
+        <li><a href="freepages/page21.html">販売単位数量について</a></li>
+        <li><a href="freepages/page1.html">注文・見積用紙ダウンロード</a></li>
+        <li><a href="info.html#about_receipt">インボイス制度について</a></li>
+      </ul>
+    </div>
+    <div>
+      <b>粗品をさがす</b>
+      <ul class="linklist">
+        <li><a href="freepages/page8.html">シーンで選ぶ</a></li>
+        <li><a href="freepages/page5.html">季節で選ぶ</a></li>
+        <li><a href="freepages/page9.html">商品別カテゴリー</a></li>
+        <li><a href="freepages/page4.html">エスピーソースカタログ</a></li>
+      </ul>
+    </div>
+    <div>
+      <b>会社情報</b>
+      <ul class="linklist">
+        <li><a href="freepages/company.html">会社概要</a></li>
+        <li><a href="freepages/ordercontract.html">特定商取引法に基づく表示</a></li>
+        <li><a href="freepages/privacy.html">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <small>&copy; アイエスプランニング株式会社</small>
+  </div>
+</footer>
+
+</body>
+</html>
