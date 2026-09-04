@@ -149,3 +149,71 @@ The screen says so in red: 「「適用」ボタンをクリックすると、�
 します」. The five rows each have one, next to a delete cross. Nobody should be
 sent to that screen without being told which buttons not to press — the download
 button at the bottom is read-only, the ones in the table are not.
+
+---
+
+## 🔴 The backup slots are full, verified 2026-09-04
+
+The デザイン一括バックアップ screen, seen for the first time:
+
+```
+■ デザインの一括バックアップ
+  現在適用されているショップのデザインを一括保存します。デザインセットは最大5件まで保存できます。
+
+  [ 💾 適用中のデザインを一括保存する ]   <- GREYED OUT, disabled
+  ⛔ 保存済みのデザインを削除するまで、デザインの一括保存は出来ません。
+
+  No 適用      デザインセット名称                  保存日時
+   1 [適用] デザインセット_20150203              2015/02/03 19:11:51  ✕
+   2 [適用] 制作部カスタマイズ着手前_20180712    2018/07/12 16:51:14  ✕
+   3 [適用] 制作部カスタマイズ完了_20180717      2018/07/17 17:43:54  ✕
+   4 [適用] 20221221_リニューアル前backup        2022/12/21 14:38:28  ✕
+   5 [適用] デザインセット_20221226              2022/12/26 16:03:32  ✕
+
+  ※「適用」ボタンをクリックすると、現在のデザインを上書きします。
+
+■ デザインの一括ダウンロード
+  [ ⬇ 適用中のデザインを一括ダウンロードする ]   <- enabled
+```
+
+**All five slots are taken, so no new design set can be saved without deleting
+one of the client's own historical backups first.** This document previously
+said "one should be saved before this migration too" as though it were simply a
+task to do. It is not: it is a decision only the client can make, because the
+alternatives are all his history.
+
+### The two backups are not equivalent
+
+| | 一括保存（デザインセット） | 一括ダウンロード |
+|---|---|---|
+| where | on the platform | a ZIP on the PC |
+| restore | **one click, 適用** | paste each template back by hand |
+| slots | 5, all full | unlimited |
+| blocked? | yes | **no** |
+
+The distinction matters for a migration: the on-platform set is the only thing
+that restores in one action. A ZIP is a record, not an undo button.
+
+### What is excluded from both
+
+The screen lists three, and only the first was known:
+
+- 独自ページ
+- **「ファイル管理」でアップロードした画像、CSSなど**
+- **トップページ編集＞左メニュー管理「独自ページの左側メニュー1〜10」**
+
+The second is the one to notice. `default.css` and the uploaded images are not
+in the design backup at all — they live in ファイル管理 / ギガプラス10 and need
+their own export.
+
+### So: download now, decide on a slot separately
+
+The download is enabled, safe and read-only, and **it is worth re-running even
+though we have the 2026-09-03 ZIP** — the product template changed on 9/4 when
+the client swapped the review feature to u-komi (C30). Our copy is already one
+revision behind the live design.
+
+Freeing a slot is a separate question for the client. The obvious candidate is
+No.1 デザインセット_20150203, eleven years old and superseded by two later
+redesigns, but nobody should delete another company's backup on their own
+judgement.
