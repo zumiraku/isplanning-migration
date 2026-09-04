@@ -429,3 +429,56 @@ So the Basic Mode editors live at `shop1.makeshop.jp/makeshop/newmanager/design_
 and **the names match our exported files** — `design_brandpage.html` is the screen
 that produced `design_brandpage.txt`. The mapping between editor screen and
 exported file is now direct rather than inferred.
+
+---
+
+## ショップデザイン › クリエイターモード — verified 2026-09-04
+
+Reached from the dark bar's `クリエイターモード編集画面へ ›`. The bar still reads
+**`🏳 ベーシックモード適用中`** on this screen, which is the point: this is a
+staging area, not a switch.
+
+```
+ショップデザイン › クリエイターモード
+
+デザインセット一覧   [ + デザインセットを追加 ]  [ ⤓ デザインセットのインポート ]
+
+┌ Complete（1）✎ ┐ ┌ Advance（1）✎ ┐ ┌ Basics（1）✎ ┐   ┌ ┄┄┄┄ ┐
+│  [ショップに適用] │ │ [ショップに適用] │ │ [ショップに適用] │   ┆  +   ┆
+│ 2022/07/08 17:46 │ │ 2022/09/02 16:29 │ │ 2026/08/19 04:39 │   └ ┄┄┄┄ ┘
+│  ⧉  ⬇  🕘        │ │  ⧉  ⬇  🕘        │ │  ⧉  ⬇  🕘        │
+└──────────────────┘ └──────────────────┘ └──────────────────┘
+
+                                      （旧デザイン）ベーシック…
+```
+
+### What this settles
+
+**Creator Mode design sets can be created and edited while Basic Mode stays
+applied.** The whole build can happen before cutover, and the cutover itself
+becomes one button rather than a night of pasting. That was the largest open
+scheduling question in the project.
+
+Three sets already exist, all MakeShop stock templates — Complete, Advance,
+Basics — none customised for this shop. `Basics` was last updated **2026/08/19**,
+which is before our engagement began but recent enough to be worth asking about;
+the other two are from 2022.
+
+### ⚠️ 「ショップに適用」 is the switch
+
+The blue button on each card is what changes the live shop over to Creator Mode
+with that design. It is not a preview and not a save. **Nothing in the build
+phase requires pressing it**, and pressing it with a stock template selected
+would replace eleven years of customisation with a demo shop.
+
+The safe controls are `デザインセットを追加` (new empty set), the ⧉ copy icon, and
+the ⬇ download icon.
+
+### Two routes in
+
+- **`+ デザインセットを追加`** — build a set from scratch, which is what
+  `templates/creator/mode/*.tpl` is for.
+- **`⤓ デザインセットのインポート`** — takes a design set as a package. If it
+  accepts the format the ⬇ download produces, the templates could be assembled
+  and version-controlled here and imported whole, rather than pasted screen by
+  screen. Worth establishing early: it changes how the remaining build is done.
