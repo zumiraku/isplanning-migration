@@ -1,0 +1,826 @@
+/* ==========================================================================
+   発見マーケット — デザインシステム
+   貼り付け先: クリエイターモード › 全ページ共通 › CSS の【末尾】
+
+   既存のCSS（FontAwesomeのimportとリセット）は消さず、その下に足してください。
+   理由が2つあります。
+
+   1. まだ作り直していないページ（トップ、買い物カゴ、会員画面など）は、
+      Basicsのスタイルで表示され続けます。先に消すと、それらが素のHTMLに
+      戻ります。
+   2. CSSは同じ詳細度なら後に書いた方が勝ちます。末尾に置くことが、そのまま
+      「こちらの指定を優先する」という意味になります。
+
+   全ページの作り直しが終わった段階で、上のBasics由来のCSSは削れます。
+   その時点で消すのが正しく、今ではありません。
+
+   出典: templates/creator/css/tokens.css + components.css
+   ========================================================================== */
+
+@charset "UTF-8";
+/* =============================================================================
+   isp-sp.com — design tokens
+   Creator Mode rebuild. Source of truth for colour, type, spacing, layout.
+
+   Palette recovered from m_sys_common.css before it is retired with Basic Mode
+   (see docs/findings-stage0.md S0-13). Usage counts in comments are from that
+   stylesheet, so the hierarchy reflects how the shop actually used each colour
+   rather than a guess.
+
+   Breakpoints match the two the shop already uses (767 / 960), so existing
+   editorial content that assumes them does not reflow unexpectedly.
+   ========================================================================== */
+
+:root {
+  /* --- brand ------------------------------------------------------------- */
+  --c-primary:        #007c5a;   /* 50 uses — brand green */
+  --c-primary-dark:   #00593f;   /* derived, for hover/active */
+  --c-primary-light:  #e6f2ee;   /* derived, for tinted panels */
+
+  --c-accent:         #98cb00;   /* 20 uses — yellow-green */
+  --c-accent-dark:    #90b700;   /* 14 uses — hover/darker */
+  --c-accent-light:   #f2f8e0;   /* derived */
+
+  --c-sale:           #e60012;   /* 14 uses — sale, caution, required */
+  --c-sale-light:     #fdeaec;   /* derived */
+
+  /* --- neutrals ---------------------------------------------------------- */
+  --c-ink:            #333333;   /* 74 uses — body text */
+  --c-ink-2:          #5f6b68;   /* secondary text */
+  --c-ink-3:          #8a938f;   /* meta, captions */
+  --c-rule:           #dddddd;   /* 15 uses — hairlines */
+  --c-rule-soft:      #ececec;
+  --c-surface:        #ffffff;   /* 149 uses */
+  --c-surface-2:      #f5f7f6;   /* panels, table stripes */
+  --c-ground:         #ffffff;
+
+  /* --- semantic ---------------------------------------------------------- */
+  --c-ok:             #007c5a;
+  --c-warn:           #b0782a;
+  --c-error:          #e60012;
+  --c-soldout:        #8a938f;
+
+  /* --- type -------------------------------------------------------------- */
+  --f-display: "Mochiy Pop One", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --f-body:    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --f-num:     "Noto Sans JP", system-ui, sans-serif;
+
+  /* Mobile-first scale. Desktop overrides at the 961 breakpoint below. */
+  --t-xs:   11px;
+  --t-sm:   12px;
+  --t-base: 14px;
+  --t-md:   15px;
+  --t-lg:   17px;
+  --t-xl:   20px;
+  --t-2xl:  24px;
+  --t-3xl:  28px;
+
+  --lh-tight:  1.25;
+  --lh-normal: 1.7;   /* Japanese body copy wants more leading than Latin */
+  --lh-loose:  1.9;
+
+  /* --- spacing (4px base) ------------------------------------------------ */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* --- layout ------------------------------------------------------------ */
+  --container:     1180px;
+  --container-pad: var(--s-4);
+  --radius:        4px;
+  --radius-lg:     8px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow:    0 2px 8px rgba(0,0,0,.08);
+
+  /* --- controls ---------------------------------------------------------- */
+  --tap-min: 44px;   /* minimum touch target */
+  --focus:   0 0 0 3px rgba(0,124,90,.35);
+
+  --ease: cubic-bezier(.2,.6,.3,1);
+}
+
+/* Tablet and up */
+@media screen and (min-width: 768px) {
+  :root {
+    --container-pad: var(--s-6);
+  }
+}
+
+/* Desktop — the widths the current site was designed for */
+@media screen and (min-width: 961px) {
+  :root {
+    --t-base: 15px;
+    --t-md:   16px;
+    --t-lg:   19px;
+    --t-xl:   23px;
+    --t-2xl:  29px;
+    --t-3xl:  36px;
+    --container-pad: var(--s-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --ease: linear; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@charset "UTF-8";
+/* =============================================================================
+   isp-sp.com — base + components
+   Mobile-first. No framework, no jQuery. Depends on tokens.css.
+   ========================================================================== */
+
+/* --- reset / base -------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-ground);
+  color: var(--c-ink);
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  line-height: var(--lh-normal);
+}
+img { max-width: 100%; height: auto; vertical-align: middle; }
+a { color: var(--c-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 2px; }
+h1,h2,h3,h4 { margin: 0; line-height: var(--lh-tight); font-weight: 700; text-wrap: balance; }
+p { margin: 0 0 var(--s-4); }
+ul, ol { margin: 0; padding: 0; }
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+.stack > * + * { margin-top: var(--s-4); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* --- headings ------------------------------------------------------------ */
+.h-page {
+  font-family: var(--f-display);
+  font-size: var(--t-2xl);
+  color: var(--c-primary);
+  margin-bottom: var(--s-5);
+}
+.h-section {
+  font-size: var(--t-xl);
+  border-left: 4px solid var(--c-primary);
+  padding-left: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.h-sub {
+  font-size: var(--t-lg);
+  border-bottom: 2px solid var(--c-rule);
+  padding-bottom: var(--s-2);
+  margin-bottom: var(--s-3);
+}
+
+/* --- buttons ------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: var(--tap-min);
+  padding: var(--s-3) var(--s-6);
+  border: 1px solid transparent; border-radius: var(--radius);
+  font-family: var(--f-body); font-size: var(--t-md); font-weight: 700;
+  line-height: 1; text-align: center; cursor: pointer;
+  transition: background-color .15s var(--ease), border-color .15s var(--ease);
+}
+.btn:hover { text-decoration: none; }
+.btn--primary { background: var(--c-primary); color: #fff; }
+.btn--primary:hover { background: var(--c-primary-dark); }
+.btn--cart { background: var(--c-sale); color: #fff; width: 100%; font-size: var(--t-lg); }
+.btn--cart:hover { filter: brightness(.92); }
+.btn--ghost { background: #fff; color: var(--c-primary); border-color: var(--c-primary); }
+.btn--ghost:hover { background: var(--c-primary-light); }
+.btn[disabled], .btn[aria-disabled="true"] {
+  background: var(--c-rule); color: var(--c-ink-3); cursor: not-allowed; border-color: transparent;
+}
+
+/* --- badges -------------------------------------------------------------- */
+.badge {
+  display: inline-block; padding: 2px var(--s-2); border-radius: 2px;
+  font-size: var(--t-xs); font-weight: 700; line-height: 1.6; white-space: nowrap;
+}
+.badge--sale    { background: var(--c-sale); color: #fff; }
+.badge--new     { background: var(--c-accent); color: #23300a; }
+.badge--naire   { background: var(--c-primary-light); color: var(--c-primary); }
+.badge--soldout { background: var(--c-soldout); color: #fff; }
+
+/* --- breadcrumb ---------------------------------------------------------- */
+.breadcrumb { font-size: var(--t-sm); color: var(--c-ink-3); padding: var(--s-3) 0; }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); list-style: none; }
+.breadcrumb li + li::before { content: "›"; margin-right: var(--s-2); color: var(--c-rule); }
+
+/* --- product card -------------------------------------------------------- */
+.card {
+  display: flex; flex-direction: column;
+  background: var(--c-surface); border: 1px solid var(--c-rule-soft);
+  border-radius: var(--radius); overflow: hidden;
+  transition: box-shadow .15s var(--ease);
+}
+.card:hover { box-shadow: var(--shadow); }
+.card__media { position: relative; aspect-ratio: 1 / 1; background: var(--c-surface-2); }
+.card__media img { width: 100%; height: 100%; object-fit: contain; }
+.card__flags { position: absolute; inset-block-start: var(--s-2); inset-inline-start: var(--s-2); display: flex; gap: var(--s-1); }
+.card__body { display: flex; flex-direction: column; gap: var(--s-1); padding: var(--s-3); flex: 1; }
+.card__code { font-size: var(--t-xs); color: var(--c-ink-3); }
+.card__name {
+  font-size: var(--t-base); font-weight: 500; line-height: 1.45; color: var(--c-ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card__price { margin-top: auto; font-family: var(--f-num); font-weight: 700; color: var(--c-sale); font-size: var(--t-lg); }
+.card__price small { font-size: var(--t-xs); font-weight: 400; color: var(--c-ink-3); }
+.card__unit { font-size: var(--t-xs); color: var(--c-ink-2); }
+
+/* --- product grid -------------------------------------------------------- */
+.grid { display: grid; gap: var(--s-3); grid-template-columns: repeat(2, 1fr); list-style: none; }
+@media screen and (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); gap: var(--s-4); } }
+@media screen and (min-width: 961px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* --- recommend rail ------------------------------------------------------
+   The client asked for horizontal scroll on smartphone specifically, having
+   tried and failed to do it himself. Grid on desktop, scroll-snap rail below
+   768 - no library, no JS.
+   ------------------------------------------------------------------------ */
+.rail { list-style: none; }
+@media screen and (max-width: 767px) {
+  .rail {
+    display: flex; gap: var(--s-3);
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    /* bleed to the screen edge so the cut-off card reads as scrollable */
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad); padding-bottom: var(--s-3);
+    scrollbar-width: thin;
+  }
+  .rail > li { flex: 0 0 44%; scroll-snap-align: start; }
+}
+@media screen and (min-width: 768px) {
+  .rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+}
+
+/* --- price box ----------------------------------------------------------- */
+.pricebox { border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.pricebox__row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+.pricebox__row + .pricebox__row { margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px dashed var(--c-rule-soft); }
+.pricebox__label { font-size: var(--t-sm); color: var(--c-ink-2); }
+.pricebox__main { font-family: var(--f-num); font-size: var(--t-3xl); font-weight: 700; color: var(--c-sale); font-variant-numeric: tabular-nums; }
+.pricebox__main small { font-size: var(--t-sm); font-weight: 400; color: var(--c-ink-2); margin-left: var(--s-1); }
+.pricebox__sub { font-family: var(--f-num); font-size: var(--t-md); color: var(--c-ink-2); font-variant-numeric: tabular-nums; }
+.pricebox__note { margin: var(--s-3) 0 0; font-size: var(--t-sm); color: var(--c-ink-2); }
+
+/* --- option matrix -------------------------------------------------------
+   Replaces MakeShop's オプションテーブル形式, which Creator Mode drops.
+   Data model is unchanged: one radio per (colour, tier) pair, value "col_row".
+   Desktop renders a real table; below 768 each tier becomes a card, because a
+   3x7 table does not survive a 375px viewport.
+   ------------------------------------------------------------------------ */
+.optmatrix { border: 1px solid var(--c-rule); border-radius: var(--radius); overflow: hidden; }
+.optmatrix__head {
+  display: none;
+  background: var(--c-surface-2); border-bottom: 1px solid var(--c-rule);
+  font-size: var(--t-sm); font-weight: 700; color: var(--c-ink-2);
+}
+.optmatrix__tier { display: block; padding: var(--s-3); }
+.optmatrix__tier + .optmatrix__tier { border-top: 1px solid var(--c-rule-soft); }
+.optmatrix__tier:nth-child(even) { background: var(--c-surface-2); }
+
+.optmatrix__facts { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-2); }
+.optmatrix__qty { font-family: var(--f-num); font-weight: 700; font-size: var(--t-md); }
+.optmatrix__unit,
+.optmatrix__total { font-family: var(--f-num); font-size: var(--t-sm); color: var(--c-ink-2); font-variant-numeric: tabular-nums; }
+.optmatrix__total strong { color: var(--c-sale); font-size: var(--t-md); }
+
+.optmatrix__colours { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.optswatch { position: relative; }
+.optswatch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.optswatch span {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--c-rule); border-radius: var(--radius);
+  background: #fff; font-size: var(--t-sm); cursor: pointer;
+  transition: border-color .12s var(--ease), background-color .12s var(--ease);
+}
+.optswatch i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.2); }
+.optswatch input:hover + span { border-color: var(--c-primary); }
+.optswatch input:focus-visible + span { box-shadow: var(--focus); }
+.optswatch input:checked + span { border-color: var(--c-primary); background: var(--c-primary-light); font-weight: 700; }
+.optswatch input:disabled + span { opacity: .45; cursor: not-allowed; text-decoration: line-through; }
+
+@media screen and (min-width: 768px) {
+  .optmatrix__head,
+  .optmatrix__tier { display: grid; grid-template-columns: 5.5rem 6rem 8rem 1fr; align-items: center; gap: var(--s-3); }
+  .optmatrix__head { padding: var(--s-2) var(--s-3); }
+  .optmatrix__facts { display: contents; }
+  .optmatrix__colours { gap: var(--s-2); }
+}
+
+/* --- quantity stepper ---------------------------------------------------- */
+.qty { display: inline-flex; align-items: stretch; border: 1px solid var(--c-rule); border-radius: var(--radius); overflow: hidden; }
+.qty button {
+  width: var(--tap-min); min-height: var(--tap-min);
+  border: 0; background: var(--c-surface-2); color: var(--c-ink);
+  font-size: var(--t-lg); line-height: 1; cursor: pointer;
+}
+.qty button:hover { background: var(--c-rule-soft); }
+.qty input {
+  width: 4.5rem; border: 0; border-inline: 1px solid var(--c-rule);
+  text-align: center; font-family: var(--f-num); font-size: var(--t-md);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- tables -------------------------------------------------------------- */
+.table-scroll { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: var(--t-base); }
+.table th, .table td { padding: var(--s-3); border: 1px solid var(--c-rule); text-align: left; vertical-align: top; }
+.table th { background: var(--c-surface-2); font-weight: 700; white-space: nowrap; }
+.table td.num { text-align: right; font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+
+/* --- notice -------------------------------------------------------------- */
+.notice { border-left: 4px solid var(--c-primary); background: var(--c-primary-light); padding: var(--s-3) var(--s-4); border-radius: 0 var(--radius) var(--radius) 0; }
+.notice--warn { border-left-color: var(--c-sale); background: var(--c-sale-light); }
+.notice p:last-child { margin-bottom: 0; }
+
+/* --- news list ----------------------------------------------------------- */
+.newslist { list-style: none; }
+.newslist li { border-bottom: 1px solid var(--c-rule-soft); }
+.newslist a { display: flex; flex-direction: column; gap: var(--s-1); padding: var(--s-3) 0; color: var(--c-ink); }
+.newslist a:hover { text-decoration: none; color: var(--c-primary); }
+.newslist time { font-family: var(--f-num); font-size: var(--t-sm); color: var(--c-ink-3); }
+@media screen and (min-width: 768px) {
+  .newslist a { flex-direction: row; align-items: baseline; gap: var(--s-5); }
+  .newslist time { flex: 0 0 7rem; }
+}
+
+/* --- pagination ---------------------------------------------------------- */
+.pager { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); list-style: none; padding: var(--s-6) 0; }
+.pager a, .pager span {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: var(--tap-min); min-height: var(--tap-min); padding-inline: var(--s-2);
+  border: 1px solid var(--c-rule); border-radius: var(--radius);
+  font-family: var(--f-num); font-size: var(--t-base); color: var(--c-ink);
+}
+.pager a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
+.pager [aria-current="page"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
+
+/* --- form ---------------------------------------------------------------- */
+.field { display: block; margin-bottom: var(--s-4); }
+.field__label { display: block; margin-bottom: var(--s-1); font-size: var(--t-sm); font-weight: 700; }
+.field__req { color: var(--c-sale); font-size: var(--t-xs); margin-left: var(--s-1); }
+.field input[type="text"], .field input[type="email"], .field input[type="tel"], .field textarea, .field select {
+  width: 100%; min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--c-rule); border-radius: var(--radius);
+  font-family: var(--f-body); font-size: 16px; /* 16px stops iOS zooming on focus */
+  background: #fff; color: var(--c-ink);
+}
+.field textarea { min-height: 8rem; resize: vertical; }
+.field__help { margin-top: var(--s-1); font-size: var(--t-sm); color: var(--c-ink-3); }
+.field__error { margin-top: var(--s-1); font-size: var(--t-sm); color: var(--c-error); font-weight: 700; }
+
+/* --- article (free-page archetype: 47 of 83 pages) ----------------------- */
+.article { max-width: 72ch; }
+.article h2 { font-size: var(--t-xl); color: var(--c-primary); margin: var(--s-8) 0 var(--s-3); }
+.article h3 { font-size: var(--t-lg); margin: var(--s-6) 0 var(--s-2); padding-left: var(--s-3); border-left: 3px solid var(--c-accent); }
+.article h4 { font-size: var(--t-md); margin: var(--s-5) 0 var(--s-2); color: var(--c-ink-2); }
+.article p { line-height: var(--lh-loose); }
+.article ul, .article ol { margin: 0 0 var(--s-4) var(--s-5); }
+.article li { margin-bottom: var(--s-1); }
+.article img { border-radius: var(--radius); margin-block: var(--s-3); }
+.article > *:first-child { margin-top: 0; }
+
+/* --- visual guide (archetype: 28 of 83 pages) ---------------------------- */
+.guide-grid { display: grid; gap: var(--s-4); grid-template-columns: 1fr; }
+@media screen and (min-width: 768px) { .guide-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
+.guide-item figure { margin: 0; }
+.guide-item figcaption { margin-top: var(--s-2); font-size: var(--t-sm); color: var(--c-ink-2); }
+
+/* =============================================================================
+   Page chrome — header, navigation, footer
+   ========================================================================== */
+
+.utilbar { background: var(--c-primary); color: #fff; font-size: var(--t-xs); }
+.utilbar__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s-2) var(--s-4); padding-block: var(--s-2); text-align: center; }
+.utilbar a { color: #fff; text-decoration: underline; }
+@media screen and (min-width: 768px) { .utilbar__inner { justify-content: space-between; text-align: left; } }
+
+.site-header { border-bottom: 1px solid var(--c-rule); background: var(--c-surface); }
+.site-header__inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); padding-block: var(--s-3); }
+.site-logo { font-family: var(--f-display); font-size: var(--t-lg); color: var(--c-primary); line-height: 1.2; }
+.site-logo small { display: block; font-family: var(--f-body); font-size: var(--t-xs); font-weight: 400; color: var(--c-ink-3); }
+.site-header__tools { display: flex; align-items: center; gap: var(--s-2); }
+.site-header__contact { display: none; text-align: right; font-size: var(--t-xs); color: var(--c-ink-2); line-height: 1.4; }
+.site-header__contact b { display: block; font-family: var(--f-num); font-size: var(--t-lg); color: var(--c-primary); }
+@media screen and (min-width: 961px) {
+  .site-header__inner { grid-template-columns: auto 1fr auto auto; }
+  .site-logo { font-size: var(--t-xl); }
+  .site-header__contact { display: block; }
+}
+
+/* Below the desktop breakpoint the search box takes its own row. In the two
+   column grid it was landing in the `auto` column beside the logo, where its
+   size came from the input's intrinsic width (~290px with the button) rather
+   than from the space available — which pushed the header, and therefore every
+   page, into a horizontal scroll at 375px. `min-width: 0` on both the flex
+   container and the input is what actually lets it shrink. */
+.searchbox { display: flex; width: 100%; max-width: 26rem; min-width: 0; }
+/* Stated as max-width and placed after the base rule, not as a reset inside the
+   min-width block above: those two selectors have equal specificity, so the one
+   further down the file wins whatever the media query says, and the desktop
+   header stayed stacked at 1440px. */
+@media screen and (max-width: 960px) {
+  .searchbox { grid-column: 1 / -1; }
+}
+.searchbox input { flex: 1; min-width: 0; min-height: var(--tap-min); padding: var(--s-2) var(--s-3); border: 1px solid var(--c-rule); border-right: 0; border-radius: var(--radius) 0 0 var(--radius); font-size: 16px; font-family: var(--f-body); }
+.searchbox button { min-height: var(--tap-min); padding-inline: var(--s-4); border: 0; border-radius: 0 var(--radius) var(--radius) 0; background: var(--c-primary); color: #fff; font-weight: 700; cursor: pointer; }
+.searchbox button:hover { background: var(--c-primary-dark); }
+
+.cartlink { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap-min); padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: var(--radius); color: var(--c-ink); font-size: var(--t-sm); white-space: nowrap; }
+.cartlink:hover { border-color: var(--c-primary); text-decoration: none; }
+.cartlink b { font-family: var(--f-num); color: var(--c-sale); }
+
+/* --- mega navigation -----------------------------------------------------
+   Built on <details>, so it opens by click on every device and is keyboard
+   operable with no JavaScript. The menu on the current site opens on hover,
+   which is unusable on touch - and touch is now most of the traffic.
+   ------------------------------------------------------------------------ */
+.meganav { border-bottom: 1px solid var(--c-rule); background: var(--c-surface); }
+.meganav__list { display: flex; flex-direction: column; list-style: none; }
+.meganav__item { border-bottom: 1px solid var(--c-rule-soft); }
+.meganav__item > a,
+.meganav summary { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); min-height: var(--tap-min); padding: var(--s-2) 0; font-size: var(--t-md); font-weight: 700; color: var(--c-ink); cursor: pointer; list-style: none; }
+.meganav summary::-webkit-details-marker { display: none; }
+.meganav summary::after { content: "＋"; color: var(--c-primary); font-weight: 400; }
+.meganav details[open] > summary::after { content: "－"; }
+.meganav__panel { padding: 0 0 var(--s-3); }
+.meganav__cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-2) var(--s-4); list-style: none; }
+.meganav__cols a { display: block; padding: var(--s-2) 0; font-size: var(--t-sm); color: var(--c-ink-2); }
+.meganav__cols a:hover { color: var(--c-primary); }
+
+@media screen and (min-width: 961px) {
+  .meganav__list { flex-direction: row; gap: var(--s-2); }
+  .meganav__item { border-bottom: 0; position: relative; }
+  .meganav__item > a,
+  .meganav summary { padding-inline: var(--s-3); }
+  .meganav summary::after { content: "▾"; }
+  .meganav details[open] > summary::after { content: "▴"; }
+  .meganav details[open] > summary { color: var(--c-primary); }
+  .meganav__panel { position: absolute; inset-inline-start: 0; inset-block-start: 100%; z-index: 40; min-width: 34rem; padding: var(--s-5); background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: 0 0 var(--radius) var(--radius); box-shadow: var(--shadow); }
+  .meganav__cols { grid-template-columns: repeat(3, 1fr); }
+}
+
+.trends { padding-block: var(--s-3); border-bottom: 1px solid var(--c-rule-soft); }
+.trends__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.trends__label { font-size: var(--t-xs); color: var(--c-ink-3); font-weight: 700; }
+.trends a { display: inline-flex; align-items: center; min-height: 32px; padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: 999px; font-size: var(--t-sm); color: var(--c-ink-2); background: var(--c-surface); }
+.trends a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
+
+.hero { background: var(--c-primary-light); }
+.hero__inner { display: grid; gap: var(--s-4); padding-block: var(--s-6); align-items: center; }
+.hero__copy h1 { font-family: var(--f-display); font-size: var(--t-2xl); color: var(--c-primary); margin-bottom: var(--s-3); }
+.hero__copy p { color: var(--c-ink-2); }
+.hero__slide { aspect-ratio: 16 / 9; background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--radius); display: grid; place-items: center; color: var(--c-ink-3); font-size: var(--t-sm); }
+@media screen and (min-width: 961px) { .hero__inner { grid-template-columns: 5fr 7fr; gap: var(--s-8); padding-block: var(--s-10); } }
+
+.calendar { border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.calendar h3 { font-size: var(--t-md); margin-bottom: var(--s-3); }
+.calendar table { width: 100%; border-collapse: collapse; font-family: var(--f-num); font-size: var(--t-sm); }
+.calendar th, .calendar td { padding: var(--s-1); text-align: center; font-variant-numeric: tabular-nums; }
+.calendar th { color: var(--c-ink-3); font-weight: 400; font-size: var(--t-xs); }
+.calendar td.is-closed { background: var(--c-sale-light); color: var(--c-sale); font-weight: 700; border-radius: 2px; }
+.calendar__key { display: flex; gap: var(--s-3); margin-top: var(--s-3); font-size: var(--t-xs); color: var(--c-ink-2); }
+.calendar__key i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: var(--c-sale-light); margin-right: var(--s-1); vertical-align: -1px; }
+
+.ranking { list-style: none; counter-reset: rank; }
+.ranking > li { counter-increment: rank; position: relative; }
+.ranking > li .card__media::before { content: counter(rank); position: absolute; z-index: 2; inset-block-start: var(--s-2); inset-inline-end: var(--s-2); min-width: 26px; height: 26px; padding-inline: var(--s-1); display: grid; place-items: center; border-radius: 50%; background: var(--c-primary); color: #fff; font-family: var(--f-num); font-size: var(--t-sm); font-weight: 700; }
+.ranking > li:nth-child(1) .card__media::before { background: #c9a227; }
+.ranking > li:nth-child(2) .card__media::before { background: #9aa3a0; }
+.ranking > li:nth-child(3) .card__media::before { background: #a9763f; }
+
+.site-footer { margin-top: var(--s-12); background: var(--c-surface-2); border-top: 1px solid var(--c-rule); }
+.site-footer__cols { display: grid; gap: var(--s-6); padding-block: var(--s-8); grid-template-columns: 1fr; }
+@media screen and (min-width: 768px) { .site-footer__cols { grid-template-columns: repeat(3, 1fr); } }
+.site-footer h3 { font-size: var(--t-sm); margin-bottom: var(--s-3); color: var(--c-primary); }
+.site-footer ul { list-style: none; }
+.site-footer li { margin-bottom: var(--s-2); }
+.site-footer a { font-size: var(--t-sm); color: var(--c-ink-2); }
+.site-footer__legal { border-top: 1px solid var(--c-rule); padding-block: var(--s-4); font-size: var(--t-xs); color: var(--c-ink-3); text-align: center; }
+
+/* --- category page ------------------------------------------------------- */
+.catintro { background: var(--c-surface-2); border-radius: var(--radius); padding: var(--s-4); margin-bottom: var(--s-6); }
+.catintro p { margin: 0; font-size: var(--t-sm); color: var(--c-ink-2); max-width: 78ch; }
+
+.subcats { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; margin-bottom: var(--s-6); }
+.subcats a { display: inline-flex; align-items: center; min-height: 38px; padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: var(--t-sm); color: var(--c-ink); background: var(--c-surface); }
+.subcats a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
+.subcats [aria-current="page"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
+
+.listbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--c-rule); margin-bottom: var(--s-4); }
+.listbar__count { font-size: var(--t-sm); color: var(--c-ink-2); }
+.listbar__count b { font-family: var(--f-num); color: var(--c-ink); font-size: var(--t-md); }
+.listbar__sort { display: flex; align-items: center; gap: var(--s-2); font-size: var(--t-sm); }
+.listbar__sort select { min-height: 38px; padding: 0 var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-body); background: #fff; }
+
+/* --- product gallery -----------------------------------------------------
+   Client request (C22): サブ画像使用（スマホではスワイプできればと思います）.
+   Same approach as the recommend rail - CSS scroll-snap, no library. The
+   thumbnails are real buttons so the gallery works by tap, click and keyboard,
+   not only by swipe.
+   ------------------------------------------------------------------------ */
+.gallery { display: grid; gap: var(--s-3); }
+
+.gallery__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+}
+.gallery__track::-webkit-scrollbar { display: none; }
+.gallery__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  color: var(--c-ink-3);
+  font-size: var(--t-sm);
+}
+.gallery__slide img { width: 100%; height: 100%; object-fit: contain; }
+
+/* dots: the swipe affordance on small screens, hidden once thumbs are visible */
+.gallery__dots { display: flex; justify-content: center; gap: var(--s-2); }
+.gallery__dots span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--c-rule); transition: background-color .15s var(--ease);
+}
+.gallery__dots span[data-active] { background: var(--c-primary); }
+
+.gallery__thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-2); list-style: none; }
+.gallery__thumb {
+  padding: 0; border: 1px solid var(--c-rule); border-radius: var(--radius);
+  background: var(--c-surface-2); aspect-ratio: 1 / 1; cursor: pointer;
+  overflow: hidden; font-size: var(--t-xs); color: var(--c-ink-3);
+  transition: border-color .15s var(--ease);
+}
+.gallery__thumb img { width: 100%; height: 100%; object-fit: contain; }
+.gallery__thumb:hover { border-color: var(--c-primary); }
+.gallery__thumb[aria-current="true"] { border-color: var(--c-primary); border-width: 2px; }
+
+@media screen and (min-width: 768px) {
+  .gallery__dots { display: none; }
+}
+
+/* --- cart ----------------------------------------------------------------
+   The Basic Mode cart is a six-column table: 3 columns of product info, then
+   quantity, price and a remove button. At 375px that is unreadable and it is
+   the last screen before payment, so below 768px each row becomes a card with
+   its column headings carried in data-label. Above it, the table stays a table.
+   ------------------------------------------------------------------------ */
+.carttable { width: 100%; border-collapse: collapse; }
+.carttable th, .carttable td { padding: var(--s-3); border-bottom: 1px solid var(--c-rule); text-align: left; vertical-align: middle; }
+.carttable thead th { background: var(--c-surface-2); font-size: var(--t-sm); color: var(--c-ink-2); }
+.carttable__media img { width: 72px; height: 72px; object-fit: contain; background: var(--c-surface-2); border-radius: var(--radius); }
+.carttable__name { font-weight: 700; }
+.carttable__code { display: block; font-size: var(--t-xs); color: var(--c-ink-3); }
+.carttable__opt { display: block; font-size: var(--t-sm); color: var(--c-ink-2); }
+.carttable__price { font-family: var(--f-num); font-weight: 700; white-space: nowrap; }
+.carttable__price small { font-weight: 400; color: var(--c-ink-3); }
+.carttable__empty { padding: var(--s-10) var(--s-4); text-align: center; color: var(--c-ink-2); }
+
+.qtyfield { display: inline-flex; align-items: center; gap: var(--s-2); }
+.qtyfield input { width: 5rem; min-height: var(--tap-min); padding: var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-num); text-align: right; }
+
+@media screen and (max-width: 767px) {
+  .carttable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .carttable tr { display: grid; grid-template-columns: 72px 1fr; gap: 0 var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--c-rule); }
+  .carttable td { border: 0; padding: var(--s-1) 0; }
+  .carttable .carttable__media { grid-row: span 3; }
+  .carttable td[data-label]::before { content: attr(data-label) "："; font-size: var(--t-xs); color: var(--c-ink-3); margin-right: var(--s-1); }
+  .carttable__empty, .carttable tr.is-empty { display: block; }
+  /* Everything except the thumbnail belongs in the content column; without this
+     the remove button lands in the 72px image track and wraps mid-word. */
+  .carttable td:not(.carttable__media) { grid-column: 2; }
+  .carttable td:last-child { justify-self: start; margin-top: var(--s-2); }
+}
+
+.cartsum { margin: var(--s-6) 0; border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.cartsum__row { display: flex; justify-content: space-between; gap: var(--s-4); padding: var(--s-2) 0; }
+.cartsum__row + .cartsum__row { border-top: 1px dashed var(--c-rule-soft); }
+.cartsum__total { font-family: var(--f-num); font-size: var(--t-xl); font-weight: 700; color: var(--c-sale); }
+.cartsum__note { font-size: var(--t-sm); color: var(--c-ink-2); margin-top: var(--s-2); }
+
+.cartactions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin: var(--s-6) 0; }
+.cartactions .btn { flex: 1 1 14rem; justify-content: center; }
+.cartquote { margin: var(--s-6) 0 0; padding: var(--s-4); border: 1px solid var(--c-accent); border-radius: var(--radius); background: var(--c-accent-light); }
+.cartquote p { margin: 0 0 var(--s-2); font-size: var(--t-sm); }
+.cartquote form { margin: 0; }
+
+/* --- buystack: the routes under カートに入れる ---------------------------
+   Favourites, the product enquiry and the quote-request form. Two of the three
+   are commercial, so they get real tap targets rather than the text links the
+   Basic Mode page uses, and they stack full-width on a phone.
+   ------------------------------------------------------------------------ */
+.buystack { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: grid; gap: var(--s-3); }
+.buystack > li { margin: 0; }
+.buystack form { margin: 0; }
+.buystack .btn { width: 100%; justify-content: center; }
+.buystack__note { display: block; margin-top: var(--s-1); font-size: var(--t-xs); color: var(--c-ink-2); line-height: var(--lh-normal); }
+@media screen and (min-width: 768px) {
+  .buystack { grid-template-columns: repeat(2, 1fr); align-items: start; }
+  .buystack > li:last-child { grid-column: 1 / -1; }
+}
+
+/* Member routes in the top strip: guide, register, login. On a phone they wrap
+   under the shipping notice rather than being hidden - a customer who cannot
+   find the login cannot reach their 割引設定 price. */
+.utilbar__links { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+.utilbar__links a { white-space: nowrap; }
+@media screen and (min-width: 961px) {
+  .utilbar__inner { justify-content: space-between; }
+  .utilbar__links { margin-left: auto; }
+}
+
+/* A card whose whole surface is the link: the anchor has to be the flex column,
+   or .card__body never stretches and .card__price loses its margin-top:auto -
+   which leaves prices sitting at different heights across a row, tied to how
+   many lines each product name happens to take. */
+.card > a {
+  display: flex; flex-direction: column; flex: 1;
+  color: inherit; text-decoration: none;
+}
+.card > a:hover { text-decoration: none; }
+.card > a:hover .card__name { color: var(--c-primary); }
+
+/* --- spectable: the per-product availability table ------------------------
+   Item_detail_caption2 on the live site: 販売単位 / 見積依頼 / 名入れ / 熨斗 /
+   包装, each with a state box. Present on 101 of the 102 sampled products, and
+   it answers the questions this shop's buyers actually ask - can I get it
+   name-printed, can it be gift-wrapped.
+
+   The original is a five-column <table> of coloured divs (box20 available,
+   box22 an action link, box23 unavailable) whose colours live in the stylesheet
+   that dies at the switch. Rebuilt as a grid so five cells reflow to two or
+   three on a phone instead of squeezing, and the state is carried by a label as
+   well as a colour.
+   ------------------------------------------------------------------------ */
+.spectable {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: var(--s-2);
+  list-style: none;
+  margin: var(--s-5) 0;
+  padding: 0;
+}
+.spectable > li { margin: 0; text-align: center; }
+.spectable__label {
+  display: block;
+  font-size: var(--t-xs);
+  color: var(--c-ink-2);
+  margin-bottom: var(--s-1);
+}
+.spectable__label a { color: inherit; }
+.spectable__state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+  border-top: 2px solid transparent;
+  font-size: var(--t-sm);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  text-decoration: none;
+}
+.spectable__state--yes { background: #f4f9e4; border-top-color: var(--c-accent); color: var(--c-ink); }
+.spectable__state--no  { background: var(--c-surface-2); border-top-color: var(--c-rule); color: var(--c-ink-3); }
+.spectable__state--act { background: #fdf7d8; border-top-color: #e2c94a; color: var(--c-ink); }
+a.spectable__state:hover { filter: brightness(0.97); text-decoration: none; }
+
+/* --- tilegrid: image tile + caption ---------------------------------------
+   Moved here from freepage.css on 2026-09-03. It is no longer a free-page
+   component: the product detail template's 商品カテゴリー一覧 tab is 46 of
+   these tiles, so both page families need it and only components.css is
+   loaded by both.
+
+   .tilecap was .textboxisp. Mapping that class by name to .notice once drew
+   a bordered box round every thumbnail and squeezed the captions to one
+   character per line; it is a caption strip, not a notice.
+   -------------------------------------------------------------------------- */
+.tilegrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+  margin: var(--s-5) 0;
+  padding: 0;
+}
+.tilegrid li, .tilegrid figure { margin: 0; }
+.tilegrid img { width: 100%; height: auto; border-radius: var(--radius); }
+/* The whole tile is the link: image on top, caption under it, both centred. */
+.tilegrid > li > a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+.tilegrid > li > a:hover { text-decoration: none; }
+.tilegrid > li > a:hover .tilecap { background: var(--c-surface); color: var(--c-primary); }
+.tilegrid figcaption, .tilecap {
+  margin-top: var(--s-2);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+  font-size: var(--t-sm);
+  color: var(--c-ink-2);
+  text-align: center;
+  line-height: var(--lh-tight);
+  transition: background var(--ease), color var(--ease);
+}
+
+/* --- tabs -----------------------------------------------------------------
+   The Basic Mode product page ends in a three-tab block - 送料・類似品 /
+   商品カテゴリー一覧 / この商品のレビューを見る - built from three hidden
+   radio inputs and three <label>s. It was missing from the rebuild entirely,
+   which dropped the shipping table, 46 category tiles and the whole review
+   widget off the page.
+
+   Rebuilt as progressive enhancement rather than as radios: every panel is
+   visible by default, so with JavaScript off the page is three stacked
+   sections with headings. tabs.js then hides all but one and adds the ARIA
+   roles. Same principle as gallery.js - the content is never behind a script.
+
+   On a phone the tab strip scrolls horizontally instead of wrapping to three
+   lines; 44px minimum tap target, matching the rest of the rebuild.
+   -------------------------------------------------------------------------- */
+.tabs { margin-top: var(--s-12); }
+
+.tabs__list {
+  display: flex;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-6);
+  padding: 0;
+  list-style: none;
+  border-bottom: 2px solid var(--c-border);
+}
+.tabs__tab {
+  appearance: none;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  background: none;
+  color: var(--c-ink-2);
+  font: inherit;
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease), background var(--ease);
+}
+.tabs__tab:hover { color: var(--c-primary); background: var(--c-surface-2); }
+.tabs__tab[aria-selected="true"] {
+  color: var(--c-primary);
+  border-bottom-color: var(--c-primary);
+  font-weight: 700;
+}
+.tabs__tab:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* Without JS the list is not a tablist and the headings carry the page. */
+.tabs__panel > .h-section { margin-top: 0; }
+.tabs[data-enhanced="true"] .tabs__panel > .h-section { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media screen and (max-width: 767px) {
+  .tabs__list {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+    scrollbar-width: thin;
+  }
+  .tabs__tab { flex: 0 0 auto; scroll-snap-align: start; font-size: var(--t-sm); }
+}

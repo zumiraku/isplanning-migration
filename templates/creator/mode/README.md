@@ -79,3 +79,42 @@ an empty space with a note in it.
 
 **Verify the 20 on the rehearsal site before cutover**, not on the live shop.
 The checker's list is the checklist.
+
+## 全ページ共通 に貼るもの
+
+`全ページ共通` has **CSS and JavaScript only — no HTML box.** It is the shared
+stylesheet and script, not a layout.
+
+| file | paste into | how |
+|---|---|---|
+| `all-pages.css` | 全ページ共通 → CSS | **at the end**, keeping what is there |
+| `all-pages.js` | 全ページ共通 → JavaScript | **at the end**, keeping what is there |
+
+Both are generated from the files under `templates/creator/css/` and
+`templates/creator/js/`; edit those, not these.
+
+### Why append rather than replace
+
+The Basics set arrives with a FontAwesome `@import`, an Eric Meyer reset, and a
+jQuery global-nav script. Pages we have not rebuilt yet — トップ, 買い物カゴ, the
+member screens — are still running on all of it. Delete it now and those pages
+drop to unstyled HTML.
+
+Appending also does the right thing for the pages we *have* rebuilt: at equal
+specificity the later rule wins, so being at the end of the file is what makes
+our design system take precedence.
+
+When every page is ours, the Basics CSS above can be removed. That is the moment
+to do it, not this one.
+
+The scripts do not collide: ours are plain JavaScript and depend on nothing,
+while the stock script is jQuery. Verified by loading the concatenated file in a
+browser — it parses and executes clean.
+
+### If it goes wrong
+
+This set is `発見マーケット_移行版`, based on stock Basics, and the shop is still
+`ベーシックモード適用中`. Nothing here is reachable by a customer. If the CSS box
+ends up in a state worth abandoning, deleting the set and creating another from
+Basics costs about thirty seconds — which is why this is the right place to make
+mistakes.
