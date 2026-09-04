@@ -24,14 +24,23 @@
 # those would bury the real findings in noise. The containers that matter are
 # the ones that nest: div, section, table, ul, form.
 #
+# -Strict includes elements whose end tag HTML makes optional - li, p, tr, td.
+# The default excludes them because an unclosed <li> is legal and flagging it
+# buries the real findings. But after the converter started closing everything
+# explicitly, strict is the stronger claim and the corpus passes it, so it is
+# worth being able to assert.
+#
 # Needs Git Bash (perl). Run from the repository root.
 
+strict=0
+case "$1" in -Strict|--strict) strict=1; shift ;; esac
 out="${1:-inventory/tag-balance.csv}"
 status=0
 
 # Elements whose end tag is optional in HTML5, or void. An unclosed <li> is
 # legal and harmless; an unclosed <div> is the bug we are hunting.
 OPTIONAL='li|p|tr|td|th|dt|dd|option|thead|tbody|tfoot|colgroup|caption|rt|rp'
+if [ "$strict" = "1" ]; then OPTIONAL='__none__'; fi
 VOID='area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'
 
 echo '"file","element","open","close","diff"' > "$out"

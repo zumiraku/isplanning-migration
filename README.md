@@ -132,6 +132,8 @@ majority of option-priced products (S0-21) — run it after every change to that
 sh  tools/compare-sp-content.sh       # content the SP pages have and the desktop ones do not (C27)
 sh  tools/check-content-preserved.sh   # prove no text was damaged by the conversion
 sh  tools/check-tag-balance.sh         # prove the markup is well-formed - THE migration risk
+sh  tools/check-tag-balance.sh --strict # same, counting li/p/td as well
+sh  tools/check-all.sh                 # every shell check in one run
 sh  tools/inventory-basic-tags.sh      # the 210 Basic Mode tags the templates use
 .\tools\analyse-category-titles.ps1  # how far a rule reproduces the 607 category titles (C4)
 ```

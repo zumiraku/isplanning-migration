@@ -91,11 +91,15 @@ shell, that div swallowed the nav and the footer until `</main>` ended it.
 ## Where it stands
 
 ```
-unbalanced elements : 0
-files affected      : 0
+sh tools/check-tag-balance.sh              unbalanced elements : 0
+sh tools/check-tag-balance.sh --strict     unbalanced elements : 0
 ```
 
-86 free pages, the news pages and every mock. Run it after any change to the
+86 free pages, the news pages and every mock. The default run excludes
+elements whose end tag HTML makes optional - an unclosed `<li>` is legal, and
+flagging it would bury the real findings in noise. `--strict` includes them, and
+the corpus passes that too: once the converter closes everything explicitly,
+the stronger claim is available and worth being able to assert. Run it after any change to the
 converter, alongside the responsive and content checks — it is the one that
 tests the thing this project was hired to prevent.
 
