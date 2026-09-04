@@ -103,3 +103,87 @@ $search.item.list.icon.has_item	assumed	同上
 $search.item.list.icon.list	assumed	同上
 $search.item.list.icon.list.image_url	assumed	同上
 $search.pager	assumed	カテゴリ側 $category.pager からの類推
+$makeshop.head	confirmed	reference common/index.html（head内に必ず記載）
+$makeshop.body_top	confirmed	reference common/index.html（body開始直後に必ず記載）
+$makeshop.body_bottom	confirmed	reference common/index.html（body終了直前に必ず記載）
+$page.type	confirmed	reference common/index.html
+$page.id	confirmed	reference common/index.html
+$page.title	confirmed	reference common/index.html
+$page.description	confirmed	reference common/index.html
+$page.canonical_url	confirmed	reference common/index.html
+$page.css	confirmed	reference common/index.html
+$page.javascript	confirmed	reference common/index.html
+$shop.name	confirmed	reference common/index.html
+$shop.logo_url	confirmed	reference common/index.html
+$shop.favicon_url	confirmed	reference common/index.html
+$shop.address	confirmed	reference common/index.html
+$shop.tel	confirmed	reference common/index.html
+$shop.copyright	confirmed	reference common/index.html
+$shop.is_member_entry_enabled	confirmed	reference common/index.html
+$url.top	confirmed	reference common/index.html
+$url.news	confirmed	reference common/index.html
+$url.guide	confirmed	reference common/index.html
+$url.company	confirmed	reference common/index.html
+$url.contract	confirmed	reference common/index.html
+$url.policy	confirmed	reference common/index.html
+$url.support	confirmed	reference common/index.html
+$url.login	confirmed	reference common/index.html
+$url.member_entry	confirmed	reference common/index.html
+$url.mypage	confirmed	reference common/index.html
+$url.logout	confirmed	reference common/index.html
+$url.cart	confirmed	reference common/index.html
+$url.favorite	confirmed	reference common/index.html
+$url.catalog	confirmed	reference common/index.html
+$member.is_logged_in	confirmed	reference common/index.html
+$member.name	confirmed	reference common/index.html
+$category_menu.has_item	confirmed	reference common/index.html
+$category_menu.list.name	confirmed	reference common/index.html
+$category_menu.list.url	confirmed	reference common/index.html
+$category_menu.list.code	confirmed	reference common/index.html
+$category_menu.list.child_category.has_item	confirmed	reference common/index.html
+$category_menu.list.child_category.list.name	confirmed	reference common/index.html
+$category_menu.list.child_category.list.url	confirmed	reference common/index.html
+$search_form.keyword_id	confirmed	reference common/index.html
+$search_form.search_url	confirmed	reference common/index.html
+$cart.has_item	confirmed	reference common/index.html
+$cart.list	confirmed	reference common/index.html
+$cart.list.name	confirmed	reference common/index.html
+$cart.list.price	confirmed	reference common/index.html
+$cart.list.total_price	confirmed	reference common/index.html
+$cart.list.quantity	confirmed	reference common/index.html
+$cart.list.quantity_id	confirmed	reference common/index.html
+$cart.list.quantity_url	confirmed	reference common/index.html
+$cart.list.remove_url	confirmed	reference common/index.html
+$cart.list.url	confirmed	reference common/index.html
+$cart.list.image_M	confirmed	reference common/index.html
+$cart.list.system_code	confirmed	reference common/index.html
+$cart.list.selected_option.has_item	confirmed	reference common/index.html
+$cart.total_quantity	confirmed	reference common/index.html
+$cart.total_price	confirmed	reference common/index.html
+$cart.total_tax	confirmed	reference common/index.html
+$cart.order_url	confirmed	reference common/index.html
+$cart.is_free_shipping_enabled	confirmed	reference common/index.html
+$cart.free_shipping_price	confirmed	reference common/index.html
+$cart.free_shipping_message	confirmed	reference common/index.html
+$cart.is_estimate_enabled	confirmed	reference common/index.html
+$cart.estimate_url	confirmed	reference common/index.html
+$recently_item	confirmed	reference common/index.html
+$recommend_item	confirmed	reference common/index.html
+$new_item	confirmed	reference common/index.html
+$ranking_item	confirmed	reference common/index.html
+$category_menu.list	confirmed	reference common/index.html（ループの対象）
+$category_menu.list.child_category.list	confirmed	reference common/index.html（ループの対象）
+$cart.list.is_bulk	confirmed	reference common/index.html
+$cart.list.bulk_url	confirmed	reference common/index.html
+$cart.list.bulk_name	confirmed	reference common/index.html
+$cart.list.special_display	confirmed	reference common/index.html
+$cart.bulk.has_item	confirmed	reference common/index.html
+$cart.bulk.list	confirmed	reference common/index.html
+$cart.bulk.list.name	confirmed	reference common/index.html
+$cart.bulk.list.discount_price	confirmed	reference common/index.html
+$recently_item.has_item	assumed	$recently_item は確認済みだが has_item の有無は未確認
+$recently_item.list	assumed	同上
+$recently_item.list.name	assumed	共通の商品一覧系フィールドからの類推
+$recently_item.list.url	assumed	同上
+$recently_item.list.price	assumed	同上
+$recently_item.list.image_M	assumed	同上

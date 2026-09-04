@@ -9,7 +9,7 @@
      which is why the category components cover it. The one difference the
      reference shows is that search offers a sixth sort, メーカー順, which the
      category page does not.
-   ========================================================================== *}
+   ========================================================================== *}>
 
 <nav class="breadcrumb" aria-label="現在位置">
   <ol>
@@ -45,7 +45,7 @@
 <{if $search.total_count == 0}>
   <{* A dead end is where a shop loses the customer, so this one is not.
        The categories below are the shop's own entry points, taken from the
-       tiles the product page already carries. *}
+       tiles the product page already carries. *}>
   <div class="notice">
     <p><strong>「<{$search.keyword}>」に一致する商品は見つかりませんでした。</strong></p>
     <p>キーワードを短くする、ひらがなやカタカナを変えてみる、といった方法もお試しください。<br>
