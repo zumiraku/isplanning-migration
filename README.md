@@ -89,7 +89,7 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 
 ---
 
-## Current state — 2026-09-02
+## Current state — 2026-09-03
 
 ### Done (no console access required)
 
@@ -108,6 +108,8 @@ Do not crawl all 9,514 product pages — sample by variant class instead.
 | Gate A message | written and **ready to send** — `docs/client/gate-a-send.md` |
 | Stage 5 free pages | **complete — all 82 独自ページ converted**, plus company/info/ordercontract. 86 pages rendered, 86/86 responsive-clean. See [docs/stage5-freepages.md](docs/stage5-freepages.md) |
 | News archive | 100 articles extracted and classified; **Q4 answered from the archive** — it is ニュース, so the URLs stay put. [docs/news-plan.md](docs/news-plan.md) |
+| Product page tabs | **rebuilt 2026-09-03** — the last two thirds of `design_detailpage.txt` were a three-tab block (送料表 / 46 category tiles / reviews) the rebuild had missed entirely. `js/tabs.js`, 13/13 checks, 89/89 responsive. [docs/product-tabs.md](docs/product-tabs.md) |
+| Tracking tags | **Q5 narrowed 2026-09-03 without the console** — GA4 is platform-injected above 共通head管理 on every page type, so it survives the switch. Only the order-completion page is unread. [docs/analytics-tags.md](docs/analytics-tags.md) |
 
 ### Verifying the pricing rebuild
 
@@ -159,7 +161,6 @@ Two items are urgent because Creator Mode destroys them permanently:
 
 - Stage 4 is a **rebuild**, not a port: the pricing engine is MakeShop platform
 - Stage 5 is close to the brief after all: the admin lists **82** 独自ページ, not the 120 briefly assumed from a miscommunication. Two templates cover 75 of them.
-- Stage 5 is **larger** than the brief implied: the admin lists 120 独自ページ, not the 83 the sitemap showed. Two templates still cover 75 of the 83 we hold.
 - The design must be **rebuilt from tokens**: the stylesheet that survives the
   switch contains no colours and no typography at all.
 
