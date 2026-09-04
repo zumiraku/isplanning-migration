@@ -73,3 +73,33 @@ $item.multi_image	confirmed	reference detail.html（同上）
 $item.multi_image.list	confirmed	reference detail.html（同上）
 $item.breadcrumb_list	assumed	カテゴリ側からの類推
 $item.breadcrumb_list.list	assumed	カテゴリ側からの類推
+$search.keyword	confirmed	reference search.html
+$search.total_count	confirmed	reference search.html
+$search.display_count	confirmed	reference search.html
+$search.breadcrumb_list	confirmed	reference search.html
+$search.breadcrumb_list.list	confirmed	reference search.html
+$search.breadcrumb_list.list.name	confirmed	reference search.html
+$search.breadcrumb_list.list.url	confirmed	reference search.html
+$search.breadcrumb_list.list.is_current	confirmed	reference search.html
+$search.sort_recommend_url	confirmed	reference search.html
+$search.sort_new_url	confirmed	reference search.html
+$search.sort_high_price_url	confirmed	reference search.html
+$search.sort_low_price_url	confirmed	reference search.html
+$search.sort_name_url	confirmed	reference search.html
+$search.is_sort_recommend_selected	confirmed	reference search.html
+$search.is_sort_new_selected	confirmed	reference search.html
+$search.is_sort_high_price_selected	confirmed	reference search.html
+$search.is_sort_low_price_selected	confirmed	reference search.html
+$search.is_sort_name_selected	confirmed	reference search.html
+$search.item.list	assumed	カテゴリ側 $category.item.list からの類推。検索結果の商品ループ名は未確認
+$search.item.list.name	assumed	同上
+$search.item.list.url	assumed	同上
+$search.item.list.price	assumed	同上
+$search.item.list.image_M	assumed	同上
+$search.item.list.original_code	assumed	同上
+$search.item.list.is_soldout	assumed	同上
+$search.item.list.cart_entry_url	assumed	同上
+$search.item.list.icon.has_item	assumed	同上
+$search.item.list.icon.list	assumed	同上
+$search.item.list.icon.list.image_url	assumed	同上
+$search.pager	assumed	カテゴリ側 $category.pager からの類推

@@ -63,7 +63,7 @@ used=$(for f in "$dir"/*.tpl; do
   [ -f "$f" ] || continue
   perl -CSD -0777 -ne '
       my $h = $_; $h =~ s/<\{\*.*?\*\}>//gs;
-      while ($h =~ /\$(item|category|smarty)\.([A-Za-z_.]+(?:\[[a-z]\]\.[A-Za-z_.]+)*)/g) { print "\$$1.$2\n" }
+      while ($h =~ /\$([a-z_]+)\.([A-Za-z_.]+(?:\[[a-z]\]\.[A-Za-z_.]+)*)/g) { print "\$$1.$2\n" }
     ' "$f"
 done | sed 's/\[[a-z]\]//g' | sed 's/\.$//' | sort -u)
 
