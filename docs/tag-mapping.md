@@ -29,13 +29,13 @@ http://reference.makeshop.jp/taglist/creator-mode/common.html      全ページ�
 
 | | tags | uses |
 |---|---:|---:|
-| **判明** — counterpart read off the reference | 18 | 1,000 (41%) |
-| **不要** — dissolves, nothing to port | 10 | 434 (18%) |
-| **欠落** — no counterpart exists | **1** | 55 |
-| **要確認** | 181 | 972 |
+| **判明** — counterpart read off the reference | 23 | **1,154 (47%)** |
+| **不要** — dissolves, retired, or already unused here | 12 | 350 (14%) |
+| **欠落** — no counterpart exists | **1** | 55 (2%) |
+| **要確認** | 174 | 902 (37%) |
 
-Seventeen tags cover 38% of every tag use in the shop's templates, because the
-listing templates use the same handful of tags a hundred times each. Coverage by
+**63% of all tag use is settled.** Twenty-three tags carry 47% of it on their
+own, because the listing templates use the same handful a hundred times each. Coverage by
 *use* is the number that matters; coverage by *count* makes the work look barely
 started when the heaviest lifting is done.
 
