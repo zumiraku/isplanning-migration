@@ -49,6 +49,11 @@ map_for() {
     '[SORTPRODUCT]')     echo '欠落|単価順。Creatorの並び替えは おすすめ/新着/価格高/価格低/商品名/メーカー の6種のみで、単価順は存在しない' ;;
     '[ZAIKO]')           echo '$category.item.list[i].stock_quantity|表示可否は is_stock_display' ;;
     '[NAMECURRENT]')     echo '$category.name|カテゴリ名' ;;
+    '[CATEGORY_IMAGE]')  echo '$category.image_url|カテゴリー画像URL' ;;
+    '[GROUP4_0]')        echo '$category.child_category.list[i]|子カテゴリ一覧。4列/3列の別はCSSなのでタグには出ない' ;;
+    '[GROUP3_7]')        echo '$category.child_category.list[i]|同上。ベーシックは列数がタグ名に埋まっていた' ;;
+    '[SUISEN4_2]')       echo '$category.recommend_item.list[i]|おすすめ商品。列数と行数の指定部分だけが消える' ;;
+    '[PRICE]')           echo '$category.item.list[i].price_excluded_tax|税抜。C36の3カテゴリはこれを税込と表示していた' ;;
     '[LIST]')            echo '$category.breadcrumb_list.list[i].name / .url|パンくず。検索結果側は $search.breadcrumb_list' ;;
     *)                   echo '' ;;
   esac
@@ -84,10 +89,30 @@ sed 's/^"//; s/"$//' "$src" | tail -n +2 | while IFS= read -r line; do
   # Creator Mode has one loop and the columns are CSS, so there is no counterpart
   # to find. Counting these as unresolved overstates the remaining work.
   case "$tag" in
-    '[PRODUCTION_'*|'[GROUP'*|'[SUISEN'*|'[ADDCLASS]'|'[ADDCODE]')
+    '[PRODUCTION_'*|'[ADDCLASS]'|'[ADDCODE]')
       printf '"%s","%s","%s","%s","%s","%s","%s"\n' \
         "$tag" "$uses" "$kind" "$where" '$category.item.list[i] のループに吸収' '不要' \
         'ベーシックの一覧レイアウト用タグ。Creatorはループとcssで組むため移植先は無い' >> "$out"
+      continue ;;
+  esac
+
+  # Retired by the platform, or already unused on this shop. Neither is work.
+  #
+  #   [REVIEW_*]  MakeShop retires the old 商品レビュー at the end of November
+  #               2026 and u-komi replaces it. The client has already switched
+  #               and asked us to delete the tags (C30).
+  #   [RECENT]    最近見た商品. Commented out in this shop's own templates - the
+  #               rcmd.jp _displayHistory slot does the job instead (C31).
+  case "$tag" in
+    '[REVIEW_'*)
+      printf '"%s","%s","%s","%s","%s","%s","%s"\n' \
+        "$tag" "$uses" "$kind" "$where" 'u-komi' '不要' \
+        'メイクショップが2026年11月末に旧レビューを廃止。u-komiに移行済み' >> "$out"
+      continue ;;
+    '[RECENT]'|'[IF_RECENT]'|'[ENDIF_RECENT]')
+      printf '"%s","%s","%s","%s","%s","%s","%s"\n' \
+        "$tag" "$uses" "$kind" "$where" 'rcmd.jp _displayHistory' '不要' \
+        'この店舗では既にコメントアウト済み。レコメンドの閲覧履歴枠が代替している' >> "$out"
       continue ;;
   esac
 
