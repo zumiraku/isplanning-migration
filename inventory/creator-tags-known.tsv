@@ -1,0 +1,75 @@
+tag	status	source
+$item.system_code	confirmed	reference detail.html
+$item.original_code	confirmed	reference detail.html
+$item.name	confirmed	reference detail.html
+$item.price_html	confirmed	reference detail.html
+$item.price	confirmed	reference detail.html
+$item.is_member_price	confirmed	reference detail.html
+$item.image_L	confirmed	reference detail.html
+$item.multi_image.list.image_L	confirmed	reference detail.html
+$item.add_image.list.image_url	confirmed	reference detail.html
+$item.option_html	confirmed	reference detail.html
+$item.has_option	confirmed	reference detail.html
+$category.name	confirmed	reference category.html
+$category.code	confirmed	reference category.html
+$category.image_url	confirmed	reference category.html
+$category.total_count	confirmed	reference category.html
+$category.display_count	confirmed	reference category.html
+$category.pager	confirmed	reference category.html
+$category.sort_recommend_url	confirmed	reference category.html
+$category.sort_new_url	confirmed	reference category.html
+$category.sort_high_price_url	confirmed	reference category.html
+$category.sort_low_price_url	confirmed	reference category.html
+$category.sort_name_url	confirmed	reference category.html
+$category.is_sort_recommend_selected	confirmed	reference search.html
+$category.is_sort_new_selected	confirmed	reference search.html
+$category.is_sort_high_price_selected	confirmed	reference search.html
+$category.is_sort_low_price_selected	confirmed	reference search.html
+$category.is_sort_name_selected	confirmed	reference search.html
+$category.breadcrumb_list.list.name	confirmed	reference category.html
+$category.breadcrumb_list.list.url	confirmed	reference category.html
+$category.breadcrumb_list.list.is_current	confirmed	reference category.html
+$category.item.list.name	confirmed	reference category.html
+$category.item.list.url	confirmed	reference category.html
+$category.item.list.price	confirmed	reference category.html
+$category.item.list.image_M	confirmed	reference category.html
+$category.item.list.original_code	confirmed	reference category.html
+$category.item.list.system_code	confirmed	reference category.html
+$category.item.list.stock_quantity	confirmed	reference category.html
+$category.item.list.is_soldout	confirmed	reference category.html
+$category.item.list.is_small_stock	confirmed	reference category.html
+$category.item.list.is_stock_display	confirmed	reference category.html
+$category.item.list.cart_entry_url	confirmed	reference category.html
+$category.item.list.favorite_entry_url	confirmed	reference category.html
+$category.item.list.icon.has_item	confirmed	reference category.html
+$category.item.list.icon.list.image_url	confirmed	reference category.html
+$category.child_category	confirmed	reference category.html (存在のみ・下位フィールドは未確認)
+$category.recommend_item	confirmed	reference category.html (存在のみ・下位フィールドは未確認)
+$item.breadcrumb_list.list.name	assumed	カテゴリ側の同名タグからの類推。商品詳細に存在するか未確認
+$item.breadcrumb_list.list.url	assumed	同上
+$item.breadcrumb_list.list.is_current	assumed	同上
+$item.multi_image.has_item	assumed	icon.has_item と同じ命名則からの類推
+$item.is_stock_display	assumed	一覧側に存在。詳細側は未確認
+$item.stock_quantity	assumed	一覧側に存在。詳細側は未確認
+$item.is_soldout	assumed	一覧側に存在。詳細側は未確認
+$item.cart_entry_url	assumed	一覧側に存在。詳細側は未確認
+$item.favorite_entry_url	assumed	一覧側に存在。詳細側は未確認
+$item.caption_1	assumed	ベーシックの [ITEMCAPTION_1] 相当。命名は未確認
+$category.child_category.has_item	assumed	命名則からの類推
+$category.child_category.list.name	assumed	命名則からの類推
+$category.child_category.list.url	assumed	命名則からの類推
+$category.recommend_item.has_item	assumed	命名則からの類推
+$category.recommend_item.list.name	assumed	命名則からの類推
+$category.recommend_item.list.url	assumed	命名則からの類推
+$category.recommend_item.list.price	assumed	命名則からの類推
+$category.recommend_item.list.image_M	assumed	命名則からの類推
+$category.item.list	confirmed	reference category.html（ループの対象そのもの）
+$category.breadcrumb_list	confirmed	reference category.html（同上）
+$category.breadcrumb_list.list	confirmed	reference category.html（同上）
+$category.child_category.list	assumed	命名則からの類推
+$category.recommend_item.list	assumed	命名則からの類推
+$category.item.list.icon.list	confirmed	reference category.html（同上）
+$item.multi_image	confirmed	reference detail.html（同上）
+$item.multi_image.list	confirmed	reference detail.html（同上）
+$item.breadcrumb_list	assumed	カテゴリ側からの類推
+$item.breadcrumb_list.list	assumed	カテゴリ側からの類推
