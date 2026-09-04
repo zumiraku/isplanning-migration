@@ -355,6 +355,37 @@ if (-not $files) { throw "no input files matched (Only='$Only')" }
 $legacyBlocks = New-Object System.Collections.Generic.List[string]
 $legacyJs     = New-Object System.Collections.Generic.List[string]
 
+
+# --- per-page source defects ----------------------------------------------
+# Damage that predates us, in the shop's own HTML, which Basic Mode has been
+# papering over. Each row was found by tools/check-tag-balance.sh and confirmed
+# against templates/basic-export/freepages/ before being listed.
+#
+# It lives here rather than being hand-edited into the output because the output
+# is regenerated: a hand fix survives until the next run and then quietly
+# disappears. A correction that is not reproducible is not a correction.
+#
+# The table is a TSV rather than literals in this file. PowerShell 5.1 reads a
+# BOM-less UTF-8 script as ANSI, so Japanese in a string literal here does not
+# survive parsing - the reason build-news-previews.ps1 is saved with a BOM. A
+# tab-separated data file read with an explicit UTF-8 encoding sidesteps it, and
+# no field in this data can contain a tab.
+#
+# Markup only. The one place text itself was changed is recorded separately, in
+# inventory/approved-content-changes.csv.
+$sourceFixes = @{}
+$defectFile = Join-Path $root 'inventory\source-defects.tsv'
+if (Test-Path $defectFile) {
+  $lines = [System.IO.File]::ReadAllLines($defectFile, [System.Text.Encoding]::UTF8)
+  for ($i = 1; $i -lt $lines.Count; $i++) {
+    if (-not $lines[$i].Trim()) { continue }
+    $parts = $lines[$i] -split "`t"
+    if ($parts.Count -lt 3) { continue }
+    $k = $parts[0]
+    if (-not $sourceFixes.ContainsKey($k)) { $sourceFixes[$k] = New-Object System.Collections.ArrayList }
+    [void]$sourceFixes[$k].Add(@{ from = $parts[1]; to = $parts[2]; why = $(if ($parts.Count -gt 3) { $parts[3] } else { '' }) })
+  }
+}
 foreach ($f in $files) {
   $slug = $f.BaseName
   $html = [System.IO.File]::ReadAllText($f.FullName, [System.Text.Encoding]::UTF8)
@@ -450,6 +481,26 @@ foreach ($f in $files) {
   $comments = ([regex]::Matches($html, '(?s)<!--.*?-->')).Count
   $html = [regex]::Replace($html, '(?s)<!--.*?-->', '')
   $html = [regex]::Replace($html, '(?s)<!--.*$', '')
+
+  # --- repair malformed end tags ------------------------------------------
+  # The whole migration exists because Basic Mode repairs markup and Creator
+  # Mode does not, and this corpus leans on that hard. 37 of the 86 pages end
+  # with `</div` - the closing angle bracket simply is not there. The shop's own
+  # comment says the practice is deliberate:
+  # 「MakeShop独自のテーブルタグを強制的に閉じないようにしております」.
+  #
+  # An unterminated end tag is worse than an unclosed one, because the parser
+  # keeps scanning for its `>` and eats whatever comes next. In page8 a stray
+  # `</p` swallowed the following `</div>`, which is why the div balancer below
+  # saw a file that balanced when it did not.
+  #
+  # The balancer cannot see these either: `</div` matches neither `<div\b` nor
+  # `</div\s*>`, so it is invisible to both counts. Repair has to happen first.
+  $malformed = ([regex]::Matches($html, '(?i)</([a-zA-Z][a-zA-Z0-9]*)(?=\s*(?:<|$))')).Count
+  if ($malformed -gt 0) {
+    $html = [regex]::Replace($html, '(?i)</([a-zA-Z][a-zA-Z0-9]*)(?=\s*(?:<|$))', '</$1>')
+  }
+  if ($Trace) { Write-Host ("    malformed end tags repaired: " + $malformed) }
 
   # Cutting a window out of markup that deliberately leaves tags unclosed (S0-3 —
   # and the shop's own comment says so: 「MakeShop独自のテーブルタグを強制的に閉じない
@@ -673,6 +724,76 @@ foreach ($f in $files) {
 
   $bytesOut = [System.Text.Encoding]::UTF8.GetByteCount($html)
   $enc = New-Object System.Text.UTF8Encoding($false)
+  # Source-level defects, applied last so the patterns match the final markup
+  # rather than the source: attributes are stripped and rewritten along the way,
+  # so a fix written against the input would silently never match. That is what
+  # happened on the first attempt - the table ran before attribute processing and
+  # every entry missed.
+  if ($sourceFixes.ContainsKey($slug)) {
+    foreach ($fix in $sourceFixes[$slug]) {
+      if ($html.Contains($fix.from)) {
+        $html = $html.Replace($fix.from, $fix.to)
+        if ($Trace) { Write-Host ("    source defect fixed: " + $fix.why) }
+      }
+    }
+  }
+
+
+  # --- close whatever the window left open ---------------------------------
+  # Cutting a content window out of a page reliably strands opening tags whose
+  # closers were outside it. ordercontract keeps the whole 特定商取引法 table with
+  # no </table>; page9 and page34 end mid-anchor. Basic Mode closed these for the
+  # shop, which is exactly why nobody noticed - and exactly why they matter now.
+  #
+  # Appending the missing closers at the end of the file is not enough, and the
+  # first attempt here proved it. ordercontract ends `<td>...\n</div>`: that
+  # </div> closes the div, and in doing so implicitly closes the td, tr and table
+  # inside it, so by the end of the file the stack is empty and there is nothing
+  # left to append - while the markup is still missing </td></tr></table>.
+  #
+  # So this inserts closers where the implied close actually happens, the way a
+  # parser does, rather than sweeping them to the end. Order is the whole point:
+  # </table></tr></td> is balanced by count and still wrong.
+  #
+  # A close tag for something not open at all is dropped - company carries a
+  # stray </pre> whose opener was outside the window.
+  $stack  = New-Object System.Collections.Generic.List[string]
+  $sb     = New-Object System.Text.StringBuilder
+  $void   = 'area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'
+  $pos    = 0
+  $inserted = 0
+  foreach ($m in [regex]::Matches($html, '<\s*(/?)\s*([a-zA-Z][a-zA-Z0-9]*)\b([^>]*)>')) {
+    $isClose = $m.Groups[1].Value -eq '/'
+    $name    = $m.Groups[2].Value.ToLower()
+    if ($name -match "^($void)$") { continue }
+    if (-not $isClose -and $m.Groups[3].Value -match '/\s*$') { continue }
+
+    if ($isClose) {
+      $at = $stack.LastIndexOf($name)
+      [void]$sb.Append($html.Substring($pos, $m.Index - $pos))
+      if ($at -lt 0) {
+        # Nothing of that name is open: drop the tag entirely.
+        $inserted++
+      } else {
+        for ($i = $stack.Count - 1; $i -gt $at; $i--) {
+          [void]$sb.Append('</' + $stack[$i] + '>')
+          $inserted++
+        }
+        [void]$sb.Append($m.Value)
+        $stack.RemoveRange($at, $stack.Count - $at)
+      }
+      $pos = $m.Index + $m.Length
+    } else {
+      [void]$stack.Add($name)
+    }
+  }
+  [void]$sb.Append($html.Substring($pos))
+  for ($i = $stack.Count - 1; $i -ge 0; $i--) {
+    [void]$sb.Append('</' + $stack[$i] + '>')
+    $inserted++
+  }
+  $html = $sb.ToString()
+  if ($Trace -and $inserted -gt 0) { Write-Host ("    tags repaired at close: " + $inserted) }
   [System.IO.File]::WriteAllText((Join-Path $dstDir ($slug + '.html')), $html, $enc)
 
   $savedPct = 0

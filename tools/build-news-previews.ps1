@@ -32,6 +32,45 @@ $ErrorActionPreference = 'Stop'
 
 $root    = Split-Path -Parent $PSScriptRoot
 $shell   = Join-Path $root 'templates\creator\freepage-template.html'
+# Repair unbalanced markup in the archived article body before it is embedded.
+#
+# The news bodies come out of Basic Mode, which means they inherit the same
+# habit the free pages do: containers left open because the platform closed
+# them. One article body opens a styled <div> and never closes it, and once it
+# is embedded in the preview shell that div swallows everything after it - the
+# nav, the footer - until </main> implicitly ends it.
+#
+# Same rule as tools/convert-freepages.ps1: insert the closer where the implied
+# close happens rather than sweeping it to the end, because order matters.
+function Repair-Markup([string]$html) {
+  if (-not $html) { return $html }
+  $stack = New-Object System.Collections.Generic.List[string]
+  $sb    = New-Object System.Text.StringBuilder
+  $void  = 'area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'
+  $pos   = 0
+  foreach ($m in [regex]::Matches($html, '<\s*(/?)\s*([a-zA-Z][a-zA-Z0-9]*)\b([^>]*)>')) {
+    $isClose = $m.Groups[1].Value -eq '/'
+    $name    = $m.Groups[2].Value.ToLower()
+    if ($name -match "^($void)$") { continue }
+    if (-not $isClose -and $m.Groups[3].Value -match '/\s*$') { continue }
+    if ($isClose) {
+      $at = $stack.LastIndexOf($name)
+      [void]$sb.Append($html.Substring($pos, $m.Index - $pos))
+      if ($at -ge 0) {
+        for ($i = $stack.Count - 1; $i -gt $at; $i--) { [void]$sb.Append('</' + $stack[$i] + '>') }
+        [void]$sb.Append($m.Value)
+        $stack.RemoveRange($at, $stack.Count - $at)
+      }
+      $pos = $m.Index + $m.Length
+    } else {
+      [void]$stack.Add($name)
+    }
+  }
+  [void]$sb.Append($html.Substring($pos))
+  for ($i = $stack.Count - 1; $i -ge 0; $i--) { [void]$sb.Append('</' + $stack[$i] + '>') }
+  return $sb.ToString()
+}
+
 $bodyDir = Join-Path $root 'templates\basic-export\news'
 $outDir  = Join-Path $root 'templates\creator\preview'
 
@@ -111,7 +150,7 @@ $a = $rows[0]
 $next = $rows[1]
 $bodyPath = Join-Path $bodyDir ($a.slug + '.html')
 $body = ''
-if (Test-Path $bodyPath) { $body = [System.IO.File]::ReadAllText($bodyPath, $utf8) }
+if (Test-Path $bodyPath) { $body = Repair-Markup ([System.IO.File]::ReadAllText($bodyPath, $utf8)) }
 
 $d = New-Object System.Text.StringBuilder
 [void]$d.AppendLine('  <p class="newsmeta"><time datetime="' + (IsoDate $a.date) + '">' + (HtmlEscape $a.date) + '</time></p>')
