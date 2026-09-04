@@ -520,3 +520,30 @@ Chosen: **Basics**. Three reasons, in order of weight:
    photography and little text.
 3. It is not the shop's current design under a different name, so nothing about
    it can be mistaken for progress.
+
+### The set exists — 2026-09-05 03:13 JST
+
+`発見マーケット_移行版`, based on Basics, created and named. **The first Creator
+Mode artefact this project has produced inside the shop**, and the shop is still
+`ベーシックモード適用中`.
+
+The list now holds five sets:
+
+```
+Complete（1）          2022/07/08 17:46:35
+Advance（1）           2022/09/02 16:29:35
+Basics（1）            2026/08/19 04:39:2…     <- origin unknown, predates us
+Basics（2）            2026/09/05 03:13:10     <- stray, created 22s before ours
+発見マーケット_移行版   2026/09/05 03:13:32     <- ours
+```
+
+⚠️ **`Basics（2）` is a stray.** It was created 22 seconds before ours and never
+named, so the add flow evidently creates the set first and asks for a name
+second — back out of the naming dialog and the set stays. It is harmless in
+itself and it is exactly the hazard the naming step exists to prevent: five
+cards, each with a blue `ショップに適用`, and one of them is now an unnamed stock
+Basics sitting next to ours. Worth removing once we find where deletion lives —
+the cards show only ⬇ download and 🕘 history.
+
+The naming dialog says the name is 管理用 and never shown to customers, which
+means it can be as explicit as it needs to be.
