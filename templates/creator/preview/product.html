@@ -454,16 +454,20 @@
         u-komi. The loader script is injected by the platform on every page
         (it appears above 共通head管理 in every archived page), so it survives
         the mode switch on its own. This mount does not: it is design markup,
-        and its data-gname / data-pid are both [SYSTEM_CODE], the Basic Mode
-        product code.
+        and in Basic Mode it bound reviews with [SYSTEM_CODE].
 
-        🔴 That tag has no Creator Mode equivalent yet. Ship this with the
-        placeholder still in it and every product's reviews bind to the literal
-        string, so the whole catalogue shows one product's reviews or none.
-        Tracked as Q13.
+        Q13 closed 2026-09-04: the Creator Mode equivalent is $item.system_code,
+        from the platform tag reference. Getting this wrong is not a cosmetic
+        error - a literal placeholder here binds all 9,514 products to one id,
+        and the loader keeps running either way, so the widget would render
+        confidently wrong rather than be absent.
+
+        The client has since confirmed u-komi is now the standard: MakeShop
+        retires the old review feature and past posts migrate automatically.
+        There are only two or three posts on this shop.
       -->
       <div class="review-container"
-           data-gname="{{PRODUCT_CODE}}" data-pid="{{PRODUCT_CODE}}"
+           data-gname="$item.system_code" data-pid="$item.system_code"
            data-group="true" data-action="widget"></div>
       <p class="notice">レビューは u-komi により表示されます。</p>
     </div>

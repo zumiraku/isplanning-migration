@@ -23,6 +23,7 @@
 frag_dir="templates/creator/freepages"
 src_dir="templates/basic-export/freepages"
 out="${1:-inventory/content-preserved.csv}"
+exceptions="inventory/approved-content-changes.csv"
 
 # Tags are stripped with perl in slurp mode, not sed. sed works a line at a
 # time, and this corpus has tags that span two lines - an <img> with its src on
@@ -57,13 +58,23 @@ for f in "$frag_dir"/*.html; do
   n=$(wc -l < /tmp/_frag.txt)
   # Lines in the fragment that are not in the source. Substring, not exact line:
   # the converter legitimately rejoins text that was split across tags.
-  missing=0
+  #
+  # A line the client has approved changing is not corruption. Those live in
+  # inventory/approved-content-changes.csv with the decision date and the
+  # reason, and are counted separately - so an approved edit does not turn this
+  # check red, and an unapproved one still does.
+  missing=0; approved=0
   while IFS= read -r line; do
     [ ${#line} -lt 8 ] && continue
-    grep -qF -- "$line" /tmp/_src.txt || missing=$((missing + 1))
+    grep -qF -- "$line" /tmp/_src.txt && continue
+    if grep -F -- "$line" "$exceptions" 2>/dev/null | grep -qF "\"$slug\","; then
+      approved=$((approved + 1))
+    else
+      missing=$((missing + 1))
+    fi
   done < /tmp/_frag.txt
 
-  total=$((total + 1))
+  total=$((total + 1)); approved_total=$((approved_total + approved))
   if [ "$missing" -eq 0 ]; then
     printf '"%s","%s","0","ok"\n' "$slug" "$n" >> "$out"
   else
@@ -78,4 +89,5 @@ echo ""
 echo "pages checked            : $total"
 echo "pages with altered text  : $bad_pages"
 echo "altered lines            : $bad_lines"
+echo "approved changes         : $approved_total"
 echo "report                   : $out"

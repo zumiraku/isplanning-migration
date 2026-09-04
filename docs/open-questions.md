@@ -40,9 +40,18 @@ Check each: 商品見積書 · 一発購入 · 投票 · 懸賞 · 移動イベ�
 **商品見積書 is the one to check first** — a B2B novelty shop with tiered pricing is
 its natural user, and it has no Creator Mode equivalent.
 
-### Q4 — What generates `/new/*.html`? `ANSWERED (pending console confirmation)` 2026-09-02
-**Almost certainly ニュース, which Creator Mode keeps.** Answered from the archive,
-no crawling and no console needed — see [`docs/news-plan.md`](news-plan.md).
+### Q4 — What generates `/new/*.html`? `ANSWERED — but its URL conclusion was wrong`
+**It is ニュース, which Creator Mode keeps.** Answered from the archive, no
+crawling and no console needed — see [`docs/news-plan.md`](news-plan.md).
+
+🔴 **Correction 2026-09-04: the URLs do NOT stay put.** This entry, the redirect
+map and `news-plan.md` all assumed that because the feature survives, the
+addresses survive. They do not: Creator Mode serves news at `/view/news/list`
+and `/view/news/yymmddhhmmss`. Worse, the new form is a timestamp, so the
+mapping cannot be derived from the old URL — it has to be read off the platform
+after the switch. 100 URLs indexed since 2013, and URL一括設定 does not cover
+news. See [creator-mode-urls.md](creator-mode-urls.md); this needs a client
+decision it has not yet had.
 
 Evidence across all 100 detail pages: identical platform markup
 (`<div id="newsHead"><span class="date">…</span>TITLE</div>` then
@@ -84,7 +93,17 @@ Creator Mode's editable list covers cart but is unclear on the checkout steps,
 member registration, login and mypage. This sets the ceiling on design consistency —
 the client should hear it from us before he notices it himself.
 
-### Q7 — What is the フリーページ URL pattern, and are redirects possible? `OPEN`
+### Q7 — What is the フリーページ URL pattern, and are redirects possible? `ANSWERED` 2026-09-04
+**`/view/<name>`** — so `/html/pageNN.html` does not survive, and neither does
+any other URL on the shop bar the top page. Redirects as such are not offered,
+but **URL一括設定** assigns an arbitrary URL to a page by CSV and serves it
+alongside the system URL, with a canonical setting. That covers products,
+categories and free pages — 10,203 of the 10,306 URLs — and not news.
+See [creator-mode-urls.md](creator-mode-urls.md), which lists the four things to
+establish before planning around it.
+
+The original entry follows; the 418 internal `/html/` links it blocked are now
+unblocked once the alias question is tested.
 Current free pages are `/html/pageNN.html`. The admin's 独自ページ list holds
 **82 pages** (the sitemap had shown 83; the "120" written here on 2026-09-03 was
 wrong and is withdrawn). All 82 are converted.
@@ -118,7 +137,13 @@ total (9,514) against the actual product count in 商品管理.
 Ask the client directly. Cutover is planned for Wed 2026-11-11; novelty and 景品
 demand is seasonal and year-end may already be ramping. If 11/11 is bad, move it —
 
-### Q13 — What is the Creator Mode equivalent of `[SYSTEM_CODE]`? `OPEN 🔴`
+### Q13 — What is the Creator Mode equivalent of `[SYSTEM_CODE]`? `ANSWERED` 2026-09-04
+**`$item.system_code`**, from the platform tag reference at
+`reference.makeshop.jp/taglist/creator-mode/detail.html`. Applied to the u-komi
+mount in `preview/product.html`. The reference also confirms `$item.is_member_price`
+exists, which is the flag the pricing rebuild reasoned its way to for C23.
+
+The original entry follows, because the reason it mattered has not changed:
 **Raised 2026-09-03.** The product page's u-komi review mount binds reviews to
 the product with `data-gname="[SYSTEM_CODE]" data-pid="[SYSTEM_CODE]"`. The
 loader script is platform-injected and keeps running after the switch, so if
