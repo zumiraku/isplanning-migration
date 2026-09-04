@@ -547,3 +547,83 @@ the cards show only ⬇ download and 🕘 history.
 
 The naming dialog says the name is 管理用 and never shown to customers, which
 means it can be as explicit as it needs to be.
+
+---
+
+## クリエイターモード エディタ — the screen the build happens in, 2026-09-05
+
+`ショップデザイン › クリエイターモード › トップ`, still under `ベーシックモード適用中`.
+
+```
+┌ 編集中のデザインセット ─┐  ショップデザイン › クリエイターモード › トップ
+│ ✎ 発見マーケット_移行版 │
+│ 🔵 レスポンシブ  (ON)   │  トップ                            👁 プレビュー
+├─────────────────────────┤
+│ 全ページ共通            │  ▸ HTML   <{$page.title}> …
+│ トップ                  │  ▸ CSS    #wrap .bx-prev { … }
+│ 商品カテゴリー          │  ▸ JavaScript  (empty)
+│ 商品検索結果            │
+│ 商品詳細                │                    [ 保存 ]
+│ 商品レビュー一覧        │
+│ 商品レビュー投稿        │
+│ 買い物カゴ              │
+│ お知らせ一覧            │
+│ お知らせ詳細            │
+│ まとめ買い割引          │
+│ 利用案内                │
+│ 会社概要                │
+│ 特定商取引法            │
+│ プライバシーポリシー    │
+│ 会員制/年齢確認         │
+├─────────────────────────┤
+│ フリーページ管理        │
+│ モジュール管理          │
+├─────────────────────────┤
+│ ファイルサーバ          │
+│ タグリファレンス        │
+└─────────────────────────┘
+```
+
+### The syntax is confirmed in the shop's own editor
+
+The stock トップ template opens with exactly the delimiters the manual implied:
+
+```html
+<title><{$page.title}></title>
+<meta name="description" content="<{$page.description}>">
+<link rel="canonical" href="<{$page.canonical_url}>">
+<meta property="og:site_name" content="<{$shop.name}>">
+```
+
+So `templates/creator/mode/*.tpl` are written in the right dialect. Four new
+tags fall out of these twelve lines alone — `$page.title`, `$page.description`,
+`$page.canonical_url`, `$shop.name` — and `$page.canonical_url` matters more
+than it looks, because C33 says every URL on the shop moves.
+
+### Three boxes per page, not one
+
+**HTML / CSS / JavaScript**, each collapsible, each saved together. That answers
+where our assets go:
+
+| ours | goes to |
+|---|---|
+| `css/tokens.css` + `css/components.css` | **全ページ共通 → CSS** |
+| `js/gallery.js`, `js/tabs.js`, `js/quote-prefill.js` | **全ページ共通 → JavaScript** |
+| `mode/category.tpl` | 商品カテゴリー → HTML |
+| `mode/detail.tpl` | 商品詳細 → HTML |
+| the 86 free pages | フリーページ管理 |
+
+### What the page list itself tells us
+
+- **`レスポンシブ` is a toggle, and it is on.** The single sentence of the brief —
+  レイアウトが崩れないように — has a switch, and it is already in the right
+  position.
+- **商品レビュー一覧 / 商品レビュー投稿 are page types.** The feature MakeShop
+  retires in November has its own templates here; ours stay empty.
+- **モジュール管理** — shared blocks. The header, footer and the promo banner that
+  36 of the 53 category templates carry belong here rather than repeated.
+- **ファイルサーバ** — where `default.css` and the uploaded images go, the ones the
+  design backup explicitly excludes.
+- **タグリファレンス is in the sidebar.** The remaining 174 unmapped tags and the
+  20 assumed ones can be settled from inside the console, against this shop's own
+  build, rather than from the public reference.
