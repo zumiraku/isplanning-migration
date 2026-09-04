@@ -482,3 +482,41 @@ the ⬇ download icon.
   accepts the format the ⬇ download produces, the templates could be assembled
   and version-controlled here and imported whole, rather than pasted screen by
   screen. Worth establishing early: it changes how the remaining build is done.
+
+### ベーステンプレートの選択 — reached from `+ デザインセットを追加`
+
+The platform states the safety guarantee itself, on the screen:
+
+> デザインセット一覧画面で「ショップに適用」ボタンを押さない限り、ショップには反映されません。
+
+That is the sentence the whole staging plan rests on, in MakeShop's own words
+rather than our inference.
+
+14 base templates, each with three colour variants:
+
+```
+Complete   Pulsefit   Baycross
+Garden     Simplecase Basics
+Manabito   &more      BRothers
+Wabisabi   Shiro      Advance
+Minimum    Debut
+```
+
+**The base matters less than it looks, and in one way it matters a lot.** Every
+page template gets replaced with `templates/creator/mode/*.tpl`, and the styling
+comes from our own `tokens.css` + `components.css`. What the base contributes
+after that is CSS we did not write, still loading, still able to win a
+specificity fight. So the choice is really "which base leaves least to
+override".
+
+Chosen: **Basics**. Three reasons, in order of weight:
+
+1. A `Basics（1）` set **already exists in this shop**, last updated 2026/08/19.
+   Whoever made it — the client, or MakeShop support during a consultation — it
+   is the one base with a local reference point to compare against.
+2. Its preview is a plain, information-dense layout: an INFORMATION table, a
+   simple product grid. That is what this shop is. Garden, Wabisabi, BRothers
+   and &more are image-led fashion and food designs whose CSS assumes large
+   photography and little text.
+3. It is not the shop's current design under a different name, so nothing about
+   it can be mistaken for progress.
