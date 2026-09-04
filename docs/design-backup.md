@@ -217,3 +217,55 @@ Freeing a slot is a separate question for the client. The obvious candidate is
 No.1 デザインセット_20150203, eleven years old and superseded by two later
 redesigns, but nobody should delete another company's backup on their own
 judgement.
+
+## Re-exported 2026-09-05 03:01 JST — nothing has changed, and one thing is confirmed
+
+The client ran 一括ダウンロード again. Both ZIPs are 175,905 bytes; the hashes
+differ, but that is the archive metadata, not the contents.
+
+**All 73 files are byte-identical after EUC-JP → UTF-8 conversion.** The design
+has not moved since the previous export.
+
+### The dates line up, and a correction follows
+
+The ZIPs are named for when the platform generated them, in JST:
+
+```
+backup_original_design_20260904_001312.zip   2026-09-04 00:13 JST
+backup_original_design_20260905_030103.zip   2026-09-05 03:01 JST
+```
+
+So what this repository has been calling "the 2026-09-03 export" was actually
+generated at **00:13 on 2026-09-04** — early morning, which is exactly when the
+client says he switched the reviews:
+
+> 実は9/４の朝方にレビューの変更をしております。
+
+That resolves the apparent contradiction in `product-tabs.md`. The 8/29 crawl
+shows the native review because it predates his change; the export shows u-komi
+because it was taken minutes after it. Nothing mysterious happened, and nobody
+edited the shop behind our backs — the two artefacts simply sit either side of a
+change the client told us about himself.
+
+### 🔴 Confirmed against the *current* design: three templates were missed
+
+Not a stale export any more. As of the 2026-09-05 download:
+
+| template | 旧レビュー live | u-komi |
+|---|---:|---:|
+| `design_detailpage.txt` | 0 | 1 |
+| `design_detailpage_ct261.txt` | **3** | 0 |
+| `design_detailpage_ct646.txt` | **3** | 0 |
+| `design_detailpage_ct664.txt` | **3** | 0 |
+
+The client believes he did it 「PC・スマホ共」, and for the main template he did.
+**The three per-category product templates still carry the old review tags,
+uncommented, with no u-komi mount.**
+
+This is not a migration issue and it does not wait for cutover. **MakeShop
+retires the old review feature at the end of November 2026**, so products in
+those three categories will simply stop showing reviews at that point, whatever
+we do. The client can fix it in five minutes now that he knows which three.
+
+`tools/strip-old-review-tags.sh` already produces the cleaned versions, and they
+still apply unchanged — the input has not moved.
