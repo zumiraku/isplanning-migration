@@ -358,3 +358,74 @@ most likely 分析・販促管理. Q5 stays open and the search continues there.
 This is worth the effort it is taking. A tag nobody can find is a tag nobody will
 think to re-apply, and the loss shows up weeks later as a silent hole in the
 client's advertising numbers.
+
+---
+
+## テンプレート選択・編集 — the screen, verified 2026-09-04
+
+`https://console.makeshop.jp/design/editor?shopId=isplanning`
+
+Two screenshots, the full page and the ファイル管理 dropdown. This pins down
+things that were previously described but not located.
+
+```
+エディタ種別      ベーシックモード   ノーコードデザインを使用する
+
+┌────────────────────────────────────────────────────────────────┐
+│ 🏳 ベーシックモード適用中          クリエイターモード編集画面へ ›  │  <- dark bar
+│ [ PC ] [ スマホ ]                                               │
+├────────────────────────────────────────────────────────────────┤
+│ ショップデザイントップ │ ファイル管理▼ │ トップページ編集▼ │ 内部ページ編集Ⅰ▼ │ 独自ページ │
+└────────────────────────────────────────────────────────────────┘
+
+  ┌─ デザイン設定画面一覧 ────────────────── カスタマイズテンプレート選択画面へ ─┐
+  │ 共通CSS管理  共通head管理                                                  │
+  │ ┌─────────── 上段メニュー管理 ───────────┐  ┌ 各種パーツ ──────────┐      │
+  │ │              タイトルイメージ管理        │  │ お知らせ・インフォ管理 │      │
+  │ │ 左側メニュー  中央画面（トップページ）   │  │ お知らせ・インフォリスト│      │
+  │ │   管理        商品デザイン               │  │ ログインフォーム       │      │
+  │ │               ├ 商品分類画面             │  ├ イントロデザイン ─────┤      │
+  │ │               ├ 商品詳細画面             │  │ イントロページ         │      │
+  │ │               │  └ 商品画像拡大画面      │  ├ オリジナルページ作成 ─┤      │
+  │ │               ├ 商品検索画面             │  │ 独自ページ             │      │
+  │ │               └ 買い物かご画面           │  └───────────────────────┘      │
+  │ └─────────── 下段メニュー管理 ───────────┘                                 │
+  │                                     💾 デザイン一括バックアップ画面へ  <---- │
+  └────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Where the bulk backup actually is
+
+**Bottom right of the デザイン設定画面一覧 box**, below 下段メニュー管理, a grey
+button with a floppy-disk icon: **`💾 デザイン一括バックアップ画面へ`**.
+
+It is not in a menu. `ファイル管理▼` was the obvious guess and it is wrong — that
+dropdown holds exactly one item, `ギガプラス10`, the file storage. Checked.
+
+### The staging question is answered on this screen
+
+The dark bar reads **`🏳 ベーシックモード適用中`** on the left and
+**`クリエイターモード編集画面へ ›`** on the right.
+
+So Creator Mode has an edit screen reachable **while Basic Mode is still the
+applied mode**. That is the answer the whole schedule depends on: the templates
+in `templates/creator/mode/` can be pasted, previewed and corrected without the
+live shop changing, instead of everything having to happen inside a cutover
+window.
+
+Worth confirming once by pasting something harmless and checking the live site is
+untouched — but the link's existence, next to a badge that says Basic Mode is
+what is applied, is strong.
+
+### Template edit URLs
+
+Hovering 商品分類画面 shows the status bar target:
+
+```
+https://shop1.makeshop.jp/makeshop/newmanager/design_brandpage.html
+```
+
+So the Basic Mode editors live at `shop1.makeshop.jp/makeshop/newmanager/design_*.html`
+and **the names match our exported files** — `design_brandpage.html` is the screen
+that produced `design_brandpage.txt`. The mapping between editor screen and
+exported file is now direct rather than inferred.
