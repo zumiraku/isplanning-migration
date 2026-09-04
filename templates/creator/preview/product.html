@@ -255,8 +255,24 @@
           <small class="buystack__note">販売単位数量、納期、在庫等はこちらからお問い合わせください。</small>
         </li>
         <li>
-          <a class="btn btn--primary" href="https://www.isp-sp.com/shop/enq202208200" target="_blank" rel="noopener">見積依頼フォーム</a>
-          <small class="buystack__note">数量・名入れの有無によって単価が変わります。お気軽にご依頼ください。</small>
+          <!--
+            The product now travels with the link. It is a bare URL on the live
+            site, on the product page and on four free pages alike, so every
+            customer retypes what they were just looking at - and the client
+            says this route, not the cart, is where most orders start.
+
+            MakeShop documents no way to seed a マルチフォーム field, so
+            js/quote-prefill.js reads these back if the form page renders inside
+            our template. If it does not, the form ignores them and behaves
+            exactly as it does today. Nothing here can make it worse.
+
+            In the real template the values are $item.name and
+            $item.system_code, url-encoded.
+          -->
+          <a class="btn btn--primary"
+             href="https://www.isp-sp.com/shop/enq202208200?item=%E3%83%9E%E3%83%83%E3%82%AF%E3%82%B9%20%E3%83%8F%E3%83%B3%E3%82%B3%20%E8%A7%92%E5%9E%8B&amp;code=000000025283"
+             target="_blank" rel="noopener">見積依頼フォーム</a>
+          <small class="buystack__note">数量・名入れの有無によって単価が変わります。お気軽にご依頼ください。<br>商品名と商品コードは自動で引き継がれます。</small>
         </li>
       </ul>
 
@@ -528,5 +544,6 @@
 <script src="../js/option-price.js"></script>
 <script src="../js/gallery.js"></script>
 <script src="../js/tabs.js"></script>
+<script src="../js/quote-prefill.js"></script>
 </body>
 </html>
