@@ -85,3 +85,51 @@ crawled category list) checked in the admin, and the same swap looked for in the
 > product page's three-tab block. Both were invisible for the same reason: the
 > archive shows what Basic Mode emitted, and what it emitted was already the
 > output of a template nobody had read.
+
+---
+
+## The data table, and the prose that was nearly lost
+
+`tools/extract-category-data.sh` → `inventory/category-data.csv`
+
+52 rows — one per category, `ct646` excluded as the one bespoke case.
+
+| column | |
+|---|---|
+| `caption` | **34 categories carry a description written for that category and nowhere else** |
+| `shared_tiles` | the promotional tiles beside it |
+| `category_image` | 11 say `no` |
+| `subcat_columns` | 4, or 3 for two of them |
+| `price_tag` | `TAXPRICE`, or `PRICE` for the three in C36 |
+
+### The first version of this tool was wrong, and usefully so
+
+It recorded **the banner image** as the per-category data. Then the totals came
+back: 36 of the 40 banners are the same file, `housounosiname3.png`. A banner
+that appears in 36 of 52 templates is not a variation — it is a shared promotion
+that belongs in the template once, and treating it as data would have produced
+36 identical rows describing nothing.
+
+The real per-category data was one level down. A `categotybanner` block is a row
+of tiles; the *first* holds `[CATEGORY_IMAGE]` with a caption written for that
+category, and the tiles after it are the shared promos.
+
+**That caption is the only per-category prose in these files.** It is not in the
+category's SEO description, not in the crawled page inventory, and not anywhere
+else in the export. 34 of them, median 17 characters, longest 318:
+
+```
+ct111  環境にやさしいエコな粗品を多数掲載しております。SDGsやサステナブル、
+       環境保護、リサイクル、持続可能性と多様性がうたわれる昨今、企業イメージ
+       が問われる時代です。
+ct126  多くのアウトドアグッズ・レジャーグッズを取り揃えています。…
+ct141  花の種、観葉植物、花柄の商品の粗品
+```
+
+A rebuild that took "the 53 differ only in a banner" at face value would have
+dropped all 34 without anything looking wrong. All 34 were verified
+character-for-character against the source before this was written down.
+
+> The lesson is the same one C28 and the product tabs taught: **the summary of a
+> difference is not the difference.** "They differ only in a banner block" was
+> nearly right, and the part it rounded off was the only writing in the files.
