@@ -46,9 +46,10 @@ map_for() {
     '[NEWSORT]')         echo '$category.sort_new_url' ;;
     '[SORTPRICE]')       echo '$category.sort_high_price_url / sort_low_price_url|Basicは1タグ、Creatorは高い順と安い順で別' ;;
     '[SORTBRANDNAME]')   echo '$category.sort_name_url' ;;
-    '[SORTPRODUCT]')     echo '要確認|単価順。Creator側に対応するsort URLが見当たらない' ;;
+    '[SORTPRODUCT]')     echo '欠落|単価順。Creatorの並び替えは おすすめ/新着/価格高/価格低/商品名/メーカー の6種のみで、単価順は存在しない' ;;
     '[ZAIKO]')           echo '$category.item.list[i].stock_quantity|表示可否は is_stock_display' ;;
     '[NAMECURRENT]')     echo '$category.name|カテゴリ名' ;;
+    '[LIST]')            echo '$category.breadcrumb_list.list[i].name / .url|パンくず。検索結果側は $search.breadcrumb_list' ;;
     *)                   echo '' ;;
   esac
 }
@@ -95,7 +96,12 @@ sed 's/^"//; s/"$//' "$src" | tail -n +2 | while IFS= read -r line; do
     eq=$(echo "$hit"   | awk -F'|' '{print $1}')
     note=$(echo "$hit" | awk -F'|' '{print $2}')
     st="判明"
+    # 欠落 is the status this whole inventory exists to produce: a tag whose
+    # function has no Creator Mode counterpart at all. It is not work to be
+    # scheduled, it is a capability the shop loses unless someone decides
+    # otherwise, so it must never be filed alongside "not looked at yet".
     [ "$eq" = "要確認" ] && st="要確認"
+    [ "$eq" = "欠落" ] && st="欠落"
   else
     eq=""
     note="リファレンス $(ref_for "$where") を確認"
@@ -108,11 +114,13 @@ done
 total=$(( $(wc -l < "$out") - 1 ))
 done_n=$(sed 's/"//g' "$out" | awk -F, 'NR>1 && $6=="判明"' | wc -l)
 none_n=$(sed 's/"//g' "$out" | awk -F, 'NR>1 && $6=="不要"' | wc -l)
+gap_n=$(sed 's/"//g' "$out" | awk -F, 'NR>1 && $6=="欠落"' | wc -l)
 echo ""
 echo "tags              : $total"
 echo "  resolved        : $done_n"
 echo "  not needed      : $none_n"
-echo "  still to check  : $(( total - done_n - none_n ))"
+echo "  LOST (欠落)     : $gap_n"
+echo "  still to check  : $(( total - done_n - none_n - gap_n ))"
 echo "report            : $out"
 echo ""
 echo "highest-use tags still unresolved:"

@@ -29,9 +29,10 @@ http://reference.makeshop.jp/taglist/creator-mode/common.html      全ページ�
 
 | | tags | uses |
 |---|---:|---:|
-| **判明** — counterpart read off the reference | 17 | **943 (38%)** |
-| **不要** — dissolves, nothing to port | 10 | **434 (18%)** |
-| **要確認** | 183 | 1,084 (44%) |
+| **判明** — counterpart read off the reference | 18 | 1,000 (41%) |
+| **不要** — dissolves, nothing to port | 10 | 434 (18%) |
+| **欠落** — no counterpart exists | **1** | 55 |
+| **要確認** | 181 | 972 |
 
 Seventeen tags cover 38% of every tag use in the shop's templates, because the
 listing templates use the same handful of tags a hundred times each. Coverage by
@@ -94,3 +95,45 @@ overstated the remaining work by 434 uses.
 
 `[SORTPRODUCT]` is the one to settle first. Four of the five sort options map
 cleanly and the fifth is the one this shop's buyers would miss.
+
+---
+
+## 🔴 The first confirmed loss: 単価順
+
+`[SORTPRODUCT]` is 単価順, and it is on the live category page today:
+
+```html
+並び替え：<a href=[NEWSORT]>新着順</a> <a href=[SORTRECOMMEND]>おすすめ順</a>
+         <a href=[SORTPRODUCT]>単価順</a> <a href=[SORTPRICE]>価格</a>
+         <a href=[SORTBRANDNAME]>商品名</a>
+```
+
+Creator Mode offers six sorts, on both the category and the search pages:
+
+```
+sort_recommend  sort_new  sort_high_price  sort_low_price  sort_name  sort_manufacturer
+```
+
+**単価順 is not among them, and there is no way to construct it.** Four of the
+five sorts this shop uses map cleanly; the fifth does not exist.
+
+That is worse here than it would be almost anywhere else. This is a 粗品 shop:
+products are sold in units of 10, 84, 100, and 価格 is what a *unit* costs while
+単価 is what *one item* costs. A buyer choosing between a ¥2,680 pack of ten and
+a ¥9,320 pack of a hundred is comparing 268 against 93 — and 価格順 sorts those
+in the opposite order to the one they care about. It is the sort that matches
+how this shop's customers actually shop.
+
+There is no technical fix, so it is a decision, not a task. The options are to
+accept the loss, to replace it with 価格が安い順 and say so, or to ask MakeShop
+whether 単価 sorting is on their roadmap. **The client has not been told**, and
+this belongs in the next message to him rather than in a release note.
+
+> This is what the tag inventory was for. Eighteen tags mapped and ten dissolved
+> are useful bookkeeping; **finding the one that cannot be carried across is the
+> point**. A `欠落` row is not work waiting to be scheduled — it is a capability
+> the shop loses unless somebody decides otherwise, which is why the tool counts
+> it separately from "not looked at yet".
+
+`[LIST]` is settled at the same time: `$category.breadcrumb_list.list[i].name`
+and `.url`, with `$search.breadcrumb_list` on the search page.
