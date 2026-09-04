@@ -93,3 +93,48 @@ import, and it is the reason this document exists.
 > design files and inventoried 210 tags without ever seeing a Creator Mode URL,
 > because the archive can only show what Basic Mode emits. **The destination
 > platform's own manual was never read.** That is now the gap being closed.
+
+---
+
+## What it costs inside our own deliverable: 646 links
+
+`tools/inventory-internal-links.sh` → `inventory/internal-links.csv`
+
+The converted free pages are full of links written in the old URL shapes. They
+are not broken today, and after the switch they will not *look* broken either —
+they will 404 one at a time, wherever a customer happens to click.
+
+| class | links | becomes |
+|---|---:|---|
+| free page (`/html/pageNN.html`) | **404** | `/view/<name>` |
+| category (`/shopbrand/…`) | **219** | `/view/category/…` |
+| product (`/shopdetail/…`) | **23** | `/view/item/…` |
+| | **646** across **80 of 86 pages** | |
+
+The 404 free-page links are the ones to notice. These pages link to each other
+heavily — they are a column network, built for search — so the damage is not 404
+isolated pages but the internal linking that gives them their search value.
+
+**Both possible outcomes need this number.** If URL一括設定 can re-create the
+current URLs, none of these need touching and the number is zero. If it cannot,
+646 links across 80 pages is the rewrite, and it is mechanical rather than
+difficult — but it cannot be estimated without having counted.
+
+> Worth noting what this does *not* count: the 607 category pages and 9,514
+> product pages also link to each other, through templates we have not rebuilt
+> yet. The template links are one edit each, because they are generated. These
+> 646 are hand-written into page bodies, which is why they are the awkward ones.
+
+## The client's own question, answered
+
+> 季節で選ぶ粗品 https://www.isp-sp.com/html/page5.html
+> これは独自ページで大丈夫かな
+
+**Yes.** page5 is converted, renders clean at all three widths, and needs no
+special handling as a page.
+
+But it is also a good illustration of the above: page5 is 23 links into the
+seasonal categories (`/shopbrand/004/…` spring, `005` summer, `006` autumn,
+`007` winter). The page survives the switch. **Every link out of it does not**,
+unless the category URLs are preserved. A seasonal landing page whose links all
+404 is worse than no landing page, because it is still indexed.
