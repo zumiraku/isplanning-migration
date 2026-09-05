@@ -187,3 +187,55 @@ $recently_item.list.name	assumed	共通の商品一覧系フィールドから�
 $recently_item.list.url	assumed	同上
 $recently_item.list.price	assumed	同上
 $recently_item.list.image_M	assumed	同上
+$news.has_item	confirmed	reference news-list/index.html
+$news.total_count	confirmed	reference news-list/index.html
+$news.display_count	confirmed	reference news-list/index.html
+$news.list	confirmed	reference news-list/index.html
+$news.list.title	confirmed	reference news-list/index.html
+$news.list.content	confirmed	reference news-list/index.html
+$news.list.url	confirmed	reference news-list/index.html
+$news.list.date.year	confirmed	reference news-list/index.html
+$news.list.date.month	confirmed	reference news-list/index.html
+$news.list.date.day	confirmed	reference news-list/index.html
+$news.pager.is_first	confirmed	reference news-list/index.html
+$news.pager.is_last	confirmed	reference news-list/index.html
+$news.pager.first_url	confirmed	reference news-list/index.html
+$news.pager.prev_url	confirmed	reference news-list/index.html
+$news.pager.next_url	confirmed	reference news-list/index.html
+$news.pager.last_url	confirmed	reference news-list/index.html
+$news.pager.list	confirmed	reference news-list/index.html
+$news.pager.list.number	confirmed	reference news-list/index.html
+$news.pager.list.url	confirmed	reference news-list/index.html
+$news.pager.list.is_current_page	confirmed	reference news-list/index.html
+$news.title	confirmed	reference news-detail/index.html
+$news.content	confirmed	reference news-detail/index.html
+$news.url	confirmed	reference news-detail/index.html
+$news.next_url	confirmed	reference news-detail/index.html
+$news.prev_url	confirmed	reference news-detail/index.html
+$news.date.year	confirmed	reference news-detail/index.html
+$news.date.month	confirmed	reference news-detail/index.html
+$news.date.day	confirmed	reference news-detail/index.html
+$shop.mainvisual	confirmed	reference common/index.html
+$shop.banner.has_item	confirmed	reference common/index.html
+$shop.banner.list	confirmed	reference common/index.html
+$shop.banner.list.image_url	confirmed	reference common/index.html
+$shop.banner.list.url	confirmed	reference common/index.html
+$shop.banner.list.target	confirmed	reference common/index.html
+$recommend_item.has_item	assumed	$recommend_item は確認済み。has_item の有無は未確認
+$recommend_item.list	assumed	同上
+$recommend_item.list.name	assumed	共通の商品一覧系フィールドからの類推
+$recommend_item.list.url	assumed	同上
+$recommend_item.list.price	assumed	同上
+$recommend_item.list.image_M	assumed	同上
+$new_item.has_item	assumed	同上
+$new_item.list	assumed	同上
+$new_item.list.name	assumed	同上
+$new_item.list.url	assumed	同上
+$new_item.list.price	assumed	同上
+$new_item.list.image_M	assumed	同上
+$ranking_item.has_item	assumed	同上
+$ranking_item.list	assumed	同上
+$ranking_item.list.name	assumed	同上
+$ranking_item.list.url	assumed	同上
+$ranking_item.list.price	assumed	同上
+$ranking_item.list.image_M	assumed	同上

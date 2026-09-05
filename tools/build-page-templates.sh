@@ -37,10 +37,17 @@ assemble() {
 }
 
 echo "assembled:"
+assemble "top"           "top-body.tpl"
 assemble "category"      "category.tpl"
 assemble "detail"        "detail.tpl"
 assemble "search"        "search.tpl"
 assemble "cart"          "cart-body.tpl"
+assemble "news-list"     "news-list-body.tpl"
+assemble "news-detail"   "news-detail-body.tpl"
+assemble "company"       "company-body.tpl"
+assemble "guide"         "info-body.tpl"
+assemble "contract"      "ordercontract-body.tpl"
+assemble "policy"        "privacy-body.tpl"
 
 # The includes travel with them.
 cp "$src/category-captions.tpl" "$src/category-tiles.tpl" "$out/" 2>/dev/null
