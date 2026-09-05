@@ -42,11 +42,11 @@
     <div>
       <h2>粗品の選び方</h2>
       <ul>
-        <li><a href="/html/page9.html">商品別カテゴリー</a></li>
-        <li><a href="/html/page8.html">シーンで選ぶ</a></li>
-        <li><a href="/html/page5.html">季節で選ぶ粗品</a></li>
-        <li><a href="/html/page2.html">名入れ・包装・熨斗のご案内</a></li>
-        <li><a href="/html/page4.html">SP SOURCE カタログのご案内</a></li>
+        <li><a href="/view/page/page9.html">商品別カテゴリー</a></li>
+        <li><a href="/view/page/page8.html">シーンで選ぶ</a></li>
+        <li><a href="/view/page/page5.html">季節で選ぶ粗品</a></li>
+        <li><a href="/view/page/page2.html">名入れ・包装・熨斗のご案内</a></li>
+        <li><a href="/view/page/page4.html">SP SOURCE カタログのご案内</a></li>
       </ul>
     </div>
   </div>

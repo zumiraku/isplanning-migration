@@ -110,11 +110,11 @@
 <section style="margin-top:var(--s-12)">
   <h2 class="h-section">はじめての方へ</h2>
   <div class="guide-grid">
-    <a class="guide-item" href="/html/page2.html">名入れ・包装・熨斗のご案内</a>
-    <a class="guide-item" href="/html/page9.html">商品別カテゴリー</a>
-    <a class="guide-item" href="/html/page8.html">シーンで選ぶ</a>
-    <a class="guide-item" href="/html/page5.html">季節で選ぶ粗品</a>
-    <a class="guide-item" href="/html/page1.html">ご注文用紙ダウンロード</a>
+    <a class="guide-item" href="/view/page/page2.html">名入れ・包装・熨斗のご案内</a>
+    <a class="guide-item" href="/view/page/page9.html">商品別カテゴリー</a>
+    <a class="guide-item" href="/view/page/page8.html">シーンで選ぶ</a>
+    <a class="guide-item" href="/view/page/page5.html">季節で選ぶ粗品</a>
+    <a class="guide-item" href="/view/page/page1.html">ご注文用紙ダウンロード</a>
     <a class="guide-item" href="<{$url.guide}>">ご利用ガイド</a>
   </div>
 </section>
