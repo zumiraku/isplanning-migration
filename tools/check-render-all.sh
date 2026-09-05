@@ -60,6 +60,7 @@ echo ""
 check detail.tpl            item-addimage.json   'class="gallery__slide"'  6
 check detail.tpl            item-noimage.json    'class="gallery__slide"'  1
 check category.tpl          cat-ct5-full.json    'class="card"'            3
+check category.tpl          cat-ct646.json       'class="card"'            3
 check cart-body.tpl         cart-two-items.json  'carttable__name'         2
 check cart-body.tpl         cart-empty.json      'carttable__empty'        1
 check news-list-body.tpl    news-list.json       'class="newslist"'        1
