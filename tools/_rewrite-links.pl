@@ -74,10 +74,18 @@ for my $f (@files) {
     close $i;
     my $before = $src;
 
-    $src =~ s{(href=")([^"]*)(")}{
-        my ($a, $u, $z) = ($1, $2, $3);
+    # 🔴 引用符なしの href も拾います。
+    #    会社概要に <A href=https://www.isp-sp.com/html/ordercontract.html> と
+    #    書かれた行があり、`href="…"` だけを見ていた最初の版はこれを素通り
+    #    しました。お店が10年以上前に手で書いたHTMLなので、引用符の有無は
+    #    揃っていません。
+    $src =~ s{(href=)(")([^"]*)(")|(href=)([^"'\s>]+)}{
+        my ($a, $u, $z);
+        if (defined $2) { ($a, $u, $z) = ($1 . $2, $3, $4) }
+        else            { ($a, $u, $z) = ($5, $6, '') }
         my $path = $u;
         $path =~ s{^https?://(?:www\.)?isp-sp\.com}{};
+        $path =~ s{\?code=isplanning$}{};   # ベーシックモードの付随パラメータ
         my $new;
 
         if ($path =~ m{^/html/(page\d+\.html)$}) {

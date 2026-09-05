@@ -56,7 +56,7 @@
 <div class="table-scroll"><table class="table table">
 		<tr>
 			<th>販売業者</th>
-			<td>アイエスプランニング株式会社　　<A href=http://www.isp-sp.com/html/company.html?code=isplanning>会社概要</a></td>
+			<td>アイエスプランニング株式会社　　<A href=/view/company>会社概要</a></td>
 		</tr>
 <TR>
         <TH>サイト名称</TH>

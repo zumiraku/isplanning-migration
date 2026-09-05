@@ -35,19 +35,19 @@ CSV=package/url-bulk/categories-url.csv
 
 echo "書き換え前:"
 for k in "/shopbrand/" "/shopdetail/" "/html/"; do
-  n=$(grep -roh "href=\"[^\"]*$k[^\"]*\"" templates/creator/freepages/ 2>/dev/null | wc -l | tr -d ' ')
+  n=$(grep -rohE "href=\"?[^\" >]*$k[^\" >]*" templates/creator/freepages/ templates/creator/mode/ 2>/dev/null | wc -l | tr -d ' ')
   printf "  %-14s %4s 本\n" "$k" "$n"
 done
 
 echo ""
 echo "書き換え:"
-perl tools/_rewrite-links.pl "$CSV" templates/creator/freepages/*.html
+perl tools/_rewrite-links.pl "$CSV" templates/creator/freepages/*.html templates/creator/mode/*.tpl
 
 echo ""
 echo "書き換え後:"
 rest=0
 for k in "/shopbrand/" "/shopdetail/" "/html/"; do
-  n=$(grep -roh "href=\"[^\"]*$k[^\"]*\"" templates/creator/freepages/ 2>/dev/null | wc -l | tr -d ' ')
+  n=$(grep -rohE "href=\"?[^\" >]*$k[^\" >]*" templates/creator/freepages/ templates/creator/mode/ 2>/dev/null | wc -l | tr -d ' ')
   printf "  %-14s %4s 本\n" "$k" "$n"
   rest=$((rest + n))
 done
