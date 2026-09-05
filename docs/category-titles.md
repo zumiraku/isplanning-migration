@@ -131,3 +131,27 @@ The **601 custom meta descriptions** are in the same backup and can be restored
 the same way. Not done yet. They belong in a separate module for the same
 reason the titles do — descriptions are longer, so the table would be larger
 than the titles one, and a failed paste should cost one thing rather than two.
+
+## 確認に使うカテゴリを選び間違えないこと
+
+貼り付け後の確認に `ct5` を使いかけました。**あれでは何も分かりません。**
+
+```
+表の中身      予算で選ぶの粗品通販ページ～49円まで【粗品と景品の発見マーケット】
+<{else}>の結果  予算で選ぶの粗品通販ページ～49円まで【粗品と景品の発見マーケット】
+```
+
+`ct5` は最多294件の形そのものなので、**表が読めていなくても同じ文字が出ます。**
+一致を見て「606件が生きている」と判断していたら、表がまるごと無視されている
+状態を成功と読み違えていました。
+
+確認には **表とルールで結果が違うページ**を使います。
+
+| ページ | 表が読まれていれば | 読まれていなければ |
+|---|---|---|
+| `/view/category/all_items` | `すべての商品` | `すべての商品の粗品通販ページ…` |
+| `/view/category/ct573` | `パソコングッズの粗品の通販ページ ～49円 【発見マーケット】` | `パソコングッズの粗品通販ページ～49円まで【粗品と景品の発見マーケット】` |
+
+`all_items` が一番よい確認先です。**短いのでタブの中で切れません。**
+ct573 は違いが「の通販」「までの有無」「【】の中身」と細かく、しかも長いので
+タブでは末尾が隠れます。
