@@ -18,19 +18,30 @@
                          and this shop has moved to u-komi (C30).
    ========================================================================== *}>
 
+<{* パンくず。商品は複数のカテゴリに属し得るので、Creator Mode の
+     $item.breadcrumb_list_group は「経路の集まり」を返します。二重ループに
+     なるのはそのためで、is_base_category が付いているものが基本カテゴリです。
+
+     🔴 最初はカテゴリ側と同じ $item.breadcrumb_list と書いていました。存在
+        しないタグで、プレビューではパンくずが丸ごと消えていました。Smarty は
+        黙って捨てるので、エラーは出ません。実機で見なければ気づけない類の
+        誤りで、まさにそのために1枚だけ先に貼っていただきました。 *}>
+<{if $item.breadcrumb_list_group.has_item}>
 <nav class="breadcrumb" aria-label="現在位置">
-  <ol>
-    <{section name=i loop=$item.breadcrumb_list.list}>
-      <li>
-        <{if $item.breadcrumb_list.list[i].is_current}>
-          <span aria-current="page"><{$item.breadcrumb_list.list[i].name}></span>
-        <{else}>
-          <a href="<{$item.breadcrumb_list.list[i].url}>"><{$item.breadcrumb_list.list[i].name}></a>
-        <{/if}>
-      </li>
-    <{/section}>
-  </ol>
+  <{section name=g loop=$item.breadcrumb_list_group.list}>
+    <{if $item.breadcrumb_list_group.list[g].is_base_category}>
+      <ol>
+        <{section name=i loop=$item.breadcrumb_list_group.list[g].list}>
+          <li>
+            <a href="<{$item.breadcrumb_list_group.list[g].list[i].url}>"><{$item.breadcrumb_list_group.list[g].list[i].name}></a>
+          </li>
+        <{/section}>
+        <li><span aria-current="page"><{$item.name}></span></li>
+      </ol>
+    <{/if}>
+  <{/section}>
 </nav>
+<{/if}>
 
 <div class="pd">
 
@@ -82,8 +93,11 @@
       <{/if}>
     </div>
 
-    <{if $item.is_stock_display}>
-      <p class="card__unit">在庫 <{$item.stock_quantity}></p>
+    <{* 在庫。詳細ページのリファレンスに stock_quantity の記載が無いため、
+         数量は出さずフラグだけ使います。無いタグを書けば黙って消えるだけで、
+         「在庫」という見出しの横が空になります。 *}>
+    <{if $item.is_soldout}>
+      <p class="card__unit">在庫切れ</p>
     <{/if}>
 
     <{if $item.has_option}>
@@ -115,10 +129,19 @@
       </li>
     </ul>
 
-    <{* 追加説明文1。ベーシックは [ITEMCAPTION_1]。Creator Mode の名前は
-         リファレンスで確認できていないため、推測で書かずに空けてある。
-         商品によっては独自CSSが入っている欄で（C24）、そこも含めて実機で
-         確認してから入れること。 *}>
+    <{* 商品説明と追加説明文。ベーシックの [ITEMCAPTION_1..4] の対応先が
+         $item.description / description2〜4 だと確認できました。
+
+         🔴 C24 がここに出ます。/shopdetail/000000023664/ など一部の商品は
+            この欄に商品ごとの独自CSSを直接書いています。トークンで組み直した
+            土台の上にそれが乗ると、意図しない見え方になり得ます。移行後に
+            該当商品を実機で確認してください。 *}>
+    <div class="article">
+      <{$item.description}>
+      <{if $item.description2}><{$item.description2}><{/if}>
+      <{if $item.description3}><{$item.description3}><{/if}>
+      <{if $item.description4}><{$item.description4}><{/if}>
+    </div>
   </div>
 </div>
 

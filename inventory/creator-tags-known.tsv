@@ -45,15 +45,12 @@ $category.item.list.icon.has_item	confirmed	reference category.html
 $category.item.list.icon.list.image_url	confirmed	reference category.html
 $category.child_category	confirmed	reference category.html (存在のみ・下位フィールドは未確認)
 $category.recommend_item	confirmed	reference category.html (存在のみ・下位フィールドは未確認)
-$item.breadcrumb_list.list.name	assumed	カテゴリ側の同名タグからの類推。商品詳細に存在するか未確認
-$item.breadcrumb_list.list.url	assumed	同上
-$item.breadcrumb_list.list.is_current	assumed	同上
-$item.multi_image.has_item	assumed	icon.has_item と同じ命名則からの類推
-$item.is_stock_display	assumed	一覧側に存在。詳細側は未確認
+$item.multi_image.has_item	confirmed	reference detail/index.html
+$item.is_stock_display	confirmed	reference detail/index.html
 $item.stock_quantity	assumed	一覧側に存在。詳細側は未確認
-$item.is_soldout	assumed	一覧側に存在。詳細側は未確認
-$item.cart_entry_url	assumed	一覧側に存在。詳細側は未確認
-$item.favorite_entry_url	assumed	一覧側に存在。詳細側は未確認
+$item.is_soldout	confirmed	reference detail/index.html
+$item.cart_entry_url	confirmed	reference detail/index.html
+$item.favorite_entry_url	confirmed	reference detail/index.html
 $item.caption_1	assumed	ベーシックの [ITEMCAPTION_1] 相当。命名は未確認
 $category.child_category.has_item	assumed	命名則からの類推
 $category.child_category.list.name	assumed	命名則からの類推
@@ -71,8 +68,6 @@ $category.recommend_item.list	assumed	命名則からの類推
 $category.item.list.icon.list	confirmed	reference category.html（同上）
 $item.multi_image	confirmed	reference detail.html（同上）
 $item.multi_image.list	confirmed	reference detail.html（同上）
-$item.breadcrumb_list	assumed	カテゴリ側からの類推
-$item.breadcrumb_list.list	assumed	カテゴリ側からの類推
 $search.keyword	confirmed	reference search.html
 $search.total_count	confirmed	reference search.html
 $search.display_count	confirmed	reference search.html
@@ -247,3 +242,17 @@ $module.checked	confirmed	モジュール管理画面（既存）＝最近チェ
 $module.group	confirmed	モジュール管理画面（既存）＝商品グループ表示。[BRANDGROUP] の対応先
 $module.category_tiles	confirmed	当方が追加するモジュール。命名は既存の snake_case に合わせた
 $module.category_captions	confirmed	同上
+$item.breadcrumb_list_group.has_item	confirmed	reference detail/index.html
+$item.breadcrumb_list_group.list	confirmed	reference detail/index.html
+$item.breadcrumb_list_group.list.is_base_category	confirmed	reference detail/index.html
+$item.breadcrumb_list_group.list.list	confirmed	reference detail/index.html
+$item.breadcrumb_list_group.list.list.name	confirmed	reference detail/index.html
+$item.breadcrumb_list_group.list.list.url	confirmed	reference detail/index.html
+$item.description	confirmed	reference detail/index.html
+$item.description2	confirmed	reference detail/index.html
+$item.description3	confirmed	reference detail/index.html
+$item.description4	confirmed	reference detail/index.html
+$item.image_S	confirmed	reference detail/index.html
+$item.image_M	confirmed	reference detail/index.html
+$item.add_image.has_item	confirmed	reference detail/index.html
+$item.multi_image.list.image_S	confirmed	reference detail/index.html
