@@ -57,10 +57,10 @@
 <{if $category.image_url}>
   <div class="catintro">
     <img src="<{$category.image_url}>" alt="<{$category.name}>" loading="lazy">
-    <{include file="category-captions.tpl"}>
+    <{$module.category_captions}>
   </div>
 <{else}>
-  <{include file="category-captions.tpl"}>
+  <{$module.category_captions}>
 <{/if}>
 
 <{* 子カテゴリ。Basic Mode encoded the column count in the tag name -

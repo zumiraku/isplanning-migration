@@ -154,19 +154,21 @@
          -copy, so what these render is not in this repository and cannot be
          tested here. Confirm all four draw on the rehearsal site. C31. *}>
     <h3 class="h-sub">最近チェックした商品</h3>
-    <div data-rcmd="_displayHistory" data-rcmd-template="deco_history_scroll2-copy"></div>
+    <{$module.checked}>
     <h3 class="h-sub">週間ランキング</h3>
     <div data-rcmd="_displayRanking" data-rcmd-template="deco_ranking_scroll3-copy"></div>
     <h3 class="h-sub">ピックアップ</h3>
     <div data-rcmd="_displayPickup" data-rcmd-template="deco_pikup_2018-copy"></div>
 
+    <{* 商品グループ。ベーシックの [BRANDGROUP] の対応先は、モジュール管理に
+         既存で入っている「商品グループ表示」です。 *}>
     <h3 class="h-sub">同じグループの商品</h3>
-    <div id="brandgroupsend"></div>
+    <{$module.group}>
   </div>
 
   <div class="tabs__panel" id="tab-categories">
     <h2 class="h-section">商品カテゴリー一覧</h2>
-    <{include file="category-tiles.tpl"}>
+    <{$module.category_tiles}>
   </div>
 
   <div class="tabs__panel" id="tab-reviews">

@@ -55,7 +55,7 @@
     <a class="btn btn--primary" href="/shop/enq202208200" target="_blank" rel="noopener">見積依頼フォーム</a>
   </p>
   <h2 class="h-section" style="margin-top:var(--s-12)">商品カテゴリーから探す</h2>
-  <{include file="category-tiles.tpl"}>
+  <{$module.category_tiles}>
 <{else}>
 
 <ul class="grid">

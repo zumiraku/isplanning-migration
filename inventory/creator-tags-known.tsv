@@ -239,3 +239,11 @@ $ranking_item.list.name	assumed	同上
 $ranking_item.list.url	assumed	同上
 $ranking_item.list.price	assumed	同上
 $ranking_item.list.image_M	assumed	同上
+$module.header	confirmed	モジュール管理画面（既存）
+$module.footer	confirmed	モジュール管理画面（既存）
+$module.side_bar	confirmed	モジュール管理画面（既存）
+$module.banner_area	confirmed	モジュール管理画面（既存）
+$module.checked	confirmed	モジュール管理画面（既存）＝最近チェックした商品
+$module.group	confirmed	モジュール管理画面（既存）＝商品グループ表示。[BRANDGROUP] の対応先
+$module.category_tiles	confirmed	当方が追加するモジュール。命名は既存の snake_case に合わせた
+$module.category_captions	confirmed	同上

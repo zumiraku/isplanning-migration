@@ -31,7 +31,7 @@
      置いています。中身は商品詳細ページのタブ2と同じ46枚。 *}>
 <section>
   <h2 class="h-section">用途・季節からさがす</h2>
-  <{include file="category-tiles.tpl"}>
+  <{$module.category_tiles}>
 </section>
 
 <{if $shop.banner.has_item}>
