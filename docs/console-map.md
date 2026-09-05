@@ -627,3 +627,28 @@ where our assets go:
 - **タグリファレンス is in the sidebar.** The remaining 174 unmapped tags and the
   20 assumed ones can be settled from inside the console, against this shop's own
   build, rather than from the public reference.
+
+---
+
+## 全ページ共通 に土台が入った — 2026-09-05
+
+**The first thing this project has actually installed in the shop.** Verified by
+line number rather than by looking at it:
+
+| box | total lines | ends with | |
+|---|---:|---|---|
+| CSS | **3,979** | `.tabs__tab { flex: 0 0 auto; scroll-snap-align: start; … }` | our last line |
+| JavaScript | **763** | `}());` after the `DOMContentLoaded` guard | our last line |
+
+Basics contributed roughly 3,150 lines of CSS and 415 of JavaScript; ours are
+the 826 and 348 appended after them. Both were pasted at the end, as intended,
+with the stock content intact above.
+
+Checking this mattered. The screenshot taken immediately after the paste showed
+CSS lines 106–118 and JS lines 25–37 — stock content in both, because the editor
+had simply scrolled back to where it was. **Nothing about that view could
+distinguish "pasted" from "not pasted"**, and reading it as success would have
+put every later page on a foundation nobody had confirmed. `Ctrl+End` and a
+known last line is what settles it.
+
+The shop is still `ベーシックモード適用中`. Customers see none of this yet.
