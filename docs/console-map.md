@@ -693,3 +693,47 @@ The shop is still `ベーシックモード適用中`. Customers see none of thi
 
 **確実な確認方法は、エディタの各ページにある「👁 プレビュー」ボタン**です。
 そのページ用のトークンで開くので、取り違えようがありません。
+
+---
+
+## クリエイターモード編集画面の左の列 — 2026-09-05
+
+Recorded because an instruction sent to the user was wrong twice over, and the
+screenshot showed exactly why.
+
+```
+┌──────────────────────────────┐
+│ 🏳 ベーシックモード適用中        │  <- stays this way while editing
+├──────────────────────────────┤
+│ デザインセット一覧          ›  │
+├──────────────────────────────┤
+│ ✏ 編集中のデザインセット        │
+│   発見マーケット_移行版         │  <- THIS is what says you are in Creator Mode
+│ ● レスポンシブ                 │
+├──────────────────────────────┤
+│ 全ページ共通                  │
+│ トップ                        │
+│ 商品カテゴリー                 │
+│ 商品検索結果                   │
+│ 商品詳細                      │
+│ 商品レビュー一覧               │
+│ 商品レビュー投稿               │
+│ …                            │  <- CONTINUES BELOW THE FOLD
+└──────────────────────────────┘
+```
+
+**Two things this settles.**
+
+1. **The dark bar keeps saying ベーシックモード適用中 while you edit the Creator
+   Mode set.** It reports the mode the *shop* is serving, not where you are. The
+   marker for "you are inside Creator Mode" is 編集中のデザインセット in the
+   left column. An instruction that says "press クリエイターモード編集画面へ" is
+   wrong once you are already in - there is no such link on this screen.
+
+2. **モジュール管理 and フリーページ管理 are below the fold.** At the default
+   window height the column ends at 商品レビュー投稿. Telling someone to "press
+   モジュール管理 in the left menu" describes something they cannot see. It needs
+   the scroll step, explicitly.
+
+Neither is guessable from the console map as it was written. Both cost a round
+trip with the user.
