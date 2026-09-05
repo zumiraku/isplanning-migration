@@ -52,7 +52,7 @@
        [LIST]          -> $category.breadcrumb_list
        [GROUP4_0]      -> $category.child_category
        [TOTAL]         -> $category.total_count
-       [PAGER]         -> $category.pager
+       [PAGER]         -> $category.pager.list など（入れ物。値として出さないこと）
        [SORT*]         -> $category.sort_*_url
        [BRANDNAME]     -> $category.item.list[i].name
        [BRAND_URL]     -> $category.item.list[i].url
@@ -180,7 +180,45 @@
   <{/section}>
 </ul>
 
-<div class="pager"><{$category.pager}></div>
+<{* ページャー。
+
+     🔴 ここは `<{$category.pager}>` と1行で書いていました。**607件のカテゴリ
+        ページに「Array」という文字が出ていました。** 数字の代わりに、その5文字
+        だけが。366件・8ページのカテゴリで、2ページ目へ行く手段がありません
+        でした。
+
+        $category.pager はタグではなく入れ物です。リファレンスにあるのは
+        中身の方だけで、入れ物そのものを値として出すと Smarty が配列を
+        文字列にして「Array」と書きます。
+
+        お知らせ一覧は最初から正しく書けていたのに、そこのコメントに
+        「$category.pager はHTMLがそのまま返る」と書いてありました。
+        確かめずに書いた一文が、そのまま実装になっていました。
+
+        検査: tools/check-against-reference.sh *}>
+<{if $category.pager.has_item}>
+  <nav class="pager" aria-label="ページ送り">
+    <{if $category.pager.is_first}>
+    <{else}>
+      <a href="<{$category.pager.first_url}>">最初へ</a>
+      <a href="<{$category.pager.prev_url}>" rel="prev">前へ</a>
+    <{/if}>
+
+    <{section name=p loop=$category.pager.list}>
+      <{if $category.pager.list[p].is_current_page}>
+        <span aria-current="page"><{$category.pager.list[p].number}></span>
+      <{else}>
+        <a href="<{$category.pager.list[p].url}>"><{$category.pager.list[p].number}></a>
+      <{/if}>
+    <{/section}>
+
+    <{if $category.pager.is_last}>
+    <{else}>
+      <a href="<{$category.pager.next_url}>" rel="next">次へ</a>
+      <a href="<{$category.pager.last_url}>">最後へ</a>
+    <{/if}>
+  </nav>
+<{/if}>
 <{/if}>
 
 <{* おすすめ商品。[SUISEN4_2] was "four across, two rows"; the shape is CSS now. *}>

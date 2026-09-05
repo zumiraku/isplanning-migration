@@ -37,6 +37,7 @@ run "Basic Mode tag inventory"                    sh tools/inventory-basic-tags.
 run "Basic -> Creator tag mapping"                sh tools/map-tags-to-creator.sh
 run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh
+run "tags match the official reference"           sh tools/check-against-reference.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh
 run "category captions are complete"              sh tools/check-captions.sh
 run "gallery renders every sub-image"             sh tools/check-gallery.sh

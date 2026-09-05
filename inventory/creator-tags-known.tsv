@@ -256,3 +256,25 @@ $item.multi_image.list.image_S	confirmed	reference detail/index.html
 $item.add_image.list	confirmed	reference detail/index.html
 $item.add_image.list.image_url	confirmed	reference detail/index.html
 $item.add_image.list.description	confirmed	reference detail/index.html（[ITEMCAPTION_2] [ITEMCAPTION_3] の対応先）
+$category.pager.has_item	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.list	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.list.number	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.list.url	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.list.is_current_page	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.first_url	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.last_url	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.prev_url	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.next_url	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.is_first	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.pager.is_last	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$search.pager.has_item	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.list	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.list.number	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.list.url	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.list.is_current_page	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.first_url	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.last_url	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.prev_url	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.next_url	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.is_first	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.pager.is_last	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）

@@ -133,7 +133,31 @@
   <{/section}>
 </ul>
 
-<div class="pager"><{$search.pager}></div>
+<{* ページャー。カテゴリ側と同じ理由で書き直しました。`<{$search.pager}>` は
+     「Array」と表示されます。詳しくは category.tpl の同じ箇所を参照。 *}>
+<{if $search.pager.has_item}>
+  <nav class="pager" aria-label="ページ送り">
+    <{if $search.pager.is_first}>
+    <{else}>
+      <a href="<{$search.pager.first_url}>">最初へ</a>
+      <a href="<{$search.pager.prev_url}>" rel="prev">前へ</a>
+    <{/if}>
+
+    <{section name=p loop=$search.pager.list}>
+      <{if $search.pager.list[p].is_current_page}>
+        <span aria-current="page"><{$search.pager.list[p].number}></span>
+      <{else}>
+        <a href="<{$search.pager.list[p].url}>"><{$search.pager.list[p].number}></a>
+      <{/if}>
+    <{/section}>
+
+    <{if $search.pager.is_last}>
+    <{else}>
+      <a href="<{$search.pager.next_url}>" rel="next">次へ</a>
+      <a href="<{$search.pager.last_url}>">最後へ</a>
+    <{/if}>
+  </nav>
+<{/if}>
 <{/if}>
 </main>
 <{$module.footer}>
