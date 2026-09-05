@@ -1,6 +1,6 @@
 # The 607 category page titles (C4 / C35)
 
-**Resolved 2026-09-05. 605 of 607 restored character for character.**
+**Resolved 2026-09-05. 606 of 607 restored character for character.**
 Not reproduced from a rule — restored from the originals.
 
 ## What was at stake
@@ -45,7 +45,7 @@ Creator Mode puts `<title>` inside our own template, and a conditional on
 `$category.code` — the same construct `category.tpl` already uses for the 53
 per-category variants — prints it verbatim.
 
-**605, character for character. Not 294.**
+**606, character for character. Not 294.**
 
 ### 2. C35 is closed, and stopped mattering
 
@@ -67,7 +67,7 @@ top-level category would then read 「ホームの粗品通販ページ…」. T
 tests for that name explicitly. One comparison, and being right about it stops
 being necessary.
 
-## The two that are not restored
+## The one that is not restored
 
 **ct668** — its title on the live site is `■■■`. Restoring that faithfully would
 be restoring a defect into a job whose brief says to fix page titles. It is
@@ -75,9 +75,24 @@ dropped from the table and gets the composed title instead, and it is written
 into `inventory/category-titles-report.csv` — a content change nobody is told
 about is not a fix.
 
-**/shopbrand/all_items/** — 「すべての商品」. It has no ct code because it is not
-a category. This is also the "one category with no ct mapping" left open against
-the URL CSV: **no category was ever missing.**
+## 全商品, and why it was almost missed
+
+`/shopbrand/all_items/` had a backed-up title —「すべての商品」— but no ct code,
+so it fell out of the join and was written off as "not a category".
+
+The first preview after the module went in settled it. The URL was
+`https://www.isp-sp.com/view/category/all_items`, and the last segment of a
+category URL **is** `$category.code`. The code is `all_items`. It was never
+missing; it simply is not numbered.
+
+Codes that are not ct numbers now live in
+`inventory/category-code-overrides.csv`, one row per page **with its evidence**,
+read by both the generator and the check. That matters because a wrong code here
+does not fail loudly: the branch just never matches, and the page keeps the
+fallback title while the table claims to cover it.
+
+This is also the "one category with no ct mapping" left open against the URL
+CSV. **No category was ever missing.**
 
 ## Why it is a module
 
@@ -90,7 +105,7 @@ product grid, the pager, the tiles — on that size being accepted. As its own
 module, `category.tpl` stays at the ~10KB already known to work, and the only
 thing at risk is the title.
 
-The 【粗品と景品の発見マーケット】 suffix is on 574 of the 605, so it is written
+The 【粗品と景品の発見マーケット】 suffix is on 574 of the 606, so it is written
 once outside the branches rather than 574 times. That alone is 22KB.
 
 ## How it is checked
@@ -101,8 +116,8 @@ the way Smarty would, reassembles what each branch prints including the folded
 suffix, and compares against the original CSV.
 
 ```
-分岐の数            : 605
-元データと一致      : 605
+分岐の数            : 606
+元データと一致      : 606
 不一致              : 0
 ```
 

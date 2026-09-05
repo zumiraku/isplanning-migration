@@ -49,8 +49,8 @@ sub slurp {
     return split /\n/, $t;
 }
 
-my ($SEO, $URLC, $MODULE, $REF, $REPORT) = @ARGV;
-die "usage: _category-title.pl <seo.csv> <url.csv> <module.tpl> <ref.tpl> <report.csv>\n"
+my ($SEO, $URLC, $OVERRIDE, $MODULE, $REF, $REPORT) = @ARGV;
+die "usage: _category-title.pl <seo.csv> <url.csv> <overrides.csv> <module.tpl> <ref.tpl> <report.csv>\n"
     unless $REPORT;
 
 # ---- old URL -> the exact title it had before the migration -----------------
@@ -77,6 +77,29 @@ for my $l (@u) {
     next unless defined $sys && defined $add;
     next unless $sys =~ m{/view/category/(ct\d+)};
     $code{$add} = $1;
+}
+
+# ---- pages whose code is not a ct number ------------------------------------
+# The URL CSV only carries categories that were given a ct number, so anything
+# without one dropped out of the join entirely. 全商品 is the case: it has a
+# backed-up title (「すべての商品」) but no ct code, so it was reported as "not a
+# category" and left to the composed fallback.
+#
+# The preview URL settles it. /view/category/all_items - the last segment of a
+# category URL is $category.code, so the code is all_items. It was never
+# missing, it just is not numbered.
+#
+# Each row here needs its evidence written down. A wrong code does not fail
+# loudly: the branch simply never matches, and the page quietly keeps the
+# fallback title while the table claims to cover it.
+{
+    my @o = slurp($OVERRIDE); shift @o;
+    for my $l (@o) {
+        next unless $l =~ /\S/;
+        my @f = fields($l);
+        next unless defined $f[1] && $f[1] =~ /\S/;
+        $code{$f[0]} = $f[1];
+    }
 }
 
 # ---- join -------------------------------------------------------------------
@@ -214,11 +237,11 @@ close $o;
 
 # ---- the one line that goes into <head> in place of <title> -----------------
 open my $ref, '>:encoding(UTF-8)', $REF or die "$REF: $!";
-print $ref <<'REF';
+print $ref <<"REF";
 <{* カテゴリページのタイトルは module「category_title」が出します。
-     移行前の605件をそのまま復元した表で、86KBあるためページ本体には
+     移行前の $n 件をそのまま復元した表で、86KBあるためページ本体には
      入れていません。→ package/modules/category_title.tpl *}>
-<{$module.category_title}>
+<{\$module.category_title}>
 REF
 close $ref;
 

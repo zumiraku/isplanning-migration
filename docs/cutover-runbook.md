@@ -129,7 +129,7 @@ CSVを入れないまま放置すれば、この55枚の中のリンクは404に
 
 | # | 貼るもの | 貼り先 | 理由 |
 |---|---|---|---|
-| 1 | `package/modules/category_title.tpl` | モジュール管理 → モジュール追加（管理用名称 `category_title`） | カテゴリ独自タイトル605件。これが無いとタイトルが消えます |
+| 1 | `package/modules/category_title.tpl` | モジュール管理 → モジュール追加（管理用名称 `category_title`） | カテゴリ独自タイトル606件。これが無いとタイトルが消えます |
 | 2 | `package/modules/footer.tpl` | モジュール管理 → 既存「フッター」を上書き | 3列グリッドに4項目、`h3` 指定に `h2` 出力。どちらも崩れます |
 | 3 | `templates/creator/mode/all-pages.css` | 全ページ共通 → CSS | `content:"▾"` が実体参照で出る件と、未定義の `var(--c-border)` |
 | 4 | `package/templates/top.tpl` | トップ | メガナビが全開になる件 |

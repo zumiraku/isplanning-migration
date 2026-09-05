@@ -26,7 +26,7 @@ mkdir -p "$out"
 
 # The shared <head> carries <title><{$page.title}></title>, which is right for
 # most pages. The category pages are the exception: クリエイターモード drops the
-# per-category title field, and 605 hand-written titles would go with it. Those
+# per-category title field, and 606 hand-written titles would go with it. Those
 # are restored from a table (_category-title.tpl), so a page type may hand in a
 # replacement for that one line.
 #

@@ -52,8 +52,8 @@ sub slurp {
     return $t;
 }
 
-my ($TPL, $SEO, $URLC, $REPORT) = @ARGV;
-die "usage: _check-category-title.pl <tpl> <seo.csv> <url.csv> <report.csv>\n"
+my ($TPL, $SEO, $URLC, $OVERRIDE, $REPORT) = @ARGV;
+die "usage: _check-category-title.pl <tpl> <seo.csv> <url.csv> <overrides.csv> <report.csv>\n"
     unless $REPORT;
 
 # ---- 1. render the template for every ct code it mentions -------------------
@@ -128,6 +128,16 @@ for my $l (@u) {
     next unless defined $f[4] && defined $f[1];
     next unless $f[1] =~ m{/view/category/(ct\d+)};
     $code{$f[4]} = $1;
+}
+# categories whose code is not a ct number, with the evidence for each
+{
+    my @o = split /\n/, slurp($OVERRIDE); shift @o;
+    for my $l (@o) {
+        next unless $l =~ /\S/;
+        my @f = fields($l);
+        next unless defined $f[1] && $f[1] =~ /\S/;
+        $code{$f[0]} = $f[1];
+    }
 }
 
 # ---- 3. what the report says was deliberately not restored ------------------

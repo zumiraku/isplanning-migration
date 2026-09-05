@@ -1,6 +1,6 @@
 #!/bin/sh
 # =============================================================================
-#  build-category-titles.sh — restore the 605 per-category page titles
+#  build-category-titles.sh — restore the 606 per-category page titles
 #
 #  クリエイターモードでは「カテゴリ設定」の独自タイトル欄が使えなくなります。
 #  C4 measured what that costs: 607 categories, 604 distinct titles, every one
@@ -24,7 +24,7 @@
 #     so the exact title for each ct code is known. Creator Mode puts <title>
 #     in our own template, and a conditional on $category.code - the same
 #     construct category.tpl already uses for the 53 per-category variants -
-#     emits it verbatim. 605 of 607, character for character, not 294.
+#     emits it verbatim. 606 of 607, character for character, not 294.
 #
 #  2. C35 is closed. $category.breadcrumb_list.list.name is confirmed in the
 #     reference, and the breadcrumb carries the ancestry, so the parent name IS
@@ -45,7 +45,7 @@
 #  is told about is not a fix.
 #
 #  --- output -----------------------------------------------------------------
-#    package/modules/category_title.tpl      the 605-branch table (a module)
+#    package/modules/category_title.tpl      the 606-branch table (a module)
 #    templates/creator/mode/_category-title.tpl   the one line <head> uses
 #    inventory/category-titles-report.csv    what was changed and what was not
 #
@@ -59,14 +59,15 @@ SEO=inventory/categories-seo-backup.csv
 URLC=package/url-bulk/categories-url.csv
 MODULE=package/modules/category_title.tpl
 REF=templates/creator/mode/_category-title.tpl
+OVERRIDE=inventory/category-code-overrides.csv
 REPORT=inventory/category-titles-report.csv
 
-for f in "$SEO" "$URLC"; do
+for f in "$SEO" "$URLC" "$OVERRIDE"; do
   [ -f "$f" ] || { echo "missing $f" >&2; exit 1; }
 done
 mkdir -p package/modules
 
-perl tools/_category-title.pl "$SEO" "$URLC" "$MODULE" "$REF" "$REPORT"
+perl tools/_category-title.pl "$SEO" "$URLC" "$OVERRIDE" "$MODULE" "$REF" "$REPORT"
 
 echo ""
 printf "  %-42s %8s bytes\n" "$MODULE" "$(wc -c < "$MODULE")"

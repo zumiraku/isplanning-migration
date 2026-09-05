@@ -122,7 +122,7 @@ and Search Console, and the client needs to know before Gate A.
 
 ### Q9 — What per-category custom titles and descriptions exist? `ANSWERED 2026-09-05`
 607 category pages, all captured in `inventory/categories-seo-backup.csv` before the
-switch. **The titles are no longer a loss** — 605 are restored character for
+switch. **The titles are no longer a loss** — 606 are restored character for
 character by `package/modules/category_title.tpl`, because the backup joins to the
 ct codes on the old /shopbrand/ URL and Creator Mode puts `<title>` in our own
 template. See C4. The 601 custom **descriptions** are still outstanding and can be
