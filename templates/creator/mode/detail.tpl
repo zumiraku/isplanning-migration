@@ -20,28 +20,31 @@
 
 <{* パンくず。商品は複数のカテゴリに属し得るので、Creator Mode の
      $item.breadcrumb_list_group は「経路の集まり」を返します。二重ループに
-     なるのはそのためで、is_base_category が付いているものが基本カテゴリです。
+     なるのはそのためで、is_base_category が基本カテゴリを示します。
 
      🔴 最初はカテゴリ側と同じ $item.breadcrumb_list と書いていました。存在
-        しないタグで、プレビューではパンくずが丸ごと消えていました。Smarty は
-        黙って捨てるので、エラーは出ません。実機で見なければ気づけない類の
-        誤りで、まさにそのために1枚だけ先に貼っていただきました。 *}>
-<{if $item.breadcrumb_list_group.has_item}>
+        しないタグで、パンくずが丸ごと消えていました。Smarty は黙って捨てる
+        ので、実機で見なければ気づけません。
+
+     そのうえで、常に「ホーム」から始めています。プレビューでは商品にカテゴリ
+     文脈が無く has_item が偽になり得ますし、基本カテゴリの指定が無い商品も
+     あり得ます。そのとき経路ごと消えるより、最低限ホームと商品名が出ている
+     ほうが、お客様にとってもクローラにとっても良い状態です。 *}>
 <nav class="breadcrumb" aria-label="現在位置">
-  <{section name=g loop=$item.breadcrumb_list_group.list}>
-    <{if $item.breadcrumb_list_group.list[g].is_base_category}>
-      <ol>
-        <{section name=i loop=$item.breadcrumb_list_group.list[g].list}>
-          <li>
-            <a href="<{$item.breadcrumb_list_group.list[g].list[i].url}>"><{$item.breadcrumb_list_group.list[g].list[i].name}></a>
-          </li>
-        <{/section}>
-        <li><span aria-current="page"><{$item.name}></span></li>
-      </ol>
+  <ol>
+    <li><a href="<{$url.top}>">ホーム</a></li>
+    <{if $item.breadcrumb_list_group.has_item}>
+      <{section name=g loop=$item.breadcrumb_list_group.list}>
+        <{if $item.breadcrumb_list_group.list[g].is_base_category}>
+          <{section name=i loop=$item.breadcrumb_list_group.list[g].list}>
+            <li><a href="<{$item.breadcrumb_list_group.list[g].list[i].url}>"><{$item.breadcrumb_list_group.list[g].list[i].name}></a></li>
+          <{/section}>
+        <{/if}>
+      <{/section}>
     <{/if}>
-  <{/section}>
+    <li><span aria-current="page"><{$item.name}></span></li>
+  </ol>
 </nav>
-<{/if}>
 
 <div class="pd">
 

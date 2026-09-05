@@ -11,8 +11,12 @@
      category page does not.
    ========================================================================== *}>
 
+<{* パンくず。先頭に「ホーム」を固定で置いています。276{v}.breadcrumb_list が
+     空でも、最低限ホームと現在地が出ている状態を保つためです。商品詳細側で
+     パンくずが丸ごと消えた経験を踏まえた作りです。 *}>
 <nav class="breadcrumb" aria-label="現在位置">
   <ol>
+    <li><a href="<{$url.top}>">ホーム</a></li>
     <{section name=i loop=$search.breadcrumb_list.list}>
       <li>
         <{if $search.breadcrumb_list.list[i].is_current}>
