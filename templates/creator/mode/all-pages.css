@@ -513,8 +513,11 @@ ul, ol { margin: 0; padding: 0; }
 
 .site-footer { margin-top: var(--s-12); background: var(--c-surface-2); border-top: 1px solid var(--c-rule); }
 .site-footer__cols { display: grid; gap: var(--s-6); padding-block: var(--s-8); grid-template-columns: 1fr; }
-@media screen and (min-width: 768px) { .site-footer__cols { grid-template-columns: repeat(3, 1fr); } }
-.site-footer h3 { font-size: var(--t-sm); margin-bottom: var(--s-3); color: var(--c-primary); }
+/* フッターは4列。左サイドバーを畳んだぶんの導線「粗品の選び方」を足したので
+   3列のままだと4つ目だけが次の行に落ちます。768〜960は2列で収めます。 */
+@media screen and (min-width: 768px) { .site-footer__cols { grid-template-columns: repeat(2, 1fr); } }
+@media screen and (min-width: 961px) { .site-footer__cols { grid-template-columns: repeat(4, 1fr); } }
+.site-footer h2, .site-footer h3 { font-size: var(--t-sm); margin-bottom: var(--s-3); color: var(--c-primary); }
 .site-footer ul { list-style: none; }
 .site-footer li { margin-bottom: var(--s-2); }
 .site-footer a { font-size: var(--t-sm); color: var(--c-ink-2); }
