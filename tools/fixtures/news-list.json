@@ -1,0 +1,18 @@
+{
+  "_note": "お知らせ3件・全100件・2ページ目を表示中",
+  "news": {
+    "has_item": true, "total_count": 100,
+    "list": [
+      { "title": "年末年始の休業について", "url": "/view/news/2412250900", "date": { "year": "2024", "month": "12", "day": "25" } },
+      { "title": "送料改定のお知らせ", "url": "/view/news/2410010900", "date": { "year": "2024", "month": "10", "day": "1" } },
+      { "title": "夏季休業のお知らせ", "url": "/view/news/2408010900", "date": { "year": "2024", "month": "8", "day": "1" } }
+    ],
+    "pager": { "has_item": true, "is_first": false, "is_last": false,
+      "first_url": "/view/news/list", "last_url": "/view/news/list?p=10",
+      "prev_url": "/view/news/list?p=1", "next_url": "/view/news/list?p=3",
+      "list": [ { "number": 1, "url": "/view/news/list?p=1", "is_current_page": false },
+                { "number": 2, "url": "/view/news/list?p=2", "is_current_page": true },
+                { "number": 3, "url": "/view/news/list?p=3", "is_current_page": false } ] }
+  },
+  "url": { "top": "/", "news": "/view/news/list" }
+}

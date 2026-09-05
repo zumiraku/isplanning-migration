@@ -1,0 +1,10 @@
+{
+  "_note": "お知らせ1件。前後の記事あり",
+  "news": {
+    "title": "年末年始の休業について",
+    "content": "<p>12月28日から1月5日まで休業いたします。</p>",
+    "date": { "year": "2024", "month": "12", "day": "25" },
+    "prev_url": "/view/news/2412200900", "next_url": "/view/news/2501060900"
+  },
+  "url": { "top": "/", "news": "/view/news/list" }
+}

@@ -1,0 +1,37 @@
+{
+  "_note": "商品3点・子カテゴリ2件・ページャ3ページ・おすすめ2件を持つカテゴリ",
+  "category": {
+    "code": "ct5", "name": "～49円まで", "image_url": "/img/cat.jpg",
+    "total_count": 366, "display_count": 46,
+    "sort_new_url": "/s1", "sort_recommend_url": "/s2", "sort_low_price_url": "/s3",
+    "sort_high_price_url": "/s4", "sort_name_url": "/s5",
+    "is_sort_new_selected": true,
+    "breadcrumb_list": { "list": [
+      { "name": "予算で選ぶ", "url": "/view/category/ct4", "is_current": false },
+      { "name": "～49円まで", "url": "/view/category/ct5", "is_current": true } ] },
+    "child_category": { "has_item": true, "list": [
+      { "name": "子1", "url": "/view/category/ct6" }, { "name": "子2", "url": "/view/category/ct7" } ] },
+    "item": { "list": [
+      { "name": "商品A", "url": "/view/item/1", "image_M": "/img/1.jpg", "price": "44円",
+        "original_code": "A-1", "is_soldout": false, "is_small_stock": false,
+        "cart_entry_url": "/cart/1", "favorite_entry_url": "/fav/1",
+        "icon": { "has_item": true, "list": [ { "image_url": "/icon/new.gif" } ] } },
+      { "name": "商品B", "url": "/view/item/2", "image_M": "/img/2.jpg", "price": "38円",
+        "original_code": "B-1", "is_soldout": true, "is_small_stock": false,
+        "cart_entry_url": "/cart/2", "favorite_entry_url": "/fav/2",
+        "icon": { "has_item": false, "list": [] } },
+      { "name": "商品C", "url": "/view/item/3", "image_M": "/img/3.jpg", "price": "49円",
+        "original_code": "C-1", "is_soldout": false, "is_small_stock": true,
+        "cart_entry_url": "/cart/3", "favorite_entry_url": "/fav/3",
+        "icon": { "has_item": false, "list": [] } } ] },
+    "pager": { "has_item": true, "is_first": true, "is_last": false,
+      "first_url": "/p1", "last_url": "/p8", "prev_url": "/p0", "next_url": "/p2",
+      "list": [ { "number": 1, "url": "/p1", "is_current_page": true },
+                { "number": 2, "url": "/p2", "is_current_page": false },
+                { "number": 3, "url": "/p3", "is_current_page": false } ] },
+    "recommend_item": { "has_item": true, "list": [
+      { "name": "おすすめ1", "url": "/view/item/9", "image_M": "/img/9.jpg", "price": "40円" },
+      { "name": "おすすめ2", "url": "/view/item/8", "image_M": "/img/8.jpg", "price": "45円" } ] }
+  },
+  "url": { "top": "/" }
+}

@@ -3,6 +3,9 @@
   "item": {
     "name": "ノック式ボールペン（色指定可）",
     "system_code": "003001000005",
+    "cart_entry_url": "/view/cart/add/003001000005",
+    "favorite_entry_url": "/view/favorite/add/003001000005",
+    "is_soldout": false,
     "image_L": "/img/main_L.jpg",
     "multi_image": { "has_item": false, "list": [] },
     "add_image": { "has_item": false, "list": [] },

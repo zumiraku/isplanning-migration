@@ -1,0 +1,35 @@
+{
+  "_note": "商品2点入りの買い物カゴ。1点はオプション付き、1点はまとめ買い割引対象",
+  "cart": {
+    "has_item": true,
+    "total_quantity": 3,
+    "total_price": "58,300円",
+    "total_tax": "5,300円",
+    "order_url": "/view/order",
+    "estimate_url": "/view/estimate",
+    "is_estimate_enabled": true,
+    "is_free_shipping_enabled": true,
+    "free_shipping_message": "あと5,000円で送料無料です",
+    "list": [
+      { "name": "ノック式ボールペン（色指定可）", "system_code": "003001000005",
+        "url": "/view/item/003001000005", "image_M": "/img/a.jpg",
+        "price": "27,500円", "total_price": "27,500円", "quantity": 1,
+        "quantity_id": "q1", "quantity_url": "/view/cart/qty/1",
+        "remove_url": "/view/cart/remove/1", "is_bulk": false,
+        "special_display": "", "bulk_name": "", "bulk_url": "",
+        "selected_option": { "has_item": true, "list": [ { "name": "色", "value": "青" } ] } },
+      { "name": "ご縁に感謝 ハンディモップ", "system_code": "000000022594",
+        "url": "/view/item/000000022594", "image_M": "/img/b.jpg",
+        "price": "15,400円", "total_price": "30,800円", "quantity": 2,
+        "quantity_id": "q2", "quantity_url": "/view/cart/qty/2",
+        "remove_url": "/view/cart/remove/2", "is_bulk": true,
+        "special_display": "まとめ買い対象", "bulk_name": "2個以上で5%引き",
+        "bulk_url": "/view/bulk/1",
+        "selected_option": { "has_item": false, "list": [] } }
+    ],
+    "bulk": { "has_item": true, "list": [ { "name": "2個以上で5%引き", "discount_price": "1,540円" } ] }
+  },
+  "recently_item": { "has_item": true, "list": [
+    { "name": "見たことのある商品", "url": "/view/item/1", "image_M": "/img/c.jpg", "price": "1,000円" } ] },
+  "url": { "top": "/" }
+}

@@ -3,6 +3,9 @@
   "item": {
     "name": "ご縁に感謝 ハンディモップ",
     "system_code": "000000022594",
+    "cart_entry_url": "/view/cart/add/000000022594",
+    "favorite_entry_url": "/view/favorite/add/000000022594",
+    "is_soldout": false,
     "image_L": "/img/main_L.jpg",
     "price_html": "25,740円(税込)",
     "multi_image": { "has_item": false, "list": [] },

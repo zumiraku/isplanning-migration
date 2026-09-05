@@ -136,8 +136,11 @@
   <p class="u-center">
     <a class="btn btn--primary" href="<{$url.top}>">粗品・景品をさがす</a>
   </p>
-  <h2 class="h-section" style="margin-top:var(--s-12)">最近チェックした商品</h2>
+  <{* 見出しは中身がある場合だけ。空のカゴでローカル描画したところ、
+       「最近チェックした商品」の見出しだけが出て下に何も無い状態でした。
+       初めて来た人のカゴが空のとき、まさにその状態になります。 *}>
   <{if $recently_item.has_item}>
+    <h2 class="h-section" style="margin-top:var(--s-12)">最近チェックした商品</h2>
     <ul class="rail">
       <{section name=r loop=$recently_item.list}>
         <li class="card">
