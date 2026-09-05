@@ -39,6 +39,7 @@ run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh
 run "category captions are complete"              sh tools/check-captions.sh
+run "605 category titles restored exactly"        sh tools/check-category-titles.sh
 run "internal links that the URL change breaks"   sh tools/inventory-internal-links.sh
 
 echo ""

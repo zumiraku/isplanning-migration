@@ -1,0 +1,3 @@
+﻿区分,ct番号,旧URL,内容,理由
+差し替え,"ct668","/shopbrand/ct668/","■■■","no letters or digits - falls back to the composed title"
+対象外,,"/shopbrand/all_items/","すべての商品","ct番号が振られていないページ。カテゴリではないため対象外"

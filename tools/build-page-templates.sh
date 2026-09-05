@@ -24,10 +24,39 @@ src="templates/creator/mode"
 out="package/templates"
 mkdir -p "$out"
 
+# The shared <head> carries <title><{$page.title}></title>, which is right for
+# most pages. The category pages are the exception: クリエイターモード drops the
+# per-category title field, and 605 hand-written titles would go with it. Those
+# are restored from a table (_category-title.tpl), so a page type may hand in a
+# replacement for that one line.
+#
+# If the line ever moves or changes shape, this must fail loudly rather than
+# quietly assemble a page with the wrong title on 606 URLs.
+swap_title() {
+  TF="$1" perl -e '
+    open my $f, "<:encoding(UTF-8)", $ENV{TF} or die "$ENV{TF}: $!";
+    my $t = do { local $/; <$f> };   # scoped: an unscoped $/ makes <STDIN> slurp too
+    close $f;
+    binmode STDOUT, ":encoding(UTF-8)";
+    my $n = 0;
+    while (my $l = <STDIN>) {
+      utf8::decode($l);
+      if ($l =~ m{^<title><\{\$page\.title\}></title>\s*$}) { print $t; $n++; }
+      else { print $l; }
+    }
+    die "build-page-templates.sh: the <title> line in _shell-head.tpl was not found\n"
+      if $n != 1;
+  '
+}
+
 assemble() {
-  page="$1"; body="$2"
+  page="$1"; body="$2"; titlefile="$3"
   {
-    cat "$src/_shell-head.tpl"
+    if [ -n "$titlefile" ]; then
+      swap_title "$src/$titlefile" < "$src/_shell-head.tpl"
+    else
+      cat "$src/_shell-head.tpl"
+    fi
     cat "$src/_shell-header.tpl"
     cat "$src/$body"
     cat "$src/_shell-main-end.tpl"
@@ -38,7 +67,7 @@ assemble() {
 
 echo "assembled:"
 assemble "top"           "top-body.tpl"
-assemble "category"      "category.tpl"
+assemble "category"      "category.tpl"      "_category-title.tpl"
 assemble "detail"        "detail.tpl"
 assemble "search"        "search.tpl"
 assemble "cart"          "cart-body.tpl"

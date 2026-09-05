@@ -120,8 +120,15 @@ and Search Console, and the client needs to know before Gate A.
 スマホ用商品詳細説明 and スマホ商品URL both stop working in Creator Mode. Across
 9,514 products, any SP-only copy is silently discarded at cutover unless merged first.
 
-### Q9 — What per-category custom titles and descriptions exist? `OPEN`
-607 category pages. Creator Mode disables per-category custom page titles. Export all
+### Q9 — What per-category custom titles and descriptions exist? `ANSWERED 2026-09-05`
+607 category pages, all captured in `inventory/categories-seo-backup.csv` before the
+switch. **The titles are no longer a loss** — 605 are restored character for
+character by `package/modules/category_title.tpl`, because the backup joins to the
+ct codes on the old /shopbrand/ URL and Creator Mode puts `<title>` in our own
+template. See C4. The 601 custom **descriptions** are still outstanding and can be
+restored the same way. Original note follows.
+
+Export all
 current values **before** the switch — once lost they cannot be recovered from the
 platform, only from our snapshot.
 

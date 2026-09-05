@@ -1,86 +1,118 @@
-# Reproducing the 607 category titles (C4 / Gate A decision A)
+# The 607 category page titles (C4 / C35)
 
-Creator Mode drops per-category custom page titles. All 607 are backed up in
-`inventory/categories-seo-backup.csv`, so nothing is lost — but they have to be
-reproduced, and the client is being asked to choose between generating them from
-a rule, setting the important ones by hand, or both.
+**Resolved 2026-09-05. 605 of 607 restored character for character.**
+Not reproduced from a rule — restored from the originals.
 
-He cannot choose sensibly on adjectives. `tools/analyse-category-titles.ps1`
-measures it. → `inventory/category-title-analysis.csv`
+## What was at stake
 
-## What the 607 titles actually look like
+Creator Mode removes the per-category title field in カテゴリ設定. 607 categories,
+604 distinct titles, hand-written over thirteen years, all of them gone at the
+moment the design set is applied. Sorting out page titles is one of the three
+things the client named in the brief, so leaving these to a default was never an
+option.
 
-The true category name comes from each page's own breadcrumb — the `<h1>` is
-useless because every page on the site carries the same one (S0-16).
+## What the plan used to be, and why it was wrong
 
-| | |
-|---|---:|
-| Titles containing their own category name | **591 of 607** |
-| Distinct shapes, once the parent name is substituted too | **53** |
-| Titles over 60 characters | **0** |
-
-**The dominant shape uses the parent category as well as the current one:**
-
-```
-{PARENT}の粗品通販ページ{CATEGORY}まで【粗品と景品の発見マーケット】
-```
-
-e.g. 傘 + 100円〜199円 → 「傘の粗品通販ページ100円〜199円まで【粗品と景品の発見マーケット】」
-
-## How far a rule gets
+The plan was to regenerate them from a rule. `tools/analyse-category-titles.ps1`
+measured how far that gets:
 
 | Rules | Titles reproduced exactly | |
 |---:|---:|---|
-| 1 | **294** of 607 | 48% |
-| 5 | **385** of 607 | 63% |
-| 10 | **456** of 607 | 75% |
+| 1 | 294 of 607 | 48% |
+| 5 | 385 of 607 | 63% |
+| 10 | 456 of 607 | 75% |
 
-The top five, with counts:
+and C35 recorded the rule's weak point: the dominant shape needs the **parent**
+category name, and the reference lists no `$category.parent` tag. If the parent
+name were unavailable, coverage collapsed to 27.
+
+Both halves of that were wrong.
+
+### 1. A rule was never necessary
+
+Two files already in this repository join on the same old `/shopbrand/` URL:
 
 ```
-294  {PARENT}の粗品通販ページ{CATEGORY}まで【粗品と景品の発見マーケット】
- 28  {PARENT}用品の粗品通販ページ{CATEGORY}まで【粗品と景品の発見マーケット】
- 27  {CATEGORY}の粗品通販ページ【粗品と景品の発見マーケット】
- 21  {PARENT}の粗品通販ページ{CATEGORY}以上【粗品と景品の発見マーケット】
- 15  パソコングッズの粗品の通販ページ {CATEGORY} 【発見マーケット】
+inventory/categories-seo-backup.csv   old URL -> the exact title
+package/url-bulk/categories-url.csv   old URL -> the new ct code
 ```
 
-The tail is mostly the same sentence with a different connector — 用品の, 製品の,
-な, no connector at all — which is drift from years of hand-editing rather than
-deliberate variety.
+The second of those was built for the URL一括設定 CSVs, for an entirely different
+reason. Together they give **the exact title for each ct code** — so there is
+nothing to approximate.
 
-## 🔴 The catch, and it decides the whole answer
+Creator Mode puts `<title>` inside our own template, and a conditional on
+`$category.code` — the same construct `category.tpl` already uses for the 53
+per-category variants — prints it verbatim.
 
-**The dominant rule needs the PARENT category name, not just the current one.**
+**605, character for character. Not 294.**
 
-If Creator Mode's title tag exposes only the current category, that one rule —
-covering 294 of 607, nearly half — cannot be implemented at all, and the
-achievable coverage drops to the shapes that use `{CATEGORY}` alone: 27 titles.
+### 2. C35 is closed, and stopped mattering
 
-**This has to be checked before the client is asked to choose.** Presenting
-「案A recovers most of them」 without knowing whether the parent name is available
-would be presenting a number we cannot deliver.
+`$category.breadcrumb_list.list.name` is confirmed in the reference, and the
+breadcrumb carries the whole ancestry. The parent is the entry before the
+current one, reachable as `index == total-2` without indexing by a variable —
+so the parent name was available all along.
 
-Where to check: the Creator Mode template variables for カテゴリページ, in
-ショップデザイン → テンプレート選択・編集 → クリエイターモード編集画面へ, or the
-manual's variable-tag list.
+It no longer decides anything. The composed title survives only as the
+`<{else}>` at the end of the chain, for categories added **after** the
+migration:
 
-## The 16 that contain no category name
+```
+<{else}><{section name=t loop=$category.breadcrumb_list.list}><{if $smarty.section.t.index == $smarty.section.t.total-2}>…
+```
 
-Those need a decision of their own — a rule cannot touch them, since there is
-nothing in the title to key on. They are listed in the analysis CSV with
-`contains_name = False`. Sixteen values pasted by hand is an hour's work, so this
-part is not the problem regardless of which option is chosen.
+Whether the platform's breadcrumb starts with ホーム is not verified, and a
+top-level category would then read 「ホームの粗品通販ページ…」. The fallback
+tests for that name explicitly. One comparison, and being right about it stops
+being necessary.
 
-## What this means for the recommendation
+## The two that are not restored
 
-Option C (rule + hand-set important ones) is still the right shape of answer, but
-the split depends entirely on the parent-name question:
+**ct668** — its title on the live site is `■■■`. Restoring that faithfully would
+be restoring a defect into a job whose brief says to fix page titles. It is
+dropped from the table and gets the composed title instead, and it is written
+into `inventory/category-titles-report.csv` — a content change nobody is told
+about is not a fix.
 
-| If the parent name IS available | If it is NOT |
-|---|---|
-| 1 rule → 294, 5 rules → 385, 10 → 456 | 1 rule → 27 |
-| Hand-set the remainder by traffic, using Search Console | Hand-setting becomes the main mechanism, and 607 rows is not an afternoon |
+**/shopbrand/all_items/** — 「すべての商品」. It has no ct code because it is not
+a category. This is also the "one category with no ct mapping" left open against
+the URL CSV: **no category was ever missing.**
 
-Either way the 607 originals are safe in the backup, and either way the client
-should hear the real numbers rather than a reassuring summary.
+## Why it is a module
+
+`package/modules/category_title.tpl` is 86KB. The largest box known to paste
+cleanly in this console is the 10KB `category_captions` module, so 86KB is eight
+times past anything proven.
+
+Inside `category.tpl` it would stake the whole category page — 606 URLs, the
+product grid, the pager, the tiles — on that size being accepted. As its own
+module, `category.tpl` stays at the ~10KB already known to work, and the only
+thing at risk is the title.
+
+The 【粗品と景品の発見マーケット】 suffix is on 574 of the 605, so it is written
+once outside the branches rather than 574 times. That alone is 22KB.
+
+## How it is checked
+
+`tools/check-category-titles.sh` does **not** look at the generator's working
+data. It reads the generated template back as text, walks the if/elseif chain
+the way Smarty would, reassembles what each branch prints including the folded
+suffix, and compares against the original CSV.
+
+```
+分岐の数            : 605
+元データと一致      : 605
+不一致              : 0
+```
+
+This is deliberate. The category caption check once reported 34/34 identical
+while 10 were truncated at a `<br>`, because it compared an extraction against
+the same extraction. Agreement between a program and itself is not evidence.
+
+## Still outstanding
+
+The **601 custom meta descriptions** are in the same backup and can be restored
+the same way. Not done yet. They belong in a separate module for the same
+reason the titles do — descriptions are longer, so the table would be larger
+than the titles one, and a failed paste should cost one thing rather than two.
