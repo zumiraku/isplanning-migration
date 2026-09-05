@@ -1,24 +1,16 @@
 /* ==========================================================================
    発見マーケット — デザインシステム
-   貼り付け先: クリエイターモード › 全ページ共通 › CSS の【末尾】
+   貼り付け先: クリエイターモード › 全ページ共通 › CSS
 
-   既存のCSS（FontAwesomeのimportとリセット）は消さず、その下に足してください。
-   理由が2つあります。
+   GENERATED - 直接編集しないでください。
+   Source : templates/creator/css/tokens.css + components.css
+   Build  : sh tools/build-all-pages-css.sh
 
-   1. まだ作り直していないページ（トップ、買い物カゴ、会員画面など）は、
-      Basicsのスタイルで表示され続けます。先に消すと、それらが素のHTMLに
-      戻ります。
-   2. CSSは同じ詳細度なら後に書いた方が勝ちます。末尾に置くことが、そのまま
-      「こちらの指定を優先する」という意味になります。
-
-   全ページの作り直しが終わった段階で、上のBasics由来のCSSは削れます。
-   その時点で消すのが正しく、今ではありません。
-
-   出典: templates/creator/css/tokens.css + components.css
+   Basics標準のCSSを残す場合はこの内容を【末尾】に、置き換える場合は
+   CSS欄を全選択してこれを貼ってください。まだ作り直していないページが
+   Basicsのスタイルに依存している間は、末尾に足すほうが安全です。
    ========================================================================== */
 
-@charset "UTF-8";
-@charset "UTF-8";
 /* =============================================================================
    isp-sp.com — design tokens
    Creator Mode rebuild. Source of truth for colour, type, spacing, layout.
@@ -138,7 +130,6 @@
   }
 }
 
-@charset "UTF-8";
 /* =============================================================================
    isp-sp.com — base + components
    Mobile-first. No framework, no jQuery. Depends on tokens.css.
@@ -788,7 +779,7 @@ a.spectable__state:hover { filter: brightness(0.97); text-decoration: none; }
   margin: 0 0 var(--s-6);
   padding: 0;
   list-style: none;
-  border-bottom: 2px solid var(--c-border);
+  border-bottom: 2px solid var(--c-rule);
 }
 .tabs__tab {
   appearance: none;
