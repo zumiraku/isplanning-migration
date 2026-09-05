@@ -81,6 +81,23 @@ assemble "policy"        "privacy-body.tpl"
 # The includes travel with them.
 cp "$src/category-captions.tpl" "$src/category-tiles.tpl" "$out/" 2>/dev/null
 
+# 🔴 package/modules/ は貼り付け用の写しです。ここを更新し忘れると、
+#    テンプレートを直したのに貼るファイルは古いまま、という事故になります。
+#    実際に起きました: カテゴリタイルのリンクを新URLに書き換えたあと、
+#    package/modules/category_tiles.tpl だけ旧URLのまま残っていました。
+#    以後はここで同期します。
+mkdir -p package/modules
+cp "$src/category-tiles.tpl"    package/modules/category_tiles.tpl
+cp "$src/category-captions.tpl" package/modules/category_captions.tpl
+cp "$src/_module-header.tpl"    package/modules/header.tpl
+echo ""
+echo "modules synced:"
+for m in category_tiles category_captions header; do
+  printf "  %-22s %7s バイト\n" "$m.tpl" "$(wc -c < "package/modules/$m.tpl")"
+done
+# footer.tpl は package/modules/ で直接書いています。生成元がありません。
+printf "  %-22s %7s バイト  (生成元なし。直接編集)\n" "footer.tpl" "$(wc -c < package/modules/footer.tpl)"
+
 echo ""
 echo "package : $out"
 echo ""

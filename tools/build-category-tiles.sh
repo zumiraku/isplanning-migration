@@ -48,3 +48,17 @@ echo ""
 echo "tiles written : $n   (the live page has 46)"
 echo "template      : $out"
 [ "$n" -eq 46 ] || { echo "  MISMATCH - the extraction missed some"; exit 1; }
+
+# --- リンクを新URLに書き換える -----------------------------------------------
+# 🔴 以前はここを /shopbrand/... のまま残していました。「URL一括設定で旧URLを
+#    再現できるか未検証だから」という理由でしたが、検証は済んでいます。
+#    切替後にしか投入できず、投入するまで404。フリーページの内部リンク379本は
+#    その結論を受けて /view/page/... に書き換えてあります。ここだけ残っていました。
+#
+#    このタイル46枚は、トップ・商品詳細のタブ・商品検索結果に出ます。
+#    **カテゴリへの主要な入口です。** リダイレクト頼みにする理由がありません。
+perl tools/_rewrite-tile-urls.pl package/url-bulk/categories-url.csv "$out"
+
+old=$(grep -c 'href="/shopbrand/' "$out" || true)
+echo "旧URLの残り  : $old"
+[ "$old" -eq 0 ] || { echo "  旧URLが残っています"; exit 1; }

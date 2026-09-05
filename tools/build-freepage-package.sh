@@ -82,3 +82,81 @@ echo "package        : $out"
 echo ""
 echo "被リンクの多い順:"
 sed 's/"//g' "$out/MANIFEST.csv" | awk -F, 'NR>1 && NR<=6{printf "  %2s 本  %-10s %s\n", $1, $3, substr($4,1,36)}'
+
+# --- 付属文書 -----------------------------------------------------------------
+# 🔴 このスクリプトは冒頭で out ディレクトリを rm -rf します。手で置いた
+#    ファイルは消えます。実際に PAGE-NAMES.md と REDO.txt を消しました。
+#    以後はここで作り直します。
+
+# ページ名の対応表。フリーページ編集の3つ目の入力欄に入れる値です。
+{
+  cat <<'HD'
+# フリーページ 82枚 — 3つの入力欄に入れるもの
+
+フリーページ編集の画面には入力するところが**3つ**あります。ID（ページURL）と
+本文だけではありません。
+
+| 欄 | 入れるもの |
+|---|---|
+| **ページURL** | `/view/page/` の右の欄に `pageNN.html`（例: `page9.html`）|
+| **ページ名** | 下の表の右列。**これが3つ目です** |
+| **ステータス** | 「公開」のまま |
+| **大きなHTML欄** | `package/freepages/pageNN.html` の全文 |
+
+ページ名は移行前のページ名そのままです。勝手に付けた名前ではありません。
+`inventory/freepages-admin-list.csv`（管理画面から取った一覧）の値です。
+
+**並び順は被リンクの多い順**です。上から進めると、途中で止まっても
+影響の大きいページから片付いた状態になります。
+
+| # | ページURL | ページ名 |
+|---:|---|---|
+HD
+  perl -ne '
+    next if $.==1;
+    my @f = /"([^"]*)"/g;
+    next unless @f >= 4;
+    $n++;
+    my $t = $f[3]; $t =~ s/\|/\|/g;
+    printf "| %d | `%s` | %s |\n", $n, $f[2], $t;
+  ' "$out/MANIFEST.csv"
+} > "$out/PAGE-NAMES.md"
+
+# 貼り直しが要るページ。内部リンクを持つものが対象です。
+{
+  cat <<'HD'
+# 貼り直したいフリーページ ── 切替前にやる必要はありません
+#
+# 内部リンクを新URLに書き換えたため、すでに貼ってあるものとは中身が違います。
+#
+#   /html/pageNN.html   -> /view/page/pageNN.html
+#   /shopbrand/…        -> /view/category/ctNNN
+#   /shopdetail/コード  -> /view/item/コード
+#
+# ■ 切替前の必須作業ではありません（2026-09-05）
+#
+#   URL一括設定のCSVが旧URLを「追加URL」として登録するので、いま入っている
+#   ページの中の旧リンクもそのまま到達できます。この貼り直しは「正規URLで
+#   直接リンクする」ための整理です。
+#
+#   ※ ただしCSVを入れないまま放置すると、これらのリンクは404になります。
+#
+# 被リンクの多い順です。着手するときは上から進めてください。
+#
+HD
+  perl -ne '
+    next if $.==1;
+    my @f = /"([^"]*)"/g;
+    next unless @f >= 4;
+    print "$f[2]\t$f[3]\n";
+  ' "$out/MANIFEST.csv" | while IFS="$(printf '\t')" read -r file name; do
+    if grep -q 'href="/view/' "$out/$file" 2>/dev/null; then
+      printf '%-14s %s\n' "$file" "$name"
+    fi
+  done
+} > "$out/REDO.txt"
+
+echo ""
+echo "付属文書:"
+printf "  %-16s %s 行\n" "PAGE-NAMES.md" "$(grep -c '' "$out/PAGE-NAMES.md")"
+printf "  %-16s %s 枚が対象\n" "REDO.txt" "$(grep -c '^page' "$out/REDO.txt")"
