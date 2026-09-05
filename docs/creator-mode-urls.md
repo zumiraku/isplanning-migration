@@ -138,3 +138,48 @@ seasonal categories (`/shopbrand/004/…` spring, `005` summer, `006` autumn,
 `007` winter). The page survives the switch. **Every link out of it does not**,
 unless the category URLs are preserved. A seasonal landing page whose links all
 404 is worse than no landing page, because it is still indexed.
+
+---
+
+## フリーページのURLは `/view/page/` 固定 — 実機で確認、2026-09-05
+
+`page82` を1枚だけ作って確かめました。フリーページ編集画面のURL欄はこうです。
+
+```
+ページURL   /view/page/ [ html/page82.html ]
+            /view/page/html/page82.html
+```
+
+**接頭辞 `/view/page/` は変えられません。** 編集できるのはその後ろだけです。
+
+つまり **現在の `/html/pageNN.html` は再現できません。** エラーで弾かれたのでは
+なく、動かせない部分があるという構造上の理由です。
+
+### 分かったこと
+
+- 後半には **スラッシュも `.html` も使えます**（`html/page82.html` が通った）
+- したがって、現行URLの「形」は保てるが「位置」は保てない
+
+### 決めたこと: 後半を `html/pageNN.html` にする
+
+`/view/page/html/page82.html` という形になります。冗長に見えますが、理由が
+3つあります。
+
+1. **旧→新の対応が機械的**になります。`/html/X` に `/view/page/` を足すだけで、
+   82ページ分の対応表が一意に決まります。例外が1つもありません
+2. **内部リンク646本の書き換えが、接頭辞の一括挿入で済みます。** ページごとの
+   判断が発生しません
+3. **サーバ側で転送を設定する場合も、規則1本で書けます**
+
+`page82` のような短い名前にすると見た目は綺麗ですが、82ページ分の対応表を
+人が作ることになり、間違えたときに気づけません。
+
+### まだ残る問題
+
+これで**フリーページ82件のURLが変わることが確定**しました。13年分の被リンクと
+検索評価がかかっています。残る望みは **URL一括設定**（機能一覧にある別機能、
+CSVで任意URLを付与できる）で、そちらで `/html/pageNN.html` を再現できるかを
+別途試す必要があります。
+
+フリーページ管理の画面で再現できないことと、URL一括設定で再現できないことは
+別の話です。まだ諦める段階ではありません。
