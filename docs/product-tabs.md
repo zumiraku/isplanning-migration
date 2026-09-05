@@ -215,3 +215,21 @@ templates that C28 already flags as having drifted from the standard one.
 
 **This is not something to fix quietly.** Which templates were missed is more
 useful to him than the edit itself, because he is the one who can check.
+
+## 実表示で確認 — 2026-09-05
+
+`https://www.isp-sp.com/view/item/003001000005?ptk=…`（プレビュー）
+
+| | |
+|---|---|
+| タブ切り替え | 押したパネルだけが出る。選択中のタブに緑の下線 |
+| 送料・類似品 | 送料表・注意書き・最近チェックした商品・同じグループの商品 |
+| 商品カテゴリー一覧 | **タイルが画像付きで並ぶ**（`$module.category_tiles` 生存） |
+| この商品のレビューを見る | レビュー枠・「レビューを書く」ボタン・「レビュー投稿がありません。」 |
+
+レビュー枠が出ているということは、`$makeshop.body_bottom` が効いていて
+プラットフォーム側のレビュー読み込みが走っています。C32 で「GA4は消えない」と
+書いた前提（必須タグを書いていること）も、あわせて成立しています。
+
+**ただしこれは JavaScript の実行順を直した後の状態です。** それ以前は3枚とも
+縦に並んだままでした（docs/console-map.md）。
