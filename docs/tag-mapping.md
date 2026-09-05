@@ -137,3 +137,51 @@ this belongs in the next message to him rather than in a release note.
 
 `[LIST]` is settled at the same time: `$category.breadcrumb_list.list[i].name`
 and `.url`, with `$search.breadcrumb_list` on the search page.
+
+---
+
+## 実機プレビューが直したもの — 2026-09-05
+
+テンプレートを1枚だけ先に貼り、プレビューで見たことで、リファレンスを読んだ
+だけでは分からなかった誤りが3つ出ました。**どれもエラーを出しません。**
+
+### 1. パンくずのタグ名
+
+```
+書いていたもの : $item.breadcrumb_list          存在しない
+正しいもの     : $item.breadcrumb_list_group    しかも二重ループ
+```
+
+商品は複数のカテゴリに属し得るので、詳細ページのパンくずは「経路の集まり」を
+返し、`is_base_category` が基本カテゴリを示します。カテゴリページの
+`$category.breadcrumb_list` をそのまま流用したのが誤りで、**それらしすぎて
+疑いませんでした**。
+
+### 2. `[ITEMCAPTION_1〜3]` は商品説明ではなかった
+
+`$item.description2〜4` に当てて、同じ仕様表が2回出ました。元テンプレートを
+読み直すと、そもそも役割が違います。
+
+```
+[ITEMCAPTION_1]  <dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]
+                 → 販売単位。数量欄の一部で、説明文ではない
+[ITEMCAPTION_2]  <div id="Item_detail_caption2">…追加画像説明文2
+[ITEMCAPTION_3]  <div id="Item_detail_caption3">…追加画像説明文3
+                 → 追加画像に付く説明
+```
+
+正しい対応先は **`$item.add_image.list[i].description`** です。名前が似ている
+ものを、中身を確かめずに結び付けていました。
+
+### 3. `$item.stock_quantity` は詳細ページに無い
+
+一覧側にはあります。詳細側のリファレンスには記載がなく、「在庫」の見出しの
+横が空になるだけなので、フラグ（`is_soldout`）だけを使う形に変えました。
+
+---
+
+**この3つは、リファレンスを何度読んでも見つかりません。** 1と3は「無いものを
+書いた」ので何も出ず、2は「あるものを間違った意味で書いた」ので二重に出ました。
+Smarty は前者を黙って捨て、後者を素直に実行します。
+
+11枚まとめて貼っていたら、同じ誤りを11回直すことになっていました。

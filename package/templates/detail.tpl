@@ -169,19 +169,39 @@
       </li>
     </ul>
 
-    <{* 商品説明と追加説明文。ベーシックの [ITEMCAPTION_1..4] の対応先が
-         $item.description / description2〜4 だと確認できました。
+    <{* 商品説明。$item.description ひとつだけです。
 
-         🔴 C24 がここに出ます。/shopdetail/000000023664/ など一部の商品は
-            この欄に商品ごとの独自CSSを直接書いています。トークンで組み直した
-            土台の上にそれが乗ると、意図しない見え方になり得ます。移行後に
-            該当商品を実機で確認してください。 *}>
+         🔴 最初は description2〜4 も並べて出していました。プレビューで同じ
+            仕様表が2回出て発覚。ベーシックの [ITEMCAPTION_1〜3] を「追加の
+            説明文」だと思い込んだのが誤りで、元テンプレートを読み直したら
+            そうではありませんでした。
+
+              [ITEMCAPTION_1]  <dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]
+                               → 販売単位。数量欄の一部で、説明文ではない
+              [ITEMCAPTION_2]  <div id="Item_detail_caption2">…追加画像説明文2
+              [ITEMCAPTION_3]  <div id="Item_detail_caption3">…追加画像説明文3
+                               → どちらも「追加画像に付く説明」
+
+            対応先は $item.description2〜4 ではなく
+            $item.add_image.list[i].description です。下の追加画像ブロックが
+            それにあたります。 *}>
     <div class="article">
       <{$item.description}>
-      <{if $item.description2}><{$item.description2}><{/if}>
-      <{if $item.description3}><{$item.description3}><{/if}>
-      <{if $item.description4}><{$item.description4}><{/if}>
     </div>
+
+    <{* 追加画像とその説明文。[ITEMCAPTION_2] [ITEMCAPTION_3] の対応先。 *}>
+    <{if $item.add_image.has_item}>
+      <div class="stack">
+        <{section name=a loop=$item.add_image.list}>
+          <figure>
+            <img src="<{$item.add_image.list[a].image_url}>" alt="" loading="lazy">
+            <{if $item.add_image.list[a].description}>
+              <figcaption class="tilecap"><{$item.add_image.list[a].description}></figcaption>
+            <{/if}>
+          </figure>
+        <{/section}>
+      </div>
+    <{/if}>
   </div>
 </div>
 
