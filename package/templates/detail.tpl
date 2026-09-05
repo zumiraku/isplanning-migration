@@ -91,28 +91,61 @@
   <{* サブ画像ギャラリー — the client asked for swipe on smartphone by name.
        The swipe itself is CSS scroll-snap in components.css, so every image is
        reachable with JavaScript off; js/gallery.js only keeps the thumbnails
-       and dots in step. C22. *}>
+       and dots in step. C22.
+
+       🔴 画像は2種類あります。両方入れないと、片方しか使っていない商品で
+          ギャラリーが1枚きりになります。2026-09-05 に実際にそうなりました。
+
+            $item.multi_image  拡大画像。image_L / image_S
+            $item.add_image    追加画像。image_url と description
+
+          商品 000000022594 は add_image を5枚持っていて multi_image は
+          空でした。ギャラリーが multi_image しか見ていなかったので、
+          スワイプするものが無く、追加画像は下のブロックに並ぶだけでした。
+          クライアントが名指しした2機能の片方が、丸ごと出ていませんでした。
+
+       data-gallery-slide に番号は書きません。スライドは2つのループから
+       出てくるので、Smartyでは変数なしに通し番号を続けられません。
+       gallery.js がDOM上の位置から数えるので、印だけ付ければ足ります。 *}>
   <div class="gallery" data-gallery>
     <div class="gallery__track" data-gallery-track>
-      <div class="gallery__slide" data-gallery-slide="0">
+      <div class="gallery__slide" data-gallery-slide>
         <img src="<{$item.image_L}>" alt="<{$item.name}>">
       </div>
       <{section name=m loop=$item.multi_image.list}>
-        <div class="gallery__slide" data-gallery-slide="<{$smarty.section.m.index_next}>">
+        <div class="gallery__slide" data-gallery-slide>
           <img src="<{$item.multi_image.list[m].image_L}>" alt="<{$item.name}>" loading="lazy">
+        </div>
+      <{/section}>
+      <{section name=a loop=$item.add_image.list}>
+        <div class="gallery__slide" data-gallery-slide>
+          <img src="<{$item.add_image.list[a].image_url}>" alt="<{$item.name}>" loading="lazy">
         </div>
       <{/section}>
     </div>
 
-    <{if $item.multi_image.has_item}>
+    <{* 点。スマホで「横に送れる」ことを伝える唯一の目印です。CSSは最初から
+         書いてありましたが、HTMLが無く一度も出ていませんでした。
+         768px以上では隠れます。 *}>
+    <{if $item.multi_image.has_item or $item.add_image.has_item}>
+      <div class="gallery__dots" aria-hidden="true">
+        <span data-gallery-dot data-active></span>
+        <{section name=dm loop=$item.multi_image.list}><span data-gallery-dot></span><{/section}>
+        <{section name=da loop=$item.add_image.list}><span data-gallery-dot></span><{/section}>
+      </div>
+
       <div class="gallery__thumbs">
-        <button type="button" class="gallery__thumb" data-gallery-thumb="0" aria-label="メイン画像">
+        <button type="button" class="gallery__thumb" data-gallery-thumb aria-label="メイン画像">
           <img src="<{$item.image_L}>" alt="" loading="lazy">
         </button>
         <{section name=t loop=$item.multi_image.list}>
-          <button type="button" class="gallery__thumb" data-gallery-thumb="<{$smarty.section.t.index_next}>"
-                  aria-label="サブ画像">
+          <button type="button" class="gallery__thumb" data-gallery-thumb aria-label="拡大画像">
             <img src="<{$item.multi_image.list[t].image_L}>" alt="" loading="lazy">
+          </button>
+        <{/section}>
+        <{section name=u loop=$item.add_image.list}>
+          <button type="button" class="gallery__thumb" data-gallery-thumb aria-label="サブ画像">
+            <img src="<{$item.add_image.list[u].image_url}>" alt="" loading="lazy">
           </button>
         <{/section}>
       </div>
