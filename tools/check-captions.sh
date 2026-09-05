@@ -1,0 +1,63 @@
+#!/bin/sh
+# check-captions.sh — are the 34 captions complete?
+#
+# The previous check compared the extraction against the same extraction run
+# over the source, declared 34/34 identical, and was worthless: it proved the
+# extractor is deterministic. Ten captions were truncated at their first <br>
+# and shipped into the shop that way.
+#
+# So this checks by a different route. For each caption in the generated
+# template, it takes the **last 12 characters** of the visible text and looks
+# for them in the raw source file. If the caption were cut short, its tail would
+# be some mid-sentence fragment that happens to sit before a tag - which still
+# appears in the source, so that alone is not enough.
+#
+# The decisive test is the second one: **what follows the caption in the source
+# must be </div>**, not more text. A truncated caption is one whose recorded
+# ending is followed by more prose in the file it came from.
+#
+# Needs Git Bash (perl). Run from the repository root.
+
+tpl="templates/creator/mode/category-captions.tpl"
+dir="templates/basic-export/design/design_categorypages"
+[ -f "$tpl" ] || { echo "no $tpl"; exit 1; }
+
+total=0; bad=0
+
+perl -CSD -0777 -ne '
+    while (/<\{(?:else)?if \$category\.code == "([^"]+)"\}>\s*<p class="catintro__lead">(.*?)<\/p>/gs) {
+      my ($code, $cap) = ($1, $2);
+      print "$code\t$cap\n";
+    }
+  ' "$tpl" | while IFS="	" read -r code cap; do
+  [ -z "$code" ] && continue
+  f="$dir/design_categorypage_$code.txt"
+  [ -f "$f" ] || { echo "  source missing: $code"; continue; }
+  total=$((total + 1))
+
+  # Does the caption, as recorded, run all the way to </div> in the source?
+  r=$(CAP="$cap" perl -CSD -0777 -ne '
+      use Encode; my $cap = Encode::decode_utf8($ENV{CAP});
+      my $h = $_;
+      $h =~ s/\s*\n\s*//g;
+      my $i = index($h, $cap);
+      if ($i < 0) { print "NOTFOUND"; }
+      else {
+        my $after = substr($h, $i + length($cap), 12);
+        print( $after =~ m{^\s*</div>} ? "OK" : "TRUNCATED:$after" );
+      }
+    ' "$f")
+
+  case "$r" in
+    OK) ;;
+    *) echo "  $code : $r"; bad=$((bad + 1)) ;;
+  esac
+done > /tmp/_capres.txt 2>&1
+
+cat /tmp/_capres.txt
+n=$(grep -c 'catintro__lead' "$tpl")
+b=$(wc -l < /tmp/_capres.txt)
+echo ""
+echo "captions checked : $n"
+echo "incomplete       : $b"
+[ "$b" -eq 0 ] && echo "every caption runs to </div> in its source file" || exit 1
