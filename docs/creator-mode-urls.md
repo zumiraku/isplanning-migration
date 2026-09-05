@@ -32,9 +32,18 @@ articles, 82 free pages and the system pages — every one of them indexed today
 ### This overturns two things we had written down
 
 - **Q4 said the news URLs stay put.** They do not. `/new/*.html` becomes
-  `/view/news/yymmddhhmmss`, and the new form is a timestamp, so the mapping is
-  not derivable from the old URL — it has to be read off the platform after the
-  switch. 100 URLs, all indexed since 2013.
+  `/view/news/YYYYMMDDHHMMSS`. ~~the new form is a timestamp, so the mapping is
+  not derivable from the old URL~~ — **that was wrong, and wrong because I never
+  looked at an old news URL.** They are `/new/2013-08-01-173816.html`. The old
+  URL *is* the timestamp; removing the hyphens gives the new one. All 101
+  verified against the live preview (2026-09-05), 100 articles returning 200 and
+  `/new/index.html` mapping to `/view/news/list`. Table in
+  `package/url-bulk/news-url.csv`.
+
+  The manual writes the new form as `yymmddhhmmss`. Reading `yy` as a
+  two-digit year produces `130801173816`, which 404s; the real path carries the
+  full year. `yy` there is shorthand for "year", not a digit count — and one
+  test of one URL would have shown it.
 - **The redirect map covers 1,100 URLs and treats product and category URLs as
   stable.** The real scope is the whole sitemap. What the map has done well —
   the 912 `/smartphone/` URLs — is still right and still needed, but it is now
