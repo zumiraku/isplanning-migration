@@ -1,0 +1,12 @@
+{
+  "_note": "サブ画像を持たない商品（ノック式ボールペン）。点もサムネイルも出てはいけない",
+  "item": {
+    "name": "ノック式ボールペン（色指定可）",
+    "system_code": "003001000005",
+    "image_L": "/img/main_L.jpg",
+    "multi_image": { "has_item": false, "list": [] },
+    "add_image": { "has_item": false, "list": [] },
+    "breadcrumb_list_group": { "has_item": false, "list": [] }
+  },
+  "url": { "top": "/" }
+}

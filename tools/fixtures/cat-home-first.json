@@ -1,0 +1,1 @@
+{"_note":"パンくずの先頭に「ホーム」が入る仕様だった場合。ホームを親として使ってはいけない","category":{"code":"ct998","name":"トップ直下カテゴリ","breadcrumb_list":{"list":[{"name":"ホーム","url":"/"},{"name":"トップ直下カテゴリ","url":"/y","is_current":true}]}}}

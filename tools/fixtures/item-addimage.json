@@ -1,0 +1,23 @@
+{
+  "_note": "実在する商品 000000022594 の形。追加画像5枚、拡大画像なし。この形でギャラリーが1枚きりになっていた",
+  "item": {
+    "name": "ご縁に感謝 ハンディモップ",
+    "system_code": "000000022594",
+    "image_L": "/img/main_L.jpg",
+    "price_html": "25,740円(税込)",
+    "multi_image": { "has_item": false, "list": [] },
+    "add_image": {
+      "has_item": true,
+      "list": [
+        { "image_url": "/img/add1.jpg", "description": "折りたたんでコンパクトに収納" },
+        { "image_url": "/img/add2.jpg", "description": "ホコリが上がりがちなデスク周りに" },
+        { "image_url": "/img/add3.jpg", "description": "棚の上やその隙間にも" },
+        { "image_url": "/img/add4.jpg", "description": "シートは市販のもので交換可能" },
+        { "image_url": "/img/add5.jpg", "description": "" }
+      ]
+    },
+    "breadcrumb_list_group": { "has_item": false, "list": [] },
+    "description": "<p>説明文</p>"
+  },
+  "url": { "top": "/" }
+}

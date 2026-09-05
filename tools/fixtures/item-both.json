@@ -1,0 +1,16 @@
+{
+  "_note": "拡大画像2枚と追加画像3枚の両方を持つ商品。2つのループが通し番号でつながるか",
+  "item": {
+    "name": "両方持つ商品",
+    "system_code": "999999999999",
+    "image_L": "/img/main_L.jpg",
+    "multi_image": { "has_item": true, "list": [
+      { "image_L": "/img/multi1.jpg" }, { "image_L": "/img/multi2.jpg" } ] },
+    "add_image": { "has_item": true, "list": [
+      { "image_url": "/img/add1.jpg", "description": "説明1" },
+      { "image_url": "/img/add2.jpg", "description": "説明2" },
+      { "image_url": "/img/add3.jpg", "description": "説明3" } ] },
+    "breadcrumb_list_group": { "has_item": false, "list": [] }
+  },
+  "url": { "top": "/" }
+}
