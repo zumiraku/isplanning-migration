@@ -30,7 +30,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
-MOD=package/modules/category_title.tpl
+MOD=contingency/category_title.tpl
 fail=0
 
 run() {

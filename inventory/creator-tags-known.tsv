@@ -256,4 +256,3 @@ $item.multi_image.list.image_S	confirmed	reference detail/index.html
 $item.add_image.list	confirmed	reference detail/index.html
 $item.add_image.list.image_url	confirmed	reference detail/index.html
 $item.add_image.list.description	confirmed	reference detail/index.html（[ITEMCAPTION_2] [ITEMCAPTION_3] の対応先）
-$module.category_title	confirmed	同上。カテゴリ独自タイトル605件の表（86KB）

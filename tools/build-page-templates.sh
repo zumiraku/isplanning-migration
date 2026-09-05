@@ -67,7 +67,7 @@ assemble() {
 
 echo "assembled:"
 assemble "top"           "top-body.tpl"
-assemble "category"      "category.tpl"      "_category-title.tpl"
+assemble "category"      "category.tpl"
 assemble "detail"        "detail.tpl"
 assemble "search"        "search.tpl"
 assemble "cart"          "cart-body.tpl"

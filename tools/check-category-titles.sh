@@ -9,7 +9,7 @@
 #     extraction. Agreement between a program and itself is not evidence.
 #
 #     So this check never looks at the generator's working data. It reads
-#     package/modules/category_title.tpl as text, walks the if/elseif chain the
+#     contingency/category_title.tpl as text, walks the if/elseif chain the
 #     way Smarty would - first matching branch wins - reassembles what each
 #     branch would print, INCLUDING the 【粗品と景品の発見マーケット】 suffix
 #     that was folded out of the branch bodies to save 22KB, and compares the
@@ -28,7 +28,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 perl -CS tools/_check-category-title.pl \
-  package/modules/category_title.tpl \
+  contingency/category_title.tpl \
   inventory/categories-seo-backup.csv \
   package/url-bulk/categories-url.csv \
   inventory/category-code-overrides.csv \

@@ -45,8 +45,8 @@
 #  is told about is not a fix.
 #
 #  --- output -----------------------------------------------------------------
-#    package/modules/category_title.tpl      the 606-branch table (a module)
-#    templates/creator/mode/_category-title.tpl   the one line <head> uses
+#    contingency/category_title.tpl      the 606-branch table (a module)
+#    contingency/_category-title-ref.tpl   the one line <head> uses
 #    inventory/category-titles-report.csv    what was changed and what was not
 #
 #  Run tools/check-category-titles.sh afterwards. It reads the generated
@@ -57,8 +57,8 @@ cd "$(dirname "$0")/.."
 
 SEO=inventory/categories-seo-backup.csv
 URLC=package/url-bulk/categories-url.csv
-MODULE=package/modules/category_title.tpl
-REF=templates/creator/mode/_category-title.tpl
+MODULE=contingency/category_title.tpl
+REF=contingency/_category-title-ref.tpl
 OVERRIDE=inventory/category-code-overrides.csv
 REPORT=inventory/category-titles-report.csv
 
