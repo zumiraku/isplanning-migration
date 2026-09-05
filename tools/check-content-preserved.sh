@@ -32,6 +32,12 @@ exceptions="inventory/approved-content-changes.csv"
 # check exists to avoid.
 norm() {
   perl -CSD -0777 -pe '
+      # Smarty タグを先に外します。<{$url.support}> のように属性値の中に > を
+      # 含むため、HTML としてタグを剥がす処理が途中で切れ、`">` が本文として
+      # 残ります。実ページでは Smarty が先に処理するので問題ありませんが、
+      # 変換前のファイルを HTML として読むこの検査からは見えてしまいます。
+      # 3ページ9行を「本文が壊れた」と報告したのがこれでした。
+      s/<\{.*?\}>//gs;
       s/<script.*?<\/script>//gsi;
       s/<style.*?<\/style>//gsi;
       s/<!--.*?-->//gs;

@@ -50,6 +50,11 @@ check_file() {
   perl -CSD -0777 -ne '
       my $html = $_;
       # Comments, scripts and styles can contain anything that looks like markup.
+      # Smarty タグを先に外します。属性値の中に > を含む <{$url.top}> のような
+      # 書き方があるため、HTML のタグ抽出が途中で切れます。いまのところ要素の
+      # 数え間違いは起きていませんが、同じ構造で本文チェックが3ページを誤検知
+      # したので、こちらにも入れておきます。
+      $html =~ s/<\{.*?\}>//gs;
       $html =~ s/<!--.*?-->//gs;
       $html =~ s/<script\b.*?<\/script>//gsi;
       $html =~ s/<style\b.*?<\/style>//gsi;
