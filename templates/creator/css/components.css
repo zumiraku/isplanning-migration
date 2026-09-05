@@ -88,7 +88,7 @@ ul, ol { margin: 0; padding: 0; }
 /* --- breadcrumb ---------------------------------------------------------- */
 .breadcrumb { font-size: var(--t-sm); color: var(--c-ink-3); padding: var(--s-3) 0; }
 .breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); list-style: none; }
-.breadcrumb li + li::before { content: "›"; margin-right: var(--s-2); color: var(--c-rule); }
+.breadcrumb li + li::before { content: "\203A"; margin-right: var(--s-2); color: var(--c-rule); }
 
 /* --- product card -------------------------------------------------------- */
 .card {
@@ -328,22 +328,26 @@ ul, ol { margin: 0; padding: 0; }
 .meganav__item > a,
 .meganav summary { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); min-height: var(--tap-min); padding: var(--s-2) 0; font-size: var(--t-md); font-weight: 700; color: var(--c-ink); cursor: pointer; list-style: none; }
 .meganav summary::-webkit-details-marker { display: none; }
-.meganav summary::after { content: "＋"; color: var(--c-primary); font-weight: 400; }
-.meganav details[open] > summary::after { content: "－"; }
+.meganav summary::after { content: "\FF0B"; color: var(--c-primary); font-weight: 400; }
+.meganav details[open] > summary::after { content: "\FF0D"; }
 .meganav__panel { padding: 0 0 var(--s-3); }
 .meganav__cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-2) var(--s-4); list-style: none; }
 .meganav__cols a { display: block; padding: var(--s-2) 0; font-size: var(--t-sm); color: var(--c-ink-2); }
 .meganav__cols a:hover { color: var(--c-primary); }
 
 @media screen and (min-width: 961px) {
-  .meganav__list { flex-direction: row; gap: var(--s-2); }
+  /* 46カテゴリを1行に並べると、ページ幅が9,000pxを超えて横に引き伸ばされます。
+     実際にそうなりました。折り返しと、パネルが親からはみ出さない指定が要ります。 */
+  .meganav__list { flex-direction: row; flex-wrap: wrap; gap: var(--s-1) var(--s-2); }
   .meganav__item { border-bottom: 0; position: relative; }
   .meganav__item > a,
   .meganav summary { padding-inline: var(--s-3); }
-  .meganav summary::after { content: "▾"; }
-  .meganav details[open] > summary::after { content: "▴"; }
+  .meganav summary::after { content: "\25BE"; }
+  .meganav details[open] > summary::after { content: "\25B4"; }
   .meganav details[open] > summary { color: var(--c-primary); }
-  .meganav__panel { position: absolute; inset-inline-start: 0; inset-block-start: 100%; z-index: 40; min-width: 34rem; padding: var(--s-5); background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: 0 0 var(--radius) var(--radius); box-shadow: var(--shadow); }
+  /* max-width で画面外へ出ないようにします。34rem 固定のままだと、右端の
+     カテゴリのパネルが画面からはみ出します。 */
+  .meganav__panel { position: absolute; inset-inline-start: 0; inset-block-start: 100%; z-index: 40; min-width: 24rem; max-width: min(34rem, calc(100vw - var(--container-pad) * 2)); padding: var(--s-5); background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: 0 0 var(--radius) var(--radius); box-shadow: var(--shadow); }
   .meganav__cols { grid-template-columns: repeat(3, 1fr); }
 }
 
@@ -478,7 +482,7 @@ ul, ol { margin: 0; padding: 0; }
   .carttable tr { display: grid; grid-template-columns: 72px 1fr; gap: 0 var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--c-rule); }
   .carttable td { border: 0; padding: var(--s-1) 0; }
   .carttable .carttable__media { grid-row: span 3; }
-  .carttable td[data-label]::before { content: attr(data-label) "："; font-size: var(--t-xs); color: var(--c-ink-3); margin-right: var(--s-1); }
+  .carttable td[data-label]::before { content: attr(data-label) "\FF1A"; font-size: var(--t-xs); color: var(--c-ink-3); margin-right: var(--s-1); }
   .carttable__empty, .carttable tr.is-empty { display: block; }
   /* Everything except the thumbnail belongs in the content column; without this
      the remove button lands in the 72px image track and wraps mid-word. */
