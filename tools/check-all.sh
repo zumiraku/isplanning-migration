@@ -40,6 +40,7 @@ run "CSS and templates line up"                   sh tools/check-css-coverage.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh
 run "tags match the official reference"           sh tools/check-against-reference.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh
+run "all 82 独自ページ are held"                    sh tools/check-freepage-coverage.sh
 run "category captions are complete"              sh tools/check-captions.sh
 run "gallery renders every sub-image"             sh tools/check-gallery.sh
 run "category titles render correctly"            sh tools/check-category-title-render.sh

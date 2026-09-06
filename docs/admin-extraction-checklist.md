@@ -37,9 +37,27 @@ and aliases. See [console-map.md](console-map.md). Search it for 独自ページ
 `ショップデザイン → 独自ページ`. The count of 120 came from the client and still
 needs confirming against that list itself — see the note at the end of console-map.md.
 
-**The list holds 82** (confirmed from the client's paste, 2026-09-03). The sitemap
-listed 83, we hold 80 of the 82, and only **page19 has never been
-seen** (page4 has a placeholder). See inventory/freepages-admin-list.csv.
+**The list holds 82** (confirmed from the client's paste, 2026-09-03).
+
+**CLOSED 2026-09-06 — we now hold all 82.** `comm` against
+`inventory/freepages-admin-list.csv` returns nothing in either direction: no page
+in the admin list is missing from `package/freepages/`, and no page in
+`package/freepages/` is absent from the admin list.
+
+The four the crawl could never reach came in by hand through `snapshot/manual/`
+and then went through the same converter as the rest:
+
+| Page | How it was blocked | Now |
+|---|---|---|
+| `page19.html` | not in the sitemap, no link the crawl could follow | 5,016 B, real body |
+| `page4.html` | held only as a placeholder | 11,449 B, real body |
+| `privacy.html` | **no ordinary link exists** — the footer opens it from JavaScript | recovered from the live page, 2,881 chars, built into `privacy-body.tpl` |
+| `email.html` | a system page, not a free page | `$url.support` — the platform owns the screen |
+
+🔴 The count of 120 came from the client and was never confirmed. **82 is what
+the admin list itself holds**, and that is what we build against. If 120 is real,
+then 38 pages exist that the client's own 独自ページ list does not show — which
+would be a fact about the console, not a gap in our coverage.
 
 The single most valuable thing from this screen is **the list itself**: names or
 numbers for all 120, however rough. That turns 37 unknowns into a finite list.
