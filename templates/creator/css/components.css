@@ -80,9 +80,6 @@ ul, ol { margin: 0; padding: 0; }
   display: inline-block; padding: 2px var(--s-2); border-radius: 2px;
   font-size: var(--t-xs); font-weight: 700; line-height: 1.6; white-space: nowrap;
 }
-.badge--sale    { background: var(--c-sale); color: #fff; }
-.badge--new     { background: var(--c-accent); color: #23300a; }
-.badge--naire   { background: var(--c-primary-light); color: var(--c-primary); }
 .badge--soldout { background: var(--c-soldout); color: #fff; }
 
 /* --- breadcrumb ---------------------------------------------------------- */
@@ -145,7 +142,6 @@ ul, ol { margin: 0; padding: 0; }
 .pricebox__label { font-size: var(--t-sm); color: var(--c-ink-2); }
 .pricebox__main { font-family: var(--f-num); font-size: var(--t-3xl); font-weight: 700; color: var(--c-sale); font-variant-numeric: tabular-nums; }
 .pricebox__main small { font-size: var(--t-sm); font-weight: 400; color: var(--c-ink-2); margin-left: var(--s-1); }
-.pricebox__sub { font-family: var(--f-num); font-size: var(--t-md); color: var(--c-ink-2); font-variant-numeric: tabular-nums; }
 .pricebox__note { margin: var(--s-3) 0 0; font-size: var(--t-sm); color: var(--c-ink-2); }
 
 /* --- option matrix -------------------------------------------------------
@@ -160,38 +156,11 @@ ul, ol { margin: 0; padding: 0; }
   background: var(--c-surface-2); border-bottom: 1px solid var(--c-rule);
   font-size: var(--t-sm); font-weight: 700; color: var(--c-ink-2);
 }
-.optmatrix__tier { display: block; padding: var(--s-3); }
-.optmatrix__tier + .optmatrix__tier { border-top: 1px solid var(--c-rule-soft); }
-.optmatrix__tier:nth-child(even) { background: var(--c-surface-2); }
-
-.optmatrix__facts { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-2); }
-.optmatrix__qty { font-family: var(--f-num); font-weight: 700; font-size: var(--t-md); }
-.optmatrix__unit,
-.optmatrix__total { font-family: var(--f-num); font-size: var(--t-sm); color: var(--c-ink-2); font-variant-numeric: tabular-nums; }
-.optmatrix__total strong { color: var(--c-sale); font-size: var(--t-md); }
-
-.optmatrix__colours { display: flex; flex-wrap: wrap; gap: var(--s-2); }
-.optswatch { position: relative; }
-.optswatch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-.optswatch span {
-  display: inline-flex; align-items: center; gap: var(--s-2);
-  min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
-  border: 1px solid var(--c-rule); border-radius: var(--radius);
-  background: #fff; font-size: var(--t-sm); cursor: pointer;
-  transition: border-color .12s var(--ease), background-color .12s var(--ease);
-}
-.optswatch i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.2); }
-.optswatch input:hover + span { border-color: var(--c-primary); }
-.optswatch input:focus-visible + span { box-shadow: var(--focus); }
-.optswatch input:checked + span { border-color: var(--c-primary); background: var(--c-primary-light); font-weight: 700; }
-.optswatch input:disabled + span { opacity: .45; cursor: not-allowed; text-decoration: line-through; }
 
 @media screen and (min-width: 768px) {
   .optmatrix__head,
   .optmatrix__tier { display: grid; grid-template-columns: 5.5rem 6rem 8rem 1fr; align-items: center; gap: var(--s-3); }
   .optmatrix__head { padding: var(--s-2) var(--s-3); }
-  .optmatrix__facts { display: contents; }
-  .optmatrix__colours { gap: var(--s-2); }
 }
 
 /* --- quantity stepper ---------------------------------------------------- */
@@ -241,20 +210,6 @@ ul, ol { margin: 0; padding: 0; }
 }
 .pager a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
 .pager [aria-current="page"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
-
-/* --- form ---------------------------------------------------------------- */
-.field { display: block; margin-bottom: var(--s-4); }
-.field__label { display: block; margin-bottom: var(--s-1); font-size: var(--t-sm); font-weight: 700; }
-.field__req { color: var(--c-sale); font-size: var(--t-xs); margin-left: var(--s-1); }
-.field input[type="text"], .field input[type="email"], .field input[type="tel"], .field textarea, .field select {
-  width: 100%; min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
-  border: 1px solid var(--c-rule); border-radius: var(--radius);
-  font-family: var(--f-body); font-size: 16px; /* 16px stops iOS zooming on focus */
-  background: #fff; color: var(--c-ink);
-}
-.field textarea { min-height: 8rem; resize: vertical; }
-.field__help { margin-top: var(--s-1); font-size: var(--t-sm); color: var(--c-ink-3); }
-.field__error { margin-top: var(--s-1); font-size: var(--t-sm); color: var(--c-error); font-weight: 700; }
 
 /* --- article (free-page archetype: 47 of 83 pages) ----------------------- */
 .article { max-width: 72ch; }
@@ -351,18 +306,7 @@ ul, ol { margin: 0; padding: 0; }
   .meganav__cols { grid-template-columns: repeat(3, 1fr); }
 }
 
-.trends { padding-block: var(--s-3); border-bottom: 1px solid var(--c-rule-soft); }
-.trends__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
-.trends__label { font-size: var(--t-xs); color: var(--c-ink-3); font-weight: 700; }
-.trends a { display: inline-flex; align-items: center; min-height: 32px; padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: 999px; font-size: var(--t-sm); color: var(--c-ink-2); background: var(--c-surface); }
-.trends a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
-
 .hero { background: var(--c-primary-light); }
-.hero__inner { display: grid; gap: var(--s-4); padding-block: var(--s-6); align-items: center; }
-.hero__copy h1 { font-family: var(--f-display); font-size: var(--t-2xl); color: var(--c-primary); margin-bottom: var(--s-3); }
-.hero__copy p { color: var(--c-ink-2); }
-.hero__slide { aspect-ratio: 16 / 9; background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: var(--radius); display: grid; place-items: center; color: var(--c-ink-3); font-size: var(--t-sm); }
-@media screen and (min-width: 961px) { .hero__inner { grid-template-columns: 5fr 7fr; gap: var(--s-8); padding-block: var(--s-10); } }
 
 .calendar { border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
 .calendar h3 { font-size: var(--t-md); margin-bottom: var(--s-3); }
@@ -541,52 +485,6 @@ ul, ol { margin: 0; padding: 0; }
 .card > a:hover { text-decoration: none; }
 .card > a:hover .card__name { color: var(--c-primary); }
 
-/* --- spectable: the per-product availability table ------------------------
-   Item_detail_caption2 on the live site: 販売単位 / 見積依頼 / 名入れ / 熨斗 /
-   包装, each with a state box. Present on 101 of the 102 sampled products, and
-   it answers the questions this shop's buyers actually ask - can I get it
-   name-printed, can it be gift-wrapped.
-
-   The original is a five-column <table> of coloured divs (box20 available,
-   box22 an action link, box23 unavailable) whose colours live in the stylesheet
-   that dies at the switch. Rebuilt as a grid so five cells reflow to two or
-   three on a phone instead of squeezing, and the state is carried by a label as
-   well as a colour.
-   ------------------------------------------------------------------------ */
-.spectable {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
-  gap: var(--s-2);
-  list-style: none;
-  margin: var(--s-5) 0;
-  padding: 0;
-}
-.spectable > li { margin: 0; text-align: center; }
-.spectable__label {
-  display: block;
-  font-size: var(--t-xs);
-  color: var(--c-ink-2);
-  margin-bottom: var(--s-1);
-}
-.spectable__label a { color: inherit; }
-.spectable__state {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--tap-min);
-  padding: var(--s-2);
-  border-radius: var(--radius);
-  border-top: 2px solid transparent;
-  font-size: var(--t-sm);
-  font-weight: 700;
-  line-height: var(--lh-tight);
-  text-decoration: none;
-}
-.spectable__state--yes { background: #f4f9e4; border-top-color: var(--c-accent); color: var(--c-ink); }
-.spectable__state--no  { background: var(--c-surface-2); border-top-color: var(--c-rule); color: var(--c-ink-3); }
-.spectable__state--act { background: #fdf7d8; border-top-color: #e2c94a; color: var(--c-ink); }
-a.spectable__state:hover { filter: brightness(0.97); text-decoration: none; }
-
 /* --- tilegrid: image tile + caption ---------------------------------------
    Moved here from freepage.css on 2026-09-03. It is no longer a free-page
    component: the product detail template's 商品カテゴリー一覧 tab is 46 of
@@ -691,4 +589,177 @@ a.spectable__state:hover { filter: brightness(0.97); text-decoration: none; }
     scrollbar-width: thin;
   }
   .tabs__tab { flex: 0 0 auto; scroll-snap-align: start; font-size: var(--t-sm); }
+}
+
+/* =============================================================================
+   スタイルの当たっていなかった12クラス — 2026-09-06
+
+   🔴 テンプレートが使っているのに、CSSに1行も無いクラスが12ありました。
+      tools/check-css-coverage.sh を書いて初めて分かりました。
+
+      いちばん影響が大きいのは `.pd` です。商品詳細ページの2カラム枠で、
+      これが無いと**9,534商品ページが、パソコンでも縦一列**になります。
+      写真の下に価格、その下にカートボタン。崩れて見えるわけではないので、
+      スクリーンショットでも気づけません。
+
+      「使っていないCSSは消してよい」というご依頼の裏返しで、**使っている
+      のに無いCSS**は誰も探していませんでした。
+   ========================================================================== */
+
+/* --- 商品詳細の2カラム ---------------------------------------------------- */
+/* スマホは1列。768px以上でギャラリーと商品情報を横に並べます。
+   ギャラリーを固定幅にせず 5fr:7fr にしているのは、商品名が長い商品が
+   多く、右側に文字を置く余裕が要るためです。 */
+.pd { display: grid; gap: var(--s-5); align-items: start; }
+@media screen and (min-width: 768px) {
+  .pd { grid-template-columns: 5fr 7fr; gap: var(--s-8); }
+}
+
+/* --- 営業日カレンダー（ct646）-------------------------------------------- */
+/* 2か月ぶんを横に並べます。狭い画面では縦。 */
+.calgrid { display: grid; gap: var(--s-4); }
+@media screen and (min-width: 600px) {
+  .calgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* --- ご利用ガイドの手順ブロック ------------------------------------------- */
+/* STEP1・STEP2… の見出しと本文。番号を目立たせて、続きがあることが
+   分かるように左に線を引いています。 */
+.flow { border-left: 3px solid var(--c-primary); padding: 0 0 0 var(--s-4); margin-bottom: var(--s-5); }
+.flow h4 {
+  font-size: var(--t-md); color: var(--c-primary); margin: 0 0 var(--s-2);
+  letter-spacing: .04em;
+}
+.flow > div > p:last-child { margin-bottom: 0; }
+
+/* --- リンクの並び --------------------------------------------------------- */
+.linklist { list-style: none; display: grid; gap: var(--s-1); margin: var(--s-2) 0; }
+.linklist li { margin: 0; }
+.linklist a { display: inline-block; padding: var(--s-1) 0; }
+
+/* --- 注意書き ------------------------------------------------------------- */
+/* 「※買い物カゴがご利用できない場合は…」のような but-read-this の一文。
+   色だけに頼らず、左の線と余白でも区別が付くようにしています。 */
+.u-alert {
+  border-left: 3px solid var(--c-sale);
+  background: var(--c-sale-light);
+  padding: var(--s-2) var(--s-3);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.u-alert:last-child { margin-bottom: 0; }
+
+/* 「※」で始まる補足。本文より小さく、少し薄く。 */
+.note-kome { font-size: var(--t-sm); color: var(--c-ink-2); }
+
+/* --- お知らせ ------------------------------------------------------------- */
+.newsmeta {
+  display: block; font-family: var(--f-num); font-size: var(--t-sm);
+  color: var(--c-ink-3); margin-bottom: var(--s-2);
+}
+/* 前後の記事と一覧へ戻る導線。3つを横に並べ、真ん中を中央に置きます。
+   前後どちらかが無い記事（最初と最後）でも中央が動かないよう、
+   space-between ではなく grid の3列にしています。 */
+.newsnav {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: var(--s-3);
+  margin-top: var(--s-8); padding-top: var(--s-5);
+  border-top: 1px solid var(--c-rule);
+}
+.newsnav__prev { grid-column: 1; justify-self: start; }
+.newsnav__next { grid-column: 3; justify-self: end; }
+.newsnav__prev, .newsnav__next { font-size: var(--t-sm); color: var(--c-ink-2); }
+.newsnav__prev::before { content: "\2039 "; }
+.newsnav__next::after  { content: " \203A"; }
+@media screen and (max-width: 599px) {
+  /* 狭い画面では3列だと文字が潰れるので、一覧へのボタンを下に落とします。 */
+  .newsnav { grid-template-columns: 1fr 1fr; }
+  .newsnav > .btn { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
+  .newsnav__next { grid-column: 2; }
+}
+
+/* --- カテゴリの説明文 ------------------------------------------------------ */
+/* .catintro の中に置かれる本文。1行が長くなりすぎないよう幅を止めます。 */
+.catintro__lead { margin: 0; font-size: var(--t-sm); color: var(--c-ink-2); max-width: 78ch; }
+.catintro__lead + .catintro__lead { margin-top: var(--s-2); }
+
+/* --- 小さなユーティリティ -------------------------------------------------- */
+.u-center { text-align: center; }
+.u-bold { font-weight: 700; }
+
+/* =============================================================================
+   お店が商品説明に直接書いているクラス — 2026-09-06
+
+   🔴 これが無いと、ほぼ全商品の仕様表から色が消えます
+
+   販売単位・見積依頼・名入れ・熨斗・包装の表は、こちらのテンプレートでは
+   なく**お店が「追加画像の説明文」欄にHTMLで書いています。** そのHTMLは
+   ベーシックモードのクラス名を使っています。
+
+     box20  可（薄い黄緑）
+     box22  リンク付き（薄い黄色）
+     box23  不可（グレー、文字も薄い）
+
+   定義はベーシックモードの m_sys_common.css にあり、**切替で消えます。**
+   消えると5つの枠が全部同じ見た目になり、「名入れできる／できない」が
+   区別できなくなります。101商品中101商品にこの表が入っています。
+
+   こちらの `.spectable` はこの表を作り直すつもりで書いたものでしたが、
+   HTMLを書いているのはお店なので、いつまでも出番が来ません。**お店に
+   9,534商品の説明文を書き換えてもらうより、こちらがCSSを引き取る方が
+   確実です。** 色は元のまま写しています。
+
+   出どころ: snapshot/assets/www.isp-sp.com_design_isplanning_m_sys_common.css
+   ========================================================================== */
+.box20, .box22, .box23 {
+  padding: .5em 1em;
+  margin: 6px 0;
+  display: inline-block;
+  border-top: solid 10px;
+}
+.box20 { color: #000; background: #f8ffdb; border-top-color: #cfed53; }
+.box22 { color: #000; background: #fcf5ae; border-top-color: #cfed53; }
+.box23 { color: #595858; background: #cfcfcf; border-top-color: #9c9c9a; }
+
+/* お店の書いた表が画面幅を超えたときに、ページごと横に流れないように。
+   5列の表がスマホの375pxに収まらないので、表だけを横スクロールさせます。
+   ここを入れないと、ページ全体に横スクロールバーが出ます。 */
+.tilecap table,
+.article table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- お店が商品説明に書いている旧クラス（続き）-------------------------------
+   保存済みの商品ページ102件を、**お店が書く欄だけ**に絞って調べた結果です。
+   ベーシックモードのCSSに定義があり、システム側のCSSには無いもの ──
+   つまり切替で見た目が落ちるものだけを引き取っています。
+
+   `nameprice` `cover` `cover1` `cover2` `gray` も使われていますが、
+   **現行サイトにも定義がありません。** いま既にスタイルが当たっていないので、
+   移行で失われるものはありません。書きません。
+
+   出どころは box20 と同じ m_sys_common.css です。値は変えていません。
+   -------------------------------------------------------------------------- */
+
+/* 商品説明中の赤字強調。30商品ほどで使われています。 */
+.syouhin_red { color: #ff2222; font-size: 120%; font-family: "Meiryo", var(--f-body); }
+
+/* 名入れ料金表の枠。30商品で使われています。 */
+.name2022 {
+  width: 100%; table-layout: fixed; text-align: center;
+  border-collapse: collapse; border-spacing: 0; background: #ceebbc;
+}
+
+/* 「※」を自動で付ける注記。 */
+.kome::before { content: "\203B"; }
+
+/* カテゴリタイルの説明帯。こちらのテンプレートでは .tilecap に付け替えて
+   いますが、お店が商品説明の中で直接使っている箇所が残っているため、
+   旧名でも同じ見た目になるようにしておきます。 */
+.textboxisp {
+  background-color: #f5f7f7;
+  padding: 10px; margin: 8px auto;
+  font-size: 14px; text-align: center;
 }
