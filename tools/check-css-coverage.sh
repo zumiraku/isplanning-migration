@@ -37,11 +37,26 @@ perl -CS -e '
   my $src = do { local $/; <$c> };
   close $c;
   $src =~ s{/\*.*?\*/}{}gs;                 # コメントの中は定義ではない
-  my %defined;
+  my (%defined, %subject);
   # セレクタ部分（{ の手前）だけを見ます
   while ($src =~ /([^{}]+)\{/g) {
     my $sel = $1;
     $defined{$1} = 1 while $sel =~ /\.([A-Za-z_][A-Za-z0-9_-]*)/g;
+
+    # 🔴 名前が出てくるだけでは「当たっている」ことになりません。
+    #    `.guide-item figure { … }` は figure を飾るだけで、
+    #    `.guide-item` そのものには何も当たりません。トップの6リンクが
+    #    <a class="guide-item"> だったので、素のテキストリンクのまま
+    #    並んでいました。**そのクラスが主語になっている規則があるか**を
+    #    別に数えます。カンマ区切りの各セレクタの、最後のかたまりを見ます。
+    for my $one (split /,/, $sel) {
+      $one =~ s/^\s+|\s+$//g;
+      next unless length $one;
+      my @compound = split /\s+|(?<=[>+~])\s*/, $one;
+      my $last = $compound[-1];
+      $last = "" unless defined $last;
+      $subject{$1} = 1 while $last =~ /\.([A-Za-z_][A-Za-z0-9_-]*)/g;
+    }
   }
 
   # ---- テンプレートで使われているクラス -------------------------------------
@@ -71,10 +86,21 @@ perl -CS -e '
     box20 box22 box23 syouhin_red name2022 kome textboxisp
   );
 
-  my (@missing, @unused);
+  # 子だけを飾るのが目的のクラス。自分自身には何も当たらなくて正しいものです。
+  #   .stack > * + *        中の要素どうしの間隔だけを作る
+  #   .tabs__panel > ...    パネル自身は入れ物で、表示/非表示は hidden 属性
+  # 追加するときは**理由を書いてから**にしてください。ここに入れれば報告が
+  # 止まるので、`.guide-item` のような本物の抜けも一緒に隠せてしまいます。
+  my %container_only = map { $_ => 1 } qw(
+    stack tabs__panel
+  );
+
+  my (@missing, @unused, @ancestor_only);
   for my $k (sort keys %used) {
     next if $platform{$k} || $k =~ $platform_re;
-    push @missing, $k unless $defined{$k};
+    if (!$defined{$k}) { push @missing, $k; next }
+    next if $container_only{$k};
+    push @ancestor_only, $k unless $subject{$k};
   }
   for my $k (sort keys %defined) {
     next if $platform{$k} || $k =~ $platform_re;
@@ -84,6 +110,17 @@ perl -CS -e '
 
   printf "CSSで定義 %d クラス / テンプレートで使用 %d クラス\n\n",
     scalar keys %defined, scalar keys %used;
+
+  if (@ancestor_only) {
+    print "🔴 CSSに名前は出るが、そのクラス自身には何も当たっていない
+";
+    print "    （`.x figure {…}` のように祖先としてしか書かれていない）
+";
+    printf "   %s
+", join("  ", @ancestor_only);
+    print "
+";
+  }
 
   if (@missing) {
     print "🔴 使っているのにCSSに無い（見た目が当たりません）\n";
@@ -103,5 +140,5 @@ perl -CS -e '
     print "OK  未使用のクラスなし\n";
   }
 
-  exit(@missing ? 1 : 0);
+  exit((@missing || @ancestor_only) ? 1 : 0);
 ' "$CSS" templates/creator/mode/*.tpl package/modules/*.tpl

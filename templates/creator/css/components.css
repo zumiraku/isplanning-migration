@@ -775,3 +775,31 @@ ul, ol { margin: 0; padding: 0; }
   line-height: var(--lh-normal);
   margin: var(--s-3) 0 var(--s-2);
 }
+
+/* --- はじめての方へ の導線 --------------------------------------------------
+   🔴 `.guide-item` は `.guide-item figure` のように**祖先としてしか**
+      書かれていませんでした。トップの6リンクは <a class="guide-item"> なので、
+      当たるものが1つもなく、素のテキストリンクが2列に並ぶだけでした。
+
+      クラス名がCSSに出てくれば「定義あり」と数えていたので、検査も
+      見逃していました。**祖先としてしか出てこないクラスも報告する**ように
+      直してあります（tools/check-css-coverage.sh）。
+
+   左サイドバーを畳んだぶんの入口なので、押せる面積を持たせます。
+   -------------------------------------------------------------------------- */
+a.guide-item {
+  display: flex; align-items: center;
+  min-height: var(--tap-min);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font-size: var(--t-md); font-weight: 500;
+  transition: border-color .15s var(--ease), background .15s var(--ease);
+}
+a.guide-item::after { content: "\203A"; margin-left: auto; color: var(--c-primary); }
+a.guide-item:hover {
+  border-color: var(--c-primary); background: var(--c-primary-light);
+  color: var(--c-primary); text-decoration: none;
+}
