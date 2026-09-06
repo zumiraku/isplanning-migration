@@ -116,7 +116,7 @@ untested; try it on page82 first, which is a spare.
 The open part is the URLs. If they differ from `/html/pageNN.html` we need
 internal link rewriting (418 `/html/` links are waiting on this), a new sitemap,
 and Search Console, and the client needs to know before Gate A.
-### Q8 — How many products carry SP-only description text or an SP-specific URL? `OPEN`
+### Q8 — How many products carry SP-only description text or an SP-specific URL? `MEASURED 2026-09-06`
 スマホ用商品詳細説明 and スマホ商品URL both stop working in Creator Mode. Across
 9,514 products, any SP-only copy is silently discarded at cutover unless merged first.
 
@@ -206,3 +206,44 @@ can answer that without granting anything.
 MakeShop is moving the option system from オプショングループ to カスタムセレクト. That may
 bear directly on how the Stage 4 option UI should be rebuilt — worth investigating once
 商品管理 is unlocked, since the current 3x7 matrix sits on the old model.
+
+### Q8 追記 — 実測 2026-09-06
+
+スマホ版とPC版の商品ページを**8商品で突き合わせました。**
+
+```
+/smartphone/detail.html?id=CODE   と   /shopdetail/CODE/
+```
+
+SP版の本文を30字ずつに切って、PC版に含まれるかを調べたところ、
+**38〜44%が「PC版に無い」**と出ました。中身を見ると全部これでした。
+
+```
+トレンドキーワード / 熱中症・暑さ対策 / そうめん / 敬老の日 …
+カテゴリー一覧 / 季節で選ぶ / 予算で探す …
+インフォメーション / 利用ガイド / 会社概要 / 特定商取引法 …
+休業日のお知らせ：12月27日（土）〜1月4日（日）まで
+品番：MD18-3521 単価35円（税別）1200個入46,200円(税込)
+```
+
+**すべてSPサイト側のナビゲーションと価格の表示形式です。商品説明の文章は
+1つもありませんでした。** SP版の本文はPC版より短く（約4,000字 対 約5,100字）、
+「SP専用の追加文章」がある形ではありません。
+
+### つまり
+
+**8商品の範囲では、スマホ専用の商品説明は使われていません。**
+
+### ただし8件は8件です
+
+9,534商品のうち8件です。「スマホ用商品詳細説明」は商品ごとに設定する項目
+なので、一部の商品だけで使われている可能性は残ります。SP商品ページは
+クロールで110件しか拾えておらず、全件を取得するのは店舗への負荷が見合いません。
+
+### 確定させる方法
+
+**管理画面の商品CSVダウンロード**に「スマホ用商品詳細説明」の列があります。
+1回の書き出しで9,534商品すべてについて確定します。空でない行を数えるだけです。
+
+こちらからは実行できません（管理画面の操作にあたるため）。**移行の可否を
+左右する項目ではありませんが、書き出していただければ数分で判定できます。**
