@@ -46,6 +46,7 @@ run "category titles render correctly"            sh tools/check-category-title-
 run "every page type renders"                     sh tools/check-render-all.sh
 run "606 category titles restored exactly"        sh tools/check-category-titles.sh
 run "internal links that the URL change breaks"   sh tools/inventory-internal-links.sh
+run "every internal link has a target"            sh tools/check-internal-links.sh
 
 echo ""
 echo "=============================================================="
