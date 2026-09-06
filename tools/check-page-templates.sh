@@ -64,5 +64,35 @@ for f in "$dir"/*.tpl; do
 done
 
 echo ""
-[ "$fail" -eq 0 ] && echo "all page templates are complete documents" || echo "SOMETHING IS INCOMPLETE"
-exit $fail
+
+# --- 見出しの構造 -------------------------------------------------------------
+# 🔴 トップページに <h1> がありませんでした。
+#    商品もカテゴリも1つずつ入っているのに、**サイトでいちばん重要なページ
+#    だけ0**。実サイトのHTMLを数えて初めて分かりました。S0-16 で「全ページが
+#    同じ h1 を出している」のを直したとき、トップからも消していました。
+#    他のページでは正しい修正でしたが、トップにとってはあれが正しい h1 でした。
+#
+#    1ページに h1 は1つ。0でも2つ以上でも報告します。
+echo ""
+echo "見出し:"
+h1fail=0
+for f in package/templates/*.tpl; do
+  case "$(basename "$f")" in category-captions.tpl|category-tiles.tpl) continue;; esac
+  n=$(perl -CS -0777 -ne 's{<\{\*.*?\*\}>}{}gs; my $c = () = /<h1\b/g; print $c' "$f")
+  if [ "$n" = "1" ]; then
+    printf "  %-22s h1 %s\n" "$(basename "$f")" "$n"
+  else
+    printf "  %-22s h1 %s   🔴\n" "$(basename "$f")" "$n"
+    h1fail=1
+  fi
+done
+if [ "$h1fail" -ne 0 ]; then
+  echo ""
+  echo "  h1 は1ページに1つです。0だと文書に主題がなく、2つ以上だとどれが"
+  echo "  主題か決まりません。"
+  exit 1
+fi
+
+echo ""
+[ "$fail" -eq 0 ] && [ "$h1fail" -eq 0 ] && echo "all page templates are complete documents" || echo "SOMETHING IS INCOMPLETE"
+exit $(( fail + h1fail ))

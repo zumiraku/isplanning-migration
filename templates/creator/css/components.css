@@ -763,3 +763,15 @@ ul, ol { margin: 0; padding: 0; }
   padding: 10px; margin: 8px auto;
   font-size: 14px; text-align: center;
 }
+
+/* トップページの h1。現行サイトと同じく、ページ最上部の控えめな一行として
+   出します。見出しとしての大きさは要りません ── 主役はメインビジュアルで、
+   これは「このサイトが何か」を文書として持たせるための行です。
+   非表示にはしません。読み上げにも検索にも、目で読む人にも同じものを出します。 */
+.h-lede {
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--c-ink-2);
+  line-height: var(--lh-normal);
+  margin: var(--s-3) 0 var(--s-2);
+}
