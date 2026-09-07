@@ -993,3 +993,86 @@ setActive(Number(entries[e].target.getAttribute('data-gallery-slide')));
 
 `全ページ共通 › JavaScript` の**こちらのブロック**を貼り直す必要があります。
 404行 → 409行。見積フォームの品番の修正が入っていないためです。
+
+## 実サイトで確認 — 2026-09-07（貼り直し後）
+
+`全ページ共通` の CSS・JavaScript と、テンプレート3枚を貼り直したあと、
+プレビューで**実際に配信されているもの**を取得して検査しました。
+
+### プレビューにはセッションのCookieが要ります
+
+最初、トークンだけ付けて取得したら 301 で通常ページへ転送され、
+EUC-JP のベーシックモードが返りました。**「トークンが期限切れ」と判断
+しましたが、違いました。**
+
+```
+ptk だけ            → 301 → ベーシックモード（charset=EUC-JP、jQuery 8本）
+ptk + Cookie        → 200 → クリエイターモード
+```
+
+要るのは `tempid` / `identify` / `isplanning_mssvti` / `mspbk` / `db=isplanning`。
+**同じURLが、Cookieの有無で別のモードを返します。** 中身を見ずに
+「トークンが古い」と言ったのは早すぎました。
+
+### 単価順 — `?sort=product` でした
+
+```html
+<nav class="listbar__sort" aria-label="並び替え">
+    <span>並び替え：</span>
+    <a href="/view/category/all_items?sort=order" aria-current="true">新着順</a>
+    <a href="/view/category/all_items?sort=recommend">おすすめ順</a>
+    <a href="/view/category/all_items?sort=product">単価順</a>
+    <a href="/view/category/all_items?sort=price">価格が安い順</a>
+    <a href="/view/category/all_items?sort=price_high">価格が高い順</a>
+    <a href="/view/category/all_items?sort=brandname">商品名順</a>
+  </nav>
+```
+
+`$category.sort_manufacturer_url` が返すのは **`?sort=product`**。ベーシックの
+`[SORTPRODUCT]` と同じパラメータです。**対応が推測ではなく実物で確定しました。**
+未展開タグ0、空href 0、空src 0。
+
+### 配信されているCSS・JavaScript
+
+| | 貼ったもの | 配信 | 差 |
+|---|---:|---:|---|
+| CSS | 3,283行 | 3,284行 | プラットフォームが `@charset "UTF-8";` を先頭に足す |
+| JavaScript | 477行 | 477行 | 同じ |
+
+内容の差は、**コメントの中の記号が実体参照になっているだけ**でした
+（`— → &#8212;`、`› → &#8250;`、`🔴 → &#128308;`）。規則にもコードにも
+影響しません。
+
+🔴 `@charset` が `@import` の**前**に入りました。これは正しい並びです
+（`@charset` は最初、`@import` はその次まで許されます）。`make-paste-file.js`
+の @import 検査は `@charset` を読み飛ばすように書いてあるので、ここで
+誤検知しません。
+
+なお**今回は末尾に33行の追記がありませんでした。** 以前 商品詳細 で測った
+ときはありました。ページ種別で違うものが足されるようです。
+
+### レスポンシブ — 実配信のHTMLとCSSで測定
+
+| 画面幅 | 横はみ出し | 並び替えの行数 |
+|---:|---|---|
+| 320px | **なし**（310） | 3行 |
+| 375px | **なし**（365） | 3行 |
+| 768px | **なし**（758） | 3行 |
+| 1024px | **なし**（1014） | **1行** |
+| 1280px | **なし**（1270） | **1行** |
+
+`flex-wrap` を入れる前は 320px で 520px ぶんの幅がありました。**入れなければ
+今日ここで崩れていました。**
+
+### 選択中の並び替えが、初めて見えました
+
+```
+選択中の背景 = rgb(0, 124, 90)   ブランドの緑
+```
+
+テンプレートは最初から `aria-current="true"` を出していましたが、CSSが無く
+一度も表示されていませんでした。
+
+### 商品カード
+
+**カード40件すべてに品番が出ています**（`.card__code` 40件）。
