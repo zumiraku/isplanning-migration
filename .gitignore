@@ -36,3 +36,8 @@ snapshot/refetch/
 # Basics 側の控えは templates/basics-stock/ にあります。
 /box.js
 /box.css
+
+# コンソールから取得した検査用のHTML。作業のたびに置き換わります。
+/.h.html
+/.d.html
+/.s.html
