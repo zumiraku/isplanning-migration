@@ -1,0 +1,3282 @@
+@import url(//use.fontawesome.com/releases/v5.0.11/css/all.css);
+/*---------------------------------
+reset
+---------------------------------*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  list-style-type: none; 
+}
+body {
+  line-height: 1;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+del {
+  text-decoration: line-through;
+}
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0;
+}
+input, select {
+  vertical-align: middle;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+.bx-wrapper {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-height: 500px;
+}
+@media (min-width: 751px) {
+  a[href*="tel:"] {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+  }
+}
+/*---------------------------------
+base
+---------------------------------*/
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: normal;
+  scroll-behavior: smooth;
+  color: #000;
+}
+a {
+  color: #6E6E6E;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  opacity: .7;
+}
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.main {
+  width: 100%;
+  margin: 0 auto;
+}
+.contents-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 8px;
+}
+.item-title-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 200px 8px 0 8px;
+}
+.item-title-wrap span {
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.item-title {
+  color: #6E6E6E;
+  font-size: 32px;
+  font-weight: 400;
+}
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  padding: 60px 0 20px;
+  line-height: 1.6;
+}
+.contents-wrap p {
+  line-height: 2.4em;
+}
+.contents-section h3 {
+  font-size: 20px;
+  padding-bottom: 24px;
+}
+/*---------------------------------
+button
+---------------------------------*/
+.btn-wrap {
+  text-align: center;
+}
+.btn {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  color: #6E6E6E;
+  border: 1px solid #6E6E6E;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 54px;
+  outline: none;
+  border-radius: 5px;
+}
+.btn {
+  display: inline-block;
+  width: 200px;
+  height: 54px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 54px;
+  outline: none;
+}
+.btn::before, .btn::after {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  content: '';
+}
+.btn, .btn::before, .btn::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.btn:hover {
+  background: #6E6E6E;
+  color: #fff;
+  text-decoration: none;
+  opacity: .8;
+}
+.product-list-btn {
+  width: 230px;
+}
+/*---------------------------------
+cart-button
+---------------------------------*/
+.add-btn {
+  background: #af4233;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  border-radius: 3px;
+}
+.add-btn:hover {
+  background: #EB503C;
+}
+.outstock-btn {
+  background: #989898;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  width: 60%;
+  border-radius: 3px;
+  padding: 24px;
+}
+.outstock {
+  color: #fff;
+  display: inline-block;
+  border-radius: 2px;
+}
+.sold-btn {
+  background: #adadad !important;
+}
+.sold-btn:hover {
+  background: #989898 !important;
+}
+.cart-btn {
+  display: inline-block;
+  border-radius: 2px;
+  width: 100%;
+  padding: 24px;
+}
+.add-btn a {
+  color: #fff;
+  text-decoration: none;
+}
+.add-btn a:hover {
+  opacity: 1;
+}
+.add-btn-right {
+  width: 24%;
+}
+.cart-option-area {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.cart-option-area span {
+  display: block;
+}
+.sell-period-btn {
+  background: #adadad !important;
+}
+.sell-period-btn p {
+  color: #fff;
+}
+/*---------------------------------
+header
+---------------------------------*/
+header {
+  z-index: 999;
+}
+.header a:hover {
+  text-decoration: none;
+}
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+}
+.top-bar {
+  z-index: 999;
+  margin: 0;
+  background: #fff;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.4);
+}
+@-moz-document url-prefix() {
+  .top-bar {
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+  }
+}
+.header-inner:first-child {
+  border-bottom: 1px solid #eee;
+}
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 40px;
+}
+.shop-logo {
+  margin: 0 16px 0 0;
+}
+.shop-logo a {
+  display: flex;
+  align-items: center;
+}
+.shop-logo img {
+  max-height: 30px;
+}
+.shop-logo span {
+  font-weight: 400;
+  color: #000;
+  padding-left: 10px;
+}
+.nav {
+  display: flex;
+}
+
+.drop-arrow {
+  margin-left: 6px;
+}
+.nav-item a {
+  padding: 0 14px;
+  vertical-align: -webkit-baseline-middle;
+  color: #000;
+  font-weight: 700;
+}
+.second-nav {
+  display: flex;
+}
+.second-nav li span {
+  padding: 8px 14px;
+}
+.second-nav li a, .search-icon span {
+  color: #000;
+}
+.second-nav img {
+  display: block;
+  margin: 0 auto 6px;
+}
+.nv-dropdown:active .drop-arrow {
+  transform: rotate(180deg);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.nv-dropdown:checked {
+  transform: rotate(180deg);
+}
+.sp-nav-wrap {
+  display: none;
+}
+.sp-second-nav-wrap {
+  display: none;
+}
+span.cart-badge {
+  background: #EB503C;
+  color: #fff;
+  padding: 5px 7px !important;
+  font-size: 10px;
+  font-family: 'Noto Sans JP', sans-serif;
+  border-radius: 10px;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+}
+/*---------------------------------
+header-dropmenu
+---------------------------------*/
+.navigation ul li a {
+  transition-property: border;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+.navigation > ul > li {
+  text-align: center;
+}
+.navigation .drop-nv-wrap {
+  display: none;
+  position: absolute;
+  top: 36px;
+}
+.nav-item:first-child {
+  margin-right: 16px;
+}
+.nav-item:first-child a {
+  padding-left: 0;
+}
+.navigation .drop-nv-wrap ul {
+  line-height: 1.4em;
+  padding: 30px 0;
+  overflow: scroll;
+  overflow-x: auto;
+  max-height: 80%;
+  position: fixed;
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px #777;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+  box-shadow: none;
+}
+.navigation .drop-nv-wrap ul li {
+  text-align: left;
+  margin: 12px 32px 0 0 !important;
+  padding-left: 15px;
+}
+.navigation .drop-nv-wrap ul li a {
+  padding: 0 0 0 12px !important;
+  display: inline-block;
+}
+.dropdown-menu-list a:hover {
+  text-decoration: underline !important;
+}
+.dropdown-menu-list a:before {
+  content: "-";
+  padding-right: 6px;
+  vertical-align: text-top;
+  font-weight: bold;
+}
+.article-title, .article-title-pc {
+  position: relative;
+}
+.article-title:after {
+  content: "";
+  position: absolute;
+  right: -15px;
+  top: 20%;
+  transition: all 0.2s ease-in-out;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: solid 2px #6E6E6E;
+  ;
+  border-right: solid 2px #6E6E6E;
+  ;
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+.article-title-pc:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 9px;
+  transition: all 0.2s ease-in-out;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-top: solid 2px #000;
+  ;
+  border-right: solid 2px #000;
+  ;
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+@-moz-document url-prefix() {
+  .article-title-pc:after {
+    top: 3px;
+  }
+}
+.article-title.open:after, .article-title-pc.open:after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 57%;
+}
+@-moz-document url-prefix() {
+  .article-title.open:after, .article-title-pc.open:after {
+    top: 44%;
+  }
+}
+/*---------------------------------
+header-serch
+---------------------------------*/
+.sp-header {
+  display: none;
+}
+.search {
+  float: right;
+  position: relative;
+}
+.search-box {
+  margin: 0;
+  float: left;
+  display: none;
+  position: relative;
+  right: 0;
+}
+.search-icon {
+  margin: 0;
+  float: left;
+  cursor: pointer;
+}
+a.btn-go {
+  text-decoration: none;
+  position: absolute;
+  right: -55px;
+  background: #fff;
+}
+.btn-go span {
+  color: #6E6E6E;
+  padding: 9px 12px !important;
+}
+.search-box a:hover {
+  opacity: 1;
+}
+input[type="text"] {
+  margin: 21px 9px 0 0;
+  padding: 0 50px 4px 0px;
+  border: none;
+  border-bottom: 1px solid #6E6E6E;
+  outline: none;
+}
+.close {
+  cursor: pointer;
+  margin: 0 0 0 -20px;
+  position: absolute;
+  top: 27px;
+}
+/*---------------------------------
+header-info
+---------------------------------*/
+.header-info {
+  background: #000;
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+.header-info dt, .header-info dd a {
+  color: #fff;
+}
+.header-info dt:before {
+  content: none;
+}
+/*---------------------------------
+top
+---------------------------------*/
+#start-contents .contents-section {
+  margin: 20px auto 40px;
+}
+/*---------------------------------
+main-visual
+---------------------------------*/
+.main-visual {
+  margin-top: 150px;
+}
+#M_slider {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.main-visual img {
+  width: 100%;
+  height: 100%;
+  padding: 0 .3rem;
+}
+.bx-wrapper .bx-pager {
+  color: #666 !important;
+  bottom: 10px !important;
+  padding-top: 0;
+}
+.bx-wrapper .bx-pager.bx-default-pager a.active, .bx-wrapper .bx-pager.bx-default-pager a:focus, .bx-wrapper .bx-pager.bx-default-pager a:hover {
+  background: #E57C6F !important;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+  background: #fff !important;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+  width: 9px !important;
+  height: 9px !important;
+  margin: 0 7px !important;
+}
+.scroll-down a {
+  display: none;
+}
+.bx-controls-direction {
+  display: none;
+}
+.main-visual .bx-wrapper .bx-caption {
+  bottom: 20%;
+  left: 10%;
+  width: 80%;
+  background: none;
+}
+.main-visual .bx-wrapper .bx-caption span {
+  color: #000;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.6em;
+  line-height: 1.6;
+}
+/*---------------------------------
+side-nav
+---------------------------------*/
+.left-nav {
+  width: 240px;
+  margin-right: 56px
+}
+.left-nav:first-child {
+  border-top: 1px solid #6E6E6E;
+}
+.left-nav-title {
+  border-bottom: 1px solid #6E6E6E;
+  padding: 16px 0;
+  font-weight: bold;
+}
+.left-bulk-title {
+  border-bottom: none;
+  border-top: 1px solid #6E6E6E;
+}
+.left-nav-item {
+  font-size: 14px;
+  margin: 18px 0;
+  line-height: 1.4em;
+}
+.left-nav-item:last-child {
+  margin-bottom: 40px;
+}
+.left-nav-item a {
+  display: block;
+}
+.left-nav-item a:hover {
+  opacity: .7;
+}
+.left-nav-item a:before {
+  content: "-";
+  padding-right: 4px;
+  display: inline-block;
+}
+.left-nav-help {
+  border-top: 1px solid #6E6E6E;
+  padding: 16px 0;
+}
+.nav-help-list {
+  margin: 18px 0;
+  line-height: 1.4em;
+  font-size: 14px;
+}
+/*---------------------------------
+breadcrumb
+---------------------------------*/
+.breadcrumb {
+  text-align: left;
+  margin-bottom: 10px;
+}
+.breadcrumb-item {
+  display: inline-block;
+  margin-right: 8px;
+  padding: .3rem 0;
+  line-height: 1.2;
+  font-size: 12px;
+}
+.breadcrumb-item::after {
+  content: ">";
+  margin-left: 8px;
+}
+.breadcrumb-item:last-of-type::after {
+  content: none;
+  margin-left: 0;
+}
+/*---------------------------------
+banner-area
+---------------------------------*/
+.banner-area {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.banner-area ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.banner-area li {
+  flex: 0 0 24%;
+  max-width: 24%;
+}
+.banner-area img {
+  width: 100%;
+  height: auto;
+}
+/*---------------------------------
+information
+---------------------------------*/
+.information-list-wrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.information-list {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+.information-label {
+  font-size: 14px;
+  font-weight: 300;
+  margin-right: 24px;
+}
+.information-contents {
+  line-height: 1.2em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 800px;
+}
+.information-label:before {
+  content: "-";
+  padding-right: 4px;
+}
+.information-contents a:hover {
+  text-decoration: underline;
+}
+.news-link {
+  text-align: right;
+  display: block;
+  padding: 10px 30px 10px 10px;
+  position: relative;
+  margin: 10px 0 30px;
+}
+.news-link:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-top: solid 2px #6e6e6e;
+  border-right: solid 2px #6e6e6e;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  margin-top: -4px;
+}
+/*---------------------------------
+product-container
+---------------------------------*/
+.product-container {
+  display: flex;
+}
+.product-contents-wrap {
+  flex: 1;
+}
+.product-wrap {
+  margin-bottom: 30px;
+  border-bottom: 2px solid #000;
+}
+.product-list {
+  max-width: 888px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.product-list-item {
+  width: calc(100%/3 - 16px);
+  min-width: 279px;
+  margin: 0 24px 34px 0;
+}
+.product-list-item:nth-child(3n) {
+  margin-right: 0;
+}
+.product-image-wrap {
+  position: relative;
+  width: auto;
+  height: 0;
+  padding-bottom: 100%;
+  margin-bottom: 8px;
+}
+.product-image-wrap img {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+.product-image-wrap img:hover {
+  opacity: .5;
+}
+.product-name-link {
+  line-height: 1.6em;
+}
+.product-list-item a div:hover {
+  opacity: .7;
+}
+.product-caption {
+  font-weight: 500;
+}
+.product-price {
+  display: inline-block;
+  margin-top: 8px;
+}
+.product-discount {
+  text-decoration: line-through;
+}
+.product-sale-price {
+  color: #EB503C;
+  font-weight: 500;
+}
+.sold-out {
+  display: inline-block;
+  font-size: 10px;
+  background: #adadad;
+  color: #fff;
+  padding: 0 6px;
+  border-radius: 2px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 5px;
+}
+/*---------------------------------
+index-review
+---------------------------------*/
+.review-list-info img {
+  width: 206px;
+  margin-right: 20px;
+}
+.review-list-category {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: bold;;
+}
+/*---------------------------------
+footer
+---------------------------------*/
+.footer {
+  font-size: 14px;
+}
+.footer-guide {
+  border-top: 1px solid #eee;
+}
+.footer-guide h3 {
+  padding-bottom: 20px;
+}
+.footer-guide h4 {
+  border-bottom: 3px solid #000;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+}
+.footer-guide li {
+  padding-bottom: 6px;
+  line-height: 1.4;
+}
+.footer-guide .golink {
+  text-align: right;
+  padding: 8px 0;
+}
+.footer-guide .golink a {
+  position: relative;
+  color: #000;
+  padding-right: 16px;
+}
+.footer-guide .golink a:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-top: solid 2px #000;
+  border-right: solid 2px #000;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -4px;
+}
+.footer-info {
+  background: #F5F5F5;
+}
+.footer-contents {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.footer-menu-container, .footer-guide-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.footer-guide-container > div {
+  padding: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #f9f9f9;
+  flex: 0 0 24%;
+  max-width: 24%;
+}
+.footer-menu {
+  margin-right: 130px;
+}
+.footer-menu:nth-child(3) {
+  margin-right: 0;
+}
+.footer-menu-list-title {
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+}
+.footer-menu-list-item {
+  margin-bottom: 30px;
+}
+.footer-item-list {
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-content: baseline;
+  width: 440px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.4em;
+}
+.footer-item-list li {
+  margin-right: 45px;
+}
+.mail-icon {
+  vertical-align: middle;
+}
+.sns-link-list {
+  display: flex;
+  align-items: center;
+}
+.sns-link {
+  margin-right: 12px;
+}
+.footer-bottom {
+  background: #000;
+}
+.footer-bottom-inner {
+  padding: 28px 0;
+  text-align: center;
+  color: #fff;
+}
+.calender-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+.calender-area > div {
+  text-align: center;
+  padding-right: 20px;
+}
+.calender-month {
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+.calender-area td, .calender-area th {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+.footer-menu {
+  margin-right: auto;
+}
+.calender-area td {
+  background: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+.calender-area th {
+  background: #dcdcdc;
+}
+.makeshop-calendar1 th.sunday, .makeshop-calendar2 th.sunday {
+  color: #fff;
+  background: #f08080;
+}
+.makeshop-calendar1 tbody td.sunday, .makeshop-calendar2 tbody td.sunday {
+  background: rgba(100, 149, 237, .5);
+}
+.makeshop-calendar1 th.saturday, .makeshop-calendar2 th.saturday {
+  color: #fff;
+  background: #6495ed;
+}
+.makeshop-calendar1 tbody td.saturday, .makeshop-calendar2 tbody td.saturday {
+  background: rgba(240, 128, 128, .5);
+}
+.makeshop-calendar1 td.today, .makeshop-calendar2 td.today {
+  background-color: #ef9d0f;
+  color: #fff;
+}
+.calender-note {
+  text-align: left;
+  padding-top: 5px;
+}
+.copy-right {
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  margin-top: 20px;
+  letter-spacing: 0.1em;
+}
+/*---------------------------------
+category_list
+---------------------------------*/
+.list-head {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+}
+.list-head-sort {
+  display: flex;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  padding: .5rem 0;
+}
+.list-head-sort a {
+  text-decoration: underline;
+}
+.list-head-sort dd {
+  margin-right: 8px;
+}
+.empty {
+  margin: 120px 0;
+  color: #000;
+}
+.list-head-type {
+  display: flex;
+  font-size: 0.8rem;
+}
+.list-head-type li .list-head-type-btn, .list-head-type li a {
+  display: inline-block;
+  background: #f0efe9;
+  padding: 3px 8px;
+}
+.list-head-type li a {
+  background: #242325;
+  color: #fff;
+  text-decoration: none;
+}
+.category-image {
+  position: relative;
+}
+.category-image img {
+  margin-top: 150px;
+  height: 322px;
+  width: 100%;
+  object-fit: cover;
+}
+.category-image:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 487px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.category-title-wrap {
+  width: 100%;
+  position: absolute;
+  top: 300px;
+  z-index: 2;
+  text-align: center;
+}
+.category-title {
+  color: #000;
+  font-size: 32px;
+  font-weight: 400;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 8px;
+  text-shadow: 0 0 10px rgb(255 255 255 / 70%);
+}
+.category-title-only {
+  padding: 200px 0 0;
+}
+.child-category-list {
+  background: #F2F2F2;
+  padding: 6px;
+  margin: 8px auto 24px;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+.child-category-item {
+  padding: 12px;
+  font-size: 12px;
+}
+/*---------------------------------
+pager
+---------------------------------*/
+.pager {
+  margin-bottom: 64px;
+}
+.pager ul.pagination {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.pager .pagination li {
+  margin: 0 2px;
+  padding: 0;
+  display: inline-block;
+  background: #EBEBEB;
+  width: 30px;
+  height: 50px;
+  text-align: center;
+  position: relative;
+}
+.pager .pagination li a {
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: table;
+  text-decoration: none;
+}
+.pager .pagination li a span {
+  display: table-cell;
+  vertical-align: middle;
+}
+.pager .pagination li a:hover, .pager .pagination li a.active {
+  color: #fff;
+  background: #000;
+}
+/*---------------------------------
+detail
+---------------------------------*/
+.item-inner {
+  margin-top: 200px;
+}
+.item-list-icon, .item-icon-list {
+  display: flex;
+}
+.item-list-icon li, .item-icon-list li {
+  padding-right: 5px;
+}
+/* 複数画像(こちらの設定が優先されます） */
+.item-image {
+  flex: 0 0 56%;
+  max-width: 56%;
+}
+.item-image-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item-image-list img {
+  max-width: 100%;
+}
+.item-image-large {
+  text-align: center;
+}
+.item-image-large img {
+  max-width: 100%;
+}
+.item-image-small {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+}
+.item-image-list {
+  margin-right: 8px;
+}
+.item-image-list:nth-child(4n) {
+  margin-right: 0;
+}
+.item-image-small .item-image-list {
+  flex: 0 0 24%;
+  max-width: 24%;
+  padding-bottom: 10px;
+}
+/* 追加商品画像 */
+.add-images .item-image-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex: 0 0 32%;
+  max-width: 32%;
+}
+.add-images .item-image-list p {
+  padding: 10px;
+  line-height: 1.6;
+}
+.detail {
+  display: flex;
+  justify-content: space-between;
+}
+.detail-right {
+  padding-top: 40px;
+  flex: 0 0 40%;
+  max-width: 40%;
+}
+.product-name {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2em;
+  margin-bottom: 24px
+}
+.product-price-block {
+  font-size: 40px;
+}
+.product-price-block small {
+  font-size: 24px;
+}
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input.productnum {
+  font-size: 24px;
+  color: #6E6E6E;
+  width: 100px;
+  height: 40px;
+  float: left;
+  text-align: right;
+  padding: 0 5px;
+}
+div.button {
+  float: left;
+  width: 16px;
+  padding-left: 16px;
+}
+input.spinner-up {
+  margin-top: 3px;
+  border: 0px;
+  width: 13px;
+  height: 13px;
+  background: url("/view/images/template/6/up.png") no-repeat;
+  cursor: pointer;
+}
+input.spinner-down {
+  margin-top: 3px;
+  border: 0px;
+  width: 13px;
+  height: 13px;
+  background: url("/view/images/template/6/down.png") no-repeat;
+  cursor: pointer;
+}
+.productnum-wrap {
+  padding-top: 24px;
+}
+.purchase-num {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.cart-add-btn {
+  margin-top: 40px;
+}
+.option-area {
+  margin-bottom: 30px;
+}
+.makeshop-option-wrap {
+  margin: 8px 0;
+}
+.makeshop-option-label {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.makeshop-option-select {
+  padding: 10px;
+  width: 60%;
+}
+.item-share {
+  display: flex;
+}
+.item-share li {
+  padding-right: 10px;
+  padding-bottom: 20px;
+}
+.item-category-name {
+  background: #eee;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.info-area li {
+  padding-bottom: 10px;
+}
+.info-area li:before {
+  content: "-";
+  padding-right: 5px;
+}
+.bg-section {
+  background: #fafafa;
+  padding: 60px 0;
+}
+.bg-section .description-text {
+  column-count: 2;
+}
+.detail-description {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.detail-description h3 {
+  font-size: 20px;
+  padding-bottom: 24px;
+}
+.description-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+.description-text {
+  line-height: 2em;
+}
+.grid-multi-image {
+  display: flex;
+  flex-wrap: wrap;
+}
+.detail-sold-out {
+  display: inline-block;
+  font-size: 14px;
+  background: #adadad;
+  color: #fff;
+  padding: 6px;
+  font-family: 'Roboto', sans-serif; 
+  margin-bottom: 5px;
+  border-radius: 2px;
+}
+.detail-product-discount {
+  font-size: 16px;
+  text-decoration: line-through;
+  margin: 20px 0 10px!important;
+}
+.detail-product-discount small {
+  font-size: 16px;
+}
+.detail-product-sale-price {
+  color: #EB503C;
+  font-weight: 500;
+  font-size: 20px;
+}
+.detail-product-sale-price span {
+  font-size: 40px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+/*---------------------------------
+review
+---------------------------------*/
+.item-review-list {
+  padding-top: 20px;
+}
+.review-list-name {
+  padding-bottom: 20px;
+}
+.reviewer-info {
+  display: flex;
+  align-items: center;
+}
+.reviewer-info:nth-child(1) {
+  padding-bottom: .5rem;
+}
+.review-list-text {
+  line-height: 1.4;
+  padding-top: .5rem;
+}
+.review-score-wrap {
+  display: flex;
+  padding-right: 10px;
+}
+.reviewRateStar {
+  display: inline-block;
+  font-size: 0;
+  color: #F8D803;
+  line-height: 1;
+}
+.reviewRateStar::before {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f005";
+  font-size: 22px;
+  font-weight: 900;
+}
+.reviewRate {
+  min-width: 150px;
+}
+.review-average, .review-count {
+  display: inline-block;
+}
+.starOff::before {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f005";
+  font-weight: 400;
+}
+.starHalf::before {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f5c0";
+}
+.review-average {
+  font-weight: bold;
+  margin-left: 8px;
+  font-size: 1.2rem;
+}
+.total-review .reviewRateStar::before {
+  font-size: 1.1rem;
+}
+.review-form-wrap {
+  width: 60%;
+}
+.review-form {
+  padding-bottom: 16px;
+}
+.review-form-title {
+  padding-bottom: 10px;
+}
+.review-form-content {
+  flex: 1;
+}
+.review-form-content input, .review-form-content textarea {
+  width: 100%;
+}
+.review-post-btn {
+  width: 80%;
+  margin: 30px 0 30px auto;
+  display: block;
+  background: #ccc;
+  border-color: #ccc;
+}
+.review-form-content input, .review-form-content textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 0;
+}
+.review-list-head {
+  min-width: 200px;
+  margin-right: 20px;;
+}
+.review-list-date {
+  line-height: 2;
+  padding-right: 10px;
+}
+.review-list-unit {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.review-list-score-wrap {
+  display: flex;
+  align-items: center;
+}
+.review-score {
+  font-weight: bold;
+  line-height: 2;
+}
+.review-list-content {
+  text-align: left;
+  flex: 1;
+  line-height: 2;
+}
+.review-btn-area {
+  display: flex;
+  margin: 0;
+  justify-content: flex-end;
+}
+.review-item-wrap {
+  padding-right: 20px;
+}
+.review-item-image img {
+  width: 100%;
+}
+.review-btn-area > div {
+  padding: 0 10px;
+}
+.review-item-info, .review-category-name, .review-item-name, .total-review {
+  padding-top: 10px;
+}
+.total-review .reviewRate {
+  padding-bottom: 10px;
+}
+.review-form-content textarea {
+  line-height: 1.8;
+}
+.review-item-btn {
+  width: 60%;
+}
+.all-review {
+  padding-top: 20px;
+  line-height: 2em;
+}
+.category-count {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+i.fas.fa-user-circle {
+  padding-right: 5px;
+  color: #000;
+}
+.review-pager .pager {
+  display: flex;
+  justify-content: center;
+}
+.review-pager li {
+  width: 30px;
+  height: 50px;
+  background: #ebebeb;
+  margin: 0 2px;
+}
+.review-pager li span {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.review-pager .current {
+  background: #000;
+  color: #fff;
+}
+.review-pager .pager li span:hover, .review-pager .pager li span.active {
+  color: #fff;
+  background: #000;
+}
+.review-pager .pager li a:hover, .review-pager .pager li a.active {
+  text-decoration: none;
+}
+.review-count-all {
+  margin-top: 16px;
+}
+/*---------------------------------
+item-list
+---------------------------------*/
+.item-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-list .product-list-item {
+  width: calc(100%/4 - 16px);
+  min-width: 0;
+  margin: 0 16px 24px 0;
+}
+.item-list .product-list-item:nth-child(4n) {
+  margin-right: 0;
+}
+/*---------------------------------
+cart
+---------------------------------*/
+.cart-title {
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: .1em;
+}
+.cart {
+  margin-top: 60px;
+}
+.cart-text-head {
+  border-bottom: 1px dotted #6E6E6E;
+  padding-bottom: 16px !important;
+  display: flex;
+}
+.cart-product {
+  padding: 16px 0;
+  display: flex;
+  border-bottom: 1px dotted #6E6E6E;
+  align-items: center;
+}
+.cart .img-head {
+  width: 20%;
+}
+.cart-product img {
+  width: 160px;
+}
+.cart .name-head {
+  width: 25%;
+  padding-right: 40px;
+  line-height: 1.4em;
+}
+.cart .qty-head {
+  width: 15%;
+}
+.cart .price-head {
+  width: 25%;
+}
+.cart .remove-head {
+  width: 15%;
+}
+.cart-item-text {
+  display: flex;
+  justify-content: space-between;
+  width: 76%;
+  align-items: center;
+}
+.cart .img {
+  width: 20%;
+}
+.cart .name {
+  width: 25%;
+  line-height: 1.4em;
+}
+.cart .qty {
+  width: 15%;
+  display: flex;
+}
+.cart .price {
+  width: 25%;
+}
+.cart .remove {
+  width: 15%;
+  padding-left: 14px;
+}
+.remove-sp {
+  display: none;
+}
+.total {
+  text-align: right;
+  margin: 56px 0 32px;
+}
+.total-text {
+  font-size: 18px;
+}
+.total-price {
+  font-size: 32px;
+  padding-left: 16px;
+}
+.total-text-small {
+  font-size: 14px;
+}
+.continue-shopping {
+  padding-right: 40px;
+}
+.payment-add-btn {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+.quantity-notification {
+  width: 44px;
+  height: 44px;
+  text-align: center;
+}
+.awesome a {
+  cursor: pointer !important;
+  text-align: center !important;
+  display: inline-block;
+  vertical-align: middle !important;
+  color: #fff !important;
+  width: 85px !important;
+  height: 100% !important;
+  background: #6E6E6E !important;
+  font-size: 12px;
+  margin-left: 6px;
+  text-decoration: none;
+  padding: 14px;
+}
+/*---------------------------------
+news-list
+---------------------------------*/
+
+/*---------------------------------
+guide
+---------------------------------*/
+.guide-link-area {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+.guide-link-area li {
+  margin: 0 5px;
+}
+.guide-link-area li a {
+  display: block;
+  background: #eee;
+  padding: 14px;
+  color: black;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.guide-section {
+  margin-bottom: 64px;
+}
+.guide-section-title {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2em;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #6E6E6E;
+  padding-top: 200px;
+  margin-top: -200px;
+}
+/*---------------------------------
+company
+---------------------------------*/
+.company-section img {
+  margin-bottom: 20px;
+  width: 100%;
+}
+/*---------------------------------
+contract
+---------------------------------*/
+.contract-section {
+  margin-bottom: 64px;
+}
+.contract-section-title {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2em;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #6E6E6E;
+  padding-bottom: 12px;
+}
+/*---------------------------------
+policy
+---------------------------------*/
+.policy-section pre {
+  line-height: 2.4em;
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+/*---------------------------------
+responsive 
+---------------------------------*/
+@media screen and (max-width: 1184px) {
+  .header-inner:first-child {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .header-wrap {
+    padding: 14px 6px;
+  }
+  .shop-logo {
+    margin-left: 16px;
+  }
+  .contents-section {
+    margin: 20px auto;
+  }
+  .product-list {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .product-list-item:nth-child(3) {
+    margin-right: 16px;
+  }
+  .footer-guide-container > div {
+    flex: 0 0 49%;
+    max-width: 49%;
+  }
+  .footer-contents {
+    padding: 20px 10px;
+  }
+  .main-visual img {
+    padding: 0;
+  }
+  .item-title-wrap {
+    padding-top: 220px;
+  }
+  .add-images {
+    flex-direction: column;
+  }
+  .add-images .item-image-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .product-list-item {
+    min-width: 0;
+    margin: 0 16px 24px 0;
+  }
+  .add-images .item-image-list img {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+  span.cart-badge {
+    top: 18px;
+    right: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /*---------------------------------
+common
+---------------------------------*/
+  .main-visual {
+    position: relative;
+    margin-top: 110px;
+  }
+  span.cart-badge {
+    top: -10px;
+    right: -14px;
+  }
+  .header, .footer {
+    width: 100%;
+  }
+  .header-wrap {
+    padding: 0 10px;
+    justify-content: center;
+  }
+  .shop-logo {
+    margin: 0;
+  }
+  .header-sns {
+    display: none;
+  }
+  .sns-link-list-sp {
+    display: flex;
+    padding-top: 20px;
+  }
+  .sns-link-list-sp .sns-link {
+    padding: 0 0 0 14px;
+  }
+  .nav, .second-nav {
+    display: none;
+  }
+  .side-bar {
+    display: none;
+  }
+  .bx-wrapper .bx-pager {
+    text-align: center !important;
+    padding-left: 0;
+  }
+  .bx-wrapper {
+    max-height: max-content;
+  }
+  .banner-area li {
+    flex: 0 0 49%;
+    max-width: 49%;
+    margin-bottom: 1.6%;
+  }
+  .header-info {
+    flex-direction: column;
+  }
+  .header-info dt, .header-info dd {
+    text-align: center;
+  }
+  .shop-logo span {
+    display: none;
+  }
+  #start-contents .contents-section {
+    margin: 0 auto;
+  }
+  /*------------------
+    hamburger
+    ------------------*/
+  .wrapper {
+    height: 100%;
+    overflow-x: hidden;
+    position: relative;
+    display: block;
+  }
+  .sp-nav-wrap {
+    display: block;
+  }
+  .sp-nav-wrap a {
+    font-weight: 700;
+  }
+  .overlay {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+  .overlay.open {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+  }
+  .menu-trigger {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    cursor: pointer;
+    position: fixed;
+    top: 13px;
+    left: 16px;
+    z-index: 100;
+  }
+  .menu-trigger span {
+    display: inline-block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 80%;
+    height: 4px;
+    background-color: #000;
+    transition: all .5s;
+  }
+  .menu-trigger.active span {
+    background-color: #000;
+  }
+  .menu-trigger span:nth-of-type(1) {
+    top: 4px;
+  }
+  .menu-trigger.active span:nth-of-type(1) {
+    transform: translateY(12px) rotate(-45deg);
+  }
+  .menu-trigger span:nth-of-type(2) {
+    top: 12px;
+  }
+  .menu-trigger.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+  .menu-trigger span:nth-of-type(3) {
+    bottom: 4px;
+  }
+  .menu-trigger.active span:nth-of-type(3) {
+    transform: translateY(-4px) rotate(45deg);
+  }
+  nav {
+    width: 250px;
+    height: 100%;
+    padding-top: 100px;
+    background: #fff !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transform: translate(-250px);
+    transition: all .5s;
+  }
+  nav.open {
+    transform: translate(0, 0);
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  nav li {
+    color: #000;
+    text-align: left;
+    padding: 10px 20px;
+    ;
+  }
+  nav li a {
+    color: #000;
+  }
+  .accordion-container {
+    position: relative;
+    width: 100%;
+    cursor: pointer
+  }
+  .accordion-container .article-title {
+    display: block;
+    position: relative;
+    margin: 0;
+    font-weight: 700;
+    color: #000;
+    ;
+    cursor: pointer;
+  }
+  .accordion-container .article-title:hover i:before, .accordion-container .article-title:hover i:active, .accordion-container .content-entry.open i {
+    color: white;
+  }
+  .article-title {
+    position: relative;
+  }
+  .article-title:after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 10%;
+    transition: all 0.2s ease-in-out;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-top: solid 2px #6E6E6E;
+    border-right: solid 2px #6E6E6E;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+  .article-title.open:after {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    top: 45%;
+  }
+  .accordion-content {
+    display: none;
+    padding: 24px 6px 0;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .accordion-content p {
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .accordion-content a {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #000;
+  }
+  .accordion-container {
+    margin: 0;
+  }
+  dl.search1 {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 1px solid #aaa;
+  }
+  dl.search1 dt {
+    padding: 12px 0px;
+  }
+  dl.search1 dt input {
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background: none;
+  }
+  dl.search1 dd {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  dl.search1 dd button {
+    display: block;
+    padding: 10px;
+    background: none;
+    border: none;
+  }
+  dl.search1 dd button span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url('/view/images/template/6/search_icon.png') no-repeat scroll 0 0;
+  }
+  .search-link-sp {
+    margin-bottom: 16px;
+  }
+  .sp-second-nav-wrap {
+    display: flex;
+    position: absolute;
+    top: 13px;
+    right: 16px;
+  }
+  .cart-link {
+    margin-left: 16px;
+  }
+  .slider li img {
+    height: 50vh;
+  }
+  .footer-menu {
+    margin-bottom: 60px;
+  }
+  .footer-menu:last-child {
+    margin-bottom: 0;
+  }
+  .footer-menu-list-item {
+    margin-bottom: 20px;
+  }
+  .product-contents-wrap {
+    min-width: 100%;
+  }
+  .information-list-wrap {
+    white-space: inherit;
+  }
+  .information-list {
+    display: block;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+  }
+  .information-label {
+    margin: 0 0 8px 0;
+  }
+  /*------------------
+    category_list
+    ------------------*/
+  .banner-image {
+    background-position: center;
+    height: 20vh;
+  }
+  .item-title-wrap {
+    padding-top: 130px;
+  }
+  .item-title {
+    font-size: 28px;
+    padding-left: 8px;
+  }
+  .category-image:before {
+    height: 257px;
+  }
+  .category-image {
+    margin-bottom: 10px;
+  }
+  .category-image img {
+    height: 145px;
+    margin-top: 110px;
+  }
+  .category-title-wrap {
+    top: 170px;
+  }
+  .category-title {
+    font-size: 26px;
+  }
+  .category-title-only {
+    padding: 150px 0 0 6px;
+  }
+  .category-item-list-head {
+    margin: 16px 0;
+  }
+  .list-head-count {
+    margin-bottom: 6px;
+  }
+  .child-category-list {
+    margin: 8px 0 10px;
+  }
+  .child-category-item {
+    width: calc(100% / 3);
+    padding: 8px 0;
+  }
+  .product-list-item {
+    width: calc(100%/2 - 8px);
+    min-width: 0;
+    margin-right: 16px;
+  }
+  .product-list-item:nth-child(even) {
+    margin-right: 0;
+  }
+  .item-list .product-list-item:nth-child(3n) {
+    margin-right: 16px;
+  }
+  .item-list .product-list-item {
+    width: calc(100%/2 - 16px);
+    margin: 0 16px 24px 0;
+  }
+  .item-list .product-list-item:nth-child(even) {
+    margin-right: 0;
+  }
+  /*------------------
+    detail
+    ------------------*/
+  .item-inner {
+    margin-top: 120px;
+  }
+  .detail {
+    display: block;
+  }
+  .detail-right {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .item-image {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .add-images {
+    display: block;
+  }
+  .add-images .item-image-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: block;
+  }
+  .add-images .item-image-list img {
+    flex: 0 0 100%;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+  .detail-description {
+    column-count: 1;
+  }
+  .product-name {
+    font-size: 24px;
+  }
+  .product-price-block {
+    font-size: 32px;
+  }
+  .product-price-block small {
+    font-size: 18px;
+  }
+  .productnum-wrap {
+    padding: 32px 0 24px;
+  }
+  .add-btn {
+    width: 100%;
+  }
+  .bg-section {
+    margin-top: 60px;
+    padding: 40px 0;
+  }
+  .detail-description {
+    width: 100%;
+    display: block;
+  }
+  .outstock-btn {
+    width: 100%;
+  }
+  .outstock {
+    width: 100%;
+  }
+  .item-category-name {
+    margin-bottom: 20px;
+  }
+  .info-area li {
+    padding-bottom: 20px;
+  }
+  /*------------------
+    cart
+    ------------------*/
+  .cart-title {
+    padding: 0 0 0 10px;
+  }
+  .cart-table {
+    border-top: 1px dotted #6E6E6E;
+  }
+  .cart-text-head {
+    display: none;
+  }
+  .cart .img {
+    width: auto;
+  }
+  .cart .img img {
+    padding-right: 16px;
+  }
+  .cart-item-text {
+    display: block;
+  }
+  .cart-item-text div {
+    width: 100% !important;
+    margin-bottom: 10px;
+  }
+  .cart .remove {
+    display: none;
+  }
+  .remove-sp {
+    display: block;
+    text-align: right;
+    text-decoration: underline;
+  }
+  .cart-add-btn {
+    display: block;
+    margin-bottom: 30px;
+  }
+  .continue-shopping {
+    padding: 0;
+    margin-top: 24px;
+    text-align: center;
+    text-decoration: underline;
+  }
+  .awesome {
+    height: 44px !important;
+  }
+  .cart-product {
+    align-items: flex-start;
+  }
+  .payment-add-btn {
+    display: block;
+    margin-bottom: 48px;
+  }
+  /*---------------------------------
+    news-list
+    ---------------------------------*/
+
+  /*---------------------------------
+    review
+    ---------------------------------*/
+  .review-item-wrap {
+    padding-right: 0;
+  }
+  .review-item-btn {
+    width: 100%;
+    margin: 30px 0;
+    text-align: center;
+  }
+  .review-form-wrap {
+    width: 100%;
+  }
+  .review-post-btn {
+    margin: 0 auto;
+  }
+  .guide-link-area {
+    display: block;
+  }
+  .add-btn-right {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main-visual .bx-wrapper .bx-caption {
+    bottom: 16%;
+    left: 1%;
+  }
+  .section-title {
+    padding: 20px 0 10px 0;
+  }
+  .child-category-item {
+    width: calc(100% / 2);
+  }
+  .footer-guide-container > div {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .footer-menu-container {
+    display: block;
+  }
+  .review-list-unit {
+    display: block;
+  }
+  .review-list-content {
+    padding-left: 0;
+  }
+  .review-btn-area {
+    display: block;
+  }
+  .review-btn-area > div {
+    padding: 10px 0;
+  }
+}
+
+/* ==========================================================================
+   発見マーケット — デザインシステム
+   貼り付け先: クリエイターモード › 全ページ共通 › CSS
+
+   GENERATED - 直接編集しないでください。
+   Source : templates/creator/css/tokens.css + components.css
+   Build  : sh tools/build-all-pages-css.sh
+
+   Basics標準のCSSを残す場合はこの内容を【末尾】に、置き換える場合は
+   CSS欄を全選択してこれを貼ってください。まだ作り直していないページが
+   Basicsのスタイルに依存している間は、末尾に足すほうが安全です。
+   ========================================================================== */
+
+/* =============================================================================
+   isp-sp.com — design tokens
+   Creator Mode rebuild. Source of truth for colour, type, spacing, layout.
+
+   Palette recovered from m_sys_common.css before it is retired with Basic Mode
+   (see docs/findings-stage0.md S0-13). Usage counts in comments are from that
+   stylesheet, so the hierarchy reflects how the shop actually used each colour
+   rather than a guess.
+
+   Breakpoints match the two the shop already uses (767 / 960), so existing
+   editorial content that assumes them does not reflow unexpectedly.
+   ========================================================================== */
+
+:root {
+  /* --- brand ------------------------------------------------------------- */
+  --c-primary:        #007c5a;   /* 50 uses — brand green */
+  --c-primary-dark:   #00593f;   /* derived, for hover/active */
+  --c-primary-light:  #e6f2ee;   /* derived, for tinted panels */
+
+  --c-accent:         #98cb00;   /* 20 uses — yellow-green */
+  --c-accent-dark:    #90b700;   /* 14 uses — hover/darker */
+  --c-accent-light:   #f2f8e0;   /* derived */
+
+  --c-sale:           #e60012;   /* 14 uses — sale, caution, required */
+  --c-sale-light:     #fdeaec;   /* derived */
+
+  /* --- neutrals ---------------------------------------------------------- */
+  --c-ink:            #333333;   /* 74 uses — body text */
+  --c-ink-2:          #5f6b68;   /* secondary text */
+  --c-ink-3:          #8a938f;   /* meta, captions */
+  --c-rule:           #dddddd;   /* 15 uses — hairlines */
+  --c-rule-soft:      #ececec;
+  --c-surface:        #ffffff;   /* 149 uses */
+  --c-surface-2:      #f5f7f6;   /* panels, table stripes */
+  --c-ground:         #ffffff;
+
+  /* --- semantic ---------------------------------------------------------- */
+  --c-ok:             #007c5a;
+  --c-warn:           #b0782a;
+  --c-error:          #e60012;
+  --c-soldout:        #8a938f;
+
+  /* --- type -------------------------------------------------------------- */
+  --f-display: "Mochiy Pop One", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --f-body:    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --f-num:     "Noto Sans JP", system-ui, sans-serif;
+
+  /* Mobile-first scale. Desktop overrides at the 961 breakpoint below. */
+  --t-xs:   11px;
+  --t-sm:   12px;
+  --t-base: 14px;
+  --t-md:   15px;
+  --t-lg:   17px;
+  --t-xl:   20px;
+  --t-2xl:  24px;
+  --t-3xl:  28px;
+
+  --lh-tight:  1.25;
+  --lh-normal: 1.7;   /* Japanese body copy wants more leading than Latin */
+  --lh-loose:  1.9;
+
+  /* --- spacing (4px base) ------------------------------------------------ */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* --- layout ------------------------------------------------------------ */
+  --container:     1180px;
+  --container-pad: var(--s-4);
+  --radius:        4px;
+  --radius-lg:     8px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow:    0 2px 8px rgba(0,0,0,.08);
+
+  /* --- controls ---------------------------------------------------------- */
+  --tap-min: 44px;   /* minimum touch target */
+  --focus:   0 0 0 3px rgba(0,124,90,.35);
+
+  --ease: cubic-bezier(.2,.6,.3,1);
+}
+
+/* Tablet and up */
+@media screen and (min-width: 768px) {
+  :root {
+    --container-pad: var(--s-6);
+  }
+}
+
+/* Desktop — the widths the current site was designed for */
+@media screen and (min-width: 961px) {
+  :root {
+    --t-base: 15px;
+    --t-md:   16px;
+    --t-lg:   19px;
+    --t-xl:   23px;
+    --t-2xl:  29px;
+    --t-3xl:  36px;
+    --container-pad: var(--s-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --ease: linear; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================================================
+   isp-sp.com — base + components
+   Mobile-first. No framework, no jQuery. Depends on tokens.css.
+   ========================================================================== */
+
+/* --- reset / base -------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-ground);
+  color: var(--c-ink);
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  line-height: var(--lh-normal);
+}
+img { max-width: 100%; height: auto; vertical-align: middle; }
+a { color: var(--c-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 2px; }
+h1,h2,h3,h4 { margin: 0; line-height: var(--lh-tight); font-weight: 700; text-wrap: balance; }
+p { margin: 0 0 var(--s-4); }
+ul, ol { margin: 0; padding: 0; }
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+.stack > * + * { margin-top: var(--s-4); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* --- headings ------------------------------------------------------------ */
+.h-page {
+  font-family: var(--f-display);
+  font-size: var(--t-2xl);
+  color: var(--c-primary);
+  margin-bottom: var(--s-5);
+}
+.h-section {
+  font-size: var(--t-xl);
+  border-left: 4px solid var(--c-primary);
+  padding-left: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.h-sub {
+  font-size: var(--t-lg);
+  border-bottom: 2px solid var(--c-rule);
+  padding-bottom: var(--s-2);
+  margin-bottom: var(--s-3);
+}
+
+/* --- buttons ------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: var(--tap-min);
+  padding: var(--s-3) var(--s-6);
+  border: 1px solid transparent; border-radius: var(--radius);
+  font-family: var(--f-body); font-size: var(--t-md); font-weight: 700;
+  line-height: 1; text-align: center; cursor: pointer;
+  transition: background-color .15s var(--ease), border-color .15s var(--ease);
+}
+.btn:hover { text-decoration: none; }
+.btn--primary { background: var(--c-primary); color: #fff; }
+.btn--primary:hover { background: var(--c-primary-dark); }
+.btn--cart { background: var(--c-sale); color: #fff; width: 100%; font-size: var(--t-lg); }
+.btn--cart:hover { filter: brightness(.92); }
+.btn--ghost { background: #fff; color: var(--c-primary); border-color: var(--c-primary); }
+.btn--ghost:hover { background: var(--c-primary-light); }
+.btn[disabled], .btn[aria-disabled="true"] {
+  background: var(--c-rule); color: var(--c-ink-3); cursor: not-allowed; border-color: transparent;
+}
+
+/* --- badges -------------------------------------------------------------- */
+.badge {
+  display: inline-block; padding: 2px var(--s-2); border-radius: 2px;
+  font-size: var(--t-xs); font-weight: 700; line-height: 1.6; white-space: nowrap;
+}
+.badge--soldout { background: var(--c-soldout); color: #fff; }
+
+/* --- breadcrumb ---------------------------------------------------------- */
+.breadcrumb { font-size: var(--t-sm); color: var(--c-ink-3); padding: var(--s-3) 0; }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); list-style: none; }
+.breadcrumb li + li::before { content: "\203A"; margin-right: var(--s-2); color: var(--c-rule); }
+
+/* --- product card -------------------------------------------------------- */
+.card {
+  display: flex; flex-direction: column;
+  background: var(--c-surface); border: 1px solid var(--c-rule-soft);
+  border-radius: var(--radius); overflow: hidden;
+  transition: box-shadow .15s var(--ease);
+}
+.card:hover { box-shadow: var(--shadow); }
+.card__media { position: relative; aspect-ratio: 1 / 1; background: var(--c-surface-2); }
+.card__media img { width: 100%; height: 100%; object-fit: contain; }
+.card__flags { position: absolute; inset-block-start: var(--s-2); inset-inline-start: var(--s-2); display: flex; gap: var(--s-1); }
+.card__body { display: flex; flex-direction: column; gap: var(--s-1); padding: var(--s-3); flex: 1; }
+.card__code { font-size: var(--t-xs); color: var(--c-ink-3); }
+.card__name {
+  font-size: var(--t-base); font-weight: 500; line-height: 1.45; color: var(--c-ink);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card__price { margin-top: auto; font-family: var(--f-num); font-weight: 700; color: var(--c-sale); font-size: var(--t-lg); }
+.card__price small { font-size: var(--t-xs); font-weight: 400; color: var(--c-ink-3); }
+.card__unit { font-size: var(--t-xs); color: var(--c-ink-2); }
+
+/* --- product grid -------------------------------------------------------- */
+.grid { display: grid; gap: var(--s-3); grid-template-columns: repeat(2, 1fr); list-style: none; }
+@media screen and (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); gap: var(--s-4); } }
+@media screen and (min-width: 961px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* --- recommend rail ------------------------------------------------------
+   The client asked for horizontal scroll on smartphone specifically, having
+   tried and failed to do it himself. Grid on desktop, scroll-snap rail below
+   768 - no library, no JS.
+   ------------------------------------------------------------------------ */
+.rail { list-style: none; }
+@media screen and (max-width: 767px) {
+  .rail {
+    display: flex; gap: var(--s-3);
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    /* bleed to the screen edge so the cut-off card reads as scrollable */
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad); padding-bottom: var(--s-3);
+    scrollbar-width: thin;
+  }
+  .rail > li { flex: 0 0 44%; scroll-snap-align: start; }
+}
+@media screen and (min-width: 768px) {
+  .rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+}
+
+/* --- price box ----------------------------------------------------------- */
+.pricebox { border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.pricebox__row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+.pricebox__row + .pricebox__row { margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px dashed var(--c-rule-soft); }
+.pricebox__label { font-size: var(--t-sm); color: var(--c-ink-2); }
+.pricebox__main { font-family: var(--f-num); font-size: var(--t-3xl); font-weight: 700; color: var(--c-sale); font-variant-numeric: tabular-nums; }
+.pricebox__main small { font-size: var(--t-sm); font-weight: 400; color: var(--c-ink-2); margin-left: var(--s-1); }
+.pricebox__note { margin: var(--s-3) 0 0; font-size: var(--t-sm); color: var(--c-ink-2); }
+
+/* --- option matrix -------------------------------------------------------
+   Replaces MakeShop's オプションテーブル形式, which Creator Mode drops.
+   Data model is unchanged: one radio per (colour, tier) pair, value "col_row".
+   Desktop renders a real table; below 768 each tier becomes a card, because a
+   3x7 table does not survive a 375px viewport.
+   ------------------------------------------------------------------------ */
+.optmatrix { border: 1px solid var(--c-rule); border-radius: var(--radius); overflow: hidden; }
+.optmatrix__head {
+  display: none;
+  background: var(--c-surface-2); border-bottom: 1px solid var(--c-rule);
+  font-size: var(--t-sm); font-weight: 700; color: var(--c-ink-2);
+}
+
+@media screen and (min-width: 768px) {
+  .optmatrix__head,
+  .optmatrix__tier { display: grid; grid-template-columns: 5.5rem 6rem 8rem 1fr; align-items: center; gap: var(--s-3); }
+  .optmatrix__head { padding: var(--s-2) var(--s-3); }
+}
+
+/* --- quantity stepper ---------------------------------------------------- */
+.qty { display: inline-flex; align-items: stretch; border: 1px solid var(--c-rule); border-radius: var(--radius); overflow: hidden; }
+.qty button {
+  width: var(--tap-min); min-height: var(--tap-min);
+  border: 0; background: var(--c-surface-2); color: var(--c-ink);
+  font-size: var(--t-lg); line-height: 1; cursor: pointer;
+}
+.qty button:hover { background: var(--c-rule-soft); }
+.qty input {
+  width: 4.5rem; border: 0; border-inline: 1px solid var(--c-rule);
+  text-align: center; font-family: var(--f-num); font-size: var(--t-md);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- tables -------------------------------------------------------------- */
+.table-scroll { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: var(--t-base); }
+.table th, .table td { padding: var(--s-3); border: 1px solid var(--c-rule); text-align: left; vertical-align: top; }
+.table th { background: var(--c-surface-2); font-weight: 700; white-space: nowrap; }
+.table td.num { text-align: right; font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+
+/* --- notice -------------------------------------------------------------- */
+.notice { border-left: 4px solid var(--c-primary); background: var(--c-primary-light); padding: var(--s-3) var(--s-4); border-radius: 0 var(--radius) var(--radius) 0; }
+.notice--warn { border-left-color: var(--c-sale); background: var(--c-sale-light); }
+.notice p:last-child { margin-bottom: 0; }
+
+/* --- news list ----------------------------------------------------------- */
+.newslist { list-style: none; }
+.newslist li { border-bottom: 1px solid var(--c-rule-soft); }
+.newslist a { display: flex; flex-direction: column; gap: var(--s-1); padding: var(--s-3) 0; color: var(--c-ink); }
+.newslist a:hover { text-decoration: none; color: var(--c-primary); }
+.newslist time { font-family: var(--f-num); font-size: var(--t-sm); color: var(--c-ink-3); }
+@media screen and (min-width: 768px) {
+  .newslist a { flex-direction: row; align-items: baseline; gap: var(--s-5); }
+  .newslist time { flex: 0 0 7rem; }
+}
+
+/* --- pagination ---------------------------------------------------------- */
+.pager { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); list-style: none; padding: var(--s-6) 0; }
+.pager a, .pager span {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: var(--tap-min); min-height: var(--tap-min); padding-inline: var(--s-2);
+  border: 1px solid var(--c-rule); border-radius: var(--radius);
+  font-family: var(--f-num); font-size: var(--t-base); color: var(--c-ink);
+}
+.pager a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
+.pager [aria-current="page"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
+
+/* --- article (free-page archetype: 47 of 83 pages) ----------------------- */
+.article { max-width: 72ch; }
+.article h2 { font-size: var(--t-xl); color: var(--c-primary); margin: var(--s-8) 0 var(--s-3); }
+.article h3 { font-size: var(--t-lg); margin: var(--s-6) 0 var(--s-2); padding-left: var(--s-3); border-left: 3px solid var(--c-accent); }
+.article h4 { font-size: var(--t-md); margin: var(--s-5) 0 var(--s-2); color: var(--c-ink-2); }
+.article p { line-height: var(--lh-loose); }
+.article ul, .article ol { margin: 0 0 var(--s-4) var(--s-5); }
+.article li { margin-bottom: var(--s-1); }
+.article img { border-radius: var(--radius); margin-block: var(--s-3); }
+.article > *:first-child { margin-top: 0; }
+
+/* --- visual guide (archetype: 28 of 83 pages) ---------------------------- */
+.guide-grid { display: grid; gap: var(--s-4); grid-template-columns: 1fr; }
+@media screen and (min-width: 768px) { .guide-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
+.guide-item figure { margin: 0; }
+.guide-item figcaption { margin-top: var(--s-2); font-size: var(--t-sm); color: var(--c-ink-2); }
+
+/* =============================================================================
+   Page chrome — header, navigation, footer
+   ========================================================================== */
+
+.utilbar { background: var(--c-primary); color: #fff; font-size: var(--t-xs); }
+.utilbar__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--s-2) var(--s-4); padding-block: var(--s-2); text-align: center; }
+.utilbar a { color: #fff; text-decoration: underline; }
+@media screen and (min-width: 768px) { .utilbar__inner { justify-content: space-between; text-align: left; } }
+
+.site-header { border-bottom: 1px solid var(--c-rule); background: var(--c-surface); }
+.site-header__inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); padding-block: var(--s-3); }
+.site-logo { font-family: var(--f-display); font-size: var(--t-lg); color: var(--c-primary); line-height: 1.2; }
+.site-logo small { display: block; font-family: var(--f-body); font-size: var(--t-xs); font-weight: 400; color: var(--c-ink-3); }
+.site-header__tools { display: flex; align-items: center; gap: var(--s-2); }
+.site-header__contact { display: none; text-align: right; font-size: var(--t-xs); color: var(--c-ink-2); line-height: 1.4; }
+.site-header__contact b { display: block; font-family: var(--f-num); font-size: var(--t-lg); color: var(--c-primary); }
+@media screen and (min-width: 961px) {
+  .site-header__inner { grid-template-columns: auto 1fr auto auto; }
+  .site-logo { font-size: var(--t-xl); }
+  .site-header__contact { display: block; }
+}
+
+/* Below the desktop breakpoint the search box takes its own row. In the two
+   column grid it was landing in the `auto` column beside the logo, where its
+   size came from the input's intrinsic width (~290px with the button) rather
+   than from the space available — which pushed the header, and therefore every
+   page, into a horizontal scroll at 375px. `min-width: 0` on both the flex
+   container and the input is what actually lets it shrink. */
+.searchbox { display: flex; width: 100%; max-width: 26rem; min-width: 0; }
+/* Stated as max-width and placed after the base rule, not as a reset inside the
+   min-width block above: those two selectors have equal specificity, so the one
+   further down the file wins whatever the media query says, and the desktop
+   header stayed stacked at 1440px. */
+@media screen and (max-width: 960px) {
+  .searchbox { grid-column: 1 / -1; }
+}
+.searchbox input { flex: 1; min-width: 0; min-height: var(--tap-min); padding: var(--s-2) var(--s-3); border: 1px solid var(--c-rule); border-right: 0; border-radius: var(--radius) 0 0 var(--radius); font-size: 16px; font-family: var(--f-body); }
+.searchbox button { min-height: var(--tap-min); padding-inline: var(--s-4); border: 0; border-radius: 0 var(--radius) var(--radius) 0; background: var(--c-primary); color: #fff; font-weight: 700; cursor: pointer; }
+.searchbox button:hover { background: var(--c-primary-dark); }
+
+.cartlink { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap-min); padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: var(--radius); color: var(--c-ink); font-size: var(--t-sm); white-space: nowrap; }
+.cartlink:hover { border-color: var(--c-primary); text-decoration: none; }
+.cartlink b { font-family: var(--f-num); color: var(--c-sale); }
+
+/* --- mega navigation -----------------------------------------------------
+   Built on <details>, so it opens by click on every device and is keyboard
+   operable with no JavaScript. The menu on the current site opens on hover,
+   which is unusable on touch - and touch is now most of the traffic.
+   ------------------------------------------------------------------------ */
+.meganav { border-bottom: 1px solid var(--c-rule); background: var(--c-surface); }
+.meganav__list { display: flex; flex-direction: column; list-style: none; }
+.meganav__item { border-bottom: 1px solid var(--c-rule-soft); }
+.meganav__item > a,
+.meganav summary { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); min-height: var(--tap-min); padding: var(--s-2) 0; font-size: var(--t-md); font-weight: 700; color: var(--c-ink); cursor: pointer; list-style: none; }
+.meganav summary::-webkit-details-marker { display: none; }
+.meganav summary::after { content: "\FF0B"; color: var(--c-primary); font-weight: 400; }
+.meganav details[open] > summary::after { content: "\FF0D"; }
+.meganav__panel { padding: 0 0 var(--s-3); }
+.meganav__cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-2) var(--s-4); list-style: none; }
+.meganav__cols a { display: block; padding: var(--s-2) 0; font-size: var(--t-sm); color: var(--c-ink-2); }
+.meganav__cols a:hover { color: var(--c-primary); }
+
+@media screen and (min-width: 961px) {
+  /* 46カテゴリを1行に並べると、ページ幅が9,000pxを超えて横に引き伸ばされます。
+     実際にそうなりました。折り返しと、パネルが親からはみ出さない指定が要ります。 */
+  .meganav__list { flex-direction: row; flex-wrap: wrap; gap: var(--s-1) var(--s-2); }
+  .meganav__item { border-bottom: 0; position: relative; }
+  .meganav__item > a,
+  .meganav summary { padding-inline: var(--s-3); }
+  .meganav summary::after { content: "\25BE"; }
+  .meganav details[open] > summary::after { content: "\25B4"; }
+  .meganav details[open] > summary { color: var(--c-primary); }
+  /* max-width で画面外へ出ないようにします。34rem 固定のままだと、右端の
+     カテゴリのパネルが画面からはみ出します。 */
+  .meganav__panel { position: absolute; inset-inline-start: 0; inset-block-start: 100%; z-index: 40; min-width: 24rem; max-width: min(34rem, calc(100vw - var(--container-pad) * 2)); padding: var(--s-5); background: var(--c-surface); border: 1px solid var(--c-rule); border-radius: 0 0 var(--radius) var(--radius); box-shadow: var(--shadow); }
+  .meganav__cols { grid-template-columns: repeat(3, 1fr); }
+}
+
+.hero { background: var(--c-primary-light); }
+
+.calendar { border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.calendar h3 { font-size: var(--t-md); margin-bottom: var(--s-3); }
+.calendar table { width: 100%; border-collapse: collapse; font-family: var(--f-num); font-size: var(--t-sm); }
+.calendar th, .calendar td { padding: var(--s-1); text-align: center; font-variant-numeric: tabular-nums; }
+.calendar th { color: var(--c-ink-3); font-weight: 400; font-size: var(--t-xs); }
+.calendar td.is-closed { background: var(--c-sale-light); color: var(--c-sale); font-weight: 700; border-radius: 2px; }
+.calendar__key { display: flex; gap: var(--s-3); margin-top: var(--s-3); font-size: var(--t-xs); color: var(--c-ink-2); }
+.calendar__key i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: var(--c-sale-light); margin-right: var(--s-1); vertical-align: -1px; }
+
+.ranking { list-style: none; counter-reset: rank; }
+.ranking > li { counter-increment: rank; position: relative; }
+.ranking > li .card__media::before { content: counter(rank); position: absolute; z-index: 2; inset-block-start: var(--s-2); inset-inline-end: var(--s-2); min-width: 26px; height: 26px; padding-inline: var(--s-1); display: grid; place-items: center; border-radius: 50%; background: var(--c-primary); color: #fff; font-family: var(--f-num); font-size: var(--t-sm); font-weight: 700; }
+.ranking > li:nth-child(1) .card__media::before { background: #c9a227; }
+.ranking > li:nth-child(2) .card__media::before { background: #9aa3a0; }
+.ranking > li:nth-child(3) .card__media::before { background: #a9763f; }
+
+.site-footer { margin-top: var(--s-12); background: var(--c-surface-2); border-top: 1px solid var(--c-rule); }
+.site-footer__cols { display: grid; gap: var(--s-6); padding-block: var(--s-8); grid-template-columns: 1fr; }
+/* フッターは4列。左サイドバーを畳んだぶんの導線「粗品の選び方」を足したので
+   3列のままだと4つ目だけが次の行に落ちます。768〜960は2列で収めます。 */
+@media screen and (min-width: 768px) { .site-footer__cols { grid-template-columns: repeat(2, 1fr); } }
+@media screen and (min-width: 961px) { .site-footer__cols { grid-template-columns: repeat(4, 1fr); } }
+.site-footer h2, .site-footer h3 { font-size: var(--t-sm); margin-bottom: var(--s-3); color: var(--c-primary); }
+.site-footer ul { list-style: none; }
+.site-footer li { margin-bottom: var(--s-2); }
+.site-footer a { font-size: var(--t-sm); color: var(--c-ink-2); }
+.site-footer__legal { border-top: 1px solid var(--c-rule); padding-block: var(--s-4); font-size: var(--t-xs); color: var(--c-ink-3); text-align: center; }
+
+/* --- category page ------------------------------------------------------- */
+.catintro { background: var(--c-surface-2); border-radius: var(--radius); padding: var(--s-4); margin-bottom: var(--s-6); }
+.catintro p { margin: 0; font-size: var(--t-sm); color: var(--c-ink-2); max-width: 78ch; }
+
+.subcats { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; margin-bottom: var(--s-6); }
+.subcats a { display: inline-flex; align-items: center; min-height: 38px; padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: var(--t-sm); color: var(--c-ink); background: var(--c-surface); }
+.subcats a:hover { border-color: var(--c-primary); color: var(--c-primary); text-decoration: none; }
+.subcats [aria-current="page"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
+
+.listbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--c-rule); margin-bottom: var(--s-4); }
+.listbar__count { font-size: var(--t-sm); color: var(--c-ink-2); }
+.listbar__count b { font-family: var(--f-num); color: var(--c-ink); font-size: var(--t-md); }
+/* 並び替え。**折り返せないと、スマホで横にはみ出します。**
+
+   flex のまま wrap を書いていませんでした。ラベル「並び替え：」＋リンク5本で
+   すでに窮屈で、2026-09-07 に「単価順」を足して6本になりました（C37）。
+   320px 幅では1行に入りません。ご依頼の1番目が「レスポンシブの崩れ」なので、
+   ここは崩してはいけないところです。
+
+   🔴 選択中の印に装飾がありませんでした。
+
+      テンプレートは最初から is_sort_*_selected で aria-current="true" を
+      出しています。コメントには「ベーシックではできなかったこと」とまで
+      書いてありました。**CSSが無いので、一度も見えていません。**
+      .guide-item と同じ間違い方です ── マークアップだけ見て確認した気に
+      なっていました。
+
+   リンクは指で押す相手なので、高さを確保します。 */
+.listbar__sort { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-2); font-size: var(--t-sm); }
+.listbar__sort a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); color: var(--c-ink-2); text-decoration: none; white-space: nowrap; }
+.listbar__sort a:hover { border-color: var(--c-primary); color: var(--c-primary); }
+.listbar__sort a[aria-current="true"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
+.listbar__sort select { min-height: 38px; padding: 0 var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-body); background: #fff; }
+
+/* --- product gallery -----------------------------------------------------
+   Client request (C22): サブ画像使用（スマホではスワイプできればと思います）.
+   Same approach as the recommend rail - CSS scroll-snap, no library. The
+   thumbnails are real buttons so the gallery works by tap, click and keyboard,
+   not only by swipe.
+   ------------------------------------------------------------------------ */
+.gallery { display: grid; gap: var(--s-3); }
+
+.gallery__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+}
+.gallery__track::-webkit-scrollbar { display: none; }
+.gallery__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  color: var(--c-ink-3);
+  font-size: var(--t-sm);
+}
+.gallery__slide img { width: 100%; height: 100%; object-fit: contain; }
+
+/* dots: the swipe affordance on small screens, hidden once thumbs are visible */
+.gallery__dots { display: flex; justify-content: center; gap: var(--s-2); }
+.gallery__dots span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--c-rule); transition: background-color .15s var(--ease);
+}
+.gallery__dots span[data-active] { background: var(--c-primary); }
+
+.gallery__thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-2); list-style: none; }
+.gallery__thumb {
+  padding: 0; border: 1px solid var(--c-rule); border-radius: var(--radius);
+  background: var(--c-surface-2); aspect-ratio: 1 / 1; cursor: pointer;
+  overflow: hidden; font-size: var(--t-xs); color: var(--c-ink-3);
+  transition: border-color .15s var(--ease);
+}
+.gallery__thumb img { width: 100%; height: 100%; object-fit: contain; }
+.gallery__thumb:hover { border-color: var(--c-primary); }
+.gallery__thumb[aria-current="true"] { border-color: var(--c-primary); border-width: 2px; }
+
+@media screen and (min-width: 768px) {
+  .gallery__dots { display: none; }
+}
+
+/* --- cart ----------------------------------------------------------------
+   The Basic Mode cart is a six-column table: 3 columns of product info, then
+   quantity, price and a remove button. At 375px that is unreadable and it is
+   the last screen before payment, so below 768px each row becomes a card with
+   its column headings carried in data-label. Above it, the table stays a table.
+   ------------------------------------------------------------------------ */
+.carttable { width: 100%; border-collapse: collapse; }
+.carttable th, .carttable td { padding: var(--s-3); border-bottom: 1px solid var(--c-rule); text-align: left; vertical-align: middle; }
+.carttable thead th { background: var(--c-surface-2); font-size: var(--t-sm); color: var(--c-ink-2); }
+.carttable__media img { width: 72px; height: 72px; object-fit: contain; background: var(--c-surface-2); border-radius: var(--radius); }
+.carttable__name { font-weight: 700; }
+.carttable__code { display: block; font-size: var(--t-xs); color: var(--c-ink-3); }
+.carttable__opt { display: block; font-size: var(--t-sm); color: var(--c-ink-2); }
+.carttable__price { font-family: var(--f-num); font-weight: 700; white-space: nowrap; }
+.carttable__price small { font-weight: 400; color: var(--c-ink-3); }
+.carttable__empty { padding: var(--s-10) var(--s-4); text-align: center; color: var(--c-ink-2); }
+
+.qtyfield { display: inline-flex; align-items: center; gap: var(--s-2); }
+.qtyfield input { width: 5rem; min-height: var(--tap-min); padding: var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-num); text-align: right; }
+
+@media screen and (max-width: 767px) {
+  .carttable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .carttable tr { display: grid; grid-template-columns: 72px 1fr; gap: 0 var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--c-rule); }
+  .carttable td { border: 0; padding: var(--s-1) 0; }
+  .carttable .carttable__media { grid-row: span 3; }
+  .carttable td[data-label]::before { content: attr(data-label) "\FF1A"; font-size: var(--t-xs); color: var(--c-ink-3); margin-right: var(--s-1); }
+  .carttable__empty, .carttable tr.is-empty { display: block; }
+  /* Everything except the thumbnail belongs in the content column; without this
+     the remove button lands in the 72px image track and wraps mid-word. */
+  .carttable td:not(.carttable__media) { grid-column: 2; }
+  .carttable td:last-child { justify-self: start; margin-top: var(--s-2); }
+}
+
+.cartsum { margin: var(--s-6) 0; border: 1px solid var(--c-rule); border-radius: var(--radius); padding: var(--s-4); background: var(--c-surface); }
+.cartsum__row { display: flex; justify-content: space-between; gap: var(--s-4); padding: var(--s-2) 0; }
+.cartsum__row + .cartsum__row { border-top: 1px dashed var(--c-rule-soft); }
+.cartsum__total { font-family: var(--f-num); font-size: var(--t-xl); font-weight: 700; color: var(--c-sale); }
+.cartsum__note { font-size: var(--t-sm); color: var(--c-ink-2); margin-top: var(--s-2); }
+
+.cartactions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin: var(--s-6) 0; }
+.cartactions .btn { flex: 1 1 14rem; justify-content: center; }
+.cartquote { margin: var(--s-6) 0 0; padding: var(--s-4); border: 1px solid var(--c-accent); border-radius: var(--radius); background: var(--c-accent-light); }
+.cartquote p { margin: 0 0 var(--s-2); font-size: var(--t-sm); }
+.cartquote form { margin: 0; }
+
+/* --- buystack: the routes under カートに入れる ---------------------------
+   Favourites, the product enquiry and the quote-request form. Two of the three
+   are commercial, so they get real tap targets rather than the text links the
+   Basic Mode page uses, and they stack full-width on a phone.
+   ------------------------------------------------------------------------ */
+.buystack { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: grid; gap: var(--s-3); }
+.buystack > li { margin: 0; }
+.buystack form { margin: 0; }
+.buystack .btn { width: 100%; justify-content: center; }
+.buystack__note { display: block; margin-top: var(--s-1); font-size: var(--t-xs); color: var(--c-ink-2); line-height: var(--lh-normal); }
+@media screen and (min-width: 768px) {
+  .buystack { grid-template-columns: repeat(2, 1fr); align-items: start; }
+  .buystack > li:last-child { grid-column: 1 / -1; }
+}
+
+/* Member routes in the top strip: guide, register, login. On a phone they wrap
+   under the shipping notice rather than being hidden - a customer who cannot
+   find the login cannot reach their 割引設定 price. */
+.utilbar__links { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+.utilbar__links a { white-space: nowrap; }
+@media screen and (min-width: 961px) {
+  .utilbar__inner { justify-content: space-between; }
+  .utilbar__links { margin-left: auto; }
+}
+
+/* A card whose whole surface is the link: the anchor has to be the flex column,
+   or .card__body never stretches and .card__price loses its margin-top:auto -
+   which leaves prices sitting at different heights across a row, tied to how
+   many lines each product name happens to take. */
+.card > a {
+  display: flex; flex-direction: column; flex: 1;
+  color: inherit; text-decoration: none;
+}
+.card > a:hover { text-decoration: none; }
+.card > a:hover .card__name { color: var(--c-primary); }
+
+/* --- tilegrid: image tile + caption ---------------------------------------
+   Moved here from freepage.css on 2026-09-03. It is no longer a free-page
+   component: the product detail template's 商品カテゴリー一覧 tab is 46 of
+   these tiles, so both page families need it and only components.css is
+   loaded by both.
+
+   .tilecap was .textboxisp. Mapping that class by name to .notice once drew
+   a bordered box round every thumbnail and squeezed the captions to one
+   character per line; it is a caption strip, not a notice.
+   -------------------------------------------------------------------------- */
+.tilegrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--s-4);
+  list-style: none;
+  margin: var(--s-5) 0;
+  padding: 0;
+}
+.tilegrid li, .tilegrid figure { margin: 0; }
+.tilegrid img { width: 100%; height: auto; border-radius: var(--radius); }
+/* The whole tile is the link: image on top, caption under it, both centred. */
+.tilegrid > li > a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+}
+.tilegrid > li > a:hover { text-decoration: none; }
+.tilegrid > li > a:hover .tilecap { background: var(--c-surface); color: var(--c-primary); }
+.tilegrid figcaption, .tilecap {
+  margin-top: var(--s-2);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+  font-size: var(--t-sm);
+  color: var(--c-ink-2);
+  text-align: center;
+  line-height: var(--lh-tight);
+  transition: background var(--ease), color var(--ease);
+}
+
+/* --- tabs -----------------------------------------------------------------
+   The Basic Mode product page ends in a three-tab block - 送料・類似品 /
+   商品カテゴリー一覧 / この商品のレビューを見る - built from three hidden
+   radio inputs and three <label>s. It was missing from the rebuild entirely,
+   which dropped the shipping table, 46 category tiles and the whole review
+   widget off the page.
+
+   Rebuilt as progressive enhancement rather than as radios: every panel is
+   visible by default, so with JavaScript off the page is three stacked
+   sections with headings. tabs.js then hides all but one and adds the ARIA
+   roles. Same principle as gallery.js - the content is never behind a script.
+
+   On a phone the tab strip scrolls horizontally instead of wrapping to three
+   lines; 44px minimum tap target, matching the rest of the rebuild.
+   -------------------------------------------------------------------------- */
+.tabs { margin-top: var(--s-12); }
+
+.tabs__list {
+  display: flex;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-6);
+  padding: 0;
+  list-style: none;
+  border-bottom: 2px solid var(--c-rule);
+}
+.tabs__tab {
+  appearance: none;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  background: none;
+  color: var(--c-ink-2);
+  font: inherit;
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease), background var(--ease);
+}
+.tabs__tab:hover { color: var(--c-primary); background: var(--c-surface-2); }
+.tabs__tab[aria-selected="true"] {
+  color: var(--c-primary);
+  border-bottom-color: var(--c-primary);
+  font-weight: 700;
+}
+.tabs__tab:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* Without JS the list is not a tablist and the headings carry the page. */
+.tabs__panel > .h-section { margin-top: 0; }
+.tabs[data-enhanced="true"] .tabs__panel > .h-section { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media screen and (max-width: 767px) {
+  .tabs__list {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+    scrollbar-width: thin;
+  }
+  .tabs__tab { flex: 0 0 auto; scroll-snap-align: start; font-size: var(--t-sm); }
+}
+
+/* =============================================================================
+   スタイルの当たっていなかった12クラス — 2026-09-06
+
+   🔴 テンプレートが使っているのに、CSSに1行も無いクラスが12ありました。
+      tools/check-css-coverage.sh を書いて初めて分かりました。
+
+      いちばん影響が大きいのは `.pd` です。商品詳細ページの2カラム枠で、
+      これが無いと**9,534商品ページが、パソコンでも縦一列**になります。
+      写真の下に価格、その下にカートボタン。崩れて見えるわけではないので、
+      スクリーンショットでも気づけません。
+
+      「使っていないCSSは消してよい」というご依頼の裏返しで、**使っている
+      のに無いCSS**は誰も探していませんでした。
+   ========================================================================== */
+
+/* --- 商品詳細の2カラム ---------------------------------------------------- */
+/* スマホは1列。768px以上でギャラリーと商品情報を横に並べます。
+   ギャラリーを固定幅にせず 5fr:7fr にしているのは、商品名が長い商品が
+   多く、右側に文字を置く余裕が要るためです。 */
+.pd { display: grid; gap: var(--s-5); align-items: start; }
+@media screen and (min-width: 768px) {
+  .pd { grid-template-columns: 5fr 7fr; gap: var(--s-8); }
+}
+
+/* --- 営業日カレンダー（ct646）-------------------------------------------- */
+/* 2か月ぶんを横に並べます。狭い画面では縦。 */
+.calgrid { display: grid; gap: var(--s-4); }
+@media screen and (min-width: 600px) {
+  .calgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* --- ご利用ガイドの手順ブロック ------------------------------------------- */
+/* STEP1・STEP2… の見出しと本文。番号を目立たせて、続きがあることが
+   分かるように左に線を引いています。 */
+.flow { border-left: 3px solid var(--c-primary); padding: 0 0 0 var(--s-4); margin-bottom: var(--s-5); }
+.flow h4 {
+  font-size: var(--t-md); color: var(--c-primary); margin: 0 0 var(--s-2);
+  letter-spacing: .04em;
+}
+.flow > div > p:last-child { margin-bottom: 0; }
+
+/* --- リンクの並び --------------------------------------------------------- */
+.linklist { list-style: none; display: grid; gap: var(--s-1); margin: var(--s-2) 0; }
+.linklist li { margin: 0; }
+.linklist a { display: inline-block; padding: var(--s-1) 0; }
+
+/* --- 注意書き ------------------------------------------------------------- */
+/* 「※買い物カゴがご利用できない場合は…」のような but-read-this の一文。
+   色だけに頼らず、左の線と余白でも区別が付くようにしています。 */
+.u-alert {
+  border-left: 3px solid var(--c-sale);
+  background: var(--c-sale-light);
+  padding: var(--s-2) var(--s-3);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.u-alert:last-child { margin-bottom: 0; }
+
+/* 「※」で始まる補足。本文より小さく、少し薄く。 */
+.note-kome { font-size: var(--t-sm); color: var(--c-ink-2); }
+
+/* --- お知らせ ------------------------------------------------------------- */
+.newsmeta {
+  display: block; font-family: var(--f-num); font-size: var(--t-sm);
+  color: var(--c-ink-3); margin-bottom: var(--s-2);
+}
+/* 前後の記事と一覧へ戻る導線。3つを横に並べ、真ん中を中央に置きます。
+   前後どちらかが無い記事（最初と最後）でも中央が動かないよう、
+   space-between ではなく grid の3列にしています。 */
+.newsnav {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: var(--s-3);
+  margin-top: var(--s-8); padding-top: var(--s-5);
+  border-top: 1px solid var(--c-rule);
+}
+.newsnav__prev { grid-column: 1; justify-self: start; }
+.newsnav__next { grid-column: 3; justify-self: end; }
+.newsnav__prev, .newsnav__next { font-size: var(--t-sm); color: var(--c-ink-2); }
+.newsnav__prev::before { content: "\2039 "; }
+.newsnav__next::after  { content: " \203A"; }
+@media screen and (max-width: 599px) {
+  /* 狭い画面では3列だと文字が潰れるので、一覧へのボタンを下に落とします。 */
+  .newsnav { grid-template-columns: 1fr 1fr; }
+  .newsnav > .btn { grid-column: 1 / -1; grid-row: 2; justify-self: center; }
+  .newsnav__next { grid-column: 2; }
+}
+
+/* --- カテゴリの説明文 ------------------------------------------------------ */
+/* .catintro の中に置かれる本文。1行が長くなりすぎないよう幅を止めます。 */
+.catintro__lead { margin: 0; font-size: var(--t-sm); color: var(--c-ink-2); max-width: 78ch; }
+.catintro__lead + .catintro__lead { margin-top: var(--s-2); }
+
+/* --- 小さなユーティリティ -------------------------------------------------- */
+.u-center { text-align: center; }
+.u-bold { font-weight: 700; }
+
+/* =============================================================================
+   お店が商品説明に直接書いているクラス — 2026-09-06
+
+   🔴 これが無いと、ほぼ全商品の仕様表から色が消えます
+
+   販売単位・見積依頼・名入れ・熨斗・包装の表は、こちらのテンプレートでは
+   なく**お店が「追加画像の説明文」欄にHTMLで書いています。** そのHTMLは
+   ベーシックモードのクラス名を使っています。
+
+     box20  可（薄い黄緑）
+     box22  リンク付き（薄い黄色）
+     box23  不可（グレー、文字も薄い）
+
+   定義はベーシックモードの m_sys_common.css にあり、**切替で消えます。**
+   消えると5つの枠が全部同じ見た目になり、「名入れできる／できない」が
+   区別できなくなります。101商品中101商品にこの表が入っています。
+
+   こちらの `.spectable` はこの表を作り直すつもりで書いたものでしたが、
+   HTMLを書いているのはお店なので、いつまでも出番が来ません。**お店に
+   9,534商品の説明文を書き換えてもらうより、こちらがCSSを引き取る方が
+   確実です。** 色は元のまま写しています。
+
+   出どころ: snapshot/assets/www.isp-sp.com_design_isplanning_m_sys_common.css
+   ========================================================================== */
+.box20, .box22, .box23 {
+  padding: .5em 1em;
+  margin: 6px 0;
+  display: inline-block;
+  border-top: solid 10px;
+}
+.box20 { color: #000; background: #f8ffdb; border-top-color: #cfed53; }
+.box22 { color: #000; background: #fcf5ae; border-top-color: #cfed53; }
+.box23 { color: #595858; background: #cfcfcf; border-top-color: #9c9c9a; }
+
+/* お店の書いた表が画面幅を超えたときに、ページごと横に流れないように。
+   5列の表がスマホの375pxに収まらないので、表だけを横スクロールさせます。
+   ここを入れないと、ページ全体に横スクロールバーが出ます。 */
+.tilecap table,
+.article table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- お店が商品説明に書いている旧クラス（続き）-------------------------------
+   保存済みの商品ページ102件を、**お店が書く欄だけ**に絞って調べた結果です。
+   ベーシックモードのCSSに定義があり、システム側のCSSには無いもの ──
+   つまり切替で見た目が落ちるものだけを引き取っています。
+
+   `nameprice` `cover` `cover1` `cover2` `gray` も使われていますが、
+   **現行サイトにも定義がありません。** いま既にスタイルが当たっていないので、
+   移行で失われるものはありません。書きません。
+
+   出どころは box20 と同じ m_sys_common.css です。値は変えていません。
+   -------------------------------------------------------------------------- */
+
+/* 商品説明中の赤字強調。30商品ほどで使われています。 */
+.syouhin_red { color: #ff2222; font-size: 120%; font-family: "Meiryo", var(--f-body); }
+
+/* 名入れ料金表の枠。30商品で使われています。 */
+.name2022 {
+  width: 100%; table-layout: fixed; text-align: center;
+  border-collapse: collapse; border-spacing: 0; background: #ceebbc;
+}
+
+/* 「※」を自動で付ける注記。 */
+.kome::before { content: "\203B"; }
+
+/* カテゴリタイルの説明帯。こちらのテンプレートでは .tilecap に付け替えて
+   いますが、お店が商品説明の中で直接使っている箇所が残っているため、
+   旧名でも同じ見た目になるようにしておきます。 */
+.textboxisp {
+  background-color: #f5f7f7;
+  padding: 10px; margin: 8px auto;
+  font-size: 14px; text-align: center;
+}
+
+/* トップページの h1。現行サイトと同じく、ページ最上部の控えめな一行として
+   出します。見出しとしての大きさは要りません ── 主役はメインビジュアルで、
+   これは「このサイトが何か」を文書として持たせるための行です。
+   非表示にはしません。読み上げにも検索にも、目で読む人にも同じものを出します。 */
+.h-lede {
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--c-ink-2);
+  line-height: var(--lh-normal);
+  margin: var(--s-3) 0 var(--s-2);
+}
+
+/* --- はじめての方へ の導線 --------------------------------------------------
+   🔴 `.guide-item` は `.guide-item figure` のように**祖先としてしか**
+      書かれていませんでした。トップの6リンクは <a class="guide-item"> なので、
+      当たるものが1つもなく、素のテキストリンクが2列に並ぶだけでした。
+
+      クラス名がCSSに出てくれば「定義あり」と数えていたので、検査も
+      見逃していました。**祖先としてしか出てこないクラスも報告する**ように
+      直してあります（tools/check-css-coverage.sh）。
+
+   左サイドバーを畳んだぶんの入口なので、押せる面積を持たせます。
+   -------------------------------------------------------------------------- */
+a.guide-item {
+  display: flex; align-items: center;
+  min-height: var(--tap-min);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font-size: var(--t-md); font-weight: 500;
+  transition: border-color .15s var(--ease), background .15s var(--ease);
+}
+a.guide-item::after { content: "\203A"; margin-left: auto; color: var(--c-primary); }
+a.guide-item:hover {
+  border-color: var(--c-primary); background: var(--c-primary-light);
+  color: var(--c-primary); text-decoration: none;
+}

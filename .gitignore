@@ -31,3 +31,8 @@ snapshot/refetch/
 
 # 作業中の一時ファイル
 *.tmp
+
+# コンソールの箱を書き出したもの。作業のたびに置き換わるので残しません。
+# Basics 側の控えは templates/basics-stock/ にあります。
+/box.js
+/box.css

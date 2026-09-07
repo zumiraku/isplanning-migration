@@ -109,6 +109,47 @@ const before = boxLines.slice(0, found.start);
 const after = boxLines.slice(found.start + found.len);
 const result = before.concat(fresh.split('\n'), after).join('\n');
 
+/* 🔴 CSS の @import は、他の規則より前になければ効きません。
+ *
+ *      @import url(//use.fontawesome.com/releases/v5.0.11/css/all.css);
+ *
+ *    ブラウザは位置の悪い @import を**黙って無視**します。エラーも警告も
+ *    出ません。この1行が効かなくなると Font Awesome が読み込まれず、
+ *    アイコンだけが消えます。
+ *
+ *    最初、この検査を「箱の1行目と結果の1行目を比べる」形で書きました。
+ *    **入れ替えた箱を渡したら素通りしました。** 箱の側がすでに壊れていると
+ *    「1行目どうしが同じ」になってしまうためです。比べるのではなく、
+ *    **@import が先頭にあるか**そのものを見ます。
+ *
+ *    これが「CSS はこちらのブロックが後ろ」である理由です。順番の理由が
+ *    ファイルの中にあるので、覚えておく話にせず、毎回確かめます。 */
+if (kind === 'css') {
+  const lines = result.split('\n');
+  let seenRule = false;
+  let bad = 0;
+  let inComment = false;
+  for (let i = 0; i < lines.length; i++) {
+    let t = lines[i].trim();
+    if (inComment) { if (t.indexOf('*/') !== -1) { inComment = false; } continue; }
+    if (t.indexOf('/*') === 0 && t.indexOf('*/') === -1) { inComment = true; continue; }
+    t = t.replace(/\/\*.*?\*\//g, '').trim();
+    if (!t) { continue; }
+    if (t.indexOf('@charset') === 0) { continue; }
+    if (t.indexOf('@import') === 0) {
+      if (seenRule) { bad++; console.error(`   ${i + 1} 行目: ${t}`); }
+      continue;
+    }
+    seenRule = true;
+  }
+  if (bad) {
+    console.error(`🔴 @import が ${bad} 件、他の規則より後ろにあります。`);
+    console.error('   ブラウザは黙って無視します。このまま貼ると Font Awesome の');
+    console.error('   アイコンが消えます。**書き出しません。**');
+    process.exit(1);
+  }
+}
+
 fs.mkdirSync(path.dirname(out), { recursive: true });
 fs.writeFileSync(out, result);
 
