@@ -34,6 +34,7 @@ if   hit 'data-gallery-track';                 then name="商品詳細 (detail.t
 elif hit 'に一致する商品は見つかりませんでした'; then name="商品検索結果 (search.tpl)"
 elif hit 'このカテゴリーには現在商品がございません'; then name="商品カテゴリー (category.tpl)"
 elif hit 'class="carttable"';                  then name="買い物カゴ (cart-body.tpl)"
+elif hit '買い物かごに商品が入っていません';    then name="買い物カゴ (cart-body.tpl・空)"
 elif hit 'class="newslist"';                   then name="お知らせ一覧 (news-list-body.tpl)"
 elif hit 'class="newsnav"';                    then name="お知らせ詳細 (news-detail-body.tpl)"
 elif hit 'class="h-lede"';                     then name="トップ (top-body.tpl)"
