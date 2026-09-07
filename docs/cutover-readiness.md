@@ -1143,3 +1143,39 @@ Smarty標準の修飾子に `number_format` はありません（`string_format`
 なので桁区切りを作れません）。MakeShop が独自に用意していれば `|number_format`
 で入りますが、**未対応ならテンプレートごとエラーになり、606カテゴリと検索が
 同時に落ちます。** 当て推量では入れません。プレビューで1枚だけ試して決めます。
+
+## 商品詳細を実サイトで確認 — 2026-09-07（追加分の貼り付け後）
+
+`tools/identify-preview.sh` が `detail.tpl` と判定。未展開タグ0、空href 0、空src 0。
+
+### 落としていた機能が、実際に出ています
+
+```html
+品番            <p class="card__code">品番 NT1201</p>
+価格            <span data-id="makeshop-item-price:1">55,000</span>円<small>（税込）</small>
+代引き          代引き手数料は当社負担で<b>無料</b>です。
+数量            <input class="qtyfield" type="number" value="1" min="1"
+                       id="makeshop-item-quantity" data-id="makeshop-item-quantity">
+問い合わせ      <a href="#makeshop-item-contact-url">この商品について問い合わせる</a>
+カート          <a href="#makeshop-item-cart-entry-url:1">カートに入れる</a>
+見積            enq202208200?item=ノック式ボールペン（色指定可）&code=NT1201
+```
+
+`#makeshop-item-cart-entry-url:1` と `data-id-quantity="makeshop-item-quantity"` が
+組みになっているので、**カートに入れるときにこちらの数量欄が読まれます。**
+数量欄が無かった状態では、常に最少数量で入っていたことになります。
+
+名入れ枠とセール枠はこの商品に該当が無く、出ていません（`is_name_print` /
+`is_sale` が偽）。**条件付きで出るものは、該当する商品を選ばないと確認でき
+ません。** 切替リハーサルで名入れ商品とセール商品を1つずつ見ます。
+
+### レスポンシブ — 実配信のHTMLとCSSで測定
+
+| 画面幅 | 横はみ出し | 数量欄 | 商品ページの2カラム |
+|---:|---|---|---|
+| 320px | なし（310） | 44px | 1列（278px） |
+| 375px | なし（365） | 44px | 1列（333px） |
+| 1280px | なし（1270） | 44px | **2列（451px / 632px）** |
+
+数量欄は21pxで出ていたところです。2カラムは `.pd` の 5fr:7fr がそのまま出て
+います。
