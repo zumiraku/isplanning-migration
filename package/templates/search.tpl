@@ -46,9 +46,15 @@
      from the source and the tag reference alone.
 
      It uses the same [SORT*], [PAGER], [TOTAL] family as the category listing,
-     which is why the category components cover it. The one difference the
-     reference shows is that search offers a sixth sort, メーカー順, which the
-     category page does not.
+     which is why the category components cover it.
+
+     🔴 かつてここに「検索だけメーカー順という6つ目の並び替えがある」と書いて
+        いました。**両方にあります。** リファレンスには
+        $category.sort_manufacturer_url も載っています。そして山口様の説明で
+        分かったとおり、この店舗ではそれが「単価順」です。詳しくは
+        category.tpl の並び替えのコメントに書きました。
+
+        タグ名だけを並べて差分を取ると、こういう読み違いをします。
    ========================================================================== *}>
 
 <{* パンくず。先頭に「ホーム」を固定で置いています。プラットフォームが返す
@@ -80,6 +86,7 @@
     <span>並び替え：</span>
     <a href="<{$search.sort_new_url}>"<{if $search.is_sort_new_selected}> aria-current="true"<{/if}>>新着順</a>
     <a href="<{$search.sort_recommend_url}>"<{if $search.is_sort_recommend_selected}> aria-current="true"<{/if}>>おすすめ順</a>
+    <a href="<{$search.sort_manufacturer_url}>"<{if $search.is_sort_manufacturer_selected}> aria-current="true"<{/if}>>単価順</a>
     <a href="<{$search.sort_low_price_url}>"<{if $search.is_sort_low_price_selected}> aria-current="true"<{/if}>>価格が安い順</a>
     <a href="<{$search.sort_high_price_url}>"<{if $search.is_sort_high_price_selected}> aria-current="true"<{/if}>>価格が高い順</a>
     <a href="<{$search.sort_name_url}>"<{if $search.is_sort_name_selected}> aria-current="true"<{/if}>>商品名順</a>

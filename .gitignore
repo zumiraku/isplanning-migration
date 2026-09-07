@@ -24,3 +24,7 @@ tmp/
 # The raw design ZIP is kept; its unpacked copy is not (templates/basic-export/design/
 # holds the same files converted to UTF-8, which is what tools read).
 templates/basic-export/design-backup/backup_original_design_*/
+
+# refetch-freepages.sh の一時置き場。取り込むと snapshot/desktop/ に入り、
+# 元は snapshot/desktop-archive/ に残るので、ここは残す必要がありません。
+snapshot/refetch/

@@ -1,0 +1,46 @@
+{
+  "_note": "検索結果0件。行き止まりでお客様を失うので、案内が出ることを確かめます。",
+  "url": {
+    "top": "/"
+  },
+  "search": {
+    "keyword": "ぬいぐるみ",
+    "total_count": 0,
+    "breadcrumb_list": {
+      "list": [
+        {
+          "name": "商品検索",
+          "url": "/view/search",
+          "is_current": false
+        },
+        {
+          "name": "「タオル」の検索結果",
+          "url": "/view/search?k=t",
+          "is_current": true
+        }
+      ]
+    },
+    "sort_new_url": "/s1",
+    "sort_recommend_url": "/s2",
+    "sort_low_price_url": "/s3",
+    "sort_high_price_url": "/s4",
+    "sort_name_url": "/s5",
+    "sort_manufacturer_url": "/s6",
+    "is_sort_new_selected": false,
+    "is_sort_recommend_selected": false,
+    "is_sort_low_price_selected": false,
+    "is_sort_high_price_selected": false,
+    "is_sort_name_selected": false,
+    "is_sort_manufacturer_selected": true,
+    "item": {
+      "has_item": false,
+      "list": []
+    },
+    "pager": {
+      "has_item": false,
+      "is_first": true,
+      "is_last": true,
+      "list": []
+    }
+  }
+}

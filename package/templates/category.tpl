@@ -142,13 +142,44 @@
 <div class="listbar">
   <p class="listbar__count">全 <b><{$category.total_count}></b> 件</p>
 
-  <{* 並び替え。The live site offers five; Creator Mode has these four plus
-       メーカー順, and does not have 単価順. Marking the current one is what
-       is_sort_*_selected is for - the Basic Mode template could not do it. *}>
+  <{* 並び替え。現行サイトと同じ5つ、同じ並び順です。
+       新着順 / おすすめ順 / 単価順 / 価格 / 商品名
+
+       🔴 「単価順」は 製造元順（$category.sort_manufacturer_url）です。
+
+          長いあいだ「Creatorに単価順は無い」と記録していました。**間違い
+          でした。** 山口様の説明で分かったことです。
+
+          > メイクショップの「商品編集」の「詳細情報」の「製造元」を「単価順」に
+          > 文字を変えています（ロット販売のため合計金額となるため単価順に並べ
+          > 替えたかったので製造元に商品単価を登録しています 例＠62円 登録100062）
+
+          つまり **製造元フィールドに単価が入っています**。@62円 なら 100062。
+          100000 を足して桁を揃えてあるので、文字列で並べても単価の昇順に
+          なります。ベーシックの [SORTPRODUCT] は製造元順で、山口様はラベルの
+          文字だけを「単価順」に書き換えて使っていました。こちらも同じことを
+          します。
+
+          機能が無かったのではなく、**タグ名と画面の文字が一致していないことに
+          気づいていなかった**だけです。商品データを見ずにタグ一覧だけで
+          「欠落」と判断したのが誤りでした。
+
+       🔴 選択中の印だけタグ名が違います。
+
+          カテゴリー   $category.sort_manufacturer_selected     ← is_ が無い
+          検索         $search.is_sort_manufacturer_selected    ← is_ がある
+
+          他の5つはカテゴリー側も is_ が付きます。製造元だけ付きません。
+          公式リファレンスにそう書かれているので、**そのとおりに書きます。**
+          直感で is_ を足すと、印が一度も出ないまま気づけません。
+
+       $item.manufacturer は**どのページにも出していません。** 出すと
+       「100062」がそのままお客様に見えます。並び替えのキーとしてだけ使います。 *}>
   <nav class="listbar__sort" aria-label="並び替え">
     <span>並び替え：</span>
     <a href="<{$category.sort_new_url}>"<{if $category.is_sort_new_selected}> aria-current="true"<{/if}>>新着順</a>
     <a href="<{$category.sort_recommend_url}>"<{if $category.is_sort_recommend_selected}> aria-current="true"<{/if}>>おすすめ順</a>
+    <a href="<{$category.sort_manufacturer_url}>"<{if $category.sort_manufacturer_selected}> aria-current="true"<{/if}>>単価順</a>
     <a href="<{$category.sort_low_price_url}>"<{if $category.is_sort_low_price_selected}> aria-current="true"<{/if}>>価格が安い順</a>
     <a href="<{$category.sort_high_price_url}>"<{if $category.is_sort_high_price_selected}> aria-current="true"<{/if}>>価格が高い順</a>
     <a href="<{$category.sort_name_url}>"<{if $category.is_sort_name_selected}> aria-current="true"<{/if}>>商品名順</a>

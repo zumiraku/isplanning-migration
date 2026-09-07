@@ -479,7 +479,26 @@ ul, ol { margin: 0; padding: 0; }
 .listbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--c-rule); margin-bottom: var(--s-4); }
 .listbar__count { font-size: var(--t-sm); color: var(--c-ink-2); }
 .listbar__count b { font-family: var(--f-num); color: var(--c-ink); font-size: var(--t-md); }
-.listbar__sort { display: flex; align-items: center; gap: var(--s-2); font-size: var(--t-sm); }
+/* 並び替え。**折り返せないと、スマホで横にはみ出します。**
+
+   flex のまま wrap を書いていませんでした。ラベル「並び替え：」＋リンク5本で
+   すでに窮屈で、2026-09-07 に「単価順」を足して6本になりました（C37）。
+   320px 幅では1行に入りません。ご依頼の1番目が「レスポンシブの崩れ」なので、
+   ここは崩してはいけないところです。
+
+   🔴 選択中の印に装飾がありませんでした。
+
+      テンプレートは最初から is_sort_*_selected で aria-current="true" を
+      出しています。コメントには「ベーシックではできなかったこと」とまで
+      書いてありました。**CSSが無いので、一度も見えていません。**
+      .guide-item と同じ間違い方です ── マークアップだけ見て確認した気に
+      なっていました。
+
+   リンクは指で押す相手なので、高さを確保します。 */
+.listbar__sort { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-2); font-size: var(--t-sm); }
+.listbar__sort a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); color: var(--c-ink-2); text-decoration: none; white-space: nowrap; }
+.listbar__sort a:hover { border-color: var(--c-primary); color: var(--c-primary); }
+.listbar__sort a[aria-current="true"] { background: var(--c-primary); border-color: var(--c-primary); color: #fff; font-weight: 700; }
 .listbar__sort select { min-height: 38px; padding: 0 var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-body); background: #fff; }
 
 /* --- product gallery -----------------------------------------------------

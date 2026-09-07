@@ -20,13 +20,43 @@
 # Output: package/url-bulk/categories-url.csv
 # Needs Git Bash. Run from the repository root.
 
+# 🔴 クロール結果は「あの時点の本番サイト」です。その後の変更は別に持ちます。
+#
+#    ct668 のカテゴリ名は、クロール時点で ■■■ でした。山口様がその後
+#    「■粗品（価格変更予定）」に変更されています。
+#
+#    ここで inventory/pages-categories-desktop.csv を直接書き換えるのは
+#    間違いです。あれは**測定結果**で、測っていないことを書き込むと、
+#    あとから何が事実で何が推測か分からなくなります。
+#
+#    そして、このCSVは**切替日に作り直します**（cutover-runbook.md）。
+#    出来上がったCSVを手で直しても、その日に消えます。上書きは表で持ち、
+#    毎回この生成で当て直します。
+#
+#    inventory/category-admin-changes.csv
+#      カテゴリコード,項目,新しい値,出典,確認日
+#      項目は 名称 と noindex の2つ。
+
 src="inventory/pages-categories-desktop.csv"
+ovr="inventory/category-admin-changes.csv"
 out="package/url-bulk/categories-url.csv"
 [ -f "$src" ] || { echo "no $src"; exit 1; }
 mkdir -p "$(dirname "$out")"
 
 printf '\357\273\277' > "$out"
 printf 'URLタイプ,システムURL,名称,canonical属性,追加URL,noindex設定\n' >> "$out"
+
+# 上書きは先に1回だけ読みます。
+#
+# 🔴 最初は行ごとに grep を2回叩いていました。606行 × 2 プロセスで、
+#    生成に7分かかりました。Windowsではプロセス起動が高いので、ループの
+#    中で外部コマンドを呼ぶ設計そのものが誤りです。case はシェル組み込みで、
+#    実際に一致した2件だけ sed を呼びます。
+ovr_name=""; ovr_ni=""
+if [ -f "$ovr" ]; then
+  ovr_name=$(tail -n +2 "$ovr" | sed 's/^"//; s/"$//' | awk -F'","' '$2=="名称"{print $1"="$3}')
+  ovr_ni=$(tail -n +2 "$ovr"   | sed 's/^"//; s/"$//' | awk -F'","' '$2=="noindex"{print $1"="$3}')
+fi
 
 sed 's/^"//; s/"$//' "$src" | tail -n +2 | awk -F'","' '{print $1"\t"$9"\t"$5}' | \
 while IFS="	" read -r url alt title; do
@@ -37,7 +67,19 @@ while IFS="	" read -r url alt title; do
   # 【…】以降の店舗名は落として先頭40文字までにします。
   t=$(printf '%s' "$title" | sed 's/【.*//' | cut -c1-120 | sed 's/"/""/g')
   [ -z "$t" ] && t="$ct"
-  printf '2,/view/category/%s,"%s",0,%s,0\n' "$ct" "$t" "$old" >> "$out"
+
+  # 管理画面で変えられたぶんを当て直します。
+  ni=0
+  case "$ovr_name" in
+    "$ct="*|*"
+$ct="*) t=$(printf '%s\n' "$ovr_name" | sed -n "s/^$ct=//p" | head -1 | sed 's/"/""/g') ;;
+  esac
+  case "$ovr_ni" in
+    "$ct="*|*"
+$ct="*) ni=$(printf '%s\n' "$ovr_ni" | sed -n "s/^$ct=//p" | head -1) ;;
+  esac
+
+  printf '2,/view/category/%s,"%s",0,%s,%s\n' "$ct" "$t" "$old" "$ni" >> "$out"
 done
 
 n=$(( $(wc -l < "$out") - 1 ))

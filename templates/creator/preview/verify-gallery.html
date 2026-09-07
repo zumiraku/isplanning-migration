@@ -114,16 +114,22 @@
       check('前のサムネイルの選択が外れる', thumbs.length > 0 && thumbs[0].getAttribute('aria-current') === 'false');
       check('点の表示も連動する', dots.length > 2 && dots[2].hasAttribute('data-active'));
 
-      /* The follow-the-swipe behaviour is driven by an IntersectionObserver.
-         Headless Chrome does not deliver IO callbacks under its virtual-time
-         clock, and the checks above passed through the click handler calling
-         setActive directly rather than through the observer. So a timeout here
-         says something about the harness, not about the gallery - and calling it
-         a failure would be as wrong as calling it a pass. It is held open, and
-         it is the one thing on this page that has to be confirmed by a person
-         with a real browser. */
+      /* スワイプへの追随は IntersectionObserver が動かしています。
+
+         🔴 ここには「ヘッドレスChromeは仮想時間のもとで IO のコールバックを
+            配送しない」と書いてありました。**そうではありませんでした。**
+            同じ条件で5回走らせると、届く回ともう1つの回が混ざります。
+            配送されないのではなく、**待ち時間が足りていない回がある**だけです。
+
+            断定して書いた結果、「この項目は自動確認できない」という説明が
+            そのまま画面に出ていました。実際には多くの回で確認できています。
+
+         待ち時間を2秒から4秒に延ばしました。それでも届かない回は、失敗では
+         なく「要目視」のまま残します。**届かないことは不具合の証拠ではない**
+         ので、赤にするのは誤りです。 */
       if (track) { track.scrollLeft = 0; }
       var waited = 0;
+      var LIMIT = 4000;
       (function poll() {
         var followed = thumbs.length > 0 && thumbs[0].getAttribute('aria-current') === 'true';
         if (followed) {
@@ -131,11 +137,11 @@
           render();
           return;
         }
-        if (waited >= 2000) {
+        if (waited >= LIMIT) {
           rows.push({
             name: 'スワイプするとサムネイルが追随する',
             pending: true,
-            detail: 'この項目は自動確認できません（IntersectionObserverはヘッドレスでは動きません）。実際のブラウザで、指またはマウスで横に払ってお確かめください。'
+            detail: LIMIT + 'ms 待っても反映されませんでした。ヘッドレスでは届く回と届かない回があります。実際のブラウザで、指またはマウスで横に払ってお確かめください。'
           });
           render();
           return;

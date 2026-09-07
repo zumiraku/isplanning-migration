@@ -15,7 +15,10 @@
 # Output: templates/creator/mode/all-pages.css
 # Run from the repository root.
 
-out="templates/creator/mode/all-pages.css"
+# 出力先は引数で変えられます。check-css-fresh.sh が一時ファイルへ書き出して
+# 手元のものと比べるために使います（**ビルドを回し忘れると、プレビューだけ
+# 直って本番のCSSが古いまま**になります）。
+out="${1:-templates/creator/mode/all-pages.css}"
 
 {
   cat <<'HDR'

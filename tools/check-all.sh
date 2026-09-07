@@ -35,6 +35,7 @@ run "markup well-formedness (the migration risk)" sh tools/check-tag-balance.sh
 run "content integrity - no text altered"         sh tools/check-content-preserved.sh
 run "Basic Mode tag inventory"                    sh tools/inventory-basic-tags.sh
 run "Basic -> Creator tag mapping"                sh tools/map-tags-to-creator.sh
+run "all-pages.css is rebuilt from its sources"   sh tools/check-css-fresh.sh
 run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "CSS and templates line up"                   sh tools/check-css-coverage.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh
@@ -43,26 +44,30 @@ run "page templates are whole documents"          sh tools/check-page-templates.
 run "all 82 独自ページ are held"                    sh tools/check-freepage-coverage.sh
 run "category captions are complete"              sh tools/check-captions.sh
 run "gallery renders every sub-image"             sh tools/check-gallery.sh
+run "prices are tax-inclusive everywhere (C36)"   sh tools/check-tax-display.sh
+run "reviews are u-komi only, on every product"   sh tools/check-review-unified.sh
 run "category titles render correctly"            sh tools/check-category-title-render.sh
 run "every page type renders"                     sh tools/check-render-all.sh
 run "606 category titles restored exactly"        sh tools/check-category-titles.sh
 run "internal links that the URL change breaks"   sh tools/inventory-internal-links.sh
 run "every internal link has a target"            sh tools/check-internal-links.sh
+run "browser checks (headless Chrome)"            sh tools/check-browser.sh
+run "nothing overflows at 320px and 375px"        sh tools/check-overflow.sh
 
 echo ""
 echo "=============================================================="
 if [ "$fail" -eq 0 ]; then
-  echo "  all shell checks passed"
+  echo "  all checks passed"
 else
   echo "  SOMETHING FAILED - see above"
 fi
 echo ""
-echo "  Still to run by hand (PowerShell + Chrome):"
+echo "  The four browser harnesses now run above, headless. Open them in a"
+echo "  real browser when you want to look at one, not to find out whether"
+echo "  it passes."
+echo ""
+echo "  Still by hand - it takes screenshots, so a person has to look:"
 echo "    .\tools\check-responsive.ps1 -Also '../product','../category',\\"
 echo "        '../category-season','../category-season-summer','../top','../cart'"
-echo "    open templates/creator/preview/verify-pricing.html        103 checks"
-echo "    open templates/creator/preview/verify-gallery.html         11 checks"
-echo "    open templates/creator/preview/verify-tabs.html            13 checks"
-echo "    open templates/creator/preview/verify-quote-prefill.html    6 checks"
 echo "=============================================================="
 exit $fail

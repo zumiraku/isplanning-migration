@@ -46,7 +46,7 @@ map_for() {
     '[NEWSORT]')         echo '$category.sort_new_url' ;;
     '[SORTPRICE]')       echo '$category.sort_high_price_url / sort_low_price_url|Basicは1タグ、Creatorは高い順と安い順で別' ;;
     '[SORTBRANDNAME]')   echo '$category.sort_name_url' ;;
-    '[SORTPRODUCT]')     echo '欠落|単価順。Creatorの並び替えは おすすめ/新着/価格高/価格低/商品名/メーカー の6種のみで、単価順は存在しない' ;;
+    '[SORTPRODUCT]')     echo '$category.sort_manufacturer_url / $search.sort_manufacturer_url|製造元順。この店舗は製造元フィールドに単価を入れており（@62円 → 100062）、ラベルの文字だけを「単価順」に変えて使っている。2026-09-07 に山口様の説明で判明。以前ここに「欠落」と書いていたのは誤り' ;;
     '[ZAIKO]')           echo '$category.item.list[i].stock_quantity|表示可否は is_stock_display' ;;
     '[NAMECURRENT]')     echo '$category.name|カテゴリ名' ;;
     '[CATEGORY_IMAGE]')  echo '$category.image_url|カテゴリー画像URL' ;;

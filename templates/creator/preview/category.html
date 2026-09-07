@@ -83,15 +83,20 @@
   -->
   <div class="listbar">
     <span class="listbar__count">全 <b>1,983</b> 件中 1〜20件を表示</span>
-    <label class="listbar__sort">並び替え
-      <select>
-        <option value="order">新着順</option>
-        <option value="recommend">おすすめ順</option>
-        <option value="product">単価順</option>
-        <option value="price">価格</option>
-        <option value="brandname">商品名</option>
-      </select>
-    </label>
+    <!-- 🔴 ここは <select> で書いてありました。**配信するテンプレートは
+         <nav> とリンクです。** レスポンシブの撮影はこのプレビューを見るので、
+         出さないマークアップを撮って「崩れていません」と言っていたことに
+         なります。テンプレートと同じ形に揃えました。
+         2026-09-07 に「単価順」が加わって6本になり、折り返しが要ります。 -->
+    <nav class="listbar__sort" aria-label="並び替え">
+      <span>並び替え：</span>
+      <a href="#">新着順</a>
+      <a href="#">おすすめ順</a>
+      <a href="#" aria-current="true">単価順</a>
+      <a href="#">価格が安い順</a>
+      <a href="#">価格が高い順</a>
+      <a href="#">商品名順</a>
+    </nav>
   </div>
 
   <!--

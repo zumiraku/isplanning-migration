@@ -47,12 +47,12 @@
 </div>
 
 <div class="stage" style="max-width:none">
-  <h2 class="h-sub">ヘッダーの商品検索欄（絶対に触ってはいけない相手）</h2>
+  <h2 class="h-sub">1. ヘッダーの商品検索欄（絶対に触ってはいけない相手）</h2>
   <form id="fsearch" action="/shop/shopbrand.html" role="search">
     <p><label for="sk">商品検索</label><input id="sk" type="text" name="search_key"></p>
   </form>
 
-  <h2 class="h-sub">見積依頼フォーム（表組み・ラベルが隣のセル）</h2>
+  <h2 class="h-sub">2. 見積依頼フォーム（表組み・ラベルが隣のセル）</h2>
   <form id="f1" action="/shop/enq202208200">
     <table class="table"><tbody>
       <tr><th>お名前</th><td><input type="text" name="q1"></td></tr>
@@ -63,6 +63,21 @@
   </form>
 </div>
 
+<div class="stage" style="max-width:none" id="stage2holder">
+  <h2 class="h-sub">3. お客様が商品名をすでに入力しているフォーム</h2>
+  <p class="sub" style="margin:0 0 12px">
+    上書きは絶対にしません。入らなかった品名は、消さずに自由記入欄へ回します。
+  </p>
+</div>
+
+<div class="stage" style="max-width:none" id="stage3holder">
+  <h2 class="h-sub">4. 品名・品番にあたる欄が無いフォーム</h2>
+  <p class="sub" style="margin:0 0 12px">
+    マルチフォームは店舗が自由に項目を作れるので、こういう作りもあり得ます。
+    行き場が無いときは黙って捨てず、自由記入欄に書き出します。
+  </p>
+</div>
+
 <div id="summary"></div>
 <div id="report"></div>
 
@@ -70,35 +85,84 @@
 <script>
   // The script reads window.location.search. Tests run against a fixed query so
   // the page can be opened without one and still verify.
+  //
+  // 🔴 code は 品番（original_code）です。以前はシステムコードを送っていました。
+  //    お客様が見ている番号を送らないと、届いた見積依頼から商品を引けません。
   history.replaceState(null, '', location.pathname +
-    '?item=' + encodeURIComponent('マックス ハンコ 角型') + '&code=000000025283');
+    '?item=' + encodeURIComponent('マックス ハンコ 角型') + '&code=MD18-3521');
 </script>
 <script src="../js/quote-prefill.js"></script>
 <script>
 (function () {
   'use strict';
+  var ITEM = 'マックス ハンコ 角型';
+  var CODE = 'MD18-3521';
   var rows = [];
   function check(name, cond, detail) { rows.push({ name: name, ok: !!cond, detail: detail || '' }); }
 
+  function rerun() { document.dispatchEvent(new Event('DOMContentLoaded')); }
+
   window.addEventListener('load', function () {
-    var ITEM = 'マックス ハンコ 角型';
-    var CODE = '000000025283';
     var f1 = document.getElementById('f1');
 
+    // ---- 1. ふつうの表組みフォーム -----------------------------------------
     check('「商品名」欄に品名が入る', f1.q2.value === ITEM, f1.q2.value || '（空）');
     check('「商品コード」欄に品番が入る', f1.q3.value === CODE, f1.q3.value || '（空）');
     check('「お名前」欄には何も入れない', f1.q1.value === '', f1.q1.value || '（空・正しい）');
-    check('商品名と商品コードを取り違えない',
+    check('商品名と品番を取り違えない',
           f1.q2.value !== CODE && f1.q3.value !== ITEM, '語の長い順に照合しています');
+    check('両方入ったら自由記入欄には足さない', f1.q4.value === '',
+          f1.q4.value || '（空・正しい）');
 
     var sk = document.getElementById('sk');
     check('ヘッダーの「商品検索」欄には書き込まない', sk.value === '',
           sk.value || '（空・正しい）');
 
-    f1.q2.value = 'お客様が書き換えた商品名';
-    document.dispatchEvent(new Event('DOMContentLoaded'));
-    check('入力済みの欄を上書きしない',
-          f1.q2.value === 'お客様が書き換えた商品名', f1.q2.value);
+    // ---- 同じフォームで二度動かさない ---------------------------------------
+    f1.q4.value = '';
+    rerun();
+    check('同じフォームで二重に入力しない', f1.q4.value === '',
+          f1.q4.value || '（空・正しい）');
+
+    // ---- 2. 商品名がすでに埋まっているフォーム -------------------------------
+    var s2 = document.getElementById('stage2holder');
+    s2.insertAdjacentHTML('beforeend',
+      '<form id="f2" action="/shop/enq202208200">' +
+      '<table class="table"><tbody>' +
+      '<tr><th>商品名</th><td><input type="text" name="r1" value="お客様が先に書いた商品名"></td></tr>' +
+      '<tr><th>品番</th><td><input type="text" name="r2"></td></tr>' +
+      '<tr><th>ご要望</th><td><textarea name="r3">名入れ希望です。</textarea></td></tr>' +
+      '</tbody></table></form>');
+    // f1 は記入済みなので、いちばん text 欄が多いフォームは f2 になります。
+    f1.setAttribute('role', 'search');
+    rerun();
+    var f2 = document.getElementById('f2');
+    check('入力済みの「商品名」を上書きしない',
+          f2.r1.value === 'お客様が先に書いた商品名', f2.r1.value);
+    check('空いている「品番」欄には入る', f2.r2.value === CODE, f2.r2.value || '（空）');
+    check('入らなかった品名を自由記入欄に残す',
+          f2.r3.value.indexOf('商品名：' + ITEM) === 0, f2.r3.value.split('\n')[0]);
+    check('自由記入欄に元からあった文章を消さない',
+          f2.r3.value.indexOf('名入れ希望です。') !== -1, f2.r3.value.replace(/\n/g, ' / '));
+
+    // ---- 3. 該当する欄が無いフォーム ----------------------------------------
+    var s3 = document.getElementById('stage3holder');
+    s3.insertAdjacentHTML('beforeend',
+      '<form id="f3" action="/shop/enq202208200">' +
+      '<table class="table"><tbody>' +
+      '<tr><th>会社名</th><td><input type="text" name="s1"></td></tr>' +
+      '<tr><th>ご担当者名</th><td><input type="text" name="s2"></td></tr>' +
+      '<tr><th>お問い合わせ内容</th><td><textarea name="s3"></textarea></td></tr>' +
+      '</tbody></table></form>');
+    f2.setAttribute('role', 'search');
+    rerun();
+    var f3 = document.getElementById('f3');
+    check('欄が無ければ品名・品番とも自由記入欄へ',
+          f3.s3.value.indexOf('商品名：' + ITEM) !== -1 &&
+          f3.s3.value.indexOf('品番：' + CODE) !== -1,
+          f3.s3.value.replace(/\n/g, ' / ') || '（空）');
+    check('関係のない「会社名」欄には入れない', f3.s1.value === '',
+          f3.s1.value || '（空・正しい）');
 
     render();
   });

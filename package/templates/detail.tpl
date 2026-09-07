@@ -192,14 +192,30 @@
       </ul>
     <{/if}>
 
-    <{* 見積依頼。The client main order channel - more orders start here than
-         in the cart. The product travels in the URL so it does not have to be
-         retyped; js/quote-prefill.js reads it back if the form page renders
-         inside this template. docs/quote-form.md. *}>
+    <{* 見積依頼。この店舗で最も注文が入る導線です。カートより多いと山口様。
+
+         商品名と品番をURLに乗せ、js/quote-prefill.js がフォーム側で書き戻し
+         ます。山口様のご希望は「商品名と品番が入るよう期待しております」。
+
+         🔴 品番は $item.original_code です。$item.system_code ではありません。
+
+            最初は system_code を送っていました。u-komi がレビューを結び付けて
+            いるのが system_code なので、そのまま流用したのが誤りです。
+
+              system_code     000000025283   ← 内部の連番
+              original_code   MD18-3521      ← お客様が見ている「品番」
+
+            現行サイトの一覧が `品番：[UBRANDCODE]` と出しており、こちらの
+            商品カードも card__code に original_code を入れています。**画面で
+            品番と呼ばれているものを送らないと、フォームに届いた番号で商品を
+            引けません。**
+
+            original_code が空の商品のために system_code へ落とします。空欄で
+            届くより、内部コードでも何か届いたほうが引けます。 *}>
     <ul class="cartquote">
       <li>
         <a class="btn btn--primary"
-           href="/shop/enq202208200?item=<{$item.name|escape:"url"}>&code=<{$item.system_code}>"
+           href="/shop/enq202208200?item=<{$item.name|escape:"url"}>&code=<{if $item.original_code}><{$item.original_code|escape:"url"}><{else}><{$item.system_code}><{/if}>"
            target="_blank" rel="noopener">見積依頼フォーム</a>
         <small class="buystack__note">数量・名入れの有無によって単価が変わります。</small>
       </li>
