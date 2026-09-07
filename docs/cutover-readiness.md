@@ -1179,3 +1179,67 @@ Smarty標準の修飾子に `number_format` はありません（`string_format`
 
 数量欄は21pxで出ていたところです。2カラムは `.pd` の 5fr:7fr がそのまま出て
 います。
+
+## 商品検索結果を実サイトで確認 — 2026-09-07
+
+`tools/identify-preview.sh` が `search.tpl` と判定。未展開タグ0、空href 0、空src 0、
+カード40件、品番40件、価格に円（税込）。
+
+### 絞り込みフォームは出ています
+
+```html
+<form class="refine__form" action="#makeshop-common-search-url">
+  <select id="makeshop-search-category" data-id="makeshop-search-category">
+  <input  id="makeshop-search-name"          data-id="…">
+  <input  id="makeshop-search-original-code" data-id="…">
+  <input  id="makeshop-search-price-low"     data-id="…">
+  <input  id="makeshop-search-price-high"    data-id="…">
+```
+
+### 🔴 「すべて」を二重に出していました
+
+```html
+<option value="">すべて</option>              ← こちらが書いたもの
+<option value="" selected>すべてのカテゴリー</option>  ← 一覧の1件目
+```
+
+`$search_form.category_list` の**先頭に「すべてのカテゴリー」がすでに入って
+います。** 値が空の選択肢が2つ並び、選択中はプラットフォーム側でした。
+一覧の中身を見ずに気を利かせたのが誤りです。自前の1行を削除しました。
+
+### 長く分からなかったカテゴリ名が、ここで判明しました
+
+カテゴリの一覧が返ってきたので、**C36 の3カテゴリの名前が確定**しました。
+
+```
+ct28  秋向け粗品     ← 「冬の粗品」と書いていた。**違います**
+ct31  冬向け粗品
+ct66  便利グッズ     ← 「便利な粗品」と書いていた
+```
+
+税抜表示の件で山口様に「冬向け粗品ほか3カテゴリ」とお伝えしましたが、
+正しくは**秋・冬・便利グッズ**です。クロールで拾えなかったものが、絞り込み
+フォームの選択肢として素直に出てきました。**探し方を1つしか試していません
+でした。**
+
+### 🔴 ヘッダーの検索窓に data-id が入っていませんでした
+
+商品詳細と検索の入力欄には `id` と `data-id` の両方を入れましたが、
+**ヘッダーはモジュールなので、テンプレートの貼り付けでは反映されません。**
+`package/modules/header.tpl` を モジュール管理 に貼る必要があります。
+
+### 絞り込みが実際に効くかは、切替後にしか分かりません
+
+プレビューにパラメータを付けて試しましたが、どれも全件のままでした。
+
+```
+（条件なし）                     全 9535 件
+keyword=タオル                   全 9535 件
+category=ct261                   全 9535 件
+name=タオル                      全 9535 件
+price_low=1000&price_high=2000   全 9535 件
+```
+
+**プレビューは検索を実行しません。** テンプレートを全件で描画するだけです。
+URLのパラメータ名も、プラットフォームが `id` と `data-id` のどちらで要素を
+探すかも、ここでは確かめられません。だから両方に入れてあります。

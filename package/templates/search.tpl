@@ -122,7 +122,17 @@
     <div class="refine__row">
       <label for="<{$search_form.category_id}>">カテゴリー</label>
       <select id="<{$search_form.category_id}>" data-id="<{$search_form.category_id}>">
-        <option value="">すべて</option>
+        <{* 🔴 「すべて」の選択肢は自前で置きません。
+
+             プレビューで実際に出たのはこうでした。
+
+               <option value="">すべて</option>              ← こちらが書いたもの
+               <option value="" selected>すべてのカテゴリー</option>  ← 一覧の1件目
+
+             $search_form.category_list の**先頭に「すべてのカテゴリー」が
+             すでに入っています。** 値が空の選択肢が2つ並び、しかも選択中は
+             プラットフォーム側のほうでした。一覧に何が入っているかを見ずに
+             気を利かせたのが誤りです。 *}>
         <{section name=c loop=$search_form.category_list}>
           <option value="<{$search_form.category_list[c].code}>"<{if $search.category.code == $search_form.category_list[c].code}> selected<{/if}>><{$search_form.category_list[c].name}></option>
         <{/section}>
