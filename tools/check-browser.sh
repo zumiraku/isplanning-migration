@@ -49,7 +49,7 @@ root=$(pwd -W 2>/dev/null || pwd)
 fail=0
 pending_total=0
 
-for name in verify-pricing verify-gallery verify-tabs verify-quote-prefill; do
+for name in verify-pricing verify-gallery verify-tabs verify-quote-prefill verify-price-format; do
   page="templates/creator/preview/$name.html"
   [ -f "$page" ] || { echo "  🔴 $page がありません"; fail=1; continue; }
 

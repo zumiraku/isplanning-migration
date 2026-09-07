@@ -36,14 +36,17 @@
    ここにあるものは、いずれも素のJavaScriptで書かれており jQuery に依存
    しません。同居して干渉しません。
 
-   3つとも「無くても内容には到達できる」作りにしてあります。
+   4つとも「無くても内容には到達できる」作りにしてあります。
      gallery.js       スワイプ自体はCSSのスクロールスナップ。JSはサムネイルと
                       点の追随だけ
      tabs.js          3つのパネルは最初から全部表示されており、JSが動いたとき
                       だけタブに畳まれる
      quote-prefill.js 動かなければ、見積フォームは今と同じ挙動に戻るだけ
+     price-format.js  動かなければ 55000円（税込）── 読みにくいだけで、
+                      間違ってはいない
 
-   検証: preview/verify-gallery.html 11項目 / verify-tabs.html 13項目 /
-         verify-quote-prefill.html 6項目、いずれも全合格
+   検証: preview/verify-gallery.html / verify-tabs.html /
+         verify-quote-prefill.html。tools/check-browser.sh がヘッドレスChromeで
+         毎回走らせます。
    ========================================================================== */
 
