@@ -36,6 +36,7 @@ run "content integrity - no text altered"         sh tools/check-content-preserv
 run "Basic Mode tag inventory"                    sh tools/inventory-basic-tags.sh
 run "Basic -> Creator tag mapping"                sh tools/map-tags-to-creator.sh
 run "all-pages.css is rebuilt from its sources"   sh tools/check-css-fresh.sh
+run "all-pages.js is rebuilt from its sources"    sh tools/check-js-fresh.sh
 run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "CSS and templates line up"                   sh tools/check-css-coverage.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh

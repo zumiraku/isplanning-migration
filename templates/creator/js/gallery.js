@@ -18,7 +18,7 @@
 
   function initGallery(root) {
     var track = root.querySelector('[data-gallery-track]');
-    var slides = root.querySelectorAll('[data-gallery-slide]');
+    var slides = [].slice.call(root.querySelectorAll('[data-gallery-slide]'));
     var thumbs = root.querySelectorAll('[data-gallery-thumb]');
     var dots = root.querySelectorAll('[data-gallery-dot]');
     if (!track || !slides.length) { return; }
@@ -50,7 +50,12 @@
       var io = new IntersectionObserver(function (entries) {
         for (var e = 0; e < entries.length; e++) {
           if (entries[e].isIntersecting) {
-            setActive(Number(entries[e].target.getAttribute('data-gallery-slide')));
+            // Position in the track, not a number written into the markup.
+            // The slides come from two loops - 拡大画像 and 追加画像 - and Smarty
+            // cannot continue a counter across them without a variable. Reading
+            // the index here means the template only has to mark a slide, not
+            // number it, so the two can never disagree.
+            setActive(slides.indexOf(entries[e].target));
           }
         }
       }, { root: track, threshold: 0.6 });

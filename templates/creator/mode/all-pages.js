@@ -355,19 +355,48 @@
     var form = targetForm();
     if (!form) { return; }
 
+    /* Fill a given form once and once only.
+
+       Without this, anything that fires DOMContentLoaded a second time - a
+       platform script, a bfcache restore - runs init again. The named fields
+       are protected already (findField skips a field that has a value), but
+       that protection is exactly what makes the second run think it failed to
+       place anything, so it would drop 商品名 and 品番 into the free-text box
+       a second time. The customer would watch their 要望欄 grow.
+
+       Marked on the form, not on the module, so a page that genuinely swaps in
+       a different form still gets it filled. */
+    if (form.dataset && form.dataset.quotePrefilled) { return; }
+    if (form.dataset) { form.dataset.quotePrefilled = '1'; }
+
     var filledItem = p.item ? fill(form, 'item', p.item) : false;
     var filledCode = p.code ? fill(form, 'code', p.code) : false;
 
-    /* If neither field could be identified, put the product somewhere the
-       customer and the shop can both see it rather than dropping it silently:
-       the form's largest free-text box. */
-    if (!filledItem && !filledCode) {
+    /* Whatever could not be placed in a named field goes into the free-text
+       box, so it still reaches the shop.
+
+       The earlier version only did this when BOTH failed, and that left a real
+       hole. A form with one field labelled 「商品名・品番」 takes the name, and
+       then the code has nowhere to go: findField skips that field because it now
+       has a value, and the fallback never runs because filledItem was true.
+       品番 disappeared silently - in exactly the case the client asked about
+       (「商品名と品番が入るよう期待しております」).
+
+       Each piece is judged on its own now. */
+    var leftover = [];
+    if (p.item && !filledItem) { leftover.push('商品名：' + p.item); }
+    if (p.code && !filledCode) { leftover.push('品番：' + p.code); }
+
+    if (leftover.length) {
       var areas = [].slice.call(form.querySelectorAll('textarea'))
-        .filter(function (t) { return !t.value; });
+        .filter(function (t) { return !t.dataset || !t.dataset.quotePrefilled; });
       if (areas.length) {
-        var line = p.item + (p.code ? '（商品コード ' + p.code + '）' : '');
-        areas[0].value = line + '\n';
-        areas[0].dispatchEvent(new Event('input', { bubbles: true }));
+        var box = areas[0];
+        /* Prepend, never replace. The customer may have typed here already. */
+        box.value = leftover.join('\n') + '\n' + (box.value || '');
+        if (box.dataset) { box.dataset.quotePrefilled = '1'; }
+        box.dispatchEvent(new Event('input', { bubbles: true }));
+        box.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
   }
@@ -378,4 +407,3 @@
     init();
   }
 }());
-
