@@ -119,6 +119,32 @@
           "is_current_page": false
         }
       ]
+    },
+    "name": "",
+    "original_code": "",
+    "price_low": "",
+    "price_high": "",
+    "category": {
+      "code": ""
     }
+  },
+  "search_form": {
+    "search_url": "#makeshop-common-search-url",
+    "keyword_id": "makeshop-search-keyword",
+    "name_id": "makeshop-search-name",
+    "original_code_id": "makeshop-search-original-code",
+    "price_low_id": "makeshop-search-price-low",
+    "price_high_id": "makeshop-search-price-high",
+    "category_id": "makeshop-search-category",
+    "category_list": [
+      {
+        "code": "ct5",
+        "name": "予算で選ぶ〜49円"
+      },
+      {
+        "code": "ct31",
+        "name": "冬向け粗品"
+      }
+    ]
   }
 }

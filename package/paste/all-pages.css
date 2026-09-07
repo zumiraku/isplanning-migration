@@ -2621,19 +2621,20 @@ ul, ol { margin: 0; padding: 0; }
   .optmatrix__head { padding: var(--s-2) var(--s-3); }
 }
 
-/* --- quantity stepper ---------------------------------------------------- */
-.qty { display: inline-flex; align-items: stretch; border: 1px solid var(--c-rule); border-radius: var(--radius); overflow: hidden; }
-.qty button {
-  width: var(--tap-min); min-height: var(--tap-min);
-  border: 0; background: var(--c-surface-2); color: var(--c-ink);
-  font-size: var(--t-lg); line-height: 1; cursor: pointer;
-}
-.qty button:hover { background: var(--c-rule-soft); }
-.qty input {
-  width: 4.5rem; border: 0; border-inline: 1px solid var(--c-rule);
-  text-align: center; font-family: var(--f-num); font-size: var(--t-md);
-  font-variant-numeric: tabular-nums;
-}
+/* --- quantity stepper — 削除しました（2026-09-07）--------------------------
+   ▲▼ ボタン付きの数量ステッパーを作る想定で書いた .qty / .qty button /
+   .qty input の一式がありました。**どのテンプレートも使っていません。**
+   数量は type="number" のブラウザ標準で足ります。
+
+   🔴 使われていないだけなら害はありませんでしたが、害がありました。
+
+      カートの数量欄は td の中にあり、その td のクラス名がたまたま "qty" でした。
+      そのため .qty input の border: 0 が当たり、**カートの数量欄から枠線が
+      消えていました。** 実測 44x72px・枠 0px ── 入力できる場所に見えません。
+
+      使っていないCSSは「消してよい」ではなく、**残すと別の場所を壊すことが
+      あります。** td のクラス名も carttable__qty に変えて、二度と当たらない
+      ようにしました。 */
 
 /* --- tables -------------------------------------------------------------- */
 .table-scroll { overflow-x: auto; }
@@ -2898,8 +2899,21 @@ ul, ol { margin: 0; padding: 0; }
 .carttable__price small { font-weight: 400; color: var(--c-ink-3); }
 .carttable__empty { padding: var(--s-10) var(--s-4); text-align: center; color: var(--c-ink-2); }
 
-.qtyfield { display: inline-flex; align-items: center; gap: var(--s-2); }
-.qtyfield input { width: 5rem; min-height: var(--tap-min); padding: var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius); font-size: 16px; font-family: var(--f-num); text-align: right; }
+/* 🔴 .qtyfield は「囲みのクラス」として書かれていて、見た目は
+   .qtyfield input に付けてありました。**テンプレートは2枚とも
+   <input class="qtyfield"> と入力欄そのものに付けています。**
+
+   つまり .qtyfield input は一度も一致せず、min-height も枠線も余白も
+   当たっていませんでした。実測 21px ── 指で押す前提の 44px の半分以下で、
+   枠線も無い素の入力欄です。カートの数量欄も同じ状態でした。
+
+   囲みとして使っている箇所は1つもないので、入力欄そのものを飾ります。 */
+.qtyfield {
+  width: 5rem; min-height: var(--tap-min);
+  padding: var(--s-2); border: 1px solid var(--c-rule); border-radius: var(--radius);
+  font-size: 16px;              /* 16px 未満は iOS が勝手に拡大します */
+  font-family: var(--f-num); text-align: right;
+}
 
 @media screen and (max-width: 767px) {
   .carttable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -3280,3 +3294,116 @@ a.guide-item:hover {
   border-color: var(--c-primary); background: var(--c-primary-light);
   color: var(--c-primary); text-decoration: none;
 }
+
+/* =============================================================================
+   落としていた機能のスタイル — 2026-09-07
+
+   ベーシックのテンプレートと1タグずつ突き合わせて見つかったものです。
+   タグ一覧どうしの比較では出ませんでした。**出る条件が限られているもの
+   （セール中だけ、名入れ商品だけ）は、探しに行かないと見つかりません。**
+   ========================================================================== */
+
+/* --- セール枠（[SALESTART]…[SALEEND]）--------------------------------------
+   セール中の商品にだけ出ます。割引率と通常価格が出ないと、値引きしている
+   ことがお客様に伝わりません。 */
+.saleflag {
+  border: 1px solid var(--c-sale);
+  background: var(--c-sale-light);
+  border-radius: var(--radius);
+  padding: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.saleflag__label {
+  display: inline-block; margin: 0 0 var(--s-2);
+  background: var(--c-sale); color: #fff;
+  font-size: var(--t-sm); font-weight: 700;
+  padding: 2px var(--s-2); border-radius: 2px;
+}
+.saleflag__was { margin: 0; font-size: var(--t-sm); color: var(--c-ink-2); }
+.saleflag__rate { margin: var(--s-1) 0 0; font-size: var(--t-sm); color: var(--c-ink-2); }
+.saleflag__rate b { font-size: var(--t-lg); color: var(--c-sale); margin-right: var(--s-2); }
+
+/* --- 名入れオプション（[IFNAMEOPTION][NAMEOPTION]）-------------------------
+   入力欄そのものは $item.name_print.list[i].html がプラットフォーム側から
+   出ます。こちらは見出し・必須の印・文字数の上限を添えるだけです。
+   入力欄の見た目は箱側に任せますが、幅と高さだけは指定します ── 既定のまま
+   だとスマホで極端に小さい欄になります。 */
+.nameprint {
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  padding: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+.nameprint__row + .nameprint__row { margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px dashed var(--c-rule-soft); }
+.nameprint__title { margin: 0 0 var(--s-2); font-weight: 700; font-size: var(--t-md); }
+.nameprint__req {
+  margin-left: var(--s-2); padding: 1px var(--s-2); border-radius: 2px;
+  background: var(--c-sale); color: #fff; font-size: var(--t-xs); font-weight: 700;
+}
+.nameprint input[type="text"],
+.nameprint textarea,
+.nameprint select {
+  width: 100%; min-height: var(--tap-min);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--c-rule); border-radius: var(--radius);
+  font-size: 16px;   /* 16px 未満だと iOS が勝手に拡大します */
+  font-family: var(--f-body);
+}
+.nameprint textarea { min-height: 6rem; line-height: var(--lh-normal); }
+
+/* --- 数量（[QUANTITY] と ▲▼）----------------------------------------------
+   🔴 商品ページに数量の入力欄そのものがありませんでした。ロット販売の店で
+      「100個入 × 3」と指定できないのは、カゴから注文できないのと同じです。
+   ▲▼ は使いません。type="number" のブラウザ標準で足り、指で押す面積も
+   そちらのほうが確実に取れます。 */
+.qtyrow {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--s-2) var(--s-3);
+  margin: var(--s-4) 0;
+}
+.qtyrow__label { font-weight: 700; font-size: var(--t-md); }
+.qtyrow .qtyfield { width: 7rem; }
+.qtyrow .buystack__note { flex-basis: 100%; margin: 0; }
+
+/* --- 検索の絞り込みフォーム -------------------------------------------------
+   既定では閉じています。スマホで結果より上に7行のフォームが居座ると、商品が
+   画面から押し出されます。<details> なのでJSは要りません。 */
+.refine {
+  border: 1px solid var(--c-rule);
+  border-radius: var(--radius);
+  background: var(--c-surface-2);
+  margin-bottom: var(--s-4);
+}
+.refine__toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: var(--tap-min);
+  padding: 0 var(--s-4);
+  font-weight: 700; font-size: var(--t-md); color: var(--c-primary);
+  cursor: pointer; list-style: none;
+}
+.refine__toggle::-webkit-details-marker { display: none; }
+.refine__toggle::after { content: "\FF0B"; font-weight: 400; }
+.refine[open] .refine__toggle::after { content: "\FF0D"; }
+.refine__form { padding: 0 var(--s-4) var(--s-4); }
+.refine__row { display: grid; gap: var(--s-1); margin-bottom: var(--s-3); }
+.refine__row > label, .refine__legend { font-size: var(--t-sm); color: var(--c-ink-2); }
+.refine__row input, .refine__row select {
+  min-height: var(--tap-min); width: 100%;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--c-rule); border-radius: var(--radius);
+  background: #fff; font-size: 16px; font-family: var(--f-body);
+}
+/* 下限〜上限。狭い画面で「〜」と「円」が折り返して意味が崩れないよう、
+   数値欄だけを伸縮させます。 */
+.refine__range { display: flex; align-items: center; gap: var(--s-2); }
+.refine__range input { flex: 1 1 0; min-width: 0; }
+.refine__form .btn { width: 100%; }
+@media screen and (min-width: 768px) {
+  .refine__form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--s-4); }
+  .refine__form .note-kome, .refine__form .btn { grid-column: 1 / -1; }
+  .refine__form .btn { width: auto; justify-self: start; }
+}
+
+/* カートの数量セル。td のクラス名を qty から carttable__qty に変えたので、
+   その並び。「変更」リンクが数量欄の隣に来るようにします。 */
+.carttable__qty { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }

@@ -283,3 +283,40 @@ $category.sort_manufacturer_url	confirmed	reference category.html — 製造元�
 $category.sort_manufacturer_selected	confirmed	reference category.html — 🔴 カテゴリだけ is_ が付かない。他の5つは is_sort_*_selected。リファレンスの表記どおり
 $search.sort_manufacturer_url	confirmed	reference search.html
 $search.is_sort_manufacturer_selected	confirmed	reference search.html — こちらは is_ が付く
+$item.contact_url	confirmed	reference detail.html
+$item.is_name_print	confirmed	reference detail.html
+$item.is_restock_enabled	confirmed	reference detail.html
+$item.is_sale	confirmed	reference detail.html
+$item.is_small_stock	confirmed	reference detail.html
+$item.is_stock_unlimited	confirmed	reference detail.html
+$item.is_stock_display	confirmed	reference detail.html
+$item.name_print.description	confirmed	reference detail.html
+$item.name_print.has_item	confirmed	reference detail.html
+$item.name_print.list.character_type	confirmed	reference detail.html
+$item.name_print.list.html	confirmed	reference detail.html
+$item.name_print.list.is_required	confirmed	reference detail.html
+$item.name_print.list.title	confirmed	reference detail.html
+$item.name_print.list.total_max	confirmed	reference detail.html
+$item.order_quantity_max	confirmed	reference detail.html
+$item.order_quantity_min	confirmed	reference detail.html
+$item.original_price_excluded_tax	confirmed	reference detail.html
+$item.quantity_id	confirmed	reference detail.html
+$item.restock_url	confirmed	reference detail.html
+$item.sale_rate	confirmed	reference detail.html
+$item.stock_quantity	confirmed	reference detail.html
+$item.name_print.list	confirmed	reference detail.html — list.* があるので配列そのものも在る
+$search.category.code	confirmed	reference search.html
+$search.name	confirmed	reference search.html
+$search.original_code	confirmed	reference search.html
+$search.price_high	confirmed	reference search.html
+$search.price_low	confirmed	reference search.html
+$search_form.category_id	confirmed	reference common.html
+$search_form.category_list.code	confirmed	reference common.html
+$search_form.category_list.name	confirmed	reference common.html
+$search_form.name_id	confirmed	reference common.html
+$search_form.original_code_id	confirmed	reference common.html
+$search_form.price_high_id	confirmed	reference common.html
+$search_form.price_low_id	confirmed	reference common.html
+$search_form.search_url	confirmed	reference common.html
+$search_form.keyword_id	confirmed	reference common.html
+$search_form.category_list	confirmed	reference common.html — list.code / list.name があるので配列そのものも在る

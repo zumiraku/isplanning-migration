@@ -44,7 +44,13 @@ templates/creator/mode/cart-body.tpl"
 hits=""
 for f in $files; do
   [ -f "$f" ] || continue
-  h=$(grep -n 'price_excluded_tax' "$f" | grep -v '<{\*' | grep -v '^\s*[0-9]*: *#' || true)
+  # 🔴 税抜のタグそのものが悪いのではありません。**「（税込）」と書いた横に
+  #    税抜を出すこと** が C36 の誤りでした。
+  #
+  #    セール枠の「通常価格 …円（税別）から」は現行サイトと同じ文言で、税別と
+  #    明記したうえで税抜を出しています。一律に禁止すると、正しい表示まで
+  #    書けなくなります。同じ行に 税別 か 税抜 があれば通します。
+  h=$(grep -n 'price_excluded_tax' "$f" | grep -v '<{\*' | grep -v '^\s*[0-9]*: *#' | grep -v '税別' | grep -v '税抜' || true)
   [ -n "$h" ] && hits="$hits$f
 $h
 "
@@ -53,7 +59,7 @@ done
 # モジュールと配布物も同じ扱いにします。
 for f in package/templates/*.tpl package/modules/*.tpl; do
   [ -f "$f" ] || continue
-  h=$(grep -n 'price_excluded_tax' "$f" | grep -v '<{\*' || true)
+  h=$(grep -n 'price_excluded_tax' "$f" | grep -v '<{\*' | grep -v '税別' | grep -v '税抜' || true)
   [ -n "$h" ] && hits="$hits$f
 $h
 "

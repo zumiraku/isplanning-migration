@@ -42,6 +42,7 @@ run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "CSS and templates line up"                   sh tools/check-css-coverage.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh
 run "tags match the official reference"           sh tools/check-against-reference.sh
+run "text around each Basic tag survived"         sh tools/check-tag-context.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh
 run "all 82 独自ページ are held"                    sh tools/check-freepage-coverage.sh
 run "category captions are complete"              sh tools/check-captions.sh

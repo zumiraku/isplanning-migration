@@ -79,6 +79,84 @@
   <{if $search.keyword}>「<{$search.keyword}>」の検索結果<{else}>商品検索<{/if}>
 </h1>
 
+<{* 条件をしぼりこむ。現行の検索ページにある7項目のフォームです。
+
+     🔴 丸ごと落としていました。こちらの検索ページは**結果を並べるだけ**で、
+        絞り込む手段がありませんでした。9,535商品に対して、ヘッダーの
+        キーワード欄しか入口が無い状態です。
+
+          カテゴリー / 商品名 / 価格(予算合計) / 商品単価 / キーワード / 商品コード
+
+     しくみは実測で確認しました。プラットフォームは設定用の隠し要素を出して
+     いて、そこに書かれたIDの要素を自前のJSが読みます。
+
+       <input type="hidden" id="makeshop-page-common-search-data"
+         data-id-keyword="makeshop-search-keyword"
+         data-id-name="makeshop-search-name"
+         data-id-price-low="makeshop-search-price-low"
+         data-id-price-high="makeshop-search-price-high"
+         data-id-category="makeshop-search-category"
+         data-id-original-code="makeshop-search-original-code"
+         data-search-url="#makeshop-common-search-url">
+
+     **name属性ではなくIDで拾われます。** $search_form.*_id がそのIDを返すので、
+     こちらは id に入れるだけです。action も $search_form.search_url をそのまま
+     使います（実体は "#makeshop-common-search-url" という目印で、URLでは
+     ありません）。IDを書き換えると、入力が届かなくなります。
+
+     ⚠️ キーワード欄はここに置きません。ヘッダーの検索窓が同じ
+        makeshop-search-keyword を使っているので、両方に置くと**同じIDが
+        ページに2つ**出ます。JSはどちらか片方しか読まず、しかもどちらを読むかは
+        こちらから決められません。ヘッダーの窓と併用できるので、機能は落ちません。
+
+     ⚠️ 「商品単価」は再現できません。[PRODUCT] に対応するIDが
+        data-id-* にありません（キーワード・商品名・価格帯・カテゴリー・
+        商品コードの5つだけ）。**単価での並び替えは在りますが、単価での絞り込みは
+        プラットフォームに用意がありません。** 山口様にお伝えする事項です。
+
+     既定では閉じておきます。スマホで7行のフォームが結果より上に居座ると、
+     商品が画面から押し出されます。 *}>
+<details class="refine">
+  <summary class="refine__toggle">条件をしぼりこむ</summary>
+  <form class="refine__form" action="<{$search_form.search_url}>">
+    <div class="refine__row">
+      <label for="<{$search_form.category_id}>">カテゴリー</label>
+      <select id="<{$search_form.category_id}>" data-id="<{$search_form.category_id}>">
+        <option value="">すべて</option>
+        <{section name=c loop=$search_form.category_list}>
+          <option value="<{$search_form.category_list[c].code}>"<{if $search.category.code == $search_form.category_list[c].code}> selected<{/if}>><{$search_form.category_list[c].name}></option>
+        <{/section}>
+      </select>
+    </div>
+
+    <div class="refine__row">
+      <label for="<{$search_form.name_id}>">商品名</label>
+      <input type="text" id="<{$search_form.name_id}>" data-id="<{$search_form.name_id}>" value="<{$search.name}>">
+    </div>
+
+    <div class="refine__row">
+      <label for="<{$search_form.original_code_id}>">商品コード（品番）</label>
+      <input type="text" id="<{$search_form.original_code_id}>" data-id="<{$search_form.original_code_id}>" value="<{$search.original_code}>">
+    </div>
+
+    <div class="refine__row">
+      <span class="refine__legend">価格（予算合計）</span>
+      <span class="refine__range">
+        <label class="visually-hidden" for="<{$search_form.price_low_id}>">下限</label>
+        <input type="number" inputmode="numeric" id="<{$search_form.price_low_id}>" data-id="<{$search_form.price_low_id}>" value="<{$search.price_low}>">
+        <span aria-hidden="true">〜</span>
+        <label class="visually-hidden" for="<{$search_form.price_high_id}>">上限</label>
+        <input type="number" inputmode="numeric" id="<{$search_form.price_high_id}>" data-id="<{$search_form.price_high_id}>" value="<{$search.price_high}>">
+        <span>円</span>
+      </span>
+    </div>
+
+    <p class="note-kome">キーワードでの検索は、画面上部の検索窓をお使いください。</p>
+
+    <button class="btn btn--primary" type="submit">この条件で検索</button>
+  </form>
+</details>
+
 <div class="listbar">
   <p class="listbar__count">全 <b><{$search.total_count}></b> 件</p>
 

@@ -29,7 +29,7 @@
          なくこの値を使います。 *}>
     <form class="searchbox" action="<{$search_form.search_url}>" role="search">
       <label class="visually-hidden" for="<{$search_form.keyword_id}>">商品を検索</label>
-      <input type="text" id="<{$search_form.keyword_id}>" placeholder="商品名・キーワードで探す">
+      <input type="text" id="<{$search_form.keyword_id}>" data-id="<{$search_form.keyword_id}>" placeholder="商品名・キーワードで探す">
       <button type="submit">検索</button>
     </form>
 

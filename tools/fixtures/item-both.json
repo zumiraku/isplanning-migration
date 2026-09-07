@@ -4,13 +4,68 @@
     "name": "両方持つ商品",
     "system_code": "999999999999",
     "image_L": "/img/main_L.jpg",
-    "multi_image": { "has_item": true, "list": [
-      { "image_L": "/img/multi1.jpg" }, { "image_L": "/img/multi2.jpg" } ] },
-    "add_image": { "has_item": true, "list": [
-      { "image_url": "/img/add1.jpg", "description": "説明1" },
-      { "image_url": "/img/add2.jpg", "description": "説明2" },
-      { "image_url": "/img/add3.jpg", "description": "説明3" } ] },
-    "breadcrumb_list_group": { "has_item": false, "list": [] }
+    "multi_image": {
+      "has_item": true,
+      "list": [
+        {
+          "image_L": "/img/multi1.jpg"
+        },
+        {
+          "image_L": "/img/multi2.jpg"
+        }
+      ]
+    },
+    "add_image": {
+      "has_item": true,
+      "list": [
+        {
+          "image_url": "/img/add1.jpg",
+          "description": "説明1"
+        },
+        {
+          "image_url": "/img/add2.jpg",
+          "description": "説明2"
+        },
+        {
+          "image_url": "/img/add3.jpg",
+          "description": "説明3"
+        }
+      ]
+    },
+    "breadcrumb_list_group": {
+      "has_item": false,
+      "list": []
+    },
+    "contact_url": "/view/contact?code=000000025283",
+    "quantity_id": "makeshop-item-quantity",
+    "order_quantity_min": 1,
+    "order_quantity_max": 9999,
+    "is_sale": false,
+    "sale_rate": 20,
+    "original_price_excluded_tax": 40520,
+    "is_stock_display": true,
+    "is_stock_unlimited": false,
+    "stock_quantity": 120,
+    "is_small_stock": false,
+    "is_restock_enabled": false,
+    "restock_url": "/view/restock",
+    "is_name_print": false,
+    "name_print": {
+      "has_item": false,
+      "description": "名入れは1色刷りです。",
+      "list": [
+        {
+          "title": "名入れ文字",
+          "is_required": true,
+          "character_type": "全角",
+          "total_max": 20,
+          "html": "<input type=\"text\" id=\"makeshop-nameprint-1\">"
+        }
+      ]
+    },
+    "original_code": "NT1201"
   },
-  "url": { "top": "/" }
+  "url": {
+    "top": "/"
+  }
 }

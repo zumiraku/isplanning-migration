@@ -47,7 +47,7 @@
             <{/if}>
           </td>
           <td class="carttable__price"><{$cart.list[i].price}></td>
-          <td class="qty">
+          <td class="carttable__qty">
             <label class="visually-hidden" for="<{$cart.list[i].quantity_id}>">数量</label>
             <input class="qtyfield" type="number" min="1" id="<{$cart.list[i].quantity_id}>" value="<{$cart.list[i].quantity}>">
             <a href="<{$cart.list[i].quantity_url}>">変更</a>

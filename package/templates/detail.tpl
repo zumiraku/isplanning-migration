@@ -154,26 +154,95 @@
 
   <div>
     <h1 class="h-page"><{$item.name}></h1>
-    <p class="card__code">商品コード <{$item.system_code}></p>
+    <{* 品番。
+
+         🔴 ここは「商品コード <{$item.system_code}>」と出していました。二重に
+            間違っています。
+
+              1. 現行の商品詳細ページには**商品コードの表示そのものがありません**。
+                 こちらが足したものです
+              2. 足したうえに、**画面に出す番号と見積フォームに送る番号が
+                 違っていました**。実測: 画面は 003001000005、フォームへは NT1201
+
+            お客様が読み上げた番号で商品を引けないことになります。一覧が
+            「品番」と呼んでいるもの（original_code）に揃えます。 *}>
+    <{if $item.original_code}>
+      <p class="card__code">品番 <{$item.original_code}></p>
+    <{/if}>
 
     <{* 価格。price_html carries the platform own formatting and any member
          price. is_member_price is the flag the pricing rebuild reasoned its way
          to for C23 before the tag reference confirmed it exists. *}>
+    <{* 代引き手数料。現行では価格のすぐ上に出ています。
+
+         <div class="daibiki-txt">代引き手数料 当社負担で<span>無料！</span></div>
+
+         🔴 落としていました。値段のすぐ横にある販売条件なので、無いと
+            条件が変わったように見えます。文言はそのままです。 *}>
+    <p class="u-alert" style="margin-bottom:var(--s-3)">代引き手数料は当社負担で<b>無料</b>です。</p>
+
     <div class="pricebox">
       <div class="pricebox__row">
         <span class="pricebox__label">販売価格</span>
-        <span class="pricebox__main"><{$item.price_html}></span>
+        <{* 🔴 price_html は**カンマまでで、単位は付きません。**
+
+               実測（プレビュー 2026-09-07）:
+                 <span data-id="makeshop-item-price:1">55,000</span>
+
+               一覧の .price が 44572 という生の整数だったので、詳細の
+               price_html には単位まで入っていると思い込んでいました。
+               入っているのは桁区切りだけです。円と（税込）はこちらで書きます。
+
+               data-id="makeshop-item-price:1" はプラットフォームがオプション
+               選択時に中身を書き換えるための目印です。**この span の外に
+               単位を置くこと。** 中に入れると書き換えで消えます。 *}>
+        <span class="pricebox__main"><{$item.price_html}>円<small>（税込）</small></span>
       </div>
       <{if $item.is_member_price}>
         <p class="pricebox__note">会員価格が適用されています。</p>
       <{/if}>
     </div>
 
-    <{* 在庫。詳細ページのリファレンスに stock_quantity の記載が無いため、
-         数量は出さずフラグだけ使います。無いタグを書けば黙って消えるだけで、
-         「在庫」という見出しの横が空になります。 *}>
+    <{* セール枠。現行の [SALESTART]…[SALEEND] に対応します。
+
+         <p class="sale"><b>早割りセール</b></p>[DCDAY]
+         <p class="price">通常価格 [ORGPRICE]円（税別）から</p>
+         <p class="saleRate"><b>[DCRATE]％OFF</b> 名入れ代・版代・送料等除く</p>
+
+         🔴 丸ごと落としていました。セール中の商品でだけ出る枠なので、
+            プレビューでも見えず、タグ一覧を見ても「使っていないタグ」に
+            見えていました。**出ない条件のものは、探しに行かないと見つかり
+            ません。** 割引率と通常価格が出ないと、値引きしていることが
+            お客様に伝わりません。
+
+         「名入れ代・版代・送料等除く」は現行の文言そのままです。割引の
+         範囲を限定する但し書きなので、落とすと表示に問題が出ます。 *}>
+    <{if $item.is_sale}>
+      <div class="saleflag">
+        <p class="saleflag__label">セール中</p>
+        <p class="saleflag__was">通常価格 <{$item.original_price_excluded_tax}>円（税別）から</p>
+        <{if $item.sale_rate}>
+          <p class="saleflag__rate"><b><{$item.sale_rate}>％OFF</b> 名入れ代・版代・送料等除く</p>
+        <{/if}>
+      </div>
+    <{/if}>
+
+    <{* 在庫。
+
+         🔴 ここには「詳細ページのリファレンスに stock_quantity の記載が無い」
+            と書いてありました。**在ります。** $item.stock_quantity も
+            $item.is_stock_display も $item.is_small_stock も、リファレンスの
+            detail に載っています。無いと書いて、確かめずに機能を1つ落として
+            いました。
+
+         在庫数を出すかどうかは商品ごとの設定（is_stock_display）なので、
+         その通りに従います。 *}>
     <{if $item.is_soldout}>
       <p class="card__unit">在庫切れ</p>
+    <{elseif $item.is_stock_display and not $item.is_stock_unlimited}>
+      <p class="card__unit">在庫 <{$item.stock_quantity}> 点<{if $item.is_small_stock}>（残りわずか）<{/if}></p>
+    <{elseif $item.is_small_stock}>
+      <p class="card__unit">残りわずか</p>
     <{/if}>
 
     <{if $item.has_option}>
@@ -183,14 +252,113 @@
       </div>
     <{/if}>
 
+    <{* 名入れオプション。現行の [IFNAMEOPTION][NAMEOPTION] です。
+
+         🔴 これも丸ごと落としていました。**名入れがこの店舗の商売そのもの**
+            です（社名は「粗品・景品 発見マーケット」、商品説明の大半が名入れの
+            可否と料金）。入力欄が無ければ、名入れ注文をカートから出せません。
+
+         $item.name_print.list[i].html はプラットフォームが入力欄ごと出します。
+         こちらは見出しと説明を添えるだけです。文字数の上限（column_max /
+         row_max / total_max）は、お客様が入力前に知る必要があるので出します。 *}>
+    <{if $item.is_name_print and $item.name_print.has_item}>
+      <div class="nameprint">
+        <h2 class="h-sub">名入れのご指定</h2>
+        <{if $item.name_print.description}>
+          <p class="note-kome"><{$item.name_print.description}></p>
+        <{/if}>
+        <{section name=n loop=$item.name_print.list}>
+          <div class="nameprint__row">
+            <p class="nameprint__title">
+              <{$item.name_print.list[n].title}>
+              <{if $item.name_print.list[n].is_required}><span class="nameprint__req">必須</span><{/if}>
+            </p>
+            <{$item.name_print.list[n].html}>
+            <{if $item.name_print.list[n].total_max}>
+              <small class="buystack__note">
+                <{if $item.name_print.list[n].character_type}><{$item.name_print.list[n].character_type}> / <{/if}>
+                最大 <{$item.name_print.list[n].total_max}> 文字
+              </small>
+            <{/if}>
+          </div>
+        <{/section}>
+      </div>
+    <{/if}>
+
+    <{* 数量。
+
+         🔴 **入力欄がありませんでした。** 現行はこう出しています。
+
+              <dt>数量：</dt>
+              <dd>[ITEMCAPTION_1] X [QUANTITY] ▲▼</dd>
+
+            ロット販売の店なので「100個入 × 3」のように単位と個数が並びます。
+            こちらは「カートに入れる」リンクだけで、数量を選ぶ手段がありません
+            でした。**カートより見積依頼のほうが注文が多い理由の一端がこれ**かも
+            しれませんが、いずれにせよカゴから注文できない状態です。
+
+         $item.quantity_id はプラットフォームが読む要素IDです。ヘッダーの検索窓
+         と同じ仕組みで、name属性ではなくIDで拾われます（実測で確認済み:
+         id="makeshop-search-keyword" / data-id-keyword=…）。**IDを変えると
+         数量が届きません。**
+
+         order_quantity_min / max は商品ごとの下限・上限です。 *}>
+    <{if not $item.is_soldout}>
+      <div class="qtyrow">
+    <{* 🔴 id と data-id の両方に入れます。
+
+         プラットフォームは隠しの設定要素で「どのIDを読むか」を宣言します。
+         商品詳細では data-id-quantity="makeshop-item-quantity" です。
+
+         問題は**その値を id で探すのか data-id で探すのか**が書かれていない
+         ことです。そして**プラットフォーム自身が出すマークアップは data-id を
+         使っています。**
+
+           <select data-id="makeshop-item-option1" …>          オプション
+           <span  data-id="makeshop-item-price:1">55,000</span> 価格
+
+         こちらは id にだけ入れていました。片方が外れれば数量が届きません。
+         **両方に同じ値を入れれば、どちらでも拾われます。** 害はありません。 *}>
+        <label class="qtyrow__label" for="<{$item.quantity_id}>">数量</label>
+        <input class="qtyfield" type="number" inputmode="numeric"
+               id="<{$item.quantity_id}>" data-id="<{$item.quantity_id}>"
+               value="<{if $item.order_quantity_min}><{$item.order_quantity_min}><{else}>1<{/if}>"
+               <{if $item.order_quantity_min}>min="<{$item.order_quantity_min}>"<{/if}>
+               <{if $item.order_quantity_max}>max="<{$item.order_quantity_max}>"<{/if}>>
+        <{if $item.order_quantity_min or $item.order_quantity_max}>
+          <small class="buystack__note">
+            <{if $item.order_quantity_min}>最少 <{$item.order_quantity_min}><{/if}><{if $item.order_quantity_max}> / 最大 <{$item.order_quantity_max}><{/if}>
+          </small>
+        <{/if}>
+      </div>
+    <{/if}>
+
     <{if $item.is_soldout}>
       <p class="notice notice--warn">申し訳ございません。ただいま品切れです。</p>
+      <{if $item.is_restock_enabled}>
+        <p><a class="btn btn--ghost" href="<{$item.restock_url}>">再入荷のお知らせを受け取る</a></p>
+      <{/if}>
     <{else}>
       <ul class="buystack">
         <li><a class="btn btn--cart" href="<{$item.cart_entry_url}>">カートに入れる</a></li>
         <li><a class="btn btn--ghost" href="<{$item.favorite_entry_url}>">お気に入りリストに追加</a></li>
       </ul>
     <{/if}>
+
+    <{* この商品について問い合わせる。現行 [QUESTION_MAIL] で、添えられている
+         一文もそのままです。
+
+         🔴 落としていました。見積依頼フォームを入れたので足りていると思って
+            いましたが、**別の導線**です。あちらは商品名を打ち直すマルチフォーム、
+            こちらは商品が最初から紐づくプラットフォームの問い合わせ画面です。
+            「販売単位数量、納期、在庫等」は、まさにこの店舗でよく訊かれること
+            として現行に書かれています。 *}>
+    <ul class="buystack">
+      <li>
+        <a class="btn btn--ghost" href="<{$item.contact_url}>">この商品について問い合わせる</a>
+        <small class="buystack__note">販売単位数量、納期、在庫等はこちらからお問い合わせください。</small>
+      </li>
+    </ul>
 
     <{* 見積依頼。この店舗で最も注文が入る導線です。カートより多いと山口様。
 
