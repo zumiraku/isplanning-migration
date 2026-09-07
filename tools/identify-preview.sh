@@ -37,7 +37,9 @@ elif hit 'class="carttable"';                  then name="買い物カゴ (cart-
 elif hit 'class="newslist"';                   then name="お知らせ一覧 (news-list-body.tpl)"
 elif hit 'class="newsnav"';                    then name="お知らせ詳細 (news-detail-body.tpl)"
 elif hit 'class="h-lede"';                     then name="トップ (top-body.tpl)"
-elif hit 'class="listbar__sort"';              then name="カテゴリーか検索（0件のため断定不可）"
+elif hit '/view/search?sort=';                  then name="商品検索結果 (search.tpl)"
+elif hit '/view/category/' && hit 'listbar__sort';  then name="商品カテゴリー (category.tpl)"
+elif hit 'class="listbar__sort"';              then name="カテゴリーか検索（材料不足で断定不可）"
 fi
 
 charset=$(grep -o 'charset="\?[A-Za-z0-9-]*' "$f" | head -1 | sed 's/.*charset="\?//')

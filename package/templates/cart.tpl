@@ -148,7 +148,7 @@
             <div class="card__media"><img src="<{$recently_item.list[r].image_M}>" alt="<{$recently_item.list[r].name}>" loading="lazy"></div>
             <div class="card__body">
               <span class="card__name"><{$recently_item.list[r].name}></span>
-              <span class="card__price"><{$recently_item.list[r].price}></span>
+              <span class="card__price"><{$recently_item.list[r].price}>円<small>（税込）</small></span>
             </div>
           </a>
         </li>

@@ -209,10 +209,33 @@
         <span class="card__name"><{$category.item.list[i].name}></span>
         <span class="card__code"><{$category.item.list[i].original_code}></span>
 
-        <{* 価格は税込。Three Basic Mode templates showed the pre-tax figure
-             under a 税込 label (C36); this template has one price and it is
-             the tax-inclusive one, everywhere. *}>
-        <span class="card__price"><{$category.item.list[i].price}></span>
+        <{* 価格。**円と（税込）はこちらで書きます。**
+
+             🔴 プレビューで実際に出ていたのは、これでした。
+
+                  <span class="card__price">44572</span>
+
+                裸の数字です。円もカンマもありません。ベーシックモードの
+                `[TAXPRICE]` は `39,600` とカンマ付きで返していたので、
+                同じ感覚で `.price` を置いたのが誤りでした。**一覧の価格タグに
+                price_html はありません。** 詳細ページだけが整形済みです。
+
+                  詳細   $item.price_html          → 整形済み
+                  一覧   $..item.list[i].price     → 44572（生の整数）
+
+                9,535商品ぶんの一覧・検索・トップの全カードに出ます。金額に
+                単位が付かないのは、桁区切りが無いことより悪い状態です。
+
+             ⚠️ カンマはまだ入っていません。Smarty標準の修飾子に
+                number_format はありません（string_format は sprintf なので
+                桁区切りを作れません）。MakeShop が独自に用意していれば
+                `|number_format` で入りますが、**未対応だとテンプレートごと
+                エラーになります。** 606カテゴリと検索を一度に落とすので、
+                当て推量では入れません。プレビューで1枚だけ試して決めます。
+
+             税込であることは実測で確認しています: 44,572 ÷ 1.1 = 40,520。
+             C36 の3カテゴリと違い、こちらは税込の数字に税込と書いています。 *}>
+        <span class="card__price"><{$category.item.list[i].price}>円<small>（税込）</small></span>
 
         <{if $category.item.list[i].is_soldout}>
           <span class="badge badge--soldout">売切れ</span>
@@ -285,7 +308,7 @@
             </div>
             <div class="card__body">
               <span class="card__name"><{$category.recommend_item.list[r].name}></span>
-              <span class="card__price"><{$category.recommend_item.list[r].price}></span>
+              <span class="card__price"><{$category.recommend_item.list[r].price}>円<small>（税込）</small></span>
             </div>
           </a>
         </li>

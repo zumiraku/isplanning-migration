@@ -73,7 +73,7 @@
           <div class="card__media"><img src="<{$recommend_item.list[r].image_M}>" alt="<{$recommend_item.list[r].name}>" loading="lazy"></div>
           <div class="card__body">
             <span class="card__name"><{$recommend_item.list[r].name}></span>
-            <span class="card__price"><{$recommend_item.list[r].price}></span>
+            <span class="card__price"><{$recommend_item.list[r].price}>円<small>（税込）</small></span>
           </div>
         </a>
       </li>
@@ -92,7 +92,7 @@
           <div class="card__media"><img src="<{$new_item.list[n].image_M}>" alt="<{$new_item.list[n].name}>" loading="lazy"></div>
           <div class="card__body">
             <span class="card__name"><{$new_item.list[n].name}></span>
-            <span class="card__price"><{$new_item.list[n].price}></span>
+            <span class="card__price"><{$new_item.list[n].price}>円<small>（税込）</small></span>
           </div>
         </a>
       </li>
@@ -111,7 +111,7 @@
           <div class="card__media"><img src="<{$ranking_item.list[k].image_M}>" alt="<{$ranking_item.list[k].name}>" loading="lazy"></div>
           <div class="card__body">
             <span class="card__name"><{$ranking_item.list[k].name}></span>
-            <span class="card__price"><{$ranking_item.list[k].price}></span>
+            <span class="card__price"><{$ranking_item.list[k].price}>円<small>（税込）</small></span>
           </div>
         </a>
       </li>

@@ -126,7 +126,7 @@
         <{/if}>
         <span class="card__name"><{$search.item.list[i].name}></span>
         <span class="card__code"><{$search.item.list[i].original_code}></span>
-        <span class="card__price"><{$search.item.list[i].price}></span>
+        <span class="card__price"><{$search.item.list[i].price}>円<small>（税込）</small></span>
         <{if $search.item.list[i].is_soldout}>
           <span class="badge badge--soldout">売切れ</span>
         <{/if}>

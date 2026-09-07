@@ -45,7 +45,7 @@
           "name": "商品A",
           "url": "/view/item/1",
           "image_M": "/img/1.jpg",
-          "price": "44円",
+          "price": 44,
           "original_code": "A-1",
           "is_soldout": false,
           "is_small_stock": false,
@@ -64,7 +64,7 @@
           "name": "商品B",
           "url": "/view/item/2",
           "image_M": "/img/2.jpg",
-          "price": "38円",
+          "price": 38,
           "original_code": "B-1",
           "is_soldout": true,
           "is_small_stock": false,
@@ -79,7 +79,7 @@
           "name": "商品C",
           "url": "/view/item/3",
           "image_M": "/img/3.jpg",
-          "price": "49円",
+          "price": 49,
           "original_code": "C-1",
           "is_soldout": false,
           "is_small_stock": true,
@@ -125,13 +125,13 @@
           "name": "おすすめ1",
           "url": "/view/item/9",
           "image_M": "/img/9.jpg",
-          "price": "40円"
+          "price": 40
         },
         {
           "name": "おすすめ2",
           "url": "/view/item/8",
           "image_M": "/img/8.jpg",
-          "price": "45円"
+          "price": 45
         }
       ]
     },

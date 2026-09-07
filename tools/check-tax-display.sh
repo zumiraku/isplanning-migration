@@ -68,8 +68,45 @@ fi
 
 echo "OK  税抜の価格タグはどこにも使われていません"
 
-# 価格を出している箇所が、ちゃんと税込タグであることも数えて出します。
-n=$(grep -c 'card__price' templates/creator/mode/category.tpl templates/creator/mode/search.tpl \
-      templates/creator/mode/top-body.tpl 2>/dev/null | awk -F: '{s+=$2} END {print s}')
-echo "    一覧の価格表示 $n 箇所、すべて .price（税込）"
+# --- 2. 一覧の価格に単位が付いているか ----------------------------------------
+#
+# 🔴 プレビューで実際に出ていたのは <span class="card__price">44572</span> でした。
+#
+#    一覧の価格タグは生の整数を返します。詳細ページの $item.price_html だけが
+#    整形済みで、同じ感覚で .price を置いたので、9,535商品の全カードが単位の
+#    無い数字になっていました。**税抜か税込かの前に、円かどうかが分かりません。**
+#
+#    タグの直後に「円」と「（税込）」があることを見ます。コメントの中に書いた
+#    例（44572）を拾わないよう、Smartyタグが入っている行だけを対象にします。
+LIST="templates/creator/mode/category.tpl templates/creator/mode/search.tpl
+templates/creator/mode/top-body.tpl templates/creator/mode/cart-body.tpl"
+
+bad=""
+for f in $LIST; do
+  [ -f "$f" ] || continue
+  h=$(grep -n 'card__price' "$f" | grep '<{\$' | grep -v '円' || true)
+  [ -n "$h" ] && bad="$bad$f
+$h
+"
+  h=$(grep -n 'card__price' "$f" | grep '<{\$' | grep -v '（税込）' || true)
+  [ -n "$h" ] && bad="$bad$f
+$h
+"
+done
+
+if [ -n "$(printf '%s' "$bad" | tr -d '[:space:]')" ]; then
+  echo ""
+  echo "🔴 一覧の価格に「円」または「（税込）」が付いていません"
+  echo "   タグが返すのは 44572 のような生の整数です。単位はこちらで書きます。"
+  printf '%s\n' "$bad" | sed 's/^/   /'
+  exit 1
+fi
+
+n=0
+for f in $LIST; do
+  [ -f "$f" ] || continue
+  c=$(grep -c 'card__price.*<{\$' "$f" || true)
+  n=$((n + c))
+done
+echo "OK  一覧の価格 $n 箇所すべてに 円（税込） が付いています"
 exit 0
