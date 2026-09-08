@@ -404,20 +404,19 @@
 
     <{* 商品説明。$item.description ひとつだけです。
 
-         🔴 最初は description2〜4 も並べて出していました。プレビューで同じ
-            仕様表が2回出て発覚。ベーシックの [ITEMCAPTION_1〜3] を「追加の
-            説明文」だと思い込んだのが誤りで、元テンプレートを読み直したら
-            そうではありませんでした。
+         ベーシックの [ITEMCAPTION_1〜3] は「追加の説明文」ではありません。
+         元テンプレートではこう置かれています。
 
-              [ITEMCAPTION_1]  <dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]
-                               → 販売単位。数量欄の一部で、説明文ではない
-              [ITEMCAPTION_2]  <div id="Item_detail_caption2">…追加画像説明文2
-              [ITEMCAPTION_3]  <div id="Item_detail_caption3">…追加画像説明文3
-                               → どちらも「追加画像に付く説明」
+           [ITEMCAPTION_1]  <dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]
+                            → 販売単位。数量欄の一部で、説明文ではない
+           [ITEMCAPTION_2]  <div id="Item_detail_caption2">
+           [ITEMCAPTION_3]  <div id="Item_detail_caption3">
 
-            対応先は $item.description2〜4 ではなく
-            $item.add_image.list[i].description です。下の追加画像ブロックが
-            それにあたります。 *}>
+         🔴 ここから「対応先は add_image.list[i].description だ」と結論して
+            description2〜4 を消しました。**逆でした。** 中身が入っているのは
+            description2〜4 のほうです。add_image 側は画像を登録していない商品
+            では配列そのものが空になり、102件中89件がそれに当たりました。
+            経緯は下のブロックのコメントに残してあります。 *}>
     <div class="article">
       <{$item.description}>
     </div>
