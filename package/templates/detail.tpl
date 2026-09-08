@@ -304,6 +304,19 @@
 
          order_quantity_min / max は商品ごとの下限・上限です。 *}>
     <{if not $item.is_soldout}>
+      <{* 数量欄の注記について
+
+           現行サイトでは、数量欄のすぐ横に「単価＠238円（税別） 100個入り」や
+           「※買い物カゴでのご購入はできません※」という囲みが出る商品があります
+           （手元の102件では1件）。中身は [ITEMCAPTION_1] です。
+
+           一度ここに add_image.list[0].description を置きましたが、**87%の商品で
+           空になる**ことが分かったので外しました。中身は下の description2〜4 に
+           まとめて出しています。内容は消えていません。
+
+           🔴 description2 / 3 / 4 のどれが [ITEMCAPTION_1] なのかは未確認です。
+              プレビューで1商品見れば分かるので、確認してからここに戻します。
+              それまでは「位置は違うが中身はある」状態です。 *}>
       <div class="qtyrow">
     <{* 🔴 id と data-id の両方に入れます。
 
@@ -409,18 +422,35 @@
       <{$item.description}>
     </div>
 
-    <{* 追加画像とその説明文。[ITEMCAPTION_2] [ITEMCAPTION_3] の対応先。 *}>
-    <{if $item.add_image.has_item}>
-      <div class="stack">
-        <{section name=a loop=$item.add_image.list}>
-          <figure>
-            <img src="<{$item.add_image.list[a].image_url}>" alt="" loading="lazy">
-            <{if $item.add_image.list[a].description}>
-              <figcaption class="tilecap"><{$item.add_image.list[a].description}></figcaption>
-            <{/if}>
-          </figure>
-        <{/section}>
-      </div>
+    <{* 追加の説明文。現行の [ITEMCAPTION_1] [ITEMCAPTION_2] [ITEMCAPTION_3] です。
+
+         🔴 ここは add_image.list[i].description から取っていました。**87%の商品で
+            中身が消えます。**
+
+            手元の商品ページ102件を数えた結果:
+
+              仕様表（販売単位・見積依頼・名入れ・熨斗・包装）あり  102件（全部）
+              追加画像 0枚                                          89件
+              → 表があるのに画像が無い                              89件
+
+            追加画像の説明文は、**画像が登録されていない商品では配列に出てきません。**
+            ところが説明文だけは入っています。管理画面で画像を上げずに説明文だけ
+            書けるからです。
+
+         以前ここに description2〜4 を並べて「仕様表が2回出た」ので消しました。
+         **消す側を間違えていました。** 2回出たのは add_image 側と重複したからで、
+         残すべきはこちらです。add_image の画像は上のギャラリーが出しているので、
+         下でもう一度出す必要もありません。
+
+         山口様が「追加説明文1 にCSS使用」と教えてくださって気づきました。 *}>
+    <{if $item.description2}>
+      <div class="article"><{$item.description2}></div>
+    <{/if}>
+    <{if $item.description3}>
+      <div class="article"><{$item.description3}></div>
+    <{/if}>
+    <{if $item.description4}>
+      <div class="article"><{$item.description4}></div>
     <{/if}>
   </div>
 </div>

@@ -1080,3 +1080,36 @@ a.guide-item:hover {
 /* カートの数量セル。td のクラス名を qty から carttable__qty に変えたので、
    その並び。「変更」リンクが数量欄の隣に来るようにします。 */
 .carttable__qty { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+
+/* =============================================================================
+   追加説明文1 の枠 — 山口様のご指摘、2026-09-08
+
+   商品ページの数量欄のすぐ横に出る、お店が書いた囲みです。
+
+     .quantityselection   緑  「単価＠238円（税別） 100個入り」
+     .quantityselection2  赤  「※買い物カゴでのご購入はできません
+                               価格はお問い合わせください※」
+
+   🔴 赤いほうは**カートで買えないことの警告**です。
+
+      定義は m_sys_common.css にあり、切替で消えます。消えると赤い枠が
+      ただの黒い文字になり、**買えない商品を買おうとするお客様が出ます。**
+      緑のほうも、単価と入数というロット販売でいちばん大事な情報です。
+
+   色・余白・文字サイズは m_sys_common.css の値をそのまま写しています。
+   ========================================================================== */
+.quantityselection {
+  line-height: 1.5; font-size: 16px; color: #000;
+  margin: 10px; padding: 10px;
+  border: 1px solid #ccc; background-color: #dcf7ed;
+}
+.quantityselection2 {
+  line-height: 1.5; font-size: 17px; color: #fff;
+  margin: 5px; padding: 10px;
+  border: 1px solid #ccc; background-color: #b32c17;
+}
+/* 数量欄のすぐ上に置きます。元は margin:10px で左右にも余白が付きますが、
+   スマホで枠が画面からはみ出さないよう横は詰めます。 */
+.qtyrow__note { margin: var(--s-4) 0 0; }
+.qtyrow__note .quantityselection,
+.qtyrow__note .quantityselection2 { margin: 0 0 var(--s-2); display: block; }
