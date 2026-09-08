@@ -489,6 +489,115 @@
   .img-right-l {float: right;margin: 0 0 4% 4%;width: 30%;}
 }
 </style>
+/* ===== page72 ===== */
+<style type="text/css">
+/*間隔 共通*/
+.listing li{ margin:20px 30px; list-style-type: disc; line-height: 8px; font-size: 18px!important;}
+.u-m0 {margin: 0 !important; font-size: 16px; line-height: 1.8;}
+.u-mt10 {margin-top: 10px !important;}
+.u-mt15 {margin-top: 15px !important;}
+.u-mt20 {margin-top: 20px !important;}
+.u-mt30 {margin-top: 30px !important; font-size: 20px!important;}
+.u-mt40 {margin-top: 40px !important;}
+.u-mt50 {margin-top: 50px !important;}
+.u-mt60 {margin-top: 60px !important;}
+.u-mt1em {margin-top: 1em !important;}
+.u-mb10 {margin-bottom: 10px !important; font-size: 22px!important;}
+.u-mb15 {margin-bottom: 15px !important;}
+.u-mb20 {margin-bottom: 20px !important; font-size: 24px!important;}
+.u-mb30 {margin-bottom: 30px !important;}
+.u-mb40 {margin-bottom: 40px !important;}
+.u-mb50 {margin-bottom: 50px !important;}
+.u-mb60 {margin-bottom: 60px !important;}
+.u-mb1em {margin-bottom: 1em !important;}
+.u-p0 {padding: 0 !important;}
+.u-p10 {padding: 10px !important;}
+.u-p15 {padding: 15px !important;}
+.u-p20 {padding: 20px !important;}
+.u-pt10 {padding-top: 10px !important;}
+.u-pt20 {padding-top: 20px !important;}
+.u-pt30 {padding-top: 30px !important;}
+.u-pt1em {padding-top: 1em !important;}
+.u-pb10 {padding-bottom: 10px !important;}
+.u-pb20 {padding-bottom: 20px !important;}
+.u-pb30 {padding-bottom: 30px !important;}
+.u-pb1em {padding-bottom: 1em !important;}
+#breadcrumbs {font-size: 80%;margin: 0 0 5px;text-align: left;}
+.l-section {}
+.l-container {word-break: normal;}
+/*タイトル 共通*/
+.l-container .l-heading-primary {font-size: 28px;line-height: 1.4;}
+.l-container .l-heading-secondary {background-size: cover;font-size: 16px;line-height: 1.4;margin-top: 0;padding: 8px 10px;}
+.l-container .l-tertiary {overflow: hidden;}
+.l-container .l-caption {}
+/*コンテンツ内リンク 共通*/
+.l-container a {}
+.l-container a:hover {}
+/*テキストブロック 共通*/
+.c-block {overflow: hidden;}
+/*小見出しブロック 共通*/
+.c-s-block {}
+/*末尾分 共通*/
+.c-endblock {background: #eee;border: 1px solid #ddd;padding: 18px 18px 2px;}
+/*画像 共通*/
+.img-left-s,.img-right-s,.img-left-l,.img-right-l {float: none;margin: 0 0 4%;width: 100%;}
+.img-left-s img,.img-right-s img,.img-left-l img,.img-right-l img {vertical-align: middle;width: 100%;}
+/*リンク一覧 共通*/
+.c-linkblock {}
+.c-linkblock h3 {font-size: 16px;line-height: 1.4;margin-top: 0;padding: 8px 10px;}
+.c-pagelink {margin: 0;padding: 0 10px 0 30px; font-size: 16px;}
+.c-pagelink li {list-style: decimal;padding: 0 0 1em;}
+.c-pagelink li a {}
+.c-pagelink li a:hover {}
+.u-c-a {}
+.u-c-a h3 {background: #009b44;}
+.u-c-a li {}
+.u-c-a a {}
+.u-c-a a:hover {}
+.u-c-b {}
+.u-c-b h3 {background: #009b44;}
+.u-c-b li {}
+.u-c-b a {}
+.u-c-b a:hover {}
+.u-c-c {}
+.u-c-c h3 {background: #009b44;}
+.u-c-c li {}
+.u-c-c a {}
+.u-c-c a:hover {}
+.u-c-d {}
+.u-c-d h3 {background: #ff8c00;}
+.u-c-d li {}
+.u-c-d a {}
+.u-c-d a:hover {}
+.u-c-e {}
+.u-c-e h3 {background: #ff8c00;}
+.u-c-e li {}
+.u-c-e a {}
+.u-c-e a:hover {}
+/*NAP表 共通*/
+.c-nap h3 {background: none;border-bottom: 2px solid #9c0;color: #9c0;font-size: 18px;margin-top: 0;}
+.c-table {border-collapse: collapse;border: 1px solid #ddd;text-align: left;width: 100%;}
+.c-table th {background: #f7f7f7;border: 1px solid #ddd;text-align: left;vertical-align: middle;width: 25%;}
+.c-table td {border: 1px solid #ddd;vertical-align: middle;}
+/*ボタン 共通*/
+.c-btn {text-align: center;margin-bottom: 60px;}
+.c-btn a {}
+.c-btn-anchor {background: #036e34;color: #f2fff8!important;display: inline-block;font-size: 15px;font-weight: bold;padding: 15px 20px;position: relative;text-decoration: none;transition: 0.2s;}
+.c-btn-anchor:hover {opacity: 0.7;text-decoration: none;}
+@media (min-width: 768px) {
+  /*リンク一覧 PCのみ*/
+  .c-linkblock {}
+  .c-linkblock h3 {}
+  .c-pagelink {}
+  .c-pagelink li {}
+  .c-pagelink li a {}
+  /*画像 PCのみ*/
+  .img-left-s {float: left;margin: 0 4% 4% 0;width: 35%;}
+  .img-right-s {float: right;margin: 0 0 4% 4%;width: 35%;}
+  .img-left-l {float: left;margin: 0 4% 4% 0;width: 30%;}
+  .img-right-l {float: right;margin: 0 0 4% 4%;width: 30%;}
+}
+</style>
 /* ===== page73 ===== */
 <style type="text/css">
     .seo-text {border: solid 1px #ccc; padding: 5px;margin:5px 0;text-align:left;}

@@ -32,6 +32,27 @@ grep -oh '<loc>[^<]*shopdetail[^<]*</loc>' snapshot/sitemap_brand*.xml 2>/dev/nu
   | sort -u \
   | awk '{ printf "1,/view/item/%s,\"%s\",0,/shopdetail/%s/,0\n", $0, $0, $0 }' >> "$out"
 
+# 🔴 サイトマップに載っていない商品を足します。
+#
+#    実サイトの全商品一覧は「全 9,535 件」、サイトマップから作ると 9,534 件。
+#    **1件だけサイトマップに無い商品があります。** 連番の欠番は12,539件あるので
+#    （販売終了で歯抜けになる）番号からは絞れず、一覧239ページを辿って
+#    突き合わせて見つけました（tools/find-missing-products.sh）。
+#
+#    ここで足さないと、その商品の旧URL /shopdetail/… だけが切替後に404に
+#    なります。そしてこのCSVは切替当日に作り直すので、**出来上がりを手で
+#    直しても消えます。**
+sup="inventory/products-missing-from-sitemap.csv"
+if [ -f "$sup" ]; then
+  added=0
+  for c in $(tail -n +2 "$sup" | sed 's/^"//; s/".*//' | grep -E '^[0-9A-Za-z]{12}$'); do
+    grep -q "/view/item/$c," "$out" && continue
+    printf '1,/view/item/%s,"%s",0,/shopdetail/%s/,0\n' "$c" "$c" "$c" >> "$out"
+    added=$((added + 1))
+  done
+  [ "$added" -gt 0 ] && echo "サイトマップに無い商品を $added 件足しました（$sup）"
+fi
+
 n=$(( $(wc -l < "$out") - 1 ))
 echo "rows   : $n"
 echo "bytes  : $(wc -c < "$out")   (上限 2MB / 20,000件)"

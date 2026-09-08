@@ -791,6 +791,12 @@ function bottom_sendmail() {
             window.open("/html/privacy.html","privercy","height=570,width=640,scrollbars=yes");
         }
         </script>
+/* ===== page72 ===== */
+<script>
+        function bottom_privercy() {
+            window.open("/html/privacy.html","privercy","height=570,width=640,scrollbars=yes");
+        }
+        </script>
 /* ===== page73 ===== */
 <script>
         function bottom_privercy() {

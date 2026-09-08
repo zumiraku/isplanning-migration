@@ -39,6 +39,7 @@
 
 src="inventory/pages-categories-desktop.csv"
 ovr="inventory/category-admin-changes.csv"
+ovr2="inventory/category-code-overrides.csv"
 out="package/url-bulk/categories-url.csv"
 [ -f "$src" ] || { echo "no $src"; exit 1; }
 mkdir -p "$(dirname "$out")"
@@ -82,6 +83,31 @@ $ct="*) ni=$(printf '%s\n' "$ovr_ni" | sed -n "s/^$ct=//p" | head -1) ;;
   printf '2,/view/category/%s,"%s",0,%s,%s\n' "$ct" "$t" "$old" "$ni" >> "$out"
 done
 
+
+# 🔴 ct番号を持たないカテゴリを足します。
+#
+#    /shopbrand/all_items/（すべての商品）は rel="alternate" に
+#    category_code=ct… を持たないので、上のループが飛ばします。**でも実在し、
+#    サイトマップにも載っていて、いまも 200 で開きます。** 入れないと切替後に
+#    このページの旧URLだけ404になります。
+#
+#    クリエイター側のコードは確認済みです（/view/category/all_items が開く）。
+#    根拠は inventory/category-code-overrides.csv に書いてあります。
+#
+#    「対応が取れなかった」と報告して終わりにしていました。**取れなかったの
+#    ではなく、取り方が1つしか無いと思っていただけ**でした。
+if [ -f "$ovr2" ]; then
+  tail -n +2 "$ovr2" | sed 's/^"//' | while IFS= read -r line; do
+    old=$(printf '%s' "$line" | awk -F'","' '{print $1}')
+    code=$(printf '%s' "$line" | awk -F'","' '{print $2}')
+    [ -n "$old" ] && [ -n "$code" ] || continue
+    grep -q "/view/category/$code," "$out" && continue
+    nm=$(grep -F "$old" "$src" | head -1 | sed 's/^"//; s/"$//' | awk -F'","' '{print $5}' | sed 's/【.*//; s/"/""/g')
+    [ -z "$nm" ] && nm="$code"
+    printf '2,/view/category/%s,"%s",0,%s,0\n' "$code" "$nm" "$old" >> "$out"
+    echo "ct番号の無いカテゴリを足しました: $code  $old"
+  done
+fi
 n=$(( $(wc -l < "$out") - 1 ))
 echo "rows   : $n   (607件中、rel=alternate から対応が取れたもの)"
 echo "output : $out"
