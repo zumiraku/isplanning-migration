@@ -2724,8 +2724,11 @@ ul, ol { margin: 0; padding: 0; }
   .searchbox { grid-column: 1 / -1; }
 }
 .searchbox input { flex: 1; min-width: 0; min-height: var(--tap-min); padding: var(--s-2) var(--s-3); border: 1px solid var(--c-rule); border-right: 0; border-radius: var(--radius) 0 0 var(--radius); font-size: 16px; font-family: var(--f-body); }
-.searchbox button { min-height: var(--tap-min); padding-inline: var(--s-4); border: 0; border-radius: 0 var(--radius) var(--radius) 0; background: var(--c-primary); color: #fff; font-weight: 700; cursor: pointer; }
-.searchbox button:hover { background: var(--c-primary-dark); }
+/* 検索ボタンは <a> です。プラットフォームが href のクリックしか見ないため
+   （system.js の initCommonSearchForm）。button のままでは押しても何も
+   起きません。<button> の指定も残しますが、出しているのは <a> です。 */
+.searchbox button, .searchbox__go { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap-min); padding-inline: var(--s-4); border: 0; border-radius: 0 var(--radius) var(--radius) 0; background: var(--c-primary); color: #fff; font-weight: 700; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.searchbox button:hover, .searchbox__go:hover { background: var(--c-primary-dark); color: #fff; }
 
 .cartlink { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap-min); padding-inline: var(--s-3); border: 1px solid var(--c-rule); border-radius: var(--radius); color: var(--c-ink); font-size: var(--t-sm); white-space: nowrap; }
 .cartlink:hover { border-color: var(--c-primary); text-decoration: none; }

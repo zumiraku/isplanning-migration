@@ -78,7 +78,10 @@
      商品が画面から押し出されます。 *}>
 <details class="refine">
   <summary class="refine__toggle">条件をしぼりこむ</summary>
-  <form class="refine__form" action="<{$search_form.search_url}>">
+  <{* 🔴 <form> ではありません。ヘッダーの検索窓と同じ理由です。
+       system.js は [href="#makeshop-common-search-url"] のクリックしか
+       見ておらず、action も submit も参照しません。 *}>
+  <div class="refine__form">
     <div class="refine__row">
       <label for="<{$search_form.category_id}>">カテゴリー</label>
       <select id="<{$search_form.category_id}>" data-id="<{$search_form.category_id}>">
@@ -123,8 +126,8 @@
 
     <p class="note-kome">キーワードでの検索は、画面上部の検索窓をお使いください。</p>
 
-    <button class="btn btn--primary" type="submit">この条件で検索</button>
-  </form>
+    <a class="btn btn--primary" href="<{$search_form.search_url}>" role="button">この条件で検索</a>
+  </div>
 </details>
 
 <div class="listbar">

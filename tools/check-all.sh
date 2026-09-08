@@ -35,6 +35,7 @@ run "markup well-formedness (the migration risk)" sh tools/check-tag-balance.sh
 run "content integrity - no text altered"         sh tools/check-content-preserved.sh
 run "Basic Mode tag inventory"                    sh tools/inventory-basic-tags.sh
 run "Basic -> Creator tag mapping"                sh tools/map-tags-to-creator.sh
+run "platform hooks are wired to href, not submit"  sh tools/check-platform-hooks.sh
 run "all-pages.css is rebuilt from its sources"   sh tools/check-css-fresh.sh
 run "all-pages.js is rebuilt from its sources"    sh tools/check-js-fresh.sh
 run "package/templates is rebuilt too"            sh tools/check-templates-fresh.sh

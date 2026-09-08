@@ -26,12 +26,31 @@
     </a>
 
     <{* 商品検索。$search_form.*_id はフォーム部品のIDを返すので、name属性では
-         なくこの値を使います。 *}>
-    <form class="searchbox" action="<{$search_form.search_url}>" role="search">
+         なくこの値を使います。
+
+         🔴 <form> ではありません。**プラットフォームは submit を見ていません。**
+
+            system.js が検索に張っているのは、これ1本だけです。
+
+              $('[href="' + searchUrl + '"]').on('click', …)
+
+            searchUrl は #makeshop-page-common-search-data の data-search-url、
+            つまり "#makeshop-common-search-url" です。**href のクリックだけ**を
+            捕まえていて、action 属性も submit イベントも一度も参照していません
+            （system.js 内に [action= も on('submit' も0件）。
+
+            最初は <form action="…"><button type="submit"> で書いていました。
+            見た目は動きそうですが、押すとURLに # が付くだけで**検索は起きません。**
+            公開後に実ページのJSを読んで気づきました。
+
+            キーボードの Enter は search-submit.js がこのリンクのクリックに
+            変えます。JSが落ちてもボタンは効きます（プラットフォーム側の
+            バインドなので）。 *}>
+    <div class="searchbox" role="search">
       <label class="visually-hidden" for="<{$search_form.keyword_id}>">商品を検索</label>
       <input type="text" id="<{$search_form.keyword_id}>" data-id="<{$search_form.keyword_id}>" placeholder="商品名・キーワードで探す">
-      <button type="submit">検索</button>
-    </form>
+      <a class="searchbox__go" href="<{$search_form.search_url}>" role="button">検索</a>
+    </div>
 
     <div class="site-header__contact"><b><{$shop.tel}></b>平日10時〜12時／13時〜17時</div>
     <div class="site-header__tools">
