@@ -26,7 +26,12 @@ set -e
 cd "$(dirname "$0")/.."
 
 UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
-OUT="${TMPDIR:-.}/all-items-codes.txt"
+# 一時ファイル。TMPDIR が無いとリポジトリ直下に落ちます。実際に
+# all-items-codes.txt と csv-codes.txt をコミットしてしまいました。
+work="$PWD/.find-missing"
+mkdir -p "$work"
+trap 'rm -rf "$work"' EXIT
+OUT="$work/all-items-codes.txt"
 : > "$OUT"
 
 total=$(curl -s -A "$UA" --max-time 30 "https://www.isp-sp.com/shopbrand/all_items/" \
@@ -59,17 +64,17 @@ perl -CS -e '
   local $/; my $b = <$i>; close $i; $b =~ s/^\xEF\xBB\xBF//;
   my $t = Encode::decode_utf8($b);
   while ($t =~ m{/view/item/([0-9A-Za-z]{12})}g) { print "$1\n" }
-' | sort -u > "${TMPDIR:-.}/csv-codes.txt"
+' | sort -u > "$work/csv-codes.txt"
 
 echo ""
 echo "🔴 一覧にあって、対応表に無い商品:"
-comm -23 "$OUT" "${TMPDIR:-.}/csv-codes.txt" | sed 's/^/   /' | head -30
-n=$(comm -23 "$OUT" "${TMPDIR:-.}/csv-codes.txt" | wc -l | tr -d ' ')
+comm -23 "$OUT" "$work/csv-codes.txt" | sed 's/^/   /' | head -30
+n=$(comm -23 "$OUT" "$work/csv-codes.txt" | wc -l | tr -d ' ')
 [ "$n" -eq 0 ] && echo "   （ありません）"
 echo ""
 echo "対応表にあって、一覧に無い商品:"
-comm -13 "$OUT" "${TMPDIR:-.}/csv-codes.txt" | sed 's/^/   /' | head -10
-m=$(comm -13 "$OUT" "${TMPDIR:-.}/csv-codes.txt" | wc -l | tr -d ' ')
+comm -13 "$OUT" "$work/csv-codes.txt" | sed 's/^/   /' | head -10
+m=$(comm -13 "$OUT" "$work/csv-codes.txt" | wc -l | tr -d ' ')
 [ "$m" -eq 0 ] && echo "   （ありません）"
 echo ""
 printf "差: 一覧のみ %s 件 / 対応表のみ %s 件\n" "$n" "$m"
