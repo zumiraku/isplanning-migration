@@ -320,3 +320,60 @@ $search_form.price_low_id	confirmed	reference common.html
 $search_form.search_url	confirmed	reference common.html
 $search_form.keyword_id	confirmed	reference common.html
 $search_form.category_list	confirmed	reference common.html — list.code / list.name があるので配列そのものも在る
+$category.item.list.image_S	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.item.list.description	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.item.list.special_display	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.recommend_item.list.image_S	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$category.recommend_item.list.special_display	confirmed	reference category/index.html（tools/fetch-reference.sh で取得）
+$item.description2	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$item.description3	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$item.description4	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$latest_news.list.date.year	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$latest_news.list.date.month	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$latest_news.list.date.day	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$latest_news.list.url	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$latest_news.list.title	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.is_enabled	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.has_item	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.url	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.image_S	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.name	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.star_html	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.content	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.reviewer_name	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.date.year	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.date.month	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$review_item.list.date.day	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$url.mail_magazine	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.num	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.image_S	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.selected_option.list.title	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.selected_option.list.option_name	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.name_print.has_item	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.name_print.list	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.name_print.list.title	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$cart.list.name_print.list.name	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$amazonpay.is_enabled	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$amazonpay.button_html	confirmed	reference common/index.html（tools/fetch-reference.sh で取得）
+$item.special_display	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$item.group.has_item	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$item.group.name	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$item.group	confirmed	reference detail/index.html（tools/fetch-reference.sh で取得）
+$search.item.list.image_S	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$search.item.list.special_display	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
+$module.leftmenu	confirmed	モジュール管理に登録するもの。リファレンスに $module.* の記載は無い（$module.header/footer/category_tiles と同じ扱い）
+$module.calendar1	confirmed	同上。営業日カレンダー（左メニュー）。元は [CALENDAR_DATE]/[CALENDAR]
+$module.calendar2	confirmed	同上。翌月ぶん。元は [CALENDAR_DATE2]/[CALENDAR2]
+$latest_news.list	confirmed	reference common/index.html に $latest_news.list[i].title 等の記載あり。配列そのもの
+$review_item.list	confirmed	reference common/index.html に $review_item.list[i].* の記載あり
+$cart.list.selected_option.list	confirmed	reference common/index.html に .list[j].title / .option_name の記載あり
+$news.pager	confirmed	reference news-list/index.html に $news.pager.* の記載あり
+$new_item.list.icon.has_item	assumed	切替中の実ページでトップの新着にアイコンが出ていた（/shopimages/isplanning/iconAN.gif）。ただし $new_item.list[i].* は common に個別記載が無い
+$new_item.list.icon.list	assumed	同上
+$new_item.list.icon.list.image_url	assumed	同上
+$recommend_item.list.icon.has_item	assumed	同上（おすすめ商品）
+$recommend_item.list.icon.list	assumed	同上
+$recommend_item.list.icon.list.image_url	assumed	同上
+$recently_item.list.icon.has_item	assumed	同上（最近チェックした商品）。外れてもアイコンが出ないだけ
+$recently_item.list.icon.list	assumed	同上
+$recently_item.list.icon.list.image_url	assumed	同上

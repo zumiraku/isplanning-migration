@@ -1,118 +1,201 @@
 <{* ==========================================================================
-     買い物カゴ — Creator Mode（本文部分）
+     買い物カゴ — ベーシックモードからの移植
 
-     C21 の [BASKET_MAIL] がここに関わります。ベーシックモードでは、この
-     ページの「見積もりを依頼」が basket_mail() を呼び、tempid（カゴの
-     セッション）を hidden で /ssl/contact/ に POST していました。tempid が
-     載っているからこそ、届いた見積依頼が「何が入っていたカゴか」を知って
-     いたわけです。
-
-     クリエイターモードには $cart.estimate_url があり、$cart.is_estimate_enabled
-     で有効かどうかを判定できます。ただしこれは「商品見積書」機能のもので、
-     山口様からは「オプション（有料）のため使用していない」とご回答済み
-     （C2）。つまり **この導線は現状そのままでは存在しません**。
-
-     なので、かご内の見積依頼はマルチフォームへのリンクとして置いています。
-     カゴの中身は引き継げませんが、リンクだけは残ります。tempid 相当の
-     引き継ぎができるかは、実機で確認しないと分かりません。
+     生成物です。直すときは tools/port/build-pages.js を直してください。
+     マークアップは design_basketpage.txt のままで、タグとURLだけ
+     置き換えています。class も id も並び順も変えていません。
    ========================================================================== *}>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title><{$page.title}></title>
+<meta name="description" content="<{$page.description}>">
+<link rel="canonical" href="<{$page.canonical_url}>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="<{$page.title}>">
+<meta property="og:description" content="<{$page.description}>">
+<meta property="og:site_name" content="<{$shop.name}>">
+<link rel="icon" href="<{$shop.favicon_url}>">
+<meta name="googlebot" content="NOODP">
+<meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
+<meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
+<meta name="google-site-verification" content="LvZm_KlYvKyFf9HCkCnvyRUTHeNFcweS7S6_I1qJ9pw">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">
+<link rel="stylesheet" href="<{$page.css}>">
+<{$makeshop.head}>
+</head>
+<body>
+<{$makeshop.body_top}>
+<{$module.header}>
 
-<h1 class="h-page">買い物かご</h1>
+<div id="wrapper">
+  <div id="O_container">
+    <{$module.leftmenu}>
+    <div class="M_mainContents">
 
-<{if $cart.has_item}>
+<h2>買い物かご</h2>
+<!--<a href="/view/news/20260728033258"><div class="closed">休業日のお知らせ：8月8日（土）〜8月16日（日）まで休業となります。</a></div>-->
+<!--<div class="closed">休業日のお知らせ：5月29日（水）〜5月6日（水）まで休業となります。</a></div>-->
+	<p class="M_alignL">数量を変更する時は数量入力後、<em>修正ボタン</em>をクリックしてください。</p>
 
-  <{if $cart.is_free_shipping_enabled}>
-    <p class="notice"><{$cart.free_shipping_message}></p>
-  <{/if}>
-
-  <div class="table-scroll">
-    <table class="carttable">
-      <thead>
-        <tr><th>商品</th><th>単価</th><th>数量</th><th>小計</th><th></th></tr>
-      </thead>
-      <tbody>
-        <{section name=i loop=$cart.list}>
+	    <div class="section" id="r_basket">
+        <table id="basketTable">
         <tr>
-          <td class="carttable__name">
-            <a href="<{$cart.list[i].url}>">
-              <img class="carttable__media" src="<{$cart.list[i].image_M}>" alt="" loading="lazy">
-              <{$cart.list[i].name}>
-            </a>
-            <span class="carttable__code"><{$cart.list[i].system_code}></span>
-            <{if $cart.list[i].selected_option.has_item}>
-              <span class="carttable__opt"><{$cart.list[i].special_display}></span>
-            <{/if}>
-            <{if $cart.list[i].is_bulk}>
-              <a class="carttable__opt" href="<{$cart.list[i].bulk_url}>"><{$cart.list[i].bulk_name}></a>
-            <{/if}>
-          </td>
-          <td class="carttable__price"><{$cart.list[i].price}></td>
-          <td class="carttable__qty">
-            <label class="visually-hidden" for="<{$cart.list[i].quantity_id}>">数量</label>
-            <input class="qtyfield" type="number" min="1" id="<{$cart.list[i].quantity_id}>" value="<{$cart.list[i].quantity}>">
-            <a href="<{$cart.list[i].quantity_url}>">変更</a>
-          </td>
-          <td class="carttable__price"><{$cart.list[i].total_price}></td>
-          <td><a href="<{$cart.list[i].remove_url}>">削除</a></td>
+            <th colspan="3">商品情報</th>
+            <th>数量</th>
+            <th>価格</th>
+            <th></th>
         </tr>
-        <{/section}>
-      </tbody>
-    </table>
-  </div>
-
-  <{if $cart.bulk.has_item}>
-    <div class="notice">
-      <{section name=b loop=$cart.bulk.list}>
-        <p><{$cart.bulk.list[b].name}>：<{$cart.bulk.list[b].discount_price}> 割引</p>
-      <{/section}>
-    </div>
-  <{/if}>
-
-  <div class="cartsum">
-    <div class="cartsum__row"><span>商品点数</span><span><{$cart.total_quantity}> 点</span></div>
-    <div class="cartsum__row"><span>消費税</span><span><{$cart.total_tax}></span></div>
-    <div class="cartsum__total"><span>合計</span><span><{$cart.total_price}></span></div>
-    <p class="cartsum__note">送料は個数・種類に関係なく1回のご注文での料金です。離島・北海道・沖縄は別途送料、中継料が必要です（カゴでは自動計算されません）。</p>
-  </div>
-
-  <ul class="cartactions">
-    <li><a class="btn btn--primary" href="<{$cart.order_url}>">ご注文手続きへ進む</a></li>
-    <li><a class="btn btn--ghost" href="<{$url.top}>">買い物を続ける</a></li>
-  </ul>
-
-  <{* 見積依頼。この店舗ではカゴよりこちらからの注文が多い、と山口様。 *}>
-  <div class="cartquote">
-    <h2 class="h-sub">お見積もりをご希望の場合</h2>
-    <p>数量の変更、名入れ・包装・のしのご相談は、見積依頼フォームからお願いいたします。</p>
-    <{if $cart.is_estimate_enabled}>
-      <a class="btn btn--ghost" href="<{$cart.estimate_url}>">見積書を発行する</a>
-    <{/if}>
-    <a class="btn btn--primary" href="/shop/enq202208200" target="_blank" rel="noopener">見積依頼フォーム</a>
-  </div>
-
+        <{if $cart.has_item}>
+<{section name=i loop=$cart.list}>
+        <tr>
+            <td class="basketNum"><{$cart.list[i].num}></td>
+            <td class="basketImg"><a href="<{$cart.list[i].url}>"><img src="<{$cart.list[i].image_S}>" alt="<{$cart.list[i].name}>" border="0"></a></td>
+            <td class="basketName">
+                <p><a href="<{$cart.list[i].url}>"><{$cart.list[i].name}></a></p>
+                <{if $cart.list[i].special_display}><p class="red"><{$cart.list[i].special_display}></p><{/if}>
+                <{if $cart.list[i].selected_option.has_item}>
+                <div class="basketOption">
+                  <{section name=o loop=$cart.list[i].selected_option.list}><{$cart.list[i].selected_option.list[o].title}>：<{$cart.list[i].selected_option.list[o].option_name}> <{/section}>
+                </div>
+                <{/if}>
+                <{if $cart.list[i].name_print.has_item}>
+                <div class="basketOption">
+                  <{section name=np loop=$cart.list[i].name_print.list}><{$cart.list[i].name_print.list[np].title}>：<{$cart.list[i].name_print.list[np].name}><br><{/section}>
+                </div>
+                <{/if}>
+            </td>
+            <td class="basketQuantity">
+                <div class="quantityWrap">
+                    <div class="quantityInput">
+                        <input type="number" inputmode="numeric" min="1"
+                               id="<{$cart.list[i].quantity_id}>" data-id="<{$cart.list[i].quantity_id}>"
+                               value="<{$cart.list[i].quantity}>">
+                    </div>
+                    <div class="quantityAmend"><a href="<{$cart.list[i].quantity_url}>">修正</a></div>
+                </div>
+            </td>
+            <td class="basketPrice"><{$cart.list[i].total_price}>円</td>
+            <td class="basketBtns">
+                <a href="<{$cart.list[i].remove_url}>"><img src="https://gigaplus.makeshop.jp/isplanning/images/del.png" alt="削除"></a>
+            </td>
+        </tr>
+<{/section}>
+        <tr>
+            <td colspan="6" class="basketTotal">
+                <dl class="totalWrap">
+                    <dt class="totalItem">合計金額：</dt>
+                    <dd class="totalPrice"><em><{$cart.total_price}>円 <span>(税込)</span></em></dd>
+                </dl>
+            </td>
+        </tr>
 <{else}>
-  <{* 空のカゴは行き止まりにしない。 *}>
-  <p class="carttable__empty">買い物かごに商品が入っていません。</p>
-  <p class="u-center">
-    <a class="btn btn--primary" href="<{$url.top}>">粗品・景品をさがす</a>
-  </p>
-  <{* 見出しは中身がある場合だけ。空のカゴでローカル描画したところ、
-       「最近チェックした商品」の見出しだけが出て下に何も無い状態でした。
-       初めて来た人のカゴが空のとき、まさにその状態になります。 *}>
-  <{if $recently_item.has_item}>
-    <h2 class="h-section" style="margin-top:var(--s-12)">最近チェックした商品</h2>
-    <ul class="rail">
-      <{section name=r loop=$recently_item.list}>
-        <li class="card">
-          <a href="<{$recently_item.list[r].url}>">
-            <div class="card__media"><img src="<{$recently_item.list[r].image_M}>" alt="<{$recently_item.list[r].name}>" loading="lazy"></div>
-            <div class="card__body">
-              <span class="card__name"><{$recently_item.list[r].name}></span>
-              <span class="card__price"><{$recently_item.list[r].price}>円<small>（税込）</small></span>
+        <tr>
+            <td colspan="6" class="basketEmpty">
+            <p>買い物かごに商品がありません</p>
+            </td>
+        </tr>
+<{/if}>  
+        </table> 
+
+        <div class="btnWrap clear">
+            <div class="btnBack">
+                <a href="<{$url.top}>">買い物を続ける</a>
+                
             </div>
-          </a>
-        </li>
-      <{/section}>
-    </ul>
-  <{/if}>
-<{/if}>
+            <div class="btnOrder">
+                <a href="<{$cart.order_url}>">ご購入手続きへ進む</a>
+                <{if $amazonpay.is_enabled}><p class="amazonButtonWrap"><{$amazonpay.button_html}></p><{/if}>
+            </div>
+        </div>
+    </div>
+
+	
+ 
+
+<p><a class="basketbtn_04" href="/shop/enq202208200" target="_blank" rel="noopener">買い物かごの商品について、購入の前に見積もりを依頼をする場合はこちらからどうぞ</a></p>
+
+<!--<img src="https://gigaplus.makeshop.jp/isplanning/uploads/Closed3.png" style="margin:25px 0; ">-->
+
+<div class="flamenyuka2"><span class="flamenyuka-title">■配達日に関しまして</span>
+<p>昨今の物量の増加に伴い、配達日の延滞が起こりえます。<br>特にご使用前日、当日の着日指定は避けて頂いた方がよろしいかと思います。<br>
+尚、配達延滞における補償等は一切ございませんのでご了承の上ご利用お願いいたします。</p>
+</div>
+
+<div class="flamenyuka2"><span class="flamenyuka-title">■送料について</span>
+<p>1回のご注文で800円(税別)。合計30000円（税別）以上で送料無料（北海道・沖縄・離島は別途1ケース毎に送料や中継料が必要となります、画面上送料が表示されますが2ケース以上の場合はお安くできる場合もございます、正式には自動送信メール以降の2通目のメールをご確認ください、また事前にお見積り依頼をいただけましたら正確な料金をお伝えすることが出来ます）</p>
+</div>
+
+<div style="margin:25px 0; text-align: left;">
+<p><a class="btn_design" href="/view/guide#about_payment">送料、お支払い方法などショッピングガイドはこちらからどうぞ</a></p>
+</div>
+<div style="margin:25px 0; text-align: left;">
+<p><a class="btn_design" href="/view/page/page2.html">名入れ、包装、のし　について</a></p>
+</div>
+<div style="margin:25px 0 40px 0; text-align: left;">
+<p><a class="btn_design" href="/shop/enq202208200" target="_blank" rel="noopener">買い物かごの商品について、見積もりを依頼する</a></p>
+</div>
+<img src="https://gigaplus.makeshop.jp/isplanning/uploads/tax12.png">
+
+
+	<!--▼最近チェックした商品-->
+	<{if $recently_item.has_item}>
+	<div id="M_recent">
+	<h3>最近チェックした商品</h3>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
+<{section name=rc loop=$recently_item.list}>
+  <{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>
+  <td align="center" class="lims" width="25%" valign="top">
+    <a href="<{$recently_item.list[rc].url}>"><img src="<{$recently_item.list[rc].image_M}>" alt="<{$recently_item.list[rc].name}>" width="220" height="220" border="0"></a>
+    <p class="woong"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>
+    <p class="woong"><{$recently_item.list[rc].price}>円（税込）</p>
+  </td>
+<{/section}>
+</tr></table>
+	</div>
+	<{/if}>
+
+	<!--▼お気に入り商品-->
+	<!---->
+	<!--<h3>お気に入り</h3>-->
+	<!--<table id="M_basketTable">-->
+		<!--<thead>-->
+			<!--<tr>-->
+				<!--<th>写真</th>-->
+				<!--<th>製品名</th>-->
+				<!--<th>数量</th>-->
+				<!--<!--<th>ポイント</th>-->
+				<!--<th>掲載</th>-->
+				<!--<th>価格</th>-->
+				<!--<th colspan="2">処理</th>-->
+			<!--</tr>-->
+		<!--</thead>-->
+		<!---->
+		<!--<tr>-->
+			<!--<td></td>-->
+			<!--<td></td>-->
+			<!--<td>個</td>-->
+			<!--<td></td>-->
+			<!--<td></td>-->
+			<!--<td></td>-->
+			<!--<td><a href=>買い物かごに入れる</a></td>-->
+			<!--<td><a href=>削除する</a></td>-->
+		<!--</tr>-->
+		<!---->
+	</table>
+	<!---->
+
+    </div><!-- /.M_mainContents -->
+  </div><!-- /#O_container -->
+</div><!-- /#wrapper -->
+<{$module.footer}>
+<{$makeshop.body_bottom}>
+<script src="<{$page.javascript}>"></script>
+</body>
+</html>

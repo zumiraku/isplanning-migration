@@ -95,4 +95,62 @@
       if (window.innerWidth > 960 && menu.classList.contains("is-open")) { close(); }
     });
   }
+
+  /* --- 4. 画像の拡大 -------------------------------------------------------
+     🔴 山口様のご指摘「画像が拡大できない」
+
+     ベーシックには「商品画像拡大画面」というページ種別があり、[VIEWBUTTON]
+     がそこへのリンクでした。**クリエイターにはこのページ種別がありません**
+     （16種の一覧に無い）。別ページに飛ばせないので、同じ画面に重ねます。
+
+     リンクの href が拡大画像そのものなので、**JSが動かなくても画像は開きます。**
+     壊れ方が「別タブで画像が開くだけ」で済むようにしてあります。 */
+  var zoomLinks = document.querySelectorAll("a[data-zoom]");
+  if (zoomLinks.length) {
+    var box = null;
+
+    var closeZoom = function () {
+      if (!box) { return; }
+      box.remove();
+      box = null;
+      document.removeEventListener("keydown", onKey);
+    };
+
+    var onKey = function (e) { if (e.key === "Escape") { closeZoom(); } };
+
+    var openZoom = function (src, alt) {
+      closeZoom();
+      box = document.createElement("div");
+      box.className = "zoombox";
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-label", "拡大画像");
+
+      var img = document.createElement("img");
+      img.src = src;
+      img.alt = alt || "";
+      img.className = "zoombox__img";
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "zoombox__close";
+      btn.setAttribute("aria-label", "閉じる");
+      btn.textContent = "×";
+
+      box.appendChild(img);
+      box.appendChild(btn);
+      box.addEventListener("click", function (e) { if (e.target === box || e.target === btn) { closeZoom(); } });
+      document.body.appendChild(box);
+      document.addEventListener("keydown", onKey);
+    };
+
+    Array.prototype.forEach.call(zoomLinks, function (a) {
+      a.addEventListener("click", function (e) {
+        var href = a.getAttribute("href");
+        if (!href) { return; }
+        e.preventDefault();
+        var img = a.querySelector("img");
+        openZoom(href, img ? img.alt : "");
+      });
+    });
+  }
 }());

@@ -198,3 +198,82 @@ img, video, iframe { max-width: 100%; height: auto; }
   #gNav li a { font-size: 13px; }
   .M_mainContents { padding-left: 0; padding-right: 0; }
 }
+
+/* --- 画像の拡大（ライトボックス）-------------------------------------------
+   🔴 ベーシックの「商品画像拡大画面」の代わりです。クリエイターに同じ
+      ページ種別が無いので、同じ画面に重ねます。 */
+.zoombox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, .82);
+  cursor: zoom-out;
+}
+.zoombox__img {
+  max-width: 96vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  background: #fff;
+  cursor: default;
+}
+.zoombox__close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .9);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+/* 拡大できることを指で分かるように */
+a[data-zoom] { cursor: zoom-in; }
+
+/* --- 移植で新しく作った要素だけの指定 ---------------------------------------
+   🔴 旧サイトに無かったものだけです。旧サイトにあったものは
+      m_sys_common.css と gigaplus の default.css が持っています。 */
+
+/* ヘッダーのかご。元は [CART_INSIDE1] がテーブルごと吐いていました。 */
+.h-cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.h-cart-count {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 0 .4em;
+  border-radius: 999px;
+  background: #b32c17;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* カテゴリページのサブカテゴリ。元は [GROUP4_0] が吐いていました。 */
+.subcats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+.subcats li a {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid #cfd8c8;
+  border-radius: 4px;
+  background: #f6faf2;
+  text-decoration: none;
+}
+.subcats li a:hover { background: #e9f3e0; }

@@ -89,14 +89,23 @@ cp "$src/category-captions.tpl" "$src/category-tiles.tpl" "$out/" 2>/dev/null
 mkdir -p package/modules
 cp "$src/category-tiles.tpl"    package/modules/category_tiles.tpl
 cp "$src/category-captions.tpl" package/modules/category_captions.tpl
-cp "$src/_module-header.tpl"    package/modules/header.tpl
+# 🔴 header / leftmenu / footer はここでは触りません。
+#
+#    以前はここに `cp "$src/_module-header.tpl" package/modules/header.tpl`
+#    がありました。2026-09-08 に移植へ切り替えたあとも残っていたら、
+#    **このスクリプトを回すたびに、移植したヘッダーが差し戻された設計の
+#    ヘッダーで上書きされます。** 山口様に「ヘッダーの文言がない」と
+#    言われた、まさにその版に戻ります。
+#
+#    いまの生成元は tools/port/build-chrome.js です。
 echo ""
 echo "modules synced:"
-for m in category_tiles category_captions header; do
+for m in category_tiles category_captions; do
   printf "  %-22s %7s バイト\n" "$m.tpl" "$(wc -c < "package/modules/$m.tpl")"
 done
-# footer.tpl は package/modules/ で直接書いています。生成元がありません。
-printf "  %-22s %7s バイト  (生成元なし。直接編集)\n" "footer.tpl" "$(wc -c < package/modules/footer.tpl)"
+for m in header leftmenu footer; do
+  printf "  %-22s %7s バイト  (tools/port/build-chrome.js が生成)\n" "$m.tpl" "$(wc -c < "package/modules/$m.tpl")"
+done
 
 echo ""
 echo "package : $out"
