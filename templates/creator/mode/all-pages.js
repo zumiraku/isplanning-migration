@@ -255,7 +255,33 @@
  * link; if the form page renders inside our Creator Mode template, this script
  * loads there too and writes the values into the form.
  *
- * TWO THINGS ARE UNVERIFIED, and both fail safe:
+ * 🔴 BOTH UNKNOWNS ARE NOW ANSWERED, and the answer is no. Measured on the
+ *    live shop, 2026-09-08 JST, after cutover.
+ *
+ *    /shop/enq202208200 is not a page. It is a bounce - EUC-JP Basic-mode
+ *    markup carrying three hidden fields and document.formEnquete.submit():
+ *
+ *      <form name="formEnquete" method="post" action="/ssl/enquete/">
+ *        db=isplanning  login_id=  form_code=202208200
+ *
+ *    So (1) our Creator template never renders there and this script never
+ *    runs, and (2) the query string we append is dropped by the bounce.
+ *
+ *    The form itself does have the fields we want - t_00 is 品番 and t_01 is
+ *    品名, read off the live markup. But posting them straight to
+ *    /ssl/enquete/ does not seed them: the returned inputs come back with no
+ *    value attribute at all. GET does not work either, nor does adding mode=.
+ *    **The multiform cannot be prefilled.** 山口様 said exactly this
+ *    (「自動で品名や品番が入力できれば良いんですが無理なようで」) and he was
+ *    right; what is new is that we now know why, and which fields they are.
+ *
+ *    This script therefore does nothing on the live shop. It is left in place
+ *    because it is inert and because the field names are worth keeping next to
+ *    the code that would use them, should makeshop ever open the form up.
+ *
+ * The original note, kept because it is what led to the measurement:
+ *
+ * TWO THINGS WERE UNVERIFIED, and both fail safe:
  *
  *   1. Whether the マルチフォーム page uses the Creator Mode common template at
  *      all. If it does not, this script never runs there and the link simply
