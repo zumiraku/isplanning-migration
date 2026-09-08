@@ -1,0 +1,200 @@
+/* ===========================================================================
+   port-responsive.css — 移植した旧デザインに、狭い画面での挙動だけを足す層
+
+   🔴 旧デザインは固定幅です
+
+      m_sys_common.css は 8,479行あって @media が3つしかありません。
+      #header は 1200px、#M_leftContents は 200px の float:left、
+      .M_mainContents は 960px の float:right。**スマホでは横に飛び出します。**
+      管理画面もそう言っています ──「ベーシックモードに変更する場合…
+      レスポンシブデザインに非対応となります」。
+
+      ご依頼の1番目が「HTML・CSSの作り込みが崩れないこと（レスポンシブ）」
+      でした。だから移植だけでは足りません。**見た目は旧サイトのまま、
+      狭い画面での折り返しだけを足します。**
+
+   🔴 旧CSSは一行も書き換えません
+
+      上書きだけで済ませます。元CSSに手を入れると、直したつもりが別の
+      ページを壊します（8,479行の影響範囲を全部は追えません）。この層は
+      m_sys_common の**後ろ**に置いて、狭い画面でだけ効かせます。
+
+   左メニューは ☰ で開きます
+
+      山口様のご指摘そのままです ──「良く左メニュー部分はスマホでは lll で
+      呼び出す感じだと思いますが」。960px 未満で引き出しになります。
+   =========================================================================== */
+
+/* --- 共通の安全弁。どの幅でも横スクロールを出さない ---------------------- */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, iframe { max-width: 100%; height: auto; }
+
+/* 旧デザインは table を多用します。はみ出す代わりに、その中だけ横に送れる
+   ようにします。ページ全体が横に動くのを防ぐためです。 */
+@media screen and (max-width: 1240px) {
+  .M_mainContents table { max-width: 100%; }
+}
+
+/* --- 1240px 以下：固定幅をやめて流動に -------------------------------------- */
+@media screen and (max-width: 1240px) {
+  #header,
+  #O_container,
+  #wrapper,
+  #footer,
+  .f-copy,
+  #colum-wrap,
+  #footer_guide,
+  .use,
+  .h-txt-inner,
+  .key-inner {
+    width: auto !important;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+  }
+
+  .M_mainContents {
+    width: auto !important;
+    float: none !important;
+    margin-left: 212px;   /* 左メニュー200px + 余白 */
+    padding-left: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* --- 960px 以下：1カラムにして、左メニューを引き出しに --------------------- */
+@media screen and (max-width: 960px) {
+  #M_leftContents {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    width: 84vw;
+    max-width: 320px;
+    height: 100vh;
+    overflow-y: auto;
+    background: #fff;
+    box-shadow: 0 0 24px rgba(0, 0, 0, .3);
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    float: none !important;
+    padding: 56px 12px 40px;
+    box-sizing: border-box;
+  }
+  #M_leftContents.is-open { transform: translateX(0); }
+
+  .M_mainContents {
+    margin-left: 0 !important;
+    float: none !important;
+    width: auto !important;
+  }
+
+  /* 開いているときの背景。押すと閉じます（JSが付ける） */
+  .l-menu-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 8900;
+    background: rgba(0, 0, 0, .45);
+  }
+
+  .l-menu-toggle { display: inline-flex; }
+
+  /* ヘッダーの3カラムを縦に */
+  .head_contents { display: block; }
+  .logo-box, .contents_center, .contents_right {
+    float: none !important;
+    width: auto !important;
+    position: static !important;
+    text-align: center;
+  }
+  .contents_center { margin: 8px 0; }
+  #subNav, .h-tel-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    float: none !important;
+    width: auto !important;
+  }
+  #gNav {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto !important;
+  }
+  #gNav li { float: none !important; width: auto !important; }
+  #gNav .search-box { display: flex; width: 100%; }
+  #gNav .search-box input { flex: 1 1 auto; min-width: 0; }
+
+  .header_keyword .torend-key { display: flex; flex-wrap: wrap; gap: 6px; }
+  .header_keyword .torend-key li { float: none !important; }
+
+  /* フッターの段組を縦に */
+  .footer_guide_small, #footer_guidebig, .flogo-wrap, .column-inner {
+    display: block !important;
+    float: none !important;
+    width: auto !important;
+  }
+  .footer_guide_small > li, .column-list {
+    float: none !important;
+    width: auto !important;
+    margin-bottom: 16px;
+  }
+  #f_nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  #f_nav li { float: none !important; }
+}
+
+/* --- ☰ ボタン。960px 未満でだけ出します ------------------------------------ */
+.l-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 9100;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;              /* 指で押せる大きさ */
+  padding: 0 14px;
+  border: 0;
+  border-radius: 6px;
+  background: #4b8b1e;           /* 旧サイトの緑 */
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.l-menu-toggle:hover { background: #3d7318; }
+.l-menu-toggle__bars { display: inline-block; width: 18px; }
+.l-menu-toggle__bars span {
+  display: block;
+  height: 2px;
+  margin: 3px 0;
+  background: #fff;
+}
+
+/* 引き出しの中の閉じるボタン */
+.l-menu-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+@media screen and (min-width: 961px) {
+  .l-menu-close { display: none; }
+}
+
+/* --- 480px 以下：文字と余白をもう一段詰める -------------------------------- */
+@media screen and (max-width: 480px) {
+  .header-txt h1 { font-size: 11px; }
+  .h-tel p { font-size: 18px; }
+  #gNav li a { font-size: 13px; }
+  .M_mainContents { padding-left: 0; padding-right: 0; }
+}

@@ -31,7 +31,7 @@ cd "$(dirname "$0")/.."
 
 out="${1:-templates/creator/mode/all-pages.js}"
 hdr=templates/creator/js/_bundle-header.txt
-parts="gallery tabs quote-prefill price-format search-submit"
+parts="port-chrome search-submit"
 
 [ -f "$hdr" ] || { echo "missing $hdr" >&2; exit 1; }
 

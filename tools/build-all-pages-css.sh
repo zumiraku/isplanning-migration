@@ -1,47 +1,70 @@
 #!/bin/sh
-# build-all-pages-css.sh — the 全ページ共通 CSS box, as one paste
+# =============================================================================
+#  build-all-pages-css.sh — 全ページ共通 CSS の箱を1本にまとめる
 #
-# tokens.css + components.css, with the @charset rules stripped.
+#  🔴 2026-09-08、中身を総入れ替えしました
 #
-# @charset must be the very first bytes of a stylesheet to mean anything. In a
-# concatenation it cannot be: the header comment precedes it, and there were
-# three of them - one from each source file plus the one that ended up mid-file
-# after components.css. Browsers ignore an @charset that is not first, so this
-# was harmless, but a rule that is ignored is a rule that should not be there.
+#     それまでは tokens.css + components.css、つまり**こちらが設計した
+#     デザインシステム**でした。山口様に「以前のサイトとはかけ離れた感じです」
+#     と言われて差し戻された、その中身です。
 #
-# The console serves the box as UTF-8 regardless, which is what actually makes
-# the Japanese comments work.
+#     いまは店舗の実CSSを丸ごと採ります。
 #
-# Output: templates/creator/mode/all-pages.css
-# Run from the repository root.
+#       m_sys_common.css      8,479行  店舗が11年かけて育てた実物
+#       port-responsive.css     200行  こちらの追加。狭い画面の折り返しだけ
+#
+#     以前は m_sys_common から**41ルールだけ**を選んで拾い、残りは自分で
+#     書きました。8,479行のうち41行です。「近づける」わけがありません。
+#
+#  🔴 Basics 標準（2,326行）は入れません
+#
+#     素のテンプレートのCSSで、移植後は競合するだけです。これに依存して
+#     いたのは、こちらが作り直していない4ページ種別（商品レビュー一覧/投稿・
+#     まとめ買い割引・会員制/年齢確認）だけで、いずれもこの店舗では
+#     使っていません（$item.is_bulk は未設定、レビューは u-komi に移行済み）。
+#
+#  🔴 元CSSは1バイトも書き換えません
+#
+#     上書きだけで済ませます。8,479行の影響範囲は全部は追えないので、
+#     直したつもりが別のページを壊します。port-responsive.css は**後ろ**に
+#     置いて、狭い画面でだけ効かせます。
+#
+#  出力: templates/creator/mode/all-pages.css
+# =============================================================================
+set -e
+cd "$(dirname "$0")/.."
 
-# 出力先は引数で変えられます。check-css-fresh.sh が一時ファイルへ書き出して
-# 手元のものと比べるために使います（**ビルドを回し忘れると、プレビューだけ
-# 直って本番のCSSが古いまま**になります）。
 out="${1:-templates/creator/mode/all-pages.css}"
+base=templates/basic-utf8/m_sys_common.html
+resp=templates/creator/css/port-responsive.css
+
+[ -f "$base" ] || { echo "missing $base — tools/port/to-utf8.js を先に" >&2; exit 1; }
+[ -f "$resp" ] || { echo "missing $resp" >&2; exit 1; }
 
 {
   cat <<'HDR'
-/* ==========================================================================
-   発見マーケット — デザインシステム
-   貼り付け先: クリエイターモード › 全ページ共通 › CSS
+/* ===========================================================================
+   全ページ共通 CSS — 生成物です。直接編集しないでください。
 
-   GENERATED - 直接編集しないでください。
-   Source : templates/creator/css/tokens.css + components.css
-   Build  : sh tools/build-all-pages-css.sh
+     tools/build-all-pages-css.sh が作ります。中身は2つ。
 
-   Basics標準のCSSを残す場合はこの内容を【末尾】に、置き換える場合は
-   CSS欄を全選択してこれを貼ってください。まだ作り直していないページが
-   Basicsのスタイルに依存している間は、末尾に足すほうが安全です。
-   ========================================================================== */
+       1. 店舗の実CSS（m_sys_common.css）をそのまま
+       2. port-responsive.css — 狭い画面の折り返しだけを足す層
 
+     1 は1バイトも変えていません。2 は上書きだけで、元の指定を消しません。
+   =========================================================================== */
 HDR
-  sed '/^@charset/d' templates/creator/css/tokens.css
-  echo ""
-  sed '/^@charset/d' templates/creator/css/components.css
+  sed '/^@charset/d' "$base"
+  printf '\n\n'
+  cat <<'HDR2'
+/* ===========================================================================
+   ここから下が、こちらが足した層です。ここまでは店舗の実CSSです。
+   =========================================================================== */
+HDR2
+  sed '/^@charset/d' "$resp"
 } > "$out"
 
-echo "lines    : $(wc -l < "$out")"
-echo "bytes    : $(wc -c < "$out")"
-echo "@charset : $(grep -c '@charset' "$out")   (0 が正しい)"
-echo "output   : $out"
+printf "lines    : %s\n" "$(wc -l < "$out" | tr -d ' ')"
+printf "bytes    : %s\n" "$(wc -c < "$out" | tr -d ' ')"
+printf "@charset : %s   (0 が正しい)\n" "$(grep -c '^@charset' "$out" || true)"
+printf "output   : %s\n" "$out"

@@ -1,0 +1,68 @@
+<style>
+<!--
+/*----------------------------------------------------
+  #popup
+----------------------------------------------------*/
+html {overflow-y: scroll;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {margin: 0;padding: 0;}
+address,caption,cite,code,dfn,em,strong,th,var {font-style: normal;}
+table {  border-collapse: collapse;border-spacing: 0;}
+h1,h2,h3,h4,h5,h6 {font-size: 100%;text-align:left;}
+img{vertical-align:middle;border: 0;}
+.line {font-size:1px;line-height:1px;}
+
+/*--- default */
+body {
+  background: #eee;
+  color: #333;
+  font-size: 18px;
+  font-family:verdana,"ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"ＭＳ Ｐゴシック","MS PGothic",Sans-Serif;
+  line-height:1.4;
+}
+body td,body th{
+  font-size:13px;
+}
+/* for IE6 */
+* html body {
+    font-size: 75%;
+}
+/* for IE7 */
+*:first-child+html body {
+    font-size: 75%;
+}
+/* リンクテキストボタン
+========================================== */
+a:link.M_btnStyle,
+a:visited.M_btnStyle,
+a:active.M_btnStyle{
+  padding:1px 4px;
+  border:1px solid #333;
+  margin:0 4px;
+  color:#333;
+  text-decoration:none;
+  background:#eee;
+}
+a:hover.M_btnStyle{
+  color:#fff;
+  background:#333;
+}
+.M_popup .M_alignC{
+  text-align:center;
+  margin-top:8px;
+}
+.M_popup div{
+  text-align:center;
+  margin-bottom:32px;
+}
+-->
+</style>
+
+<div class="M_popup" id="M_img">
+
+  <img src=[IMAGE] width=[WIDTH]>
+  <!--▼イメージダウンロード防止-->
+[HIDDEN]
+
+<div class="M_alignC"><a href=[CLOSE] class="M_btnStyle">閉じる</a>
+
+<!--#M_img--></div>

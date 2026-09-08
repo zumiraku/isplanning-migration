@@ -1,0 +1,71 @@
+<div class="M_mainContents">
+	<h2>商品検索</h2>
+
+	<div class="section" id="r_searchName">
+		<p class="searchResult">[SEARCHNAME]で検索した結果</p>
+	</div>
+
+	<div class="section" id="r_searchInput">
+        <table>
+        <tr>
+            <th>カテゴリー<div class="triangle-right"></div></th>
+            <td id="searchCategory">[CATEGORY][SUB_CATEGORY]</td>
+            <th>商品名<div class="triangle-right"></div></th>
+            <td id="searchBrand">[BRANDNAME] </td>
+			 </tr>
+       		 <tr>
+            <th>価格(予算合計)<div class="triangle-right"></div></th>
+            <td id="searchPrice">[MINPRICE]〜[MAXPRICE]</td>       
+            <th>商品単価<div class="triangle-right"></div></th>
+            <td id="searchProduct">[PRODUCT]</td>
+			 </tr>
+        	<tr>
+            <th>キーワード<div class="triangle-right"></div></th>
+            <td id="searchContent">[CONTENT]</td>
+            <th>商品コード<div class="triangle-right"></div></th>
+            <td id="searchCode">[ORIGINALCODE]</td>
+        </tr>
+        </table>
+        
+        <div class="btnWrap"><a href=[OK]>検索</a></div>
+    </div>
+
+	<div class="section clear" id="r_resultInfo">
+		<p class="total">全[TOTAL]件</p>
+		<ul class="listSort clear">
+        	<li>並び替え：</li>
+        	<li><a href=[NEWSORT]>新着順</a></li>
+        	<li><a href=[SORTRECOMMEND]>おすすめ順</a></li>
+        	<li><a href=[SORTPRODUCT]>単価順</a></li>
+        	<li><a href=[SORTPRICE]>価格</a></li>
+        	<li><a href=[SORTBRANDNAME]>商品名</a></li>
+		</ul>
+    </div>
+
+	<h3>商品検索結果</h3>
+<p class="searchinner-txt">■販売単位数量はほとんどの商品でご相談可能です■	</p>
+	<div id="M_categoryList">
+		<ul class="M_innerList">
+			[SEARCH_RESULT]
+			<li class="[ADDCLASS]">
+				<div class="M_innerBox">
+					<div class="M_cl_imgWrap">
+					<a href=[ITEMDETAIL_URL]>[IMAGE_S]</a>
+					</div>
+<p class="soldout">[IF_NOSTOCK]＝ 品切れ中 ＝[ENDIF_NOSTOCK]</p>
+					<div class="M_cl_detail">品番：[UBRANDCODE]
+						<p class="M_cl_name"><a href=[ITEMDETAIL_URL]>[ITEM_NAME]</a></p>
+<p><span class="M_cl_taxadd">[ADDCODE]</span></p>
+						<p class="M_cl_price"><span class="M_cl_taxPrice">[ITEM_PRICE]（税込）</span></p>
+                                                                                <!--<p>
+					[IF_STOCK]<a href=[GETBASKET]><img src="https://gigaplus.makeshop.jp/isplanning/images/cart_btn.png" alt="カートに入れる"/></a>[ENDIF_STOCK]
+					</p>-->
+					</div>
+					<br class="clear" />
+				</div>
+			</li>
+			[/SEARCH_RESULT]
+			</ul>
+	</div><!--M_categoryList-->
+	[PAGER]
+</div><!--.M_mainContents-->
