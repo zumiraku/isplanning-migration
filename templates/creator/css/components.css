@@ -977,8 +977,77 @@ a.guide-item:hover {
   margin: 5px; padding: 10px;
   border: 1px solid #ccc; background-color: #b32c17;
 }
-/* 数量欄のすぐ上に置きます。元は margin:10px で左右にも余白が付きますが、
-   スマホで枠が画面からはみ出さないよう横は詰めます。 */
-.qtyrow__note { margin: var(--s-4) 0 0; }
-.qtyrow__note .quantityselection,
-.qtyrow__note .quantityselection2 { margin: 0 0 var(--s-2); display: block; }
+/* 単価枠は description2〜4 の中に出るので、article の中で完結させます。
+   元は margin:10px で左右にも余白が付きますが、スマホで枠が画面から
+   はみ出さないよう横は詰めます。 */
+.article .quantityselection,
+.article .quantityselection2 { display: block; margin: var(--s-3) 0; }
+
+/* =============================================================================
+   お店が商品説明に書いているクラス（続き2）— 2026-09-08
+
+   🔴 以前「nameprice / cover / cover1 / cover2 / gray は現行サイトにも定義が
+      無いので、移行で失われるものは無い」と記録していました。**全部あります。**
+      m_sys_common.css を見に行けば分かることでした。
+
+   商品ページ102件の、お店が書く4つの欄（商品説明・追加説明文1〜3）に出てくる
+   クラスを機械的に集めて、こちらのCSSと突き合わせた結果です。
+
+     .nameprice          30件  名入れ料金表の見出し（緑の帯）
+     .btn_design          4件  ボタン
+     .similar_product     2件  枠付きの「類似品」ブロック
+     .normal-box2         1件  青地に白文字の囲み
+     .cube                1件  小さな角丸の囲み
+     .cover / .cover1     1件  2カラムの table レイアウト
+
+   件数は102件ぶんの実測です。9,535商品にはもっとあるので、**番号違いの兄弟も
+   まとめて引き取ります**（cube2〜4 / btn_design3〜5 / normal-box3〜5 /
+   box21・24・77 / name2023）。お店はこの手のものを番号で使い分けています。
+
+   🔴 こちらのクラス名と衝突しないことを先に確認済みです（衝突 0件）。
+      .flow や .note のように名前が同じものは**取っていません**。取ると
+      こちらの見た目が壊れます。
+
+   値は m_sys_common.css のまま、1文字も変えていません。
+   ========================================================================== */
+.box77 { width: 197px; background-color: #ecfed3; border: 1px #1C79C6 solid; }
+.cube { border-style: solid; border-width: 1px; border-color: #c0c0c0; color:#000000; font-size: 100% ; border-radius: 4px 4px 4px 4px; padding: 5px 8px 5px 8px; margin-left : 2px; margin-right: 2px; vertical-align: -60%; background-color: #f5f5f5; }
+.cube2 { border-style: solid; border-width: 1px; border-color: #339933; color:#000000; font-size: 100% ; border-radius: 4px 4px 4px 4px; padding: 3px 3px 3px 3px ; margin-left : 2px; margin-right: 2px; vertical-align: -60%; background-color: #e9feb1; }
+.cube3 { border-style: solid; border-width: 1px; border-color: #339933; color:#000000; font-size: 100% ; border-radius: 4px 4px 4px 4px; padding: 6px 6px 6px 6px ; margin-left : 5px; margin-right: 5px; vertical-align: -60%; background-color: #e9feb1; }
+.cube4 { border-style: solid; border-width: 1px; border-color: #A5DF00; color:#000000; font-size: 100% ; border-radius: 4px 4px 4px 4px; padding: 6px 6px 6px 6px ; margin-left : 5px; margin-right: 5px; vertical-align: -60%; background-color: #A5DF00; }
+p.nameprice { padding: 0.3em; color: #494949; background: #f6fae8; border-left: solid 10px #366319; font-size: 16px; }
+.box21 { padding: 0.2em 0.2em; margin: 1px 0; color: #000000; background: #ffffff; border-bottom: solid 1px #669933; display: inline-block; }
+.box21 p { margin: 0; padding: 0; border-left:4px solid #99CC33; padding:1px 1px; }
+.normal-box2 { margin: 0.5em 0.2em; padding: 0.4em; background-color: #1c83b3; border-radius: 5px; }
+.normal-box2 p { color: rgb(255, 255, 255); font-size: 13px; margin: 1px; padding: 2px; }
+.normal-box2 p:first-letter { color:#ecd76e; font-size:100%; }
+.normal-box3 { margin: 0.5em 0.2em; padding: 0.4em; background-color: #ae2020; border-radius: 5px; }
+.normal-box3 p { color: rgb(255, 255, 255); font-size: 13px; margin: 1px; padding: 2px; }
+.normal-box3 p:first-letter { color:#ecd76e; font-size:100%; }
+.normal-box4 { margin: 0.5em 0.2em; padding: 0.4em; background-color: #137724d3; border-radius: 5px; }
+.normal-box4 p { color: rgb(255, 255, 255); font-size: 13px; margin: 1px; padding: 2px; }
+.normal-box4 p:first-letter { color:#ecd76e; font-size:100%; }
+.normal-box5 { margin: 0.5em 0.2em; padding: 0.4em; background-color: #165825; border-radius: 5px; }
+.normal-box5 p { color: rgb(255, 255, 255); font-size: 13px; margin: 1px; padding: 2px; }
+.normal-box5 p:first-letter { color:#ecd76e; font-size:100%; }
+.box24 { padding: 0.2em 0.2em; margin: 8px 0; color: #fff; background: repeating-linear-gradient(135deg, #731919, #731919 14px, #850909 14px, #850909 28px); border-top: solid 10px #e01414; display: inline-block; }
+.box24 p { margin:10px auto; padding: 10px; font-size: 18px; }
+.similar_product { position: relative; text-align: center; margin: 1.5em auto; padding: 22px 8px 3px; border: 2px solid #00419e; }
+.similar_product .similar_product-title { position: absolute; display: inline-block; top: -2px; left: -2px; font-size:14px; padding: 0 12px; height: 25px; line-height: 28px; vertical-align: middle; background: #00419e; color: #ffffff; font-weight: bold; }
+.similar_product p { display: inline-block; padding: 6px 0px; margin: 3px; }
+.btn_design { font-size: 14px; width: 150px; text-decoration: none!important; margin-left: auto; margin-right: auto; margin-top: 15px; text-align: center; font-weight: bold; padding: 3px 10px; background-color: #ffffff; color: #00419e; border: #000000 solid 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.btn_design:hover { color: #ffffff; background-color: #00419e; cursor: pointer; }
+.btn_design3 { font-size: 14px; width: 250px; text-decoration: none!important; margin-left: auto; margin-right: auto; margin-top: 8px; text-align: center; font-weight: bold; padding: 10px 15px; background-color: #ffffff; color: #00419e; border: #000000 solid 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.btn_design3:hover { color: #ffffff!important; background-color: #059c85; border: #ffffff solid 1px; cursor: pointer; }
+.btn_design4 { font-size: 18px; text-decoration: none!important; text-align: center; font-weight: bold; margin:50px 10px 50px 10px !important; padding: 20px 20px; background-color: #ffffff; color: #0d8022!important; border: #000000 solid 1px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.btn_design4:hover { color: #ffffff!important; background-color: #0d8022; border: #ffffff solid 1px; cursor: pointer; }
+.btn_design5 { font-size: 18px; text-decoration: none!important; text-align: center; font-weight: bold; margin:50px 10px 50px 10px !important; padding: 10px 10px; background-color: #ffffff; color: #0d8022!important; border: #000000 solid 1px; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; width: 350px; }
+.btn_design5:hover { color: #ffffff!important; background-color: #0d8022; border: #ffffff solid 1px; cursor: pointer; }
+.name2023 { width: 100%; table-layout: fixed; text-align: center; border-collapse: collapse; border-spacing: 0; background: #cff6ff; }
+.name2023 tr:nth-child(2n+1) { background: #edfcff; }
+.name2023 tr:hover { background-color: #94eaff; font-weight: bold; }
+.name2023 th { text-align: center; padding: 3px; border: solid 1px #ffffff; background: #3c6a8f; color: #ffffff; vertical-align:middle; font-size: 16px; }
+.name2023 td { padding: 5px; border: solid 1px #ffffff; vertical-align:middle; font-size: 16px; }
+div.cover { display: table; margin: 0px; padding: 0px; width: 100%; }
+div.cover div.cover1 { display: table-cell; width: 63%; }
+div.cover div.cover2 { display: table-cell; width: 37% }

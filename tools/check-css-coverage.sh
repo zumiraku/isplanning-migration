@@ -83,8 +83,22 @@ perl -CS -e '
   # 出てこないので「未使用」に見えますが、**消すと9,534商品の見た目が落ちます。**
   # 出どころは m_sys_common.css で、切替で消えるためこちらが引き取ったものです。
   my %shop_authored = map { $_ => 1 } qw(
-    box20 box22 box23 syouhin_red name2022 kome textboxisp
+    box20 box21 box22 box23 box24 box77
+    cube cube2 cube3 cube4
+    cover cover1 cover2
+    btn_design btn_design3 btn_design4 btn_design5
+    similar_product similar_product-title
+    normal-box2 normal-box3 normal-box4 normal-box5
+    nameprice name2022 name2023
+    quantityselection quantityselection2
+    syouhin_red kome textboxisp
   );
+  # 2026-09-08 に追加。商品ページ102件の「お店が書く4つの欄」を機械的に走査して
+  # 見つけたクラスと、その番号違いの兄弟です。**テンプレートには出てこないので
+  # 「未使用」に見えますが、消すと9,535商品の見た目が落ちます。**
+  #
+  # 🔴 以前ここに「nameprice / cover は現行サイトにも定義が無いので書かない」と
+  #    書いていました。誤りでした。m_sys_common.css に全部あります。
 
   # 子だけを飾るのが目的のクラス。自分自身には何も当たらなくて正しいものです。
   #   .stack > * + *        中の要素どうしの間隔だけを作る
