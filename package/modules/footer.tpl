@@ -182,4 +182,7 @@
 </div>	
 
 <!--#M_wrapper--></div>
-</div><!-- /#wrap -->
+</div><!-- /.M_mainContents -->
+</div><!-- /#O_container -->
+</div><!-- /#wrapper -->
+</div><!-- /#bgMain -->

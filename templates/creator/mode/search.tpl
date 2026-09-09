@@ -120,9 +120,19 @@
 	<{/if}>
 	</div>
 
-    </div><!-- /.M_mainContents -->
-  </div><!-- /#O_container -->
-</div><!-- /#wrapper -->
+<{* 🔴 フッターは .M_mainContents の**中**です
+
+     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
+     float:left の左メニューと float:right の .M_mainContents のあいだに
+     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
+     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
+     見え方になります。
+
+     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
+     .M_mainContents の中にありました。元の入れ子に合わせます。
+
+     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
+     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

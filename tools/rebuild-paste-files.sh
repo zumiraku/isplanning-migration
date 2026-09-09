@@ -1,49 +1,59 @@
 #!/bin/sh
 # =============================================================================
-#  rebuild-paste-files.sh — 貼り付け用の2ファイルを作り直す
+#  rebuild-paste-files.sh — 全ページ共通の箱に貼るものを用意する
 #
-#  make-paste-file.js は「コンソールの箱の中身を保存したファイル」から作ります。
-#  一度貼り終えたあとは、Basics 標準の部分がリポジトリに控えてあるので、
-#  こちらのブロックを差し替えるだけで作り直せます。**箱をコピーしに行く必要は
-#  ありません。**
+#  🔴 2026-09-09、中身が変わりました
 #
-#  並び順は逆にできません。理由は package/paste/README.md に書いてあります。
+#     以前はここで **Basics 標準のコード**を先頭（CSS）や末尾（JS）に
+#     継ぎ足していました。デザインセットを Basics から作った名残です。
+#     継ぐ順番を間違えると壊れる、という理由でこの道具ができました。
 #
-#    CSS   Basics標準 → こちら     （こちらが後ろ。でないと Basics が勝つ）
-#    JS    こちら → Basics標準     （こちらが前。でないと jQuery で落ちる）
+#       CSS   Basics標準 2,326行 → こちら      （こちらが後ろ）
+#       JS    こちら → Basics標準 67行         （こちらが前）
+#
+#     移植で **Basics 標準は入れないことにしました。** 素のテンプレートの
+#     コードで、店舗の実CSS（m_sys_common.css 8,479行）と競合するだけです。
+#     JS のほうも、Basics のグローバルナビ用で、移植版では使いません。
+#
+#     結果、この道具は**そのまま写すだけ**になりました。順番を間違えようが
+#     ありません。道具が単純になったのは、方針が単純になったからです。
+#
+#  🔴 Basics 標準を外すと影響するもの
+#
+#     こちらで作り直していない4つのページ種別が、素の見た目になります。
+#
+#       商品レビュー一覧 / 商品レビュー投稿 / まとめ買い割引 / 会員制・年齢確認
+#
+#     いずれもこの店舗では使っていません（まとめ買いは未設定、レビューは
+#     u-komi に移行済み）。**必要になったら templates/basics-stock/ に
+#     控えがあります。**
+#
+#  🔴 大きさについて
+#
+#     CSS が 180KB を超えます。以前の箱は 110KB でした。**箱に入りきるかは
+#     貼ってみるまで分かりません。** 入らなければ、m_sys_common.css を
+#     ストレージに置いて <link> で読む形に切り替えます（gigaplus の
+#     default.css と同じやり方）。
 # =============================================================================
 set -e
 cd "$(dirname "$0")/.."
 
-css_out=package/paste/all-pages.css
-js_out=package/paste/all-pages.js
-[ -f "$css_out" ] && [ -f "$js_out" ] || { echo "貼り付けファイルがありません" >&2; exit 1; }
+mkdir -p package/paste
 
-# --- 境界を、いまのファイルから測ります（決め打ちしません） -----------------
-#     CSS: Basics標準の行数 + 空行1
-css_head=$(wc -l < templates/basics-stock/all-pages-css-head.css | tr -d ' ')
-#     JS : こちらのブロックの行数は、いまの mode/all-pages.js ではなく
-#          **貼り付けファイルに入っている旧版**の行数で測ります
-js_basics_at=$(grep -n -F '$(function() {' "$js_out" | head -1 | cut -d: -f1)
-[ -n "$js_basics_at" ] || { echo "JS の Basics ブロックが見つかりません" >&2; exit 1; }
-js_keep_from=$((js_basics_at - 1))   # 直前の空行から
+src_css=templates/creator/mode/all-pages.css
+src_js=templates/creator/mode/all-pages.js
+[ -f "$src_css" ] || { echo "missing $src_css" >&2; exit 1; }
+[ -f "$src_js" ]  || { echo "missing $src_js" >&2; exit 1; }
 
-tmp_css=.paste-css.tmp
-tmp_js=.paste-js.tmp
-trap 'rm -f "$tmp_css" "$tmp_js"' EXIT
+cp "$src_css" package/paste/all-pages.css
+cp "$src_js"  package/paste/all-pages.js
 
-{ head -"$css_head" "$css_out"; echo; cat templates/creator/mode/all-pages.css; } > "$tmp_css"
-{ cat templates/creator/mode/all-pages.js; tail -n +"$js_keep_from" "$js_out"; } > "$tmp_js"
+# 事故の検査。@import はルールより後ろに置けません。
+awk '/^[[:space:]]*@import/ { if (seen) { print "🔴 @import がルールより後ろにあります: 行" NR; exit 1 } } /\{/ { seen = 1 }' package/paste/all-pages.css
 
-# --- 事故の検査 --------------------------------------------------------------
-head -"$css_head" "$tmp_css" | diff -q - templates/basics-stock/all-pages-css-head.css >/dev/null \
-  || { echo "🔴 CSS: Basics 標準の部分が変わっています" >&2; exit 1; }
-grep -q -F '$(function() {' "$tmp_js" || { echo "🔴 JS: Basics の部分が消えました" >&2; exit 1; }
-# @import はルールより後ろに置けません
-awk '/^[[:space:]]*@import/{ if (seen) { print "🔴 @import がルールより後ろにあります: 行" NR; exit 1 } } /\{/{ seen=1 }' "$tmp_css"
+node --check package/paste/all-pages.js
 
-mv "$tmp_css" "$css_out"
-mv "$tmp_js" "$js_out"
-
-printf 'CSS  %s 行  (Basics %s + こちら %s)\n' "$(wc -l < "$css_out" | tr -d ' ')" "$css_head" "$(wc -l < templates/creator/mode/all-pages.css | tr -d ' ')"
-printf 'JS   %s 行  (こちら %s + Basics)\n'   "$(wc -l < "$js_out"  | tr -d ' ')" "$(wc -l < templates/creator/mode/all-pages.js | tr -d ' ')"
+printf 'CSS  %s 行  %s バイト\n' "$(wc -l < package/paste/all-pages.css | tr -d ' ')" "$(wc -c < package/paste/all-pages.css | tr -d ' ')"
+printf 'JS   %s 行  %s バイト\n' "$(wc -l < package/paste/all-pages.js  | tr -d ' ')" "$(wc -c < package/paste/all-pages.js  | tr -d ' ')"
+printf '\n両方とも、箱の中身を Ctrl+A で選んでから丸ごと置き換えてください。\n'
+printf 'Basics 標準のコードは残しません（上のコメントに理由）。\n'

@@ -355,3 +355,96 @@ a[data-zoom] { cursor: zoom-in; }
   .M_innerList { display: flex; flex-wrap: wrap; }
   .M_innerList > li { max-width: 100%; box-sizing: border-box; }
 }
+
+/* --- 2カラムの組み方 --------------------------------------------------------
+   🔴 元サイトは <table> で組んでいました
+
+      ベーシックモードは、左メニューと本文のあいだに <table><tr><td> を
+      **プラットフォームが自動で挿入**します。だから元CSSの
+
+        #O_container   { width: 1000px }
+        #M_leftContents{ float: left;  width: 200px }
+        .M_mainContents{ float: right; width: 960px }
+
+      は、実際には効いていませんでした。200 + 960 = 1160px は 1000px の
+      箱に入りません。**クリエイターには自動挿入が無い**ので、そのまま
+      持ってくると右カラムが左メニューの下に落ちます。
+
+      実際に落ちました。撮った画面では、ヘッダーも左メニューもコラムも
+      正しいのに**本文だけ真っ白**。要素は出ていて、位置が
+      top=5516px（左メニューの真下）でした。
+
+      幅はヘッダーに合わせて 1200px にします。組み方は flex です。
+      float のままだと、また同じ落ち方をしたときに気づきにくいので。
+
+   🔴 960px 未満では触りません
+      左メニューが引き出し（position:fixed）になるので、flex にすると
+      本文の左に200pxの空きが残ります。
+--------------------------------------------------------------------------- */
+@media screen and (min-width: 961px) {
+  #O_container {
+    width: 1200px;
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
+  #M_leftContents {
+    float: none !important;
+    flex: 0 0 200px;
+  }
+  .M_mainContents {
+    float: none !important;
+    flex: 1 1 auto;
+    width: auto !important;
+    min-width: 0;   /* flex の子が中身の幅で膨らむのを止めます */
+  }
+}
+
+/* --- 2カラムを直してから見えるようになった、はみ出し --------------------------
+   🔴 本文が表示されるまで、これらは測れませんでした
+
+      右カラムが左メニューの下に落ちていたあいだ、その中身は幅の判定に
+      出てきませんでした。組み方を直した瞬間に新しく4件出ています。
+      **直したら別のものが見える**のは正常です。測り直さないと分かりません。
+
+        div.project      →340   フッターの熱中症声かけプロジェクト
+        #O_itemDetailTop 内の div →514 / 464   商品詳細の左右2カラム
+--------------------------------------------------------------------------- */
+@media screen and (max-width: 1240px) {
+  .project, .project img, .project a, .project p {
+    width: auto !important;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
+
+  /* 商品詳細の上段・下段も2カラムです。狭い画面では縦に積みます。 */
+  .O_itemDetailTop, .O_itemDetailBottom {
+    display: block;
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .O_itemDetailTop > div,
+  .O_itemDetailBottom > div,
+  #itemImg, #Other_img, .option-wrap, .detailcart-wrap, .price-box {
+    float: none !important;
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  #itemImg img, #Other_img img { max-width: 100%; height: auto; }
+}
+
+/* 🔴 幅を絞っただけでは足りませんでした
+ *
+ *    .project は 38px まで縮んでいたのに、はみ出し検査は 340 と言い続けました。
+ *    **幅ではなく位置**です。#footer が display:flex のままで折り返さず、
+ *    .project が右へ押し出されていました。要素の幅だけ見ていると、
+ *    こういう出方は追えません。 */
+@media screen and (max-width: 1240px) {
+  #footer { flex-wrap: wrap; }
+  #footer > * { min-width: 0; }
+  .flogo-wrap, .project { flex: 1 1 100%; }
+}

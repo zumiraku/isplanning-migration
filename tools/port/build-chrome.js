@@ -120,12 +120,30 @@ bottom = bottom.replace(/^<!--[\s\S]*?-->/, "");    // 先頭の </td></tr></tab
 bottom = bottom.replace(/<\/td>\s*<\/tr>\s*<\/table>/g, "");  // 自動挿入テーブルの残骸
 bottom = convert(bottom);
 
-/* 🔴 開閉の帳尻。
-     header が #wrap と #bgMain を開き、各ページが #wrapper / #O_container /
-     .M_mainContents を開いて閉じます。footer は元テンプレートの都合で1つしか
-     閉じないので、ここで #bgMain と #wrap のぶんを揃えます。ベーシックは
-     <table> を自動挿入していたため、元ファイルだけでは釣り合いません。 */
-const FOOTER_TAIL = String.fromCharCode(10) + "</div><!-- /#wrap -->";
+/* 🔴 フッターが閉じるもの
+ *
+ *    header が #wrap と #bgMain を、各ページが #wrapper / #O_container /
+ *    .M_mainContents を開きます。フッターの中身（コラム・ご案内・会社情報）は
+ *    .M_mainContents の**中**にあるので、閉じるのは中身のあとです。
+ *
+ *    最初はフッターを .M_mainContents の外に置いていました。#colum-wrap が
+ *    左メニュー（float:left）と本文（float:right）のあいだに割り込んで、
+ *    **本文がまるごと左メニューの下に落ちました。** 撮って初めて分かりました。
+ *
+ *    元テンプレートは自動挿入のテーブルで帳尻が合っていたので、ここは
+ *    こちらで数えて閉じます。
+ *
+ *    元テンプレートの末尾には </div> が1つ余分に付いています（ベーシックが
+ *    自動挿入したテーブルと帳尻を合わせるためのもの）。それが #wrap を
+ *    閉じるぶんになるので、ここで足すのは4つです。5つ足すと1つ閉じすぎに
+ *    なり、描画した実物で「閉じすぎ」が出ます。 */
+const FOOTER_TAIL = [
+  "",
+  "</div><!-- /.M_mainContents -->",
+  "</div><!-- /#O_container -->",
+  "</div><!-- /#wrapper -->",
+  "</div><!-- /#bgMain -->"
+].join(String.fromCharCode(10));
 bottom = bottom + FOOTER_TAIL;
 const r3 = rewrite(bottom);
 bottom = r3.html;
