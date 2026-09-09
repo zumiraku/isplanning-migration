@@ -1071,3 +1071,58 @@ flex_design_page_editor.html?design_set_id=5&page_type=3
 
 戻したのは正しい判断ですが、**戻り先そのものに終わりがあります。**
 作り直しは「やらなくてよくなった」のではありません。
+
+## モジュール編集 — the screen, verified 2026-09-09
+
+`ショップデザイン › クリエイターモード › モジュール管理 › モジュール編集`,
+reached from モジュール管理 in the left column (below the fold, under the rule).
+
+```
+モジュールID   [            ]  $module.       <- the tag comes from HERE
+管理用名称     [                                    ]
+               ┌──────────────────────────────────┐
+               │  (code box)                      │
+               └──────────────────────────────────┘
+🗑 このモジュールを削除                    [ 保存 ]
+```
+
+**Two fields, not one.** Earlier instructions said "register it under 管理用名称"
+and named the English identifier there. That was wrong: 管理用名称 is the label
+shown in the list (ヘッダー, サイドメニュー …), and **モジュールID is what the
+template calls**. The grey `$module.` sits to the right of the ID box as a
+reminder of what the tag will read.
+
+That explains the 9-module list recorded on 2026-09-05: モジュール名 ヘッダー
+with tag `$module.header` is one module, not two names for one field.
+
+### What this port needs
+
+| モジュールID | 管理用名称 | file |
+|---|---|---|
+| `header` | ヘッダー | `package/modules/header.tpl` |
+| `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` |
+| `footer` | フッター | `package/modules/footer.tpl` |
+| `calendar1` | 営業日カレンダー（今月） | `package/modules/calendar1.tpl` |
+| `calendar2` | 営業日カレンダー（翌月） | `package/modules/calendar2.tpl` |
+| `freespace_calendar` | 卓上カレンダー説明 | `package/modules/freespace_calendar.tpl` |
+
+管理用名称 is free text - only モジュールID has to match.
+
+## プレビューは、管理画面にログインしたセッションでしか開けません — 2026-09-09
+
+Re-learned the hard way. A preview URL handed over on its own gives:
+
+```
+GET /view/contract?ptk=…      301 → /html/ordercontract.html   (EUC-JP, Basic)
+```
+
+Same URL, same token, from the browser that pressed プレビュー: 200, Creator
+Mode. 2026-09-07 already recorded this and it was forgotten a second time.
+
+A cookie jar built by visiting the shop front is **not** enough - those give
+`db` / `identify` / `tempid` / `slvd`, and the preview still 301s. The one that
+matters is the console login (`isplanning_mssvti`).
+
+**So a pasted preview URL cannot be checked from here.** Either the session
+cookie comes across, or the page is saved from the browser that can see it
+(Ctrl+S, "Webpage, HTML Only") and read from disk.
