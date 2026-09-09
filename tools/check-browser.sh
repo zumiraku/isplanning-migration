@@ -1,27 +1,31 @@
 #!/bin/sh
 # =============================================================================
-#  check-browser.sh — ブラウザでしか確かめられない4本を、自動で走らせる
+#  check-browser.sh — JavaScript が本当に動くかを、ブラウザで数える
 #
-#  この4本はずっと「PowerShellとChromeで手作業」と書いてありました。
+#  🔴 2026-09-09、見る対象を入れ替えました
 #
-#  🔴 手作業と書いた検証は、走らなくなります。
+#     ここで回していたのは verify-pricing / verify-gallery / verify-tabs /
+#     verify-quote-prefill / verify-price-format の5本でした。**どれも
+#     こちらが設計したJSの台**で、移植で全部無くなりました。ファイルごと
+#     消えているので、直前まで「5本とも 🔴 ファイルがありません」と出す
+#     だけの検査になっていました。
 #
-#     tag-balance の失敗は、誰かが思い出したときにだけ叩く道具だったせいで
-#     何日も出力の中に埋もれていました。同じことです。ヘッドレスChromeは
-#     この環境に入っており、check-responsive.ps1 が既に使っています。
-#     使えるのに手作業のままにしておく理由がありません。
+#     いま見るのは all-pages.js の中身です（port-chrome.js と
+#     search-submit.js）。
 #
-#  各ページは結果を <title> に書き出します。合否はそこから読みます。
+#       上部固定       スクロールで #headerWrap に .fixed が付く
+#       引き出しメニュー ☰ で開く / × と Esc と背景で閉じる
+#       画像の拡大     data-zoom で重なる / × と Esc で閉じる
+#       検索欄の Enter リンクのクリックに変わる／欄の外では飛ばない
 #
-#    OK 13                 全部合格
-#    OK 10 +1要目視        合格。ただし目で見ないと分からない項目が1つ
-#    NG 2                  2件不合格
-#    全103件合格 / 不合格N件  （価格計算だけ書式が別）
+#     どれも新しく書いたコードで、他に試す場所がありません。
 #
-#  「要目視」は失敗にしません。**人が見て判断する項目**です。数は出します。
+#  🔴 「開くこと」だけでなく「閉じること」も見ます
 #
-#  Chrome か Edge を探します。見つからないときは飛ばして 0 を返します。
-#  ここで止めると、Chromeの無い環境で check-all.sh が丸ごと落ちます。
+#     閉じないライトボックスは、スマホでは戻れなくなります。開く側だけ
+#     試して満足すると、その手の壊れ方は最後まで見つかりません。
+#
+#  ChromeもEdgeも無い環境では飛ばします（失敗にはしません）。
 # =============================================================================
 set -e
 cd "$(dirname "$0")/.."
@@ -32,9 +36,7 @@ for c in \
   "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" \
   "$LOCALAPPDATA/Google/Chrome/Application/chrome.exe" \
   "/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" \
-  "/c/Program Files/Microsoft/Edge/Application/msedge.exe" \
-  "$(command -v google-chrome 2>/dev/null)" \
-  "$(command -v chromium 2>/dev/null)"
+  "/c/Program Files/Microsoft/Edge/Application/msedge.exe"
 do
   [ -n "$c" ] && [ -f "$c" ] && { CHROME="$c"; break; }
 done
@@ -47,41 +49,43 @@ fi
 
 root=$(pwd -W 2>/dev/null || pwd)
 fail=0
-pending_total=0
 
-for name in verify-pricing verify-gallery verify-tabs verify-quote-prefill verify-price-format; do
+echo "ブラウザで動かして数えます"
+echo ""
+
+for name in verify-chrome; do
   page="templates/creator/preview/$name.html"
-  [ -f "$page" ] || { echo "  🔴 $page がありません"; fail=1; continue; }
-
-  title=$("$CHROME" --headless --disable-gpu --no-sandbox \
-            --virtual-time-budget=8000 --dump-dom "file:///$root/$page" 2>/dev/null \
-          | sed -n 's/.*<title>\([^<]*\)<\/title>.*/\1/p' | head -1)
-
-  if [ -z "$title" ]; then
-    printf "  🔴 %-22s 結果を読み取れませんでした\n" "$name"
+  if [ ! -f "$page" ]; then
+    echo "  🔴 $page がありません"
     fail=1
     continue
   fi
 
-  # 「要目視」の件数は数えるだけ。失敗にはしません。
-  p=$(printf '%s' "$title" | sed -n 's/.*+\([0-9]*\)要目視.*/\1/p')
-  [ -n "$p" ] && pending_total=$((pending_total + p))
+  dom=$("$CHROME" --headless --disable-gpu --no-sandbox \
+          --virtual-time-budget=8000 --dump-dom "file:///$root/$page" 2>/dev/null || true)
 
-  case "$title" in
-    NG*|*不合格*)
-      printf "  🔴 %-22s %s\n" "$name" "$title"
-      fail=1
+  summary=$(printf '%s' "$dom" | sed -n 's/.*<p id="summary">\([^<]*\)<\/p>.*/\1/p' | head -1)
+
+  if [ -z "$summary" ]; then
+    printf "  🔴 %-16s 結果を読み取れませんでした\n" "$name"
+    fail=1
+    continue
+  fi
+
+  # NG の件数が 0 のときだけ通します。
+  case "$summary" in
+    *"NG 0")
+      printf "  OK %-16s %s\n" "$name" "$summary"
       ;;
     *)
-      printf "  OK %-22s %s\n" "$name" "$title"
+      printf "  🔴 %-16s %s\n" "$name" "$summary"
+      # 落ちた項目を並べます。件数だけ見ても直せません。
+      printf '%s' "$dom" | sed -n 's/.*<li class="ng">\([^<]*\)<\/li>.*/     NG: \1/p'
+      printf '%s' "$dom" | tr '<' '\n' | sed -n 's/^li class="ng">\(.*\)/     NG: \1/p'
+      fail=1
       ;;
   esac
 done
 
 echo ""
-if [ "$pending_total" -gt 0 ]; then
-  echo "  目で見て判断する項目が $pending_total 件あります。"
-  echo "  ブラウザで該当ページを開いて確認してください（失敗ではありません）。"
-fi
-
 exit "$fail"

@@ -240,8 +240,21 @@
     var el = e.target;
     if (!el || !el.matches || !el.matches('input')) { return; }
 
-    /* 検索欄の中で押されたときだけ。商品ページの数量欄などは対象外です。 */
-    var box = el.closest('.searchbox, .refine__form');
+    /* 検索欄の中で押されたときだけ。商品ページの数量欄などは対象外です。
+     *
+     * 🔴 探すクラスは .search-box と #r_searchInput です
+     *
+     *    最初は .searchbox と .refine__form を見ていました。**どちらも
+     *    こちらが設計したときの名前**で、移植で無くなっています。
+     *    いまのマークアップは店舗のもので、
+     *
+     *      ヘッダー      <div class="search-box">      （上段メニュー）
+     *      検索ページ    <div id="r_searchInput">      （絞り込みの表）
+     *
+     *    です。ハイフンの位置が違うだけなので、目では気づけませんでした。
+     *    verify-chrome.html が「Enterがリンクのクリックにならない」で
+     *    落ちて分かりました。 */
+    var box = el.closest('.search-box, #r_searchInput');
     if (!box) { return; }
 
     var go = box.querySelector('a[href="' + url + '"]');

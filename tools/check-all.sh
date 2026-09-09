@@ -59,10 +59,10 @@ run "every page type renders"                     sh tools/check-render-all.sh
 # run "606 category titles restored exactly"        sh tools/check-category-titles.sh
 run "internal links that the URL change breaks"   sh tools/inventory-internal-links.sh
 run "every internal link has a target"            sh tools/check-internal-links.sh
-# 🔴 退役 2026-09-09: preview/*.html は退役した設計のモック。移植版で作り直すまで外します
-# run "browser checks (headless Chrome)"            sh tools/check-browser.sh
-# 🔴 退役 2026-09-09: 同上。レスポンシブは port-responsive.css で作り直したので、測る対象の作り直しが要ります
-# run "nothing overflows at 320px and 375px"        sh tools/check-overflow.sh
+# 復帰 2026-09-09: preview/*.html を tools/port/build-previews.js で作り直しました（出荷するテンプレートを描画したもの）
+run "browser checks (headless Chrome)"            sh tools/check-browser.sh
+# 復帰 2026-09-09: preview/*.html を tools/port/build-previews.js で作り直しました（出荷するテンプレートを描画したもの）
+run "nothing overflows at 320px and 375px"        sh tools/check-overflow.sh
 
 echo ""
 echo "=============================================================="

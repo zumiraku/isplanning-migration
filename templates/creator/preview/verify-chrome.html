@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>port-chrome.js の検証</title>
+<!--
+  🔴 これは出荷しないページです
+
+     移植版の JavaScript（all-pages.js）が本当に動くかを、ブラウザで
+     数えるための台です。以前の verify-*.html は自前ギャラリーやタブを
+     試していて、**そのどれも移植で無くなりました。**
+
+     ここで見るのは4つ。どれも新しく書いたコードで、他に試す場所が
+     ありません。
+
+       1. スクロールで #headerWrap に .fixed が付く（上部固定）
+       2. ☰ で左メニューが開く / × と Esc と背景で閉じる
+       3. data-zoom のリンクで拡大が重なる（画像拡大）
+       4. 検索欄で Enter を押すとリンクのクリックに変わる
+
+     🔴 3 は「開くこと」だけでなく「閉じること」も見ます。閉じない
+        ライトボックスは、スマホでは戻れなくなります。
+
+     🔴 このファイルは build-previews.js が消しません（verify- で始まる
+        ものは除外）。一度、生成のたびに巻き添えで消えていました。
+-->
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; }
+  #headerWrap { height: 60px; background: #eee; }
+  #M_leftContents { width: 200px; }
+  .spacer { height: 2000px; }
+  #results { position: fixed; right: 0; top: 0; width: 420px; background: #fff;
+             border-left: 2px solid #333; padding: 12px; font-size: 13px; z-index: 99999; }
+  #results li { margin: 4px 0; }
+  .ok::before { content: "OK  "; color: #060; font-weight: 700; }
+  .ng::before { content: "NG  "; color: #c00; font-weight: 700; }
+</style>
+<link rel="stylesheet" href="../mode/all-pages.css">
+</head>
+<body>
+
+<!--
+  🔴 プラットフォームが出す設定要素も置きます
+
+     search-submit.js は、マーカーの文字列を直書きせず
+     #makeshop-page-common-search-data の data-search-url から読みます。
+     これが無いと何もせずに終わるので、**台に置き忘れると「動かない」と
+     出ます。** 実際に最初そうなりました。
+-->
+<input type="hidden" id="makeshop-page-common-search-data"
+       data-id-keyword="makeshop-search-keyword"
+       data-search-url="#makeshop-common-search-url">
+
+<div id="headerWrap">
+  <div class="search-box">
+    <input type="text" id="MakeShopTopSearchInput" data-id="makeshop-search-keyword">
+    <a id="MakeShopTopSearchButton" href="#makeshop-common-search-url" role="button">検索</a>
+  </div>
+</div>
+
+<button class="l-menu-toggle" type="button" aria-controls="M_leftContents" aria-expanded="false">
+  <span class="l-menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+  カテゴリー
+</button>
+
+<div id="M_leftContents">
+  <button class="l-menu-close" type="button" aria-label="メニューを閉じる">×</button>
+  <p>左メニュー</p>
+</div>
+
+<p class="pageTop"><a href="#header">▲</a></p>
+
+<div id="itemImg">
+  <a href="https://example.com/big.jpg" data-zoom><img src="https://example.com/small.jpg" alt="商品"></a>
+</div>
+
+<div class="spacer"></div>
+
+<div id="results"><b>検証結果</b><ul id="list"></ul></div>
+
+<script src="../mode/all-pages.js"></script>
+<script>
+(function () {
+  var list = document.getElementById("list");
+  var pass = 0, fail = 0;
+
+  function check(label, cond) {
+    var li = document.createElement("li");
+    li.className = cond ? "ok" : "ng";
+    li.textContent = label;
+    list.appendChild(li);
+    if (cond) { pass++; } else { fail++; }
+  }
+
+  var header = document.getElementById("headerWrap");
+  var menu = document.getElementById("M_leftContents");
+  var toggle = document.querySelector(".l-menu-toggle");
+
+  /* 1. 上部固定 --------------------------------------------------------- */
+  check("最初は .fixed が付いていない", !header.classList.contains("fixed"));
+  window.scrollTo(0, 300);
+  window.dispatchEvent(new Event("scroll"));
+  check("スクロールすると .fixed が付く", header.classList.contains("fixed"));
+  window.scrollTo(0, 0);
+  window.dispatchEvent(new Event("scroll"));
+  check("戻すと .fixed が外れる", !header.classList.contains("fixed"));
+
+  /* 2. 引き出し --------------------------------------------------------- */
+  toggle.click();
+  check("☰ で開く", menu.classList.contains("is-open"));
+  check("開くと背景が出る", !!document.querySelector(".l-menu-scrim"));
+  check("aria-expanded が true", toggle.getAttribute("aria-expanded") === "true");
+  document.querySelector(".l-menu-scrim").click();
+  check("背景を押すと閉じる", !menu.classList.contains("is-open"));
+  toggle.click();
+  menu.querySelector(".l-menu-close").click();
+  check("× で閉じる", !menu.classList.contains("is-open"));
+  toggle.click();
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  check("Esc で閉じる", !menu.classList.contains("is-open"));
+  check("閉じたら背景も消える", !document.querySelector(".l-menu-scrim"));
+
+  /* 3. 画像の拡大 ------------------------------------------------------- */
+  var zoom = document.querySelector("a[data-zoom]");
+  zoom.click();
+  var box = document.querySelector(".zoombox");
+  check("data-zoom で拡大が開く", !!box);
+  check("拡大に元の画像URLが入る",
+        !!box && box.querySelector("img").getAttribute("src") === "https://example.com/big.jpg");
+  if (box) { box.querySelector(".zoombox__close").click(); }
+  check("× で拡大が閉じる", !document.querySelector(".zoombox"));
+  zoom.click();
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  check("Esc で拡大が閉じる", !document.querySelector(".zoombox"));
+
+  /* 4. 検索欄の Enter ---------------------------------------------------- */
+  var clicked = 0;
+  var go = document.getElementById("MakeShopTopSearchButton");
+  go.addEventListener("click", function (e) { e.preventDefault(); clicked++; });
+  var input = document.getElementById("MakeShopTopSearchInput");
+  input.focus();
+  input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+  check("検索欄の Enter がリンクのクリックになる", clicked === 1);
+
+  /* 数量欄で Enter を押しても検索が飛ばないこと */
+  var qty = document.createElement("input");
+  qty.type = "number";
+  document.body.appendChild(qty);
+  qty.focus();
+  qty.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+  check("検索欄の外の Enter では飛ばない", clicked === 1);
+
+  var head = document.createElement("p");
+  head.id = "summary";
+  head.textContent = "合計 " + (pass + fail) + " 件 / OK " + pass + " / NG " + fail;
+  document.getElementById("results").appendChild(head);
+}());
+</script>
+</body>
+</html>

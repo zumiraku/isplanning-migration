@@ -54,7 +54,16 @@ workurl="$root/.overflow-probe"
 mkdir -p "$work"
 trap 'rm -rf "$work"' EXIT
 
-PAGES="top category category-season category-season-summer product cart news-list news-detail components"
+# 🔴 2026-09-09、対象を移植版に差し替えました。
+#
+#    ここに並んでいた category-season / product / components は、
+#    **差し戻された設計の手書きモック**でした。並び替えバーを <select> で
+#    書いてあって、出荷していたのは <nav> のリンク。撮って確認していたのは
+#    一度も出荷していない画面です。
+#
+#    いまの preview/*.html は tools/port/build-previews.js が
+#    **出荷するテンプレートを実際に描画して**書き出したものです。
+PAGES="top category detail search cart news-list news-detail company guide contract policy"
 WIDTHS="320 375"
 fail=0
 

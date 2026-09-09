@@ -155,7 +155,34 @@ body = body.replace(/\s*<\/table>\s*<!--\s*-->\s*$/, "\n");
         バックスラッシュが落ちます。実際に2回そうなりました。 */
 body = body.split("<!--.mainContents--></div>").join("");
 body = body.trimEnd();
-if (body.endsWith("</table>")) { body = body.slice(0, -"</table>".length).trimEnd(); }
+
+/* 🔴 コメントアウトされた「お気に入り」表は、丸ごと落とします
+ *
+ *    元テンプレートの末尾には、使っていないお気に入り一覧が
+ *    1行ずつコメントアウトされて残っています。厄介なのは、
+ *
+ *      <!--<table id="M_basketTable">-->   ← 開きはコメントの中
+ *      …
+ *      </table>                            ← 閉じだけコメントの外
+ *
+ *    という形になっていることです。ベーシックでは他のタグと相殺して
+ *    帳尻が合っていました。
+ *
+ *    最初は「末尾が </table> なら落とす」と書きましたが、そのあとにも
+ *    コメント行が続くので一度も成立しません。次に「数えて余った閉じを
+ *    落とす」に変えたら、今度は開きだけが残って **開3/閉2** になりました。
+ *    div は釣り合っていたので、どちらも check-tag-balance が
+ *    「preview/cart.html  table  open 8 close 9」で拾うまで気づけません。
+ *
+ *    片方だけ動かすから合わなくなります。**使っていないものを丸ごと
+ *    落とす**のが正しい直し方です。 */
+const wishAt = body.indexOf("<!--▼お気に入り商品-->");
+if (wishAt >= 0) {
+  body = body.slice(0, wishAt).trimEnd();
+} else {
+  console.error("🔴 お気に入り表の目印が見つかりません。末尾を確認してください。");
+  process.exit(1);
+}
 
 const r = rewrite(body);
 body = r.html;

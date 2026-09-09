@@ -8771,3 +8771,81 @@ a[data-zoom] { cursor: zoom-in; }
   text-decoration: none;
 }
 .subcats li a:hover { background: #e9f3e0; }
+
+/* --- 固定幅の部品を狭い画面で畳む -------------------------------------------
+   🔴 実測で出たものだけを直しています
+
+      移植版のプレビューを 320px と 375px で測って、はみ出した要素を
+      名指しで出しました。旧サイトは固定幅なので当然はみ出します。
+      **推測で片っ端から max-width を当てるのではなく、測って出たものを
+      1つずつ**潰します。
+
+      320px で出たもの:
+        a.use-button.link_green      → 372
+        a.link_green.top-naire-link  → 676
+        a.link_green.season-list-link→ 382 / 451
+        a.link_green.wd320           → 346
+        a.basketbtn_04               → 816
+        div.btnOrder / その中の a    → 490
+        検索の絞り込み table         → 952
+--------------------------------------------------------------------------- */
+@media screen and (max-width: 1240px) {
+  /* 緑のボタン類。旧CSSは px 固定で、文字数ぶんの幅を持たせています。 */
+  .link_green,
+  .use-button,
+  .basketbtn_04,
+  .btn_design,
+  .f-button,
+  .wd320,
+  .top-naire-link,
+  .season-list-link {
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* 買い物かごの「ご購入手続きへ進む」 */
+  .btnOrder, .btnOrder a, .btnBack, .btnBack a {
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 検索の絞り込みは表組みです。狭い画面では縦に積みます。 */
+  #r_searchInput table,
+  #r_searchInput tbody,
+  #r_searchInput tr,
+  #r_searchInput th,
+  #r_searchInput td {
+    display: block;
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  #r_searchInput th { border-bottom: 0; }
+  #r_searchInput input,
+  #r_searchInput select { width: 100%; box-sizing: border-box; }
+
+  /* 商品詳細の左右2カラムと、送料表の画像 */
+  #O_itemDetailL, #O_itemDetailR,
+  #O_itemDetailBottomL, #O_itemDetailBottomR {
+    float: none !important;
+    width: auto !important;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 季節で選ぶの4枚並び */
+  .season-list { display: flex; flex-wrap: wrap; }
+  .season-list > li { width: auto !important; max-width: 100%; box-sizing: border-box; }
+}
+
+/* 検索結果の画像枠。元は width:220px + padding:5px の固定で、
+   320px の画面では左右の余白と合わさって外に出ます。 */
+@media screen and (max-width: 1240px) {
+  .M_cl_imgWrap { width: auto !important; max-width: 220px; box-sizing: border-box; }
+  .M_innerList { display: flex; flex-wrap: wrap; }
+  .M_innerList > li { max-width: 100%; box-sizing: border-box; }
+}
