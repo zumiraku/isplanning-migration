@@ -67,7 +67,7 @@
 
 <ul class="PageList2">
 <li><em>■</em>FAX：<a href="/view/page/page1.html" style="TEXT-DECORATION: underline">ＦＡＸ注文・見積用紙</a>　FAX番号：072-970-6720</li>
-<li><em>■</em>フォーム問い合わせ：<a href="/html/email.html" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">お問い合わせ</a></li>
+<li><em>■</em>フォーム問い合わせ：<a href="<{$url.support}>" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">お問い合わせ</a></li>
 <li><em>■</em>TEL：072-970-6710</li>
 </ul>
 

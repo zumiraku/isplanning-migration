@@ -24,6 +24,7 @@
       calendar1 / calendar2 と同じ扱いになります。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
+const { rewrite } = require("./url-map.js");
 
 const src = process.argv[2];
 if (!src || !fs.existsSync(src)) {
@@ -61,6 +62,16 @@ for (const id of ["O_subCategory", "O_categotyBnr"]) {
   block = block.replace(re, "");
 }
 block = block.trim();
+
+/* 🔴 URLの書き換えを通していませんでした
+ *
+ *    このモジュールだけ url-map を通しておらず、商品リンクと独自ページの
+ *    リンクが29箇所そのまま残っていました。切り替え後は毎回301で回ります。
+ *    他の生成物と同じように通します。 */
+const rw = rewrite(block.split("〜").join("～"));
+block = rw.html;
+console.log("  URL書き換え " + rw.rewritten + " 本" +
+  (rw.missing.length ? " / 対応表に無い " + rw.missing.length + ": " + rw.missing.join(" ") : ""));
 
 if (block.length < 200) {
   console.error("🔴 切り出せた中身が短すぎます（" + block.length + " バイト）。目印を確認してください。");

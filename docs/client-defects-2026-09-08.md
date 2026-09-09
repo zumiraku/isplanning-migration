@@ -1033,3 +1033,42 @@ $module.checked           → 1,380文字（CHECKED ITEM …）
   命名からの推測                    0
   台帳に無い                        0
 ```
+
+## もう一巡 — リンクの書き換えに穴が4つ 2026-09-09
+
+「完璧に」と言われてもう一度洗ったところ、**切り替え後に毎回リダイレクトを
+挟むリンクが403箇所**残っていました。壊れはしませんが、余分な往復とSEOの
+目減りになります。
+
+| | |
+|---|---|
+| 商品が対応表に無い | `products-url.csv`（9,535件）を読み込んでいませんでした。対応表 1,400 → 20,470件 |
+| 絶対URLが引けない | `https://www.isp-sp.com/html/page68.html` のような書き方が素通り |
+| 末尾の並び替え | `/shopdetail/051000000007/order` が引けない。後ろの区切りを1つずつ落として探すように |
+| freespace_calendar | このモジュールだけ url-map を通していませんでした（29箇所） |
+
+```
+ページ種別テンプレート   旧URL 0
+モジュール             旧URL 0
+独自ページ82枚          旧URL 1
+```
+
+残る1件は `/shop/shopbrand.html?search=…`（プラットフォームの検索URL）です。
+`/shop/` 配下はクリエイターモードでも使われるので（`$url.member_entry` が
+`/shop/idinfo.html`）、そのままにします。
+
+### 移行漏れのページが1枚ありました
+
+`/html/email.html` は449バイトの中継ページで、開くとお問い合わせフォーム
+（`/ssl/contact/`）へ自動送信します。**デザインセットの82枚に入っておらず**、
+独自ページ3枚から8箇所リンクされています。切り替え後は行き先を失うところでした。
+
+`inventory/redirect-map.csv` に「MISSING - linked from the live site, absent
+from the sitemap and from our archive」と、2026-09-03 に記録されていました。
+**書いてあったのに、拾えていませんでした。**
+
+クリエイターにはプラットフォームの印があります。実データで確認しました。
+
+```
+$url.support → #makeshop-common-contact-url
+```

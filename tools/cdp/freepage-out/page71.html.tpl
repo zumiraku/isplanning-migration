@@ -44,7 +44,7 @@
 <!--　コンテンツここから　-->
 <div class="u-pb30 l-container">
 
-  <div id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://www.isp-sp.com/"><span itemprop="name">HOME</span></a><meta itemprop="position" content="1" /></span>&nbsp;&raquo;&nbsp;<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://www.isp-sp.com/html/page68.html"><span itemprop="name">粗品・ギフトについてのコラム</span></a><meta itemprop="position" content="2" /></span>&nbsp;&raquo;&nbsp;<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</span><meta itemprop="position" content="3" /></span></div>
+  <div id="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://www.isp-sp.com/"><span itemprop="name">HOME</span></a><meta itemprop="position" content="1" /></span>&nbsp;&raquo;&nbsp;<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/view/page/page68.html"><span itemprop="name">粗品・ギフトについてのコラム</span></a><meta itemprop="position" content="2" /></span>&nbsp;&raquo;&nbsp;<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</span><meta itemprop="position" content="3" /></span></div>
 
   <h2 class="l-heading-primary">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</h2>
 
@@ -98,7 +98,7 @@
   </div>
   </div>
   <div class="c-btn" style="margin:30px 0 30px 0;">
-    <a href="https://www.isp-sp.com/shopbrand/008/Y/" class="c-btn-anchor">その他季節の商品はこちら</a>
+    <a href="/view/category/ct36" class="c-btn-anchor">その他季節の商品はこちら</a>
   </div>
   <h3 class="u-mb20 l-heading-secondary">季節イベントで配る粗品選びの重要性</h3>
   <div class="u-mb30 c-block">
@@ -116,7 +116,7 @@
     </p>
   </div>
   <div class="c-btn">
-    <a href="https://www.isp-sp.com/html/page2.html" class="c-btn-anchor">名入れに関する情報はこちら</a>
+    <a href="/view/page/page2.html" class="c-btn-anchor">名入れに関する情報はこちら</a>
   </div>
 
   <h3 class="u-mb20 l-heading-secondary">夏配布の粗品は発見マーケットで探そう！</h3>
@@ -136,10 +136,10 @@
     <div class="u-mb30 u-c-a">
       <h3 class="class1" style="color:fff;">粗品選びに関するお役立ち知識</h3>
       <ul class="c-pagelink">
-        <li><a href="https://www.isp-sp.com/html/page69.html">粗品やギフトは名入れがおすすめ！&#12316;熨斗に関する豆知識も併せてご紹介&#12316;</a></li>
-        <li><a href="https://www.isp-sp.com/html/page70.html">粗品やギフトは発見マーケットの通販で！&#12316;オリジナルノベルティを準備する前の注意点&#12316;</a></li>
-        <li><a href="https://www.isp-sp.com/html/page71.html">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</a></li>
-        <li><a href="https://www.isp-sp.com/html/page72.html">粗品用のタオルは発見マーケットで！&#12316;匁？サイズ？タオル選びに関する豆知識&#12316;</a></li>
+        <li><a href="/view/page/page69.html">粗品やギフトは名入れがおすすめ！&#12316;熨斗に関する豆知識も併せてご紹介&#12316;</a></li>
+        <li><a href="/view/page/page70.html">粗品やギフトは発見マーケットの通販で！&#12316;オリジナルノベルティを準備する前の注意点&#12316;</a></li>
+        <li><a href="/view/page/page71.html">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</a></li>
+        <li><a href="/view/page/page72.html">粗品用のタオルは発見マーケットで！&#12316;匁？サイズ？タオル選びに関する豆知識&#12316;</a></li>
       </ul>
     </div>
   </div>

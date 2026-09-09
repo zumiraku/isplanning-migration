@@ -233,7 +233,7 @@
 <h3>熨斗シール（のしシール）もございます</h3>
 <p>01～06まで6種類の柄が選べる熨斗シールです。<br>12枚単位（1枚＠18円税別×12枚）（12枚で1シート）。シール代、印字代、貼り代込みのお値段です。<br>商品によりましては適合しない場合もございますのでお問い合わせの程お願いいたします、シールは再剥離タイプではございませんので綺麗には剥がす事は出来ません。<br>商品のパッケージ柄により、シールを張り付けた際に箱又は袋のプリント内容に被さる場合がございます。<br>オンデマンド印刷になりますので正確な色合いは表現できない場合がございます。</p>
 
-<span class="namefax"><a href="/shopdetail/000000020565/">● 熨斗シールのページはこちら</a></span>
+<span class="namefax"><a href="/view/item/000000020565">● 熨斗シールのページはこちら</a></span>
 <div style="text-align:center;"><img alt="のしシール画像" src="https://gigaplus.makeshop.jp/isplanning/images/noshisticker.svg"></div>
 
 
@@ -252,7 +252,7 @@
 <p class="namenumber">４．電話</p>
 <p class="nameall">電話で商品ご注文時に包装、熨斗のご依頼も可能です。<span class="namefax">TEL：072-970-6710 (平日AM10時～PM5時)</span></p>
 </div>
-<h5>■商品によりまして「包装・熨斗」が出来る物・出来ない物がございますのでお手数ですが<a href="/html/email.html" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">メール</a>にてご確認（お問い合わせ）くださいませ。</h5>
+<h5>■商品によりまして「包装・熨斗」が出来る物・出来ない物がございますのでお手数ですが<a href="<{$url.support}>" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">メール</a>にてご確認（お問い合わせ）くださいませ。</h5>
 
 <p>その際に、ご希望商品の</p>
 
@@ -309,7 +309,7 @@ e-mail =<br>
 
 <ul class="PageList2">
 <li><em>■</em>FAX：<a href="/view/page/page1.html" style="TEXT-DECORATION: underline">ＦＡＸ注文・見積用紙</a>　072-970-6720</li>
-<li><em>■</em>フォーム問い合わせ：<a href="/html/email.html" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">お問い合わせ</a></li>
+<li><em>■</em>フォーム問い合わせ：<a href="<{$url.support}>" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">お問い合わせ</a></li>
 <li><em>■</em>TEL：072-970-6710</li>
 </ul>
 

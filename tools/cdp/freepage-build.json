@@ -40,7 +40,7 @@
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 12,
+  "rewritten": 13,
   "missing": 1
  },
  {
@@ -58,11 +58,11 @@
   "id": 6,
   "pageId": "page2.html",
   "title": "粗品と景品の発見マーケット　名入れ・包装・のし紙のご案内ページ",
-  "len": 15173,
+  "len": 15171,
   "dropped": 2,
   "filled": 0,
   "closed": 0,
-  "rewritten": 8,
+  "rewritten": 11,
   "missing": 1
  },
  {
@@ -256,11 +256,11 @@
   "id": 24,
   "pageId": "page50.html",
   "title": "粗品や景品は【発見マーケット】で見つけよう！扇子・うちわ・熱中症対策のグッズなど季節に合わせたアイテムも豊富～粗品の本来の意味～ - 粗品や景品をお探しなら",
-  "len": 10344,
+  "len": 10184,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 4,
+  "rewritten": 14,
   "missing": 0
  },
  {
@@ -300,11 +300,11 @@
   "id": 28,
   "pageId": "page79.html",
   "title": "粗品用タオルなら発見マーケット｜粗品にタオルが適している理由",
-  "len": 14275,
+  "len": 14263,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 10,
+  "rewritten": 16,
   "missing": 0
  },
  {
@@ -333,55 +333,55 @@
   "id": 31,
   "pageId": "page72.html",
   "title": "粗品用タオルなら発見マーケット｜タオル選びに関する豆知識",
-  "len": 13207,
+  "len": 13110,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 3,
+  "rewritten": 14,
   "missing": 0
  },
  {
   "id": 32,
   "pageId": "page71.html",
   "title": "粗品を探すなら発見マーケット！～タオル？うちわ？夏に活用したいノベルティ・粗品とは？～",
-  "len": 13491,
+  "len": 13369,
   "dropped": 1,
   "filled": 0,
   "closed": 0,
-  "rewritten": 5,
+  "rewritten": 12,
   "missing": 0
  },
  {
   "id": 33,
   "pageId": "page70.html",
   "title": "粗品やギフトは発見マーケットの通販で！～オリジナルノベルティを準備する前の注意点～",
-  "len": 12579,
+  "len": 12437,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 0,
+  "rewritten": 8,
   "missing": 0
  },
  {
   "id": 34,
   "pageId": "page69.html",
   "title": "熨斗に関する豆知識～粗品やギフトは名入れがおすすめ～｜発見マーケット",
-  "len": 14278,
+  "len": 14159,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 0,
+  "rewritten": 7,
   "missing": 0
  },
  {
   "id": 35,
   "pageId": "page3.html",
   "title": "粗品の名入れサンプルページ - 粗品用アイテムの販売なら発見マーケット",
-  "len": 10203,
+  "len": 10194,
   "dropped": 9,
   "filled": 9,
   "closed": 0,
-  "rewritten": 9,
+  "rewritten": 18,
   "missing": 0
  },
  {
@@ -393,17 +393,17 @@
   "filled": 0,
   "closed": 0,
   "rewritten": 2,
-  "missing": 0
+  "missing": 1
  },
  {
   "id": 37,
   "pageId": "page75.html",
   "title": "手ぬぐいは粗品として人気です。名入れなら知名度アップにも繋がりますし、激安のため大量に仕入れることができます。こちらでは、手ぬぐいをはじめとした激安粗品を用意する発見マーケットによくいただく質問を紹介します。ご注文前に、ぜひご確認ください。",
-  "len": 16852,
+  "len": 16835,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 10,
+  "rewritten": 12,
   "missing": 1
  },
  {
@@ -520,11 +520,11 @@
   "id": 48,
   "pageId": "page68.html",
   "title": "粗品・ギフトについてのコラム｜価格やシーンから選べる粗品やギフト商品の通販",
-  "len": 11131,
+  "len": 11063,
   "dropped": 1,
   "filled": 0,
   "closed": 1,
-  "rewritten": 7,
+  "rewritten": 11,
   "missing": 0
  },
  {
@@ -800,7 +800,7 @@
   "filled": 0,
   "closed": 0,
   "rewritten": 7,
-  "missing": 0
+  "missing": 1
  },
  {
   "id": 74,
@@ -817,11 +817,11 @@
   "id": 75,
   "pageId": "page18.html",
   "title": "熱中症を予防しよう　粗品と景品の発見マーケット",
-  "len": 4376,
+  "len": 4374,
   "dropped": 0,
   "filled": 0,
   "closed": 0,
-  "rewritten": 1,
+  "rewritten": 2,
   "missing": 0
  },
  {

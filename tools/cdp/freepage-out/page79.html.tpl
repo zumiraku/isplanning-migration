@@ -125,18 +125,18 @@
 <h3 class="u-mb20 l-heading-secondary">定番粗品のハンドタオル！</h3>
 <div class="u-mb30 c-block">
 <div class="c-s-block">
-<h4 class="u-m0 u-mb10 l-tertiary"><a href="/shopdetail/000000024916/">ふんわりストライプ ウォッシュタオル</a></h4>
-<div class="img-right-s"><a href="/shopdetail/000000024916/"><img alt="ふんわりストライプウォッシュタオル" src="https://gigaplus.makeshop.jp/isplanning/uploads/UT2377001.jpg"></a></div>
+<h4 class="u-m0 u-mb10 l-tertiary"><a href="/view/item/000000024916">ふんわりストライプ ウォッシュタオル</a></h4>
+<div class="img-right-s"><a href="/view/item/000000024916"><img alt="ふんわりストライプウォッシュタオル" src="https://gigaplus.makeshop.jp/isplanning/uploads/UT2377001.jpg"></a></div>
 <ul class="u-m0 u-pb1em"><li>商品サイズ : 約30×30cm</li><li>材質 : ポリエステル・ナイロン</li></ul>
 <p class="u-m0 u-pb1em">カジュアルなストライプ柄のウォッシュタオル。中身が見える化粧箱入り。<br>やわらかな手ざわりで乾きやすいマイクロファイバー製。吊り下げられるループ付き。</p>
-<div class="c-btn u-mt20 u-mb20"><a href="/shopdetail/000000024916/" class="c-btn-anchor">商品の詳細はこちら</a></div>
+<div class="c-btn u-mt20 u-mb20"><a href="/view/item/000000024916" class="c-btn-anchor">商品の詳細はこちら</a></div>
 </div>
 <div class="c-s-block" style="clear: both;">
-<h4 class="u-mb10 u-mt30 l-tertiary"><a href="/shopdetail/000000024109/">メルティチョコタオル</a></h4>
-<div class="img-right-s"><a href="/shopdetail/000000024109/"><img alt="メルティチョコタオル" src="https://gigaplus.makeshop.jp/isplanning/uploads/SP36754.jpg"></a></div>
+<h4 class="u-mb10 u-mt30 l-tertiary"><a href="/view/item/000000024109">メルティチョコタオル</a></h4>
+<div class="img-right-s"><a href="/view/item/000000024109"><img alt="メルティチョコタオル" src="https://gigaplus.makeshop.jp/isplanning/uploads/SP36754.jpg"></a></div>
 <ul class="u-m0 u-pb1em"><li>形態サイズ : 220×119×8mm</li><li>商品サイズ : 200×200mm</li><li>材質 : 綿</li></ul>
 <p class="u-m0 u-pb1em">バレンタインにもおすすめ、とっても可愛い板チョコ風のハンカチタオルです。</p>
-<div class="c-btn u-mt20 u-mb20"><a href="/shopdetail/000000024109/" class="c-btn-anchor">商品の詳細はこちら</a></div>
+<div class="c-btn u-mt20 u-mb20"><a href="/view/item/000000024109" class="c-btn-anchor">商品の詳細はこちら</a></div>
 </div>
 </div>
 

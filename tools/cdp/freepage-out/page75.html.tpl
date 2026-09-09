@@ -116,7 +116,7 @@
           </p>
 <ul class="PageList2">
 <li><em>■</em> FAX：<a href="/view/page/page1.html" style="TEXT-DECORATION: underline">ＦＡＸ注文・見積用紙</a>　072-970-6720</li>
-<li><em>■</em> フォーム問い合わせ：<a href="/html/email.html" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">お問い合わせ</a></li>
+<li><em>■</em> フォーム問い合わせ：<a href="<{$url.support}>" onclick="javascript:window.open('/html/email.html','windowname','width=600,height=600');return false;" style="TEXT-DECORATION: underline">お問い合わせ</a></li>
 <li><em>■</em> TEL：072-970-6710</li>
 </ul>
         </div>
@@ -182,7 +182,7 @@
       </div>
 
     <div class="c-btn u-mb40">
-        <a href="https://www.isp-sp.com/html/page2.html" class="c-btn-anchor" rel="noopener noreferrer" target="blank">名入れや熨斗についてはこちら</a>
+        <a href="/view/page/page2.html" class="c-btn-anchor" rel="noopener noreferrer" target="blank">名入れや熨斗についてはこちら</a>
     </div>
 
       <h3 class="u-mb20 l-heading-secondary">粗品に最適な手ぬぐいをお探しなら発見マーケットへ 激安の人気粗品を豊富にご用意</h3>

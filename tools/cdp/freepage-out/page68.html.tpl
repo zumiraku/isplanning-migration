@@ -64,10 +64,10 @@
   <div class="u-mt30 c-linkblock">
     <div class="u-mb30 u-c-a">
       <ul class="c-pagelink">
-        <li><a href="https://www.isp-sp.com/html/page69.html">粗品やギフトは名入れがおすすめ！&#12316;熨斗に関する豆知識も併せてご紹介&#12316;</a></li>
-        <li><a href="https://www.isp-sp.com/html/page70.html">粗品やギフトは発見マーケットの通販で！&#12316;オリジナルノベルティを準備する前の注意点&#12316;</a></li>
-        <li><a href="https://www.isp-sp.com/html/page71.html">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</a></li>
-        <li><a href="https://www.isp-sp.com/html/page72.html">粗品用のタオルは発見マーケットで！&#12316;匁？サイズ？タオル選びに関する豆知識&#12316;</a></li>
+        <li><a href="/view/page/page69.html">粗品やギフトは名入れがおすすめ！&#12316;熨斗に関する豆知識も併せてご紹介&#12316;</a></li>
+        <li><a href="/view/page/page70.html">粗品やギフトは発見マーケットの通販で！&#12316;オリジナルノベルティを準備する前の注意点&#12316;</a></li>
+        <li><a href="/view/page/page71.html">粗品を探すなら発見マーケット！&#12316;タオル？うちわ？夏に活用したいノベルティ・粗品とは？&#12316;</a></li>
+        <li><a href="/view/page/page72.html">粗品用のタオルは発見マーケットで！&#12316;匁？サイズ？タオル選びに関する豆知識&#12316;</a></li>
       </ul>
     </div>
   </div>

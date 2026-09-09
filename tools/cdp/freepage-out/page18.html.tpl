@@ -76,7 +76,7 @@
 <p>熱中症対策グッズ以外にも、粗品やノベルティに最適な商品の販売なども行っておりますので、興味のある方はぜひご利用ください。</p>
 
 <div class="normal-box3" style="width:330px; height: 42px; margin:0 0 20px 0;"><a href="/view/category/ct23"><p>● 熱中症対策粗品いろいろ揃えております</p></a></div>
-<div class="normal-box3" style="width:330px; height: 42px; margin:0 0 20px 0;"><a href="/shopdetail/003002000186/"><p>● 熱中症予防カードの商品ページ</p></a></div>
+<div class="normal-box3" style="width:330px; height: 42px; margin:0 0 20px 0;"><a href="/view/item/003002000186"><p>● 熱中症予防カードの商品ページ</p></a></div>
 
 
 <a href="https://www.hitosuzumi.jp/" target="_blank"><img src="https://gigaplus.makeshop.jp/isplanning/images/hitosuzumi.jpg" alt="熱中症予防声かけプロジェクト" /><br>アイエスプランニング（株）は熱中症予防声かけプロジェクトを応援しています。</a>

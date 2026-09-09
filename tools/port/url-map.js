@@ -34,10 +34,16 @@ function readCsv(p) {
   });
 }
 
-const LINK = new RegExp('(href=")(/(?:shopbrand|html|shop|new)/[^"]*)(")', "gi");
+/* 🔴 shopdetail（商品）が抜けていました
+ *
+ *    対応表に商品9,535件を入れていなかったので、`/shopdetail/…` のリンクが
+ *    1本も書き換わっていませんでした。モジュールと独自ページに403箇所
+ *    残っていて、切り替え後は毎回301で回ることになります。
+ *    （壊れはしませんが、余分な往復とSEOの目減りになります） */
+const LINK = new RegExp('(href=")((?:https?://www\\.isp-sp\\.com)?/(?:shopbrand|shopdetail|html|shop|new)/[^"]*)(")', "gi");
 
 const map = new Map();
-for (const f of ["categories-url.csv", "freepages-url.csv", "news-url.csv", "pagetypes-url.csv"]) {
+for (const f of ["categories-url.csv", "freepages-url.csv", "news-url.csv", "pagetypes-url.csv", "products-url.csv"]) {
   const p = "package/url-bulk/" + f;
   if (!fs.existsSync(p)) continue;
   for (const c of readCsv(p)) {
@@ -49,15 +55,50 @@ for (const f of ["categories-url.csv", "freepages-url.csv", "news-url.csv", "pag
   }
 }
 
+/* 🔴 /html/email.html は独自ページではありません
+ *
+ *    449バイトの中継ページで、開くと自動でお問い合わせフォーム
+ *    （/ssl/contact/）へ送信します。デザインセットの82枚には入っておらず、
+ *    移行漏れの一覧にも「MISSING」として残っていました。独自ページ3枚から
+ *    8箇所リンクされています。
+ *
+ *    クリエイターにはプラットフォームの印があります。
+ *
+ *      $url.support → #makeshop-common-contact-url
+ *
+ *    実データで確認したうえで、こちらに向けます。 */
+map.set("/html/email.html", "<{$url.support}>");
+
 function rewrite(html) {
   let n = 0;
   const miss = new Set();
   const out = html.replace(LINK, (m, pre, url, post) => {
-    const hash = url.indexOf("#");
-    const base = hash < 0 ? url : url.slice(0, hash);
-    const frag = hash < 0 ? "" : url.slice(hash);
+    /* 🔴 ドメイン付きのリンクも引けるようにします
+     *
+     *    お店の書いたリンクには `https://www.isp-sp.com/html/page68.html` の
+     *    ような絶対URLが混ざっています。対応表の鍵は `/html/page68.html`
+     *    なので、そのままでは引けず、素通りしていました。 */
+    const clean = url.replace(/^https?:\/\/www\.isp-sp\.com/i, "");
+    const hash = clean.indexOf("#");
+    const base = hash < 0 ? clean : clean.slice(0, hash);
+    const frag = hash < 0 ? "" : clean.slice(hash);
     const bare = base.endsWith("/") ? base.slice(0, -1) : base;
-    const to = map.get(bare) || map.get(base);
+    let to = map.get(bare) || map.get(base);
+
+    /* 🔴 末尾に並び替えが付いたリンクがあります
+     *
+     *      /shopdetail/051000000007/order
+     *
+     *    対応表の鍵は `/shopdetail/051000000007` なので、そのままでは
+     *    引けません。**後ろの区切りを1つずつ落として**探します。
+     *    /shopbrand/003/001/X/page2/order/ のような形にも効きます。 */
+    if (!to) {
+      let probe = bare;
+      while (!to && probe.split("/").length > 2) {
+        probe = probe.slice(0, probe.lastIndexOf("/"));
+        to = map.get(probe);
+      }
+    }
     if (!to) { miss.add(url); return m; }
     n++;
     return pre + to + frag + post;
