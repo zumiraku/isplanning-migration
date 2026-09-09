@@ -96,9 +96,9 @@
 | 買い物カゴ | `package/templates/cart.tpl` | 181 |
 | お知らせ一覧 | `package/templates/news-list.tpl` | 89 |
 | お知らせ詳細 | `package/templates/news-detail.tpl` | 71 |
-| 利用案内 | `package/templates/guide.tpl` | 89 |
-| 会社概要 | `package/templates/company.tpl` | 65 |
-| 特定商取引法 | `package/templates/contract.tpl` | 86 |
+| 利用案内 | `package/templates/guide.tpl` | 378 |
+| 会社概要 | `package/templates/company.tpl` | 64 |
+| 特定商取引法 | `package/templates/contract.tpl` | 174 |
 | プライバシーポリシー | `package/templates/policy.tpl` | 129 |
 
 **触らないページ種別が4つあります。** 商品レビュー一覧・商品レビュー投稿・
