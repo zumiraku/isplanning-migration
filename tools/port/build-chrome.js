@@ -47,8 +47,52 @@ const TAGS = {
 const LOGIN_MEMBER = `<{if $member.is_logged_in}><a href="<{$url.mypage}>">マイページ</a><{elseif $shop.is_member_entry_enabled}><a href="<{$url.member_entry}>">新規会員登録</a><{/if}>`;
 const LOGIN_LOGIN  = `<{if $member.is_logged_in}><a href="<{$url.logout}>">ログアウト</a><{else}><a href="<{$url.login}>">ログイン</a><{/if}>`;
 
-/* かご。ベーシックの [CART_INSIDE1] 相当。 */
-const CART = `<a class="h-cart" href="<{$url.cart}>">買い物かご<span class="h-cart-count"><{$cart.total_quantity}></span></a>`;
+/* かご。ベーシックの [CART_INSIDE1] 相当。
+ *
+ * 🔴 最初は「買い物かご 0」と数を出すだけにしていました
+ *
+ *    公開ページを見たら、**ホバーで中身が開く箱**でした。
+ *
+ *      <div class="M_headBasket" id="M_basketTemp1">
+ *        <div id="M_headBasketSwitch" onmouseover='…toggleBasketBox(true)' …>
+ *          <div id="M_basketClosedBox"><a id="M_basket">買い物かご</a></div>
+ *          <div id="M_basketOpenedBox">…カートに商品がありません。…</div>
+ *
+ *    クラスは m_sys_common.css に全部あります（.M_headBasket /
+ *    .M_basketMarginBox / #M_basketOpenedBox）。**自前の名前で書いていた
+ *    ので、CSSが1つも当たっていませんでした。**
+ *
+ * 🔴 MakeShop_toggleBasketBox は呼びません
+ *
+ *    ベーシックのプラットフォームが定義していた関数で、クリエイターに
+ *    あるとは限りません。**無ければマウスを乗せるたびにJSエラー**です。
+ *    開閉はCSSの :hover でやります（port-responsive.css）。動きは同じで、
+ *    JSに依存しません。 */
+const CART = [
+  '<div class="M_headBasket" id="M_basketTemp1">',
+  '  <div id="M_headBasketSwitch">',
+  '    <div id="M_basketClosedBox">',
+  '      <a href="<{$url.cart}>" id="M_basket">',
+  '        <div class="M_basketMarginBox">買い物かご<{if $cart.has_item}> <em><{$cart.total_quantity}></em><{/if}></div>',
+  '      </a>',
+  '    </div>',
+  '    <div id="M_basketOpenedBox">',
+  '      <div class="M_basketMarginBox">',
+  '        <table>',
+  '          <{if $cart.has_item}>',
+  '            <{section name=hb loop=$cart.list}>',
+  '            <tr><td><{$cart.list[hb].name}></td><td><{$cart.list[hb].quantity}>点</td><td><{$cart.list[hb].total_price}>円</td></tr>',
+  '            <{/section}>',
+  '            <tr id="last-child"><td colspan="3"><a href="<{$cart.order_url}>">ご購入手続きへ進む</a></td></tr>',
+  '          <{else}>',
+  '            <tr id="last-child"><td colspan="3">カートに商品がありません。</td></tr>',
+  '          <{/if}>',
+  '        </table>',
+  '      </div>',
+  '    </div>',
+  '  </div>',
+  '</div>'
+].join(String.fromCharCode(10));
 
 /* 検索。🔴 <form> にしないこと（C44）。system.js は href のクリックだけを
    見ていて、action も submit も参照しません。 */

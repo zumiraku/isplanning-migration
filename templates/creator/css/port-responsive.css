@@ -25,8 +25,20 @@
       呼び出す感じだと思いますが」。960px 未満で引き出しになります。
    =========================================================================== */
 
-/* --- 共通の安全弁。どの幅でも横スクロールを出さない ---------------------- */
-html, body { max-width: 100%; overflow-x: hidden; }
+/* --- 共通の安全弁 ---------------------------------------------------------
+   🔴 overflow-x: hidden を外しました
+
+      最初は html, body に overflow-x: hidden を入れていました。横スクロールを
+      止める常套手段ですが、**止めているのではなく隠しているだけ**です。
+
+      その結果、はみ出し検査（scrollWidth と innerWidth の比較）が
+      **11ページ全部「FIT」と言い続けました。** 実際には 375px のスマホで
+      ヘッダーも電話番号もナビも右が切れていて、撮って初めて分かりました。
+
+      自分で入れた1行が、自分の検査を無効にしていたことになります。
+      隠さずに直します。
+--------------------------------------------------------------------------- */
+html, body { max-width: 100%; }
 img, video, iframe { max-width: 100%; height: auto; }
 
 /* 旧デザインは table を多用します。はみ出す代わりに、その中だけ横に送れる
@@ -447,4 +459,71 @@ a[data-zoom] { cursor: zoom-in; }
   #footer { flex-wrap: wrap; }
   #footer > * { min-width: 0; }
   .flogo-wrap, .project { flex: 1 1 100%; }
+}
+
+/* --- ヘッダーのかご ---------------------------------------------------------
+   🔴 足すのは「開け閉め」だけです
+
+      元サイトは onmouseover で MakeShop_toggleBasketBox(true) を呼んで
+      いました。**プラットフォームが定義していた関数**で、クリエイターに
+      あるとは限りません。無ければマウスを乗せるたびにエラーになります。
+
+      見た目は店舗のCSSが全部持っています ── 位置も幅も枠も、
+      .contents_right #M_basketOpenedBox に !important 付きで書いてあり、
+      バッジも #M_basketClosedBox #M_basket em にあります。
+      **こちらが背景や枠を足すと、その設計と喧嘩します。**
+      最初はそう書いていました。表示の切り替えだけに削ります。
+--------------------------------------------------------------------------- */
+#M_basketOpenedBox { display: none; }
+#M_headBasketSwitch:hover #M_basketOpenedBox,
+#M_headBasketSwitch:focus-within #M_basketOpenedBox { display: block; }
+
+/* --- 会社概要の表と地図 ------------------------------------------------------
+   🔴 320px / 375px で 471px はみ出していました
+
+      会社概要は <table class="tbl01"> の中に Google マップの iframe を
+      width="530" で埋めています。表のセルは中身より小さくなれないので、
+      表ごと画面の外に出ます。
+
+      表を縦積みにはしません（項目名と値の対応が読めなくなります）。
+      **表の中だけ横に送れる**ようにして、地図は幅いっぱいに縮めます。
+--------------------------------------------------------------------------- */
+@media screen and (max-width: 1240px) {
+  .company .tbl01,
+  .transaction .tbl01 { width: 100% !important; table-layout: fixed; }
+  .company .tbl01 th,
+  .transaction .tbl01 th { width: 8em !important; }
+  .company .tbl01 td,
+  .transaction .tbl01 td { word-break: break-word; }
+  .company iframe { width: 100% !important; max-width: 100%; height: 320px; }
+}
+
+/* 表の中の長いリンク（Googleマップの「大きな地図で見る」など）。
+   セルを table-layout:fixed にしても、中の <a> が折り返せなければ
+   同じことです。実測: a.infoa が 539px。 */
+@media screen and (max-width: 1240px) {
+  .company a, .transaction a,
+  .company .tbl01 a, .transaction .tbl01 a {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* 🔴 セレクタの強さを合わせないと効きません
+ *
+ *    .company a { word-break … } を書いても直りませんでした。店舗のCSSに
+ *
+ *      .company table.tbl01 td .infoa { width: 350px; display: block; … }
+ *
+ *    という**より強い指定**があり、そちらが勝っていたからです。
+ *    実測で a.infoa が 539px のまま動かず、CSSを読んで気づきました。
+ *    同じ形のセレクタで上書きします。 */
+@media screen and (max-width: 1240px) {
+  .company table.tbl01 td .infoa,
+  .company.transaction table.tbl01 td .infoa {
+    width: auto;
+    max-width: 100%;
+    text-indent: 0;
+    box-sizing: border-box;
+  }
 }

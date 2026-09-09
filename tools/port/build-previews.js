@@ -61,6 +61,18 @@ function render(tpl, fixture) {
 
 const common = readJson(FIX + "/_common.json");
 
+/* 🔴 静的3ページの中身を実データにします
+ *
+ *    会社概要・特商法・ご利用案内の中身は $company.content / $contract.* /
+ *    $guide.* から来ます。作り物のデータだと見出しだけの空ページになり、
+ *    **「移植で落ちた」のか「データが無いだけ」のかが区別できません。**
+ *    tools/port/build-static-fixtures.js が公開ページから抜いたものを重ねます。 */
+const staticPath = FIX + "/static-pages.json";
+if (fs.existsSync(staticPath)) {
+  const sp = readJson(staticPath);
+  for (const k of Object.keys(sp)) { common[k] = Object.assign({}, common[k], sp[k]); }
+}
+
 /* プレビューは手元のファイルを読みます。配信URLのままだと何も当たりません。 */
 common.page = Object.assign({}, common.page, {
   css: "../mode/all-pages.css",

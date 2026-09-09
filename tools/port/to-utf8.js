@@ -25,14 +25,33 @@ const OUT = "templates/basic-utf8";
 
 fs.mkdirSync(OUT, { recursive: true });
 
-let n = 0, euc = 0;
+let n = 0, euc = 0, tilde = 0;
 for (const f of fs.readdirSync(SRC)) {
   if (!f.endsWith(".txt")) continue;
   const b = fs.readFileSync(path.join(SRC, f));
   let s = b.toString("utf8");
   if (s.indexOf("�") >= 0) { s = new TextDecoder("euc-jp").decode(b); euc++; }
   s = s.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+  /* 🔴 3. 波ダッシュ 〜(U+301C) を 全角チルダ ～(U+FF5E) に
+   *
+   *    EUC-JP と Unicode のあいだで写像が2通りある、有名な文字です。
+   *    書き出しファイルは U+301C 側、**公開中のサイトは U+FF5E 側**でした。
+   *
+   *      公開中のトップ    〜 = 0件 / ～ = 31件
+   *      移植版（変換前）  〜 = 19件（表示される場所）
+   *
+   *    「100円〜199円」と「100円～199円」。見た目はほぼ同じですが、
+   *    フォントによって字形も幅も変わりますし、カテゴリ名のほうは
+   *    データベースから U+FF5E で来るので、**左メニューだけ別の記号**に
+   *    なります。並べて置いてある場所なので目立ちます。
+   *
+   *    現行サイトが出しているほうに揃えます。 */
+  const before = (s.split("〜").length - 1);
+  s = s.split("〜").join("～");
+  tilde += before;
+
   fs.writeFileSync(path.join(OUT, f.replace(/\.txt$/, ".html")), s);
   n++;
 }
-console.log("変換 " + n + " ファイル（EUC-JPだったもの " + euc + " 件）");
+console.log("変換 " + n + " ファイル（EUC-JPだったもの " + euc + " 件 / 波ダッシュを全角チルダに " + tilde + " 件）");

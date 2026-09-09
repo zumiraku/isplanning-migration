@@ -59,7 +59,7 @@
 			 </tr>
        		 <tr>
             <th>価格(予算合計)<div class="triangle-right"></div></th>
-            <td id="searchPrice"><input type="number" inputmode="numeric" data-id="<{$search_form.price_low_id}>" value="<{$search.price_low}>" aria-label="価格の下限">〜<input type="number" inputmode="numeric" data-id="<{$search_form.price_high_id}>" value="<{$search.price_high}>" aria-label="価格の上限"></td>       
+            <td id="searchPrice"><input type="number" inputmode="numeric" data-id="<{$search_form.price_low_id}>" value="<{$search.price_low}>" aria-label="価格の下限">～<input type="number" inputmode="numeric" data-id="<{$search_form.price_high_id}>" value="<{$search.price_high}>" aria-label="価格の上限"></td>       
             <th>商品単価<div class="triangle-right"></div></th>
             <td id="searchProduct"><span class="minikome">単価での絞り込みは、並び替えの「単価順」をお使いください</span></td>
 			 </tr>

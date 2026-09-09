@@ -52,46 +52,100 @@ write({ file: "company", label: "会社概要" }, "（タグのみ）", [
 ].join("\n"));
 
 /* --- ご利用案内 ------------------------------------------------------------ */
+/* 🔴 見出しも目次も、プラットフォームが出していました
+ *
+ *    最初は MakeShop のリファレンスの説明文をそのまま見出しにしました
+ *    （商品のご注文方法 / お支払いについて / 配送について / 消費税について /
+ *    返品について）。**現行サイトの見出しはどれも違います。**
+ *
+ *      買い物方法          #about_flow
+ *      お支払・送料について  #about_payment
+ *      お届けについて       #about_delivaly
+ *      返品交換について     #about_return
+ *      納品書・領収書について #about_receipt
+ *
+ *    さらに、上に「ショッピングガイド」の見出しと案内文、5本の目次まで
+ *    出ています。**丸ごと移植しないと別のページになります。**
+ *
+ * 🔴 5番目の割り当てだけ確信がありません
+ *
+ *    リファレンスの5項目は order / payment / delivery / tax / return。
+ *    現行の5節は flow / payment / delivaly / return / receipt。
+ *    4つは素直に対応しますが、**「納品書・領収書」に当たる項目が
+ *    リファレンスにありません**（tax は「消費税について」）。
+ *    位置から tax に割り当てています。**プレビューで中身を見て確かめます。**
+ *
+ * 🔴 アンカーの id は変えられません
+ *
+ *    フッターや商品ページから /view/guide#about_payment のように
+ *    直接飛んでくるリンクが十数本あります。id が変わると全部ページ頭に
+ *    着地します。 */
+const GUIDE_SECTIONS = [
+  ["about_flow", "買い物方法", "order"],
+  ["about_payment", "お支払・送料について", "payment"],
+  ["about_delivaly", "お届けについて", "delivery"],
+  ["about_return", "返品交換について", "return"],
+  ["about_receipt", "納品書・領収書について", "tax"]
+];
 write({ file: "guide", label: "ご利用案内" }, "（タグのみ）", [
-  '<div id="O_adminPagearea" class="company guide">',
-  '\t<h2>ご利用案内</h2>',
-  '',
-  '\t<h3 id="about_order">商品のご注文方法</h3>',
-  '\t<div><{$guide.order}></div>',
-  '',
-  '\t<h3 id="about_payment">お支払いについて</h3>',
-  '\t<div><{$guide.payment}></div>',
-  '',
-  '\t<h3 id="about_delivaly">配送について</h3>',
-  '\t<div><{$guide.delivery}></div>',
-  '',
-  '\t<h3 id="about_tax">消費税について</h3>',
-  '\t<div><{$guide.tax}></div>',
-  '',
-  '\t<h3 id="about_return">返品について</h3>',
-  '\t<div><{$guide.return}></div>',
-  '',
-  '\t<{* 🔴 id は現行サイトのアンカーに合わせてあります。',
-  '\t     フッターや商品ページから /view/guide#about_payment のように',
-  '\t     直接飛んでくるリンクが十数本あり、id が変わると全部',
-  '\t     ページ頭に着地します。 *}>',
+  '<div id="O_adminPagearea" class="M_mainContents shop-guide">',
+  '\t<h3 class="heading cartHeading">ショッピングガイド</h3>',
+  '\t<p>お買い物方法についてのご案内です。<br>お買い物をされる前に、一度目をお通し下さいませ。</p>',
+  '\t<div id="O_guideAnchor">',
+  '\t\t<ul class="txtList01 guide-list">'
+].concat(GUIDE_SECTIONS.map(function (s) {
+  return '\t\t\t<li><a href="#' + s[0] + '">' + s[1] + '</a></li>';
+})).concat([
+  '\t\t</ul>',
+  '\t</div>',
+  ''
+]).concat(GUIDE_SECTIONS.map(function (s) {
+  return [
+    '\t<h3 class="heading" id="' + s[0] + '">' + s[1] + '</h3>',
+    '\t<div><{$guide.' + s[2] + '}></div>',
+    ''
+  ].join("\n");
+})).concat([
   '</div>'
-].join("\n"));
+]).join("\n"));
 
 /* --- 特定商取引法 ---------------------------------------------------------- */
+/* 🔴 現行の表は17行で、リファレンスの14項目では再現できません
+ *
+ *    最初は MakeShop の既定14項目を既定のラベルで並べました。公開中の
+ *    ページと突き合わせたら、**5行足りず、ラベルが2つ違いました。**
+ *
+ *      足りない  適格請求書事業者登録番号 / 営業時間 / 定休日 / 販売価格
+ *      ちがう    商品代金以外の必要料金 → 商品以外の必要代金
+ *                申し込み有効期限       → 申し込みの有効期限
+ *      使わない  お支払い期限（現行に行そのものが無い）
+ *
+ *    法律で要求されるページなので、行が消えるのは困ります。
+ *
+ *    現行のHTMLを見ると、インデントの揃った**手書きの表**でした。
+ *    4行ぶんに対応するタグはリファレンスにありません。
+ *
+ *    折衷案にします。**タグがあるものはタグで**（管理画面で直せば反映
+ *    される）、**無い4行は現行の文言のまま**。ラベルと並び順は現行どおり。
+ *
+ *    ⚠️ 静的にした4行は、管理画面から直せません。プレビューで実物を見て、
+ *       タグから出せるものがあれば差し替えます。 */
 const CONTRACT_ROWS = [
   ["販売業者", "dealer"],
   ["運営統括責任者", "manager"],
   ["所在地", "address"],
   ["電話番号", "tel"],
   ["メールアドレス", "mail"],
-  ["商品代金以外の必要料金", "other_charge"],
-  ["申し込み有効期限", "expire_app"],
+  ["適格請求書事業者登録番号", null, "T6122001024522"],
+  ["営業時間", null, "10時～12時・13時～17時<br>お電話受付時間は、季節により変更となる場合がございます。"],
+  ["定休日", null, "土・日・祝・年末年始・夏季休業日"],
+  ["販売価格", null, "各商品詳細ページに税込価格で表示（一部税別表示）"],
+  ["商品以外の必要代金", "other_charge"],
+  ["申し込みの有効期限", "expire_app"],
   ["不良品", "defective"],
   ["販売数量", "amount"],
   ["引き渡し時期", "receive_date"],
   ["お支払い方法", "pay_method"],
-  ["お支払い期限", "expire_pay"],
   ["返品期限", "expire_return"],
   ["返品送料", "return_charge"]
 ];
@@ -100,7 +154,11 @@ write({ file: "contract", label: "特定商取引法" }, "（タグのみ）", [
   '\t<h2>特定商取引に関する法律に基づく表示</h2>',
   '\t<table class="tbl01">'
 ].concat(CONTRACT_ROWS.map(function (r) {
-  return '\t\t<tr><th width="150">' + r[0] + '</th><td><{$contract.' + r[1] + '}></td></tr>';
+  /* r[1] があればタグから、無ければ現行の文言をそのまま置きます。 */
+  const value = r[1]
+    ? "<{$contract." + r[1] + "}>"
+    : "<{* 🔴 対応するタグがありません。現行の文言のままです *}>" + r[2];
+  return '\t\t<tr><th width="150">' + r[0] + '</th><td>' + value + '</td></tr>';
 })).concat([
   '\t</table>',
   '\t<{* 🔴 現行サイトの表には「サイト名称」「適格請求書事業者登録番号」の',

@@ -40,8 +40,8 @@
     <div class="M_mainContents">
 
 <h2>買い物かご</h2>
-<!--<a href="/view/news/20260728033258"><div class="closed">休業日のお知らせ：8月8日（土）〜8月16日（日）まで休業となります。</a></div>-->
-<!--<div class="closed">休業日のお知らせ：5月29日（水）〜5月6日（水）まで休業となります。</a></div>-->
+<!--<a href="/view/news/20260728033258"><div class="closed">休業日のお知らせ：8月8日（土）～8月16日（日）まで休業となります。</a></div>-->
+<!--<div class="closed">休業日のお知らせ：5月29日（水）～5月6日（水）まで休業となります。</a></div>-->
 	<p class="M_alignL">数量を変更する時は数量入力後、<em>修正ボタン</em>をクリックしてください。</p>
 
 	    <div class="section" id="r_basket">

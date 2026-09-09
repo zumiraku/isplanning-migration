@@ -39,28 +39,34 @@
     <{$module.leftmenu}>
     <div class="M_mainContents">
 
-<div id="O_adminPagearea" class="company guide">
-	<h2>ご利用案内</h2>
+<div id="O_adminPagearea" class="M_mainContents shop-guide">
+	<h3 class="heading cartHeading">ショッピングガイド</h3>
+	<p>お買い物方法についてのご案内です。<br>お買い物をされる前に、一度目をお通し下さいませ。</p>
+	<div id="O_guideAnchor">
+		<ul class="txtList01 guide-list">
+			<li><a href="#about_flow">買い物方法</a></li>
+			<li><a href="#about_payment">お支払・送料について</a></li>
+			<li><a href="#about_delivaly">お届けについて</a></li>
+			<li><a href="#about_return">返品交換について</a></li>
+			<li><a href="#about_receipt">納品書・領収書について</a></li>
+		</ul>
+	</div>
 
-	<h3 id="about_order">商品のご注文方法</h3>
+	<h3 class="heading" id="about_flow">買い物方法</h3>
 	<div><{$guide.order}></div>
 
-	<h3 id="about_payment">お支払いについて</h3>
+	<h3 class="heading" id="about_payment">お支払・送料について</h3>
 	<div><{$guide.payment}></div>
 
-	<h3 id="about_delivaly">配送について</h3>
+	<h3 class="heading" id="about_delivaly">お届けについて</h3>
 	<div><{$guide.delivery}></div>
 
-	<h3 id="about_tax">消費税について</h3>
-	<div><{$guide.tax}></div>
-
-	<h3 id="about_return">返品について</h3>
+	<h3 class="heading" id="about_return">返品交換について</h3>
 	<div><{$guide.return}></div>
 
-	<{* 🔴 id は現行サイトのアンカーに合わせてあります。
-	     フッターや商品ページから /view/guide#about_payment のように
-	     直接飛んでくるリンクが十数本あり、id が変わると全部
-	     ページ頭に着地します。 *}>
+	<h3 class="heading" id="about_receipt">納品書・領収書について</h3>
+	<div><{$guide.tax}></div>
+
 </div>
 
 <{* 🔴 フッターは .M_mainContents の**中**です

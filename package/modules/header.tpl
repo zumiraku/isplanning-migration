@@ -40,9 +40,31 @@
 								<ul class="h-tel-wrap">
 									<li class="h-tel">
 										<p>072-970-6710</p>
-										<span>平日10時〜12時/13時〜17時（土日祝休）</span>
+										<span>平日10時～12時/13時～17時（土日祝休）</span>
 									</li>
-									<li><a class="h-cart" href="<{$url.cart}>">買い物かご<span class="h-cart-count"><{$cart.total_quantity}></span></a></li>
+									<li><div class="M_headBasket" id="M_basketTemp1">
+  <div id="M_headBasketSwitch">
+    <div id="M_basketClosedBox">
+      <a href="<{$url.cart}>" id="M_basket">
+        <div class="M_basketMarginBox">買い物かご<{if $cart.has_item}> <em><{$cart.total_quantity}></em><{/if}></div>
+      </a>
+    </div>
+    <div id="M_basketOpenedBox">
+      <div class="M_basketMarginBox">
+        <table>
+          <{if $cart.has_item}>
+            <{section name=hb loop=$cart.list}>
+            <tr><td><{$cart.list[hb].name}></td><td><{$cart.list[hb].quantity}>点</td><td><{$cart.list[hb].total_price}>円</td></tr>
+            <{/section}>
+            <tr id="last-child"><td colspan="3"><a href="<{$cart.order_url}>">ご購入手続きへ進む</a></td></tr>
+          <{else}>
+            <tr id="last-child"><td colspan="3">カートに商品がありません。</td></tr>
+          <{/if}>
+        </table>
+      </div>
+    </div>
+  </div>
+</div></li>
 								</ul>
 							</div>
                         </div>
@@ -79,8 +101,8 @@
 
  <div id="bgMain">
 <!--<a href="/view/news/20221224030504"><div class="closed">ホームページリニューアルのお知らせ</a></div>-->
-<!--<a href="/view/news/20260728033258"><div class="closed">休業日のお知らせ：8月8日（土）〜8月16日（日）まで休業となります。</a></div>-->
-<!--<div class="closed">休業日のお知らせ：4月29日（水）〜5月6日（水）まで休業となります。</div>-->
+<!--<a href="/view/news/20260728033258"><div class="closed">休業日のお知らせ：8月8日（土）～8月16日（日）まで休業となります。</a></div>-->
+<!--<div class="closed">休業日のお知らせ：4月29日（水）～5月6日（水）まで休業となります。</div>-->
 <div class="closed"><a href="/view/guide#about_receipt">発見マーケットは<b>インボイス制度</b>に対応しております</a></div>
 <button class="l-menu-toggle" type="button" aria-controls="M_leftContents" aria-expanded="false">
   <span class="l-menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>

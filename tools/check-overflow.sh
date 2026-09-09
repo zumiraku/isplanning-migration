@@ -64,7 +64,14 @@ trap 'rm -rf "$work"' EXIT
 #    いまの preview/*.html は tools/port/build-previews.js が
 #    **出荷するテンプレートを実際に描画して**書き出したものです。
 PAGES="top category detail search cart news-list news-detail company guide contract policy"
-WIDTHS="320 375"
+# 🔴 幅を増やしました
+#
+#    320 と 375 だけ見ていて、**500px で18pxはみ出している**のを
+#    見逃していました。ヘッドレスの --window-size が効かず、実際は
+#    500px で描かれていたスクリーンショットを撮って気づきました。
+#    「スマホ幅」だけでなく、引き出しに切り替わる境目（960px）の
+#    手前も見ます。
+WIDTHS="320 375 500 768 960 1024"
 fail=0
 
 # 測るための小さなページを作ります。対象を iframe に入れて、中の

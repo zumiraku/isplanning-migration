@@ -47,13 +47,16 @@
 		<tr><th width="150">所在地</th><td><{$contract.address}></td></tr>
 		<tr><th width="150">電話番号</th><td><{$contract.tel}></td></tr>
 		<tr><th width="150">メールアドレス</th><td><{$contract.mail}></td></tr>
-		<tr><th width="150">商品代金以外の必要料金</th><td><{$contract.other_charge}></td></tr>
-		<tr><th width="150">申し込み有効期限</th><td><{$contract.expire_app}></td></tr>
+		<tr><th width="150">適格請求書事業者登録番号</th><td><{* 🔴 対応するタグがありません。現行の文言のままです *}>T6122001024522</td></tr>
+		<tr><th width="150">営業時間</th><td><{* 🔴 対応するタグがありません。現行の文言のままです *}>10時～12時・13時～17時<br>お電話受付時間は、季節により変更となる場合がございます。</td></tr>
+		<tr><th width="150">定休日</th><td><{* 🔴 対応するタグがありません。現行の文言のままです *}>土・日・祝・年末年始・夏季休業日</td></tr>
+		<tr><th width="150">販売価格</th><td><{* 🔴 対応するタグがありません。現行の文言のままです *}>各商品詳細ページに税込価格で表示（一部税別表示）</td></tr>
+		<tr><th width="150">商品以外の必要代金</th><td><{$contract.other_charge}></td></tr>
+		<tr><th width="150">申し込みの有効期限</th><td><{$contract.expire_app}></td></tr>
 		<tr><th width="150">不良品</th><td><{$contract.defective}></td></tr>
 		<tr><th width="150">販売数量</th><td><{$contract.amount}></td></tr>
 		<tr><th width="150">引き渡し時期</th><td><{$contract.receive_date}></td></tr>
 		<tr><th width="150">お支払い方法</th><td><{$contract.pay_method}></td></tr>
-		<tr><th width="150">お支払い期限</th><td><{$contract.expire_pay}></td></tr>
 		<tr><th width="150">返品期限</th><td><{$contract.expire_return}></td></tr>
 		<tr><th width="150">返品送料</th><td><{$contract.return_charge}></td></tr>
 	</table>
