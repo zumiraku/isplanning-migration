@@ -8,6 +8,11 @@
 
         生成物です。直すときは tools/port/build-chrome.js を直してください。
    ========================================================================== *}>
+</div><!-- /.M_mainContents -->
+</div><!-- /#O_container -->
+
+
+
 <p class="pageTop"><a href="#header"></a></p>
 
 
@@ -182,7 +187,5 @@
 </div>	
 
 <!--#M_wrapper--></div>
-</div><!-- /.M_mainContents -->
-</div><!-- /#O_container -->
 </div><!-- /#wrapper -->
 </div><!-- /#bgMain -->

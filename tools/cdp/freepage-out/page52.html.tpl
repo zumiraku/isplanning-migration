@@ -1,0 +1,178 @@
+<{* ==========================================================================
+     粗品の注文が可能！アウトドアが好きな方に最適なグッズ（チェアなど）も — ベーシックモードからの移植
+
+     生成物です。直すときは tools/port/build-pages.js を直してください。
+     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
+     置き換えています。class も id も並び順も変えていません。
+   ========================================================================== *}>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>粗品の注文が可能！アウトドアが好きな方に最適なグッズ（チェアなど）も豊富～粗品と寸志の違い～ - 粗品の注文は【発見マーケット】にお任せ</title>
+<meta name="description" content="<{$page.description}>">
+<link rel="canonical" href="<{$page.canonical_url}>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="粗品の注文が可能！アウトドアが好きな方に最適なグッズ（チェアなど）も豊富～粗品と寸志の違い～ - 粗品の注文は【発見マーケット】にお任せ">
+<meta property="og:description" content="<{$page.description}>">
+<meta property="og:site_name" content="<{$shop.name}>">
+<link rel="icon" href="<{$shop.favicon_url}>">
+<meta name="googlebot" content="NOODP">
+<meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
+<meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
+<meta name="google-site-verification" content="LvZm_KlYvKyFf9HCkCnvyRUTHeNFcweS7S6_I1qJ9pw">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">
+<link rel="stylesheet" href="<{$page.css}>">
+<{$makeshop.head}>
+</head>
+<body>
+<{$makeshop.body_top}>
+<{$module.header}>
+
+<div id="wrapper">
+  <div id="O_container">
+    <{$module.leftmenu}>
+    <div class="M_mainContents">
+
+<div style="text-align: left;" class="M_mainContents">
+<div id="breadcrumbs" style="font-size: 80%;padding-bottom: 5px;" itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://www.isp-sp.com/"><span itemprop="name">HOME</span></a><meta itemprop="position" content="1" /></span>&nbsp;&raquo;&nbsp;<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">粗品の注文が可能！アウトドアが好きな方に最適なグッズ（チェアなど）も豊富～粗品と寸志の違い～</span><meta itemprop="position" content="2" /></span></div>
+
+<div style="padding: 0 0 30px;">
+<h2 class="class1">粗品の注文が可能！アウトドアが好きな方に最適なグッズ（チェアなど）も豊富～粗品と寸志の違い～</h2>
+  
+ <h3 class="class1">粗品の注文を検討しているなら</h3>
+  <div style="overflow: hidden;margin: 0 0 30px;">
+    <div style="width: 35%;float: right;margin: 0 1% 4% 4%;border: 1px solid #ddd;box-shadow: 2px 3px 2px #bbb;">
+      <img alt="粗品の注文を検討しているなら" style="width: 100%;vertical-align: middle;" src="/design/isplanning/g-05-01.jpg">
+    </div>
+    <p class=columnmoji>
+      <strong style="font-weight:normal;color:#333;>">粗品</strong>の<strong style="font-weight:normal;color:#333;">注文</strong>は、企業や店舗のノベルティ・景品として最適な粗品を販売している【発見マーケット】をご利用ください。
+    </p>
+    <p class=columnmoji>
+      【発見マーケット】には多彩な商品が揃っており、季節や年中行事に合わせた小物やグッズ、年代や男女を問わず利用できるグッズ、ターゲットを絞ったグッズなど種類は様々です。
+    </p>
+    <p class=columnmoji>
+      そのため、粗品を選ぶ時に欠かせない企業のイメージやターゲット層などに合わせて選択することができます。
+    </p>
+    <p class=columnmoji>
+      集客効果や販売促進につながるノベルティや記念品だからこそ、目的に合った粗品を選んでご注文ください。
+    </p>
+<div class="normal-box4" style="width:300px; margin:0 0 20px 10px;"><a href="/view/page/page9.html"><p>● 商品別カテゴリー一覧</p></a></div>
+<div class="normal-box4" style="width:300px; margin:0 0 20px 10px;"><a href="/view/page/page8.html"><p>● シーンで選ぶ粗品一覧</p></a></div>
+  </div>
+
+  <h3 class="class1">粗品の注文は【発見マーケット】～折りたたみのチェアなど種類豊富！アウトドアが好きな方に～</h3>
+  <div style="overflow: hidden;margin: 0 0 30px;">
+    <div style="width: 35%;float: right;margin: 0 1% 4% 4%;border: 1px solid #ddd;box-shadow: 2px 3px 2px #bbb;">
+      <img alt="粗品の注文は【発見マーケット】～折りたたみのチェアなど種類豊富！アウトドアが好きな方に～" style="width: 100%;vertical-align: middle;" src="/design/isplanning/g-05-02.jpg">
+    </div>
+    <p class=columnmoji>
+      粗品の注文は【発見マーケット】にお任せください。粗品と言うと昔からタオルなどが定番ですが、最近は粗品に選ばれる商品の幅が広がりつつあります。
+    </p>
+    <p class=columnmoji>
+      ボールペンやタオルなどの定番アイテムだけでなく、配る目的やターゲット層などによって最適なものを選んでみませんか？
+    <br>
+      例えば、レジャーや<em style="font-style:normal;color:#333;">アウトドア</em>が好きな方には、折りたたみ式の<em style="font-style:normal;color:#333;">チェア</em>などのグッズもおすすめです。アウトドアに欠かせないチェアは、持っていると色々なシーンで使えるので人気の高い品物の1つとなっています。
+    </p>
+    <p class=columnmoji>
+      【発見マーケット】には、アウトドア用品以外にも「自分ではわざわざ買わないけれど持っていると便利」と思える気の利いた商品がたくさん揃っているので、ぜひ一度ご覧ください。
+    </p>
+<div class="normal-box4" style="width:300px; margin:0 0 20px 10px;"><a href="/view/category/ct126"><p>● レジャーアウトドアの粗品はこちら</p></a></div>
+  </div>
+
+  <h3 class="class1">粗品と寸志の違いとは？</h3>
+  <div style="overflow: hidden;margin: 0 0 30px;">
+    <p class=columnmoji>
+      贈り物を贈る時に使用する「粗品」や「寸志」という言葉ですが、それぞれ異なった意味合いを持ちます。<br>
+      使い方を間違うとマナー違反になってしまうので、しっかり確認しておきましょう。
+    <br>
+      ・粗品…贈り物や景品などをへりくだった言葉です。企業から一般の方へ、一般の方や会社同士などで渡す感謝の気持ちを表した贈り物を指しているので、お客様に渡される企業のノベルティや販促グッズも「粗品」にあたります。
+    <br>
+      ・寸志…目上の人が、目下の人に対して感謝の気持ちを込めて渡す贈り物を指します。粗品とあまり変わらないように感じますが、贈り物をする相手とどういう関係にあるかによって言葉が変わります。
+    <br>
+      どちらも「心ばかりの贈り物」という意味合いは同じですが、このような使い分けのシーンを把握しておくと安心です。
+    </p>
+<div class="normal-box4" style="width:300px; margin:0 0 20px 10px;"><a href="/view/page/page2.html"><p>● 粗品の名入れ・包装・熨斗のご案内</p></a></div>
+  </div>
+
+  <h3 style="margin: 45px 0 10px;color: #9c0;font-size: large;border-bottom: 2px solid #9c0;background-image: none;">お役立ちコラム</h3>
+  <ul style="margin: 0;padding: 10px 10px 0 30px;">
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page48.html">粗品の購入は【発見マーケット】で！スマートフォンのグッズやボールペンなどおすすめの定番アイテムだけじゃない豊富な品揃え～女性が喜ぶ人気の粗品は？～ | 粗品の購入は種類豊富なショップで</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page49.html">粗品・景品・ノベルティは【発見マーケット】にお任せ！スマホのアクセサリーや粗品の定番アイテムなど充実した品揃え～ノベルティで喜ばれるスマホグッズ～ | 粗品はスマホ関連グッズで</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page50.html">粗品や景品は【発見マーケット】で見つけよう！扇子・うちわ・熱中症対策のグッズなど季節に合わせたアイテムも豊富～粗品の本来の意味～ | 粗品や景品をお探しなら</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page51.html">粗品や景品の通販サイトは【発見マーケット】！団扇や風鈴など夏のアイテムもお任せ～季節に合わせて粗品を選ぼう～ | 粗品・景品は通販で</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page52.html">粗品の注文が可能！アウトドアが好きな方に最適なグッズ（チェアなど）も豊富～粗品と寸志の違い～ | 粗品の注文は【発見マーケット】にお任せ</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page53.html">粗品の注文は【発見マーケット】へ！ブランケット・タンブラー・石鹸など女性に人気の商品も充実～販促グッズが始まったのはいつ頃？～ | 粗品の注文なら</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page54.html">粗品の販売に自信あり！卓上カレンダーや掃除グッズなど豊富な品揃えが自慢の【発見マーケット】～クリスマスや年末商戦にも粗品を活用しよう～ | 粗品の販売なら</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page55.html">粗品の販売は【発見マーケット】にお任せ！粗品の定番アイテムから防災グッズまで幅広い品揃え～防災セットの収納方法～ | 粗品を販売するショップ</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page56.html">エスピーソースの商品は【発見マーケット】で！ボールペンなど粗品の名入れも可能～男性に喜ばれるノベルティ～ | エスピーソースの商品なら</a></li>
+    <li style="padding: 0 0 1em;list-style: decimal;"><a href="/view/page/page57.html">エスピーソース（SP SOURCE）の商品を多数取り扱い！【発見マーケット】のカタログは無料でお送りします～ノベルティを選ぶコツ～ | エスピーソースの商品が豊富</a></li>
+  </ul>
+  
+  <h3 style="margin: 30px 0 10px;color: #9c0;font-size: large;border-bottom: 2px solid #9c0;background-image: none;">粗品の注文や販促グッズを検討している方は【発見マーケット】をご利用ください</h3>
+  <table style="width: 100%;border-collapse: collapse;border: 1px solid #ddd;text-align: left;">
+  <tbody>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">社名</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">アイエスプランニング株式会社</td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">サイト名称</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">粗品と景品の発見マーケット</td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">所在地</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">〒581-0014 大阪府八尾市中田4-132-3</td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">電話番号</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">072-970-6710</td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">FAX</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">072-970-6720</td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">メール</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">isp@isp-sp.com</td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">URL</th>
+      <td style="border: 1px solid #ddd;padding: 10px;"><a href="https://www.isp-sp.com">https://www.isp-sp.com</a></td>
+    </tr>
+    <tr>
+      <th style="border: 1px solid #ddd;padding: 10px;background: #f7f7f7;vertical-align: middle;">説明</th>
+      <td style="border: 1px solid #ddd;padding: 10px;">粗品や景品をバリエーション豊富に取り揃え、季節に合わせた商品の販売や、粗品の名入れを行っております。</td>
+    </tr>
+  </tbody>
+  </table>
+
+</div>
+
+<div class="columnlink"><a href="#colum-wrap"><img alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
+
+</div>
+
+<{* 🔴 フッターは .M_mainContents の**中**です
+
+     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
+     float:left の左メニューと float:right の .M_mainContents のあいだに
+     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
+     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
+     見え方になります。
+
+     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
+     .M_mainContents の中にありました。元の入れ子に合わせます。
+
+     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
+     フッターのモジュール側です。 *}>
+<{$module.footer}>
+<{$makeshop.body_bottom}>
+<script src="<{$page.javascript}>"></script>
+</body>
+</html>

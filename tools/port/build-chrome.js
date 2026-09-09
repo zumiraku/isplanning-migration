@@ -187,31 +187,38 @@ bottom = bottom.replace(/^<!--[\s\S]*?-->/, "");    // 先頭の </td></tr></tab
 bottom = bottom.replace(/<\/td>\s*<\/tr>\s*<\/table>/g, "");  // 自動挿入テーブルの残骸
 bottom = convert(bottom);
 
-/* 🔴 フッターが閉じるもの
+/* 🔴 フッターの帯は、本文の外です
  *
- *    header が #wrap と #bgMain を、各ページが #wrapper / #O_container /
- *    .M_mainContents を開きます。フッターの中身（コラム・ご案内・会社情報）は
- *    .M_mainContents の**中**にあるので、閉じるのは中身のあとです。
+ *    以前ここに「#colum-wrap も #footer_guideWrap も .M_mainContents の
+ *    中にありました」と書いていました。**誤りでした。**
+ *    公開中のページを 1280px で測ると、こうなっています。
  *
- *    最初はフッターを .M_mainContents の外に置いていました。#colum-wrap が
- *    左メニュー（float:left）と本文（float:right）のあいだに割り込んで、
- *    **本文がまるごと左メニューの下に落ちました。** 撮って初めて分かりました。
+ *      #footer_guideWrap(1265) < #wrapper(1265) < #bgMain < #wrap
+ *      #colum-wrap(1265)       < #wrapper(1265) < #bgMain < #wrap
  *
- *    元テンプレートは自動挿入のテーブルで帳尻が合っていたので、ここは
- *    こちらで数えて閉じます。
+ *    どちらも #wrapper の直下、**本文の兄弟**です。中に入れると、
+ *    幅1200pxの `#footer_guide` が幅990pxの本文に入ることになり、
+ *    **1280pxで 1443px まではみ出します。** 実機の幅で測って出ました。
+ *    手元のプレビューは1024pxまでしか測っておらず、見つかりませんでした。
+ *
+ *    「本文が左メニューの下に落ちる」で外に出すのをやめた経緯がありますが、
+ *    あれは #O_container が float だった頃の話です。いまは flex なので、
+ *    先に閉じても本文は横に並びます。**測って確かめます。**
  *
  *    元テンプレートの末尾には </div> が1つ余分に付いています（ベーシックが
  *    自動挿入したテーブルと帳尻を合わせるためのもの）。それが #wrap を
- *    閉じるぶんになるので、ここで足すのは4つです。5つ足すと1つ閉じすぎに
- *    なり、描画した実物で「閉じすぎ」が出ます。 */
-const FOOTER_TAIL = [
-  "",
+ *    閉じるぶんになります。 */
+const FOOTER_HEAD = [
   "</div><!-- /.M_mainContents -->",
   "</div><!-- /#O_container -->",
+  ""
+].join(String.fromCharCode(10));
+const FOOTER_TAIL = [
+  "",
   "</div><!-- /#wrapper -->",
   "</div><!-- /#bgMain -->"
 ].join(String.fromCharCode(10));
-bottom = bottom + FOOTER_TAIL;
+bottom = FOOTER_HEAD + bottom + FOOTER_TAIL;
 const r3 = rewrite(bottom);
 bottom = r3.html;
 

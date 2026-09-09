@@ -41,7 +41,7 @@
 |---|---|---|---:|---|
 | `header` | ヘッダー | `package/modules/header.tpl` | 110 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
 | `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` | 264 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
-| `footer` | フッター | `package/modules/footer.tpl` | 188 | コラム・各種ご案内・会社情報 |
+| `footer` | フッター | `package/modules/footer.tpl` | 191 | コラム・各種ご案内・会社情報 |
 | `calendar1` | 営業日カレンダー（今月） | `package/modules/calendar1.tpl` | 74 | 営業日カレンダー（今月） |
 | `calendar2` | 営業日カレンダー（翌月） | `package/modules/calendar2.tpl` | 69 | 営業日カレンダー（翌月） |
 | `freespace_calendar` | 卓上カレンダー説明 | `package/modules/freespace_calendar.tpl` | 247 | 卓上カレンダーのカテゴリ（ct646）の説明と休業日 |
@@ -54,7 +54,7 @@
 
 | 箱 | ファイル | 行数 | 大きさ |
 |---|---|---:|---:|
-| CSS | `package/paste/all-pages.css` | 9,023 | 185KB |
+| CSS | `package/paste/all-pages.css` | 9,084 | 187KB |
 | JavaScript | `package/paste/all-pages.js` | 258 | 11KB |
 
 どちらも **箱の中で Ctrl+A → Ctrl+V** で丸ごと置き換えます。

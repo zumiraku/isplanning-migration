@@ -527,3 +527,64 @@ a[data-zoom] { cursor: zoom-in; }
     box-sizing: border-box;
   }
 }
+
+/* 🔴 トップの商品一覧が、狭い画面で縮みません
+ *
+ *    店舗のCSSは4列を固定で組んでいます。
+ *
+ *      #r_new > table   { display: flex; }
+ *      #r_new .lims     { width: 220px !important; padding-right: 26px; }
+ *
+ *    4列 × 220px ＋ 余白 で 958〜984px。**768pxでも960pxでもはみ出します。**
+ *    切り替え後はスマホのお客様もこのページを見るので、そのままには
+ *    できません（いまは /smartphone/ の別サイトに飛んでいます）。
+ *
+ *    折り返して、幅を割合にします。段組みが2列になるだけで、中身も
+ *    並び順も変わりません。 */
+@media screen and (max-width: 1024px) {
+  #r_new > table,
+  #r_recommend > table,
+  #r_ranking > table,
+  #r_recent > table {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #r_new .lims,
+  #r_recommend .lims,
+  #r_ranking .lims,
+  #r_recent .lims {
+    width: 50% !important;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+  #r_new .lims > table,
+  #r_recommend .lims > table,
+  #r_ranking .lims > table,
+  #r_recent .lims > table {
+    width: 100% !important;
+  }
+  #r_new .lims img,
+  #r_recommend .lims img,
+  #r_ranking .lims img,
+  #r_recent .lims img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* 🔴 レコメンドの横並びは、外から幅を渡されません
+ *
+ *    商品詳細の `.rcmdjp-carousel` はプラットフォームが差し込むもので、
+ *    中身の幅で広がります（768pxで984px）。**こちらのCSSでは中身を
+ *    触れません**が、入れ物ではみ出しを止められます。 */
+@media screen and (max-width: 1240px) {
+  .rcmdjp-carousel,
+  [class^="rcmdjp-"],
+  [class*=" rcmdjp-"] {
+    max-width: 100%;
+  }
+  .rcmdjp-carousel {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
