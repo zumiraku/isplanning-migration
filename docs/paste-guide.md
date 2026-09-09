@@ -26,21 +26,25 @@
 
 ## ① モジュール（6件）
 
-`モジュール管理` →「モジュール追加」→ **管理用名称**を下の名前で登録 →
-ファイルの中身を丸ごと貼り付け。
+`モジュール管理` →「モジュール追加」。編集画面には入力欄が**2つ**あります。
 
-**🔴 名前は1文字も変えないでください。** テンプレート側が
-`<{$module.header}>` のように、この名前で呼びます。名前が違うと、
-エラーにならずに**その部分だけ空**になります。
+```
+モジュールID   [            ]  $module.
+管理用名称     [                                    ]
+```
 
-| 管理用名称 | ファイル | 行数 | 中身 |
-|---|---|---:|---|
-| `header` | `package/modules/header.tpl` | 110 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
-| `leftmenu` | `package/modules/leftmenu.tpl` | 149 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
-| `footer` | `package/modules/footer.tpl` | 188 | コラム・各種ご案内・会社情報 |
-| `calendar1` | `package/modules/calendar1.tpl` | 74 | 営業日カレンダー（今月） |
-| `calendar2` | `package/modules/calendar2.tpl` | 69 | 営業日カレンダー（翌月） |
-| `freespace_calendar` | `package/modules/freespace_calendar.tpl` | 247 | 卓上カレンダーのカテゴリ（ct646）の説明と休業日 |
+**🔴 テンプレートが呼ぶのは `モジュールID` のほうです。** `<{$module.leftmenu}>`
+の `leftmenu` がここに入ります。1文字でも違うと、**エラーにならずにその部分だけ
+空**になります。`管理用名称` は一覧に出る見出しで、自由に付けて構いません。
+
+| モジュールID | 管理用名称 | ファイル | 行数 | 中身 |
+|---|---|---|---:|---|
+| `header` | ヘッダー | `package/modules/header.tpl` | 110 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
+| `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` | 149 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
+| `footer` | フッター | `package/modules/footer.tpl` | 188 | コラム・各種ご案内・会社情報 |
+| `calendar1` | 営業日カレンダー（今月） | `package/modules/calendar1.tpl` | 74 | 営業日カレンダー（今月） |
+| `calendar2` | 営業日カレンダー（翌月） | `package/modules/calendar2.tpl` | 69 | 営業日カレンダー（翌月） |
+| `freespace_calendar` | 卓上カレンダー説明 | `package/modules/freespace_calendar.tpl` | 247 | 卓上カレンダーのカテゴリ（ct646）の説明と休業日 |
 
 ---
 
