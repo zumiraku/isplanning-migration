@@ -56,7 +56,7 @@ function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function waitEditor(p, tries) {
-  for (let i = 0; i < (tries || 30); i++) {
+  for (let i = 0; i < (tries || 90); i++) {
     await sleep(500);
     const ok = await p.evaluate(
       "(typeof g_editor_object !== 'undefined' && !!g_editor_object['" + field + "_pc']) ? 1 : 0");

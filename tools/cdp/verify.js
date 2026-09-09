@@ -66,6 +66,14 @@ const CHECKS = [
   ["guide", "買い物方法", "about_flow", 1],
   ["guide", "納品書・領収書", "about_receipt", 1],
   ["company", "見出しは1つだけ", "<h2>会社概要</h2>", 1, 1],
+  /* 🔴 id が2つありました（2026-09-09）
+   *
+   *    <{$company.content}> が返すHTMLは、プラットフォーム側で
+   *    <div id="O_adminPagearea" class="M_mainContents"> に入っています。
+   *    こちらのテンプレートも同じ id を足していたので、配信ページに
+   *    **同じ id が2つ**ありました。現行サイトは1つです。
+   *    こちらの入れ物からは id を外しました。ここで数を見張ります。 */
+  ["company", "本文の入れ物は1つだけ", "id=\"O_adminPagearea\"", 1, 1],
   ["contract", "サイト名称", "サイト名称", 1],
   ["contract", "引き渡し10日", "10日以内", 1],
   ["contract", "古い7日が消えた", "7日以内", 0, 0],

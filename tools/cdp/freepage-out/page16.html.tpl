@@ -67,7 +67,7 @@
 	<h4 style="font-size:20px;line-height: 250%;">■ポケットティッシュ
 　<img src="https://gigaplus.makeshop.jp/isplanning/fan_image/sp30894s.jpg" alt="ポケットティッシュ画像" style="float: right; width: 160px; margin: 20px 10px 10px;"></h4>
 	<p>ノベルティといえば、ポケットティッシュです。ポケットティッシュは、低コストで作ることができますし、実用性も高いので、非常に人気の高いノベルティです。</p>
-<div class="normal-box3" style="width:300px; height: 42px; margin:0 0 20px 0;"><a href="/shop/shopbrand.html?search=%A5%C6%A5%A3%A5%C3%A5%B7%A5%E5&sort=recommend&money1=&money2=&prize1=&company1=&content1=&originalcode1=&category=&subcategory="><p>● ティッシュ一覧</p></a></div>
+<div class="normal-box3" style="width:300px; height: 42px; margin:0 0 20px 0;"><a href="/view/search?search_keyword=%E3%83%86%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A5&sort=recommend"><p>● ティッシュ一覧</p></a></div>
 
 	<h4 style="font-size:20px;line-height: 250%;">■ハンドタオル・フェイスタオル　<img src="https://gigaplus.makeshop.jp/isplanning/fan_image/JMX3732s.jpg" alt="タオル画像" style="float: right; width: 160px; margin: 20px 10px 10px;"></h4>
 

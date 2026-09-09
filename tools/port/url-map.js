@@ -69,10 +69,57 @@ for (const f of ["categories-url.csv", "freepages-url.csv", "news-url.csv", "pag
  *    実データで確認したうえで、こちらに向けます。 */
 map.set("/html/email.html", "<{$url.support}>");
 
+/* 🔴 検索結果へのリンクだけは、対応表では引けません（2026-09-09）
+ *
+ *    独自ページに、ベーシックの検索URLが直に書かれています。
+ *
+ *      /shop/shopbrand.html?search=%A5%C6%A5%A3%A5%C3%A5%B7%A5%E5&sort=recommend&…
+ *                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EUC-JP の「ティッシュ」
+ *
+ *    クリエイターの検索は**引数の名前が違います**（`search` →
+ *    `search_keyword`）。301 で回っても名前が変われば落ちるので、
+ *    ここで直します。文字コードも EUC-JP から UTF-8 へ。
+ *
+ *    実機で確かめました（tools/cdp/search-url.js）。
+ *
+ *      /view/search?search_keyword=ティッシュ    542件
+ *      /view/search?keyword=ティッシュ          9,535件（＝全件。効いていません）
+ *
+ *    空の絞り込み（money1= など）は落とします。値が入っているものは
+ *    そのまま残します。 */
+function searchLink(url) {
+  const q = url.indexOf("?");
+  if (q < 0) { return null; }
+  const params = url.slice(q + 1).split("&");
+  let word = null;
+  const keep = [];
+  for (const kv of params) {
+    const eq = kv.indexOf("=");
+    const k = eq < 0 ? kv : kv.slice(0, eq);
+    const v = eq < 0 ? "" : kv.slice(eq + 1);
+    if (!v) { continue; }                       /* 空の絞り込みは落とします */
+    if (k === "search") {
+      try {
+        const bytes = Buffer.from(v.split("%").filter(Boolean).map(h => parseInt(h.slice(0, 2), 16)));
+        word = new TextDecoder("euc-jp").decode(bytes);
+      } catch (e) { word = decodeURIComponent(v); }
+      continue;
+    }
+    keep.push(k + "=" + v);
+  }
+  if (word === null) { return null; }
+  return "/view/search?search_keyword=" + encodeURIComponent(word) +
+    (keep.length ? "&" + keep.join("&") : "");
+}
+
 function rewrite(html) {
   let n = 0;
   const miss = new Set();
   const out = html.replace(LINK, (m, pre, url, post) => {
+    if (url.indexOf("/shop/shopbrand.html") >= 0) {
+      const to = searchLink(url);
+      if (to) { n++; return pre + to + post; }
+    }
     /* 🔴 ドメイン付きのリンクも引けるようにします
      *
      *    お店の書いたリンクには `https://www.isp-sp.com/html/page68.html` の

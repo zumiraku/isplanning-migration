@@ -54,7 +54,7 @@
 
 | 箱 | ファイル | 行数 | 大きさ |
 |---|---|---:|---:|
-| CSS | `package/paste/all-pages.css` | 9,084 | 187KB |
+| CSS | `package/paste/all-pages.css` | 9,243 | 193KB |
 | JavaScript | `package/paste/all-pages.js` | 258 | 11KB |
 
 どちらも **箱の中で Ctrl+A → Ctrl+V** で丸ごと置き換えます。

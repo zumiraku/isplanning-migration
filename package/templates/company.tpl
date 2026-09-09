@@ -39,7 +39,7 @@
     <{$module.leftmenu}>
     <div class="M_mainContents">
 
-<div id="O_adminPagearea" class="company">
+<div class="company">
 	<{if $company.image_url}><p><img src="<{$company.image_url}>" alt="会社概要"></p><{/if}>
 	<{$company.content}>
 </div>

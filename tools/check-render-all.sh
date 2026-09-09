@@ -99,7 +99,15 @@ check cart.tpl              cart-empty.json      'class="basketEmpty"'     1
 check news-list.tpl         news-list.json       'class="infoList"'        1
 check news-detail.tpl       news-detail.json     'class="infodate"'        1
 check guide.tpl             news-detail.json     'id="about_payment"'      1
-check company.tpl           news-detail.json     'id="O_adminPagearea"'    1
+# 🔴 会社概要だけ id を外しました（2026-09-09）
+#
+#    <{$company.content}> が返すHTMLは、プラットフォーム側で
+#    <div id="O_adminPagearea" class="M_mainContents"> に入っています。
+#    こちらも同じ id を足していたので、**配信ページに同じ id が2つ**
+#    ありました（現行サイトは1つ）。こちらの入れ物からは id を外し、
+#    class だけにしました。ここで見るのも class にします。
+#    「配信ページに1つだけあること」は tools/cdp/verify.js が見ます。
+check company.tpl           news-detail.json     'class="company"'         1
 check contract.tpl          news-detail.json     'class="tbl01"'           1
 check policy.tpl            news-detail.json     'id="O_adminPagearea"'    1
 

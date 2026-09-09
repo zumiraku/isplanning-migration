@@ -46,13 +46,14 @@ const CHECK = `(function(){
   out.cartHook    = document.querySelectorAll('a[href^="#makeshop-item-cart-entry-url"]').length;
 
   /* ヘッダー追従は、スクロールしてクラスが付くかで見ます */
+  /* 🔴 スクロール直後に読んではいけません
+   *
+   *    scrollTo の直後に className を見ていたので、scroll の処理が走る前に
+   *    読んでいました。**全ページで「追従しない」と誤検知**していました。
+   *    少し待ってから読みます。 */
   var head = q("#headerWrap");
   out.hasHeader = !!head;
-  if (head) {
-    window.scrollTo(0, 600);
-    out.fixedAfterScroll = head.className.indexOf("fixed") >= 0;
-    window.scrollTo(0, 0);
-  }
+  out.scrollHandlers = "(次のフレームで見ます)";
 
   /* jQuery はプラットフォームが読ませているか */
   out.jquery = (typeof window.jQuery !== "undefined") ? window.jQuery.fn.jquery : "(無し)";
@@ -64,21 +65,53 @@ const CHECK = `(function(){
   let bad = 0;
 
   for (const [name, type] of PAGES) {
+    /* 🔴 トップのプレビューURLは、サイトのルートそのものです
+     *
+     *      トップ            https://www.isp-sp.com/?ptk=…
+     *      会員制・年齢確認   https://www.isp-sp.com/?ptk=…   ← 同じ
+     *
+     *    直前に別のページ種別をプレビューしていると、タブはすでにその
+     *    URLにいます。「isp-sp.com が入るまで」で待つと最初から満たされ、
+     *    **前のページを測ります。** トップの本文が 52文字（＝会員制の
+     *    著作権表示）と出たのはこれです。いったん空ページへ行って、
+     *    タブの状態を必ずリセットします。 */
+    await p.navigate("about:blank");
+    await sleep(400);
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
     for (let i = 0; i < 30; i++) {
       await sleep(500);
       if (await p.evaluate("(typeof previewContent === 'function') ? 1 : 0")) { break; }
     }
+    /* 🔴 前の実行のプレビューURLが残っていると、それを測ってしまいます
+     *
+     *    押したあと「URLに isp-sp.com が入るまで」待っていました。タブが
+     *    **前回のプレビューのまま**だと、その条件は最初から満たされていて、
+     *    古いページをそのまま測ります。実際、トップの本文が 52文字
+     *    （＝会員制ページの著作権表示だけ）と出ました。
+     *    **押す前のURLを控えて、変わるまで**待ちます。 */
+    const wasAt = await p.evaluate("location.href");
     await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
     let url = "";
     for (let i = 0; i < 30; i++) {
       await sleep(700);
       url = await p.evaluate("location.href");
-      if (url.indexOf("isp-sp.com") >= 0) { break; }
+      if (url.indexOf("isp-sp.com") >= 0 && url !== wasAt) { break; }
     }
     await p.evaluate(CATCH);
     await sleep(3000);
     const r = await p.evaluate(CHECK);
+    /* 🔴 window.scrollTo では scroll イベントが出ません
+     *
+     *    自動操作の scrollTo は位置だけ変えて、**イベントを出しません**
+     *    （実測: events 0 / pageYOffset 900）。そのため全ページで
+     *    「追従しない」と誤検知していました。**本物のホイール操作**を
+     *    送ります。 */
+    await p.send("Input.dispatchMouseEvent",
+      { type: "mouseWheel", x: 300, y: 300, deltaX: 0, deltaY: 900, pointerType: "mouse" });
+    await sleep(1200);
+    r.fixedAfterScroll = await p.evaluate(
+      '(function(){var h=document.querySelector("#headerWrap");return h ? h.className.indexOf("fixed") >= 0 : false;})()');
+    await p.evaluate("window.scrollTo(0, 0); 1");
 
     const marks = [];
     marks.push("ヘッダー" + (r.hasHeader ? "○" : "🔴"));

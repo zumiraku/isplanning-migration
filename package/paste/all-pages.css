@@ -8608,6 +8608,36 @@ img, video, iframe { max-width: 100%; height: auto; }
 
   .l-menu-toggle { display: inline-flex; }
 
+  /* 🔴 上の緑帯が折り返さず、画面が横に伸びていました（2026-09-09 実測）
+   *
+   *    `.h-txt-inner` は `display:flex` の `flex-wrap:nowrap` です。375px でも
+   *    見出しと送料の一文が横に並んだままで、**584px の幅を要求します。**
+   *    スマートフォンではそこでレイアウト視域がその幅まで広がります
+   *    （実測 `window.innerWidth` 584 ／ `documentElement.clientWidth` 375）。
+   *    `#headerWrap` は `width:100%` なので**広がったほうを基準にして**
+   *    584px の帯になり、画面から 209px はみ出していました。
+   *
+   *    手元のプレビュー（静的HTML）では出ません。**追従JSが効いた実機幅で
+   *    しか出ない**ためです。iPhoneの名乗り＋375pxで測って見つけました。
+   *
+   *    折り返させると視域が広がらなくなり、ヘッダーも 375px に収まります。 */
+  .h-txt-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 2px;
+  }
+  .header-txt {
+    height: auto;
+    line-height: 1.4;
+    padding: 4px 0;
+  }
+  /* 追従したときは、元のとおり帯を畳みます（m_sys_common の指定を保ちます） */
+  #headerWrap.fixed .header-txt { padding: 0; overflow: hidden; }
+  /* 念のため、帯そのものが画面幅を超えられないようにします */
+  #headerWrap { max-width: 100vw; }
+  .header-txt h1,
+  .header-txt p.shipping { max-width: 100%; }
+
   /* ヘッダーの3カラムを縦に */
   .head_contents { display: block; }
   .logo-box, .contents_center, .contents_right {
@@ -9064,6 +9094,135 @@ a[data-zoom] { cursor: zoom-in; }
     max-width: 100%;
     height: auto;
   }
+}
+
+/* 🔴 会社概要の本文が `<pre>` で包まれています（2026-09-09 実測）
+ *
+ *    `<{$company.content}>` が返すHTMLは、プラットフォーム側で
+ *    `<pre>` に入っています（こちらのテンプレートは包んでいません）。
+ *    `<pre>` は `white-space: pre` なので、**行が折り返しません。**
+ *
+ *      A（熱中症予防のリンク）  幅474px  右端663px
+ *      IFRAME（Googleマップ）  右端551px
+ *
+ *    375px で 696px まで横に伸びていました。`pre-wrap` にすると、
+ *    **いまの改行はそのままで、長い行だけが折り返します。**
+ *    960px の画面では折り返す行が無いので、見た目は変わりません。 */
+#O_adminPagearea pre,
+.M_mainContents pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* 🔴 カテゴリの商品一覧（table.tbl02）が縮みません（2026-09-09 実測）
+ *
+ *    元のCSSはこうです。
+ *
+ *      table.tbl02              width: 960px;
+ *      table.tbl02 td.categorylist   width: 260px;
+ *      table.tbl02 td table td.itemimg img   width: 220px;
+ *
+ *    テンプレートは4件ごとに `<tr>` を開きます。**4列 × 260px は
+ *    375px には入りません**（実測 右端 523px、はみ出す要素 694個）。
+ *
+ *    テーブルのままでは列は折り返せないので、狭い画面だけ
+ *    ブロックに変えて2列で折り返します。**行の区切りも順番も
+ *    変わりません。** 商品の並びはテンプレートのままです。
+ *
+ *    境目は 767px です。768〜1024px では4列のまま画像が縮んで収まるので
+ *    （実測で 768/960/1280 すべて収まっています）、**そこまで2列に
+ *    変えると、現行サイトと違う見え方を増やすだけ**になります。 */
+@media screen and (max-width: 767px) {
+  table.tbl02 { width: 100% !important; }
+  table.tbl02 > tbody { display: block; width: 100%; }
+  table.tbl02 > tbody > tr {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  table.tbl02 > tbody > tr > td.categorylist {
+    display: block;
+    width: 50% !important;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  table.tbl02 td.categorylist > table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  table.tbl02 td table td.itemimg,
+  table.tbl02 td table td.itemtext { max-width: 100% !important; }
+  table.tbl02 td table td.itemimg img {
+    width: 100% !important;
+    max-width: 220px;
+    height: auto;
+  }
+  /* 下段の「こちらの商品もおすすめです。」は入れ子のテーブルがありません。
+     `td.categorylist` の直下に画像が入ります。 */
+  table.tbl02 td.categorylist img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* 🔴 ランキング枠が、狭い画面で画面外へ出ます（2026-09-09 実測）
+ *
+ *    トップの `ul.rank-list` は、元のCSSがこう組んでいます。
+ *
+ *      ul.rank-list.clear      width: calc(100% - 470px);  left: 470px;
+ *      .index-rank li:first-child  position: absolute;  left: -475px;  width: 450px;
+ *
+ *    1位を左の 470px の欄に絶対配置して、2位以降を右に流す形です。
+ *    **375px では calc が負になり**、右へ流した2位以降が画面の外
+ *    （右端 569px）へ出ます。1位も 450px 幅のまま右端 499px です。
+ *    これがスマートフォンのレイアウト視域を 584px へ広げていました。
+ *
+ *    実測で 7 件ありました（1位＋6件）。件数に依らない形で戻します。
+ *    段に積み直すだけで、順位も中身も変わりません。 */
+@media screen and (max-width: 1024px) {
+  ul.rank-list,
+  ul.rank-list.clear {
+    width: 100% !important;
+    left: 0 !important;
+    position: relative !important;
+    gap: 12px;
+  }
+  .rank-wrap { padding: 40px 12px 24px; }
+
+  .index-rank li,
+  li.rankList {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    margin-top: 0;
+  }
+  .index-rank li .rank-img,
+  li.rankList .rank-img,
+  li.rankList .rankImg {
+    width: 100% !important;
+    height: auto !important;
+    float: none !important;
+  }
+  /* 2位・3位は名前を 100px 下げる指定があります。積んだら不要です */
+  .index-rank li:nth-child(2) .rank-name,
+  .index-rank li:nth-child(3) .rank-name { margin-top: 8px; }
+
+  li.rankList img { max-width: 100%; height: auto; }
+  /* 🔴 .rank-number は触りません
+   *
+   *    `font-size: 0` の背景画像バッジ（89×75）です。一度 `width: auto;
+   *    height: auto` を当てましたが、中身が無いので **0×0 になって消えます。**
+   *    `position: absolute; left: 0` のままで、上で li を `position: relative`
+   *    に戻しているので、1位の左上に正しく乗ります。 */
+}
+
+/* 481px 以上なら2列に収まります */
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+  .index-rank li:not(:first-child),
+  li.rankList:not(:first-child) { width: 48% !important; }
 }
 
 /* 🔴 レコメンドの横並びは、外から幅を渡されません

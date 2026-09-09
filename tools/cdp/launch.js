@@ -58,16 +58,32 @@ function version() {
   }
   console.log("Chromeを閉じました（プロセス数 " + count() + "）");
 
-  fs.rmSync(WORK, { recursive: true, force: true });
-  fs.mkdirSync(WORK + "/Default/Network", { recursive: true });
-  const want = [
-    "/Local State",
-    "/Default/Network/Cookies",
-    "/Default/Preferences"
-  ];
-  for (const f of want) {
-    try { fs.copyFileSync(REAL + f, WORK + f); console.log("  写した: " + f); }
-    catch (e) { console.log("  🔴 写せない: " + f + " — " + e.code); }
+  /* 🔴 立て直すたびにログインが飛んでいました（2026-09-09）
+   *
+   *    ここは毎回 WORK を**消して**、既定のプロファイルから写し直して
+   *    いました。ところが管理画面にログインしたのは**この一時プロファイル
+   *    の中**です。消せば、そのログインごと消えます。
+   *
+   *    タブを1つ閉じただけで Chrome が終了したあと、何も考えずに
+   *    立て直すとセッションを失います。すでに一時プロファイルがあるなら
+   *    そのまま使います。作り直したいときだけ --fresh を付けてください。 */
+  const fresh = process.argv.indexOf("--fresh") >= 0;
+  const have = fs.existsSync(WORK + "/Default/Network/Cookies");
+  if (have && !fresh) {
+    console.log("一時プロファイルをそのまま使います（ログインを保ちます）");
+    console.log("  作り直すときだけ: node tools/cdp/launch.js --fresh");
+  } else {
+    fs.rmSync(WORK, { recursive: true, force: true });
+    fs.mkdirSync(WORK + "/Default/Network", { recursive: true });
+    const want = [
+      "/Local State",
+      "/Default/Network/Cookies",
+      "/Default/Preferences"
+    ];
+    for (const f of want) {
+      try { fs.copyFileSync(REAL + f, WORK + f); console.log("  写した: " + f); }
+      catch (e) { console.log("  🔴 写せない: " + f + " — " + e.code); }
+    }
   }
 
   const c = spawn(CHROME, [

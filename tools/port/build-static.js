@@ -52,8 +52,24 @@ function write(name, from, body) {
  *    こちらが `<h2>会社概要</h2>` を足していたので、同じ見出しが2つ
  *    続けて出ていました。**手元では確かめようがなかった7項目の1つ**です。
  *    足すのをやめます。 */
+/* 🔴 会社概要だけ、id が二重になっていました（2026-09-09 実測）
+ *
+ *    `<{$company.content}>` は**自分で入れ物を持ってきます。**
+ *    配信されたHTMLはこうでした。
+ *
+ *      <div id="O_adminPagearea" class="company">   ← こちらが足した分
+ *        <pre>
+ *          <div id="O_adminPagearea" class="M_mainContents">  ← 中身に付いてくる分
+ *
+ *    現行サイトは1つだけです（`<div id="O_adminPagearea" class="M_mainContents company">`）。
+ *    同じidが2つあるHTMLは不正で、`getElementById` は外側しか返しません。
+ *    こちらの入れ物から id を外して、現行と同じ「1つ」に戻します。
+ *    class は残すので、見た目は変わりません。
+ *
+ *    他のページ種別は中身が入れ物を持ってこないので、そのままです
+ *    （実測: policy 1 / guide 1 / news-list 1 / news-detail 1 / contract 0）。 */
 write({ file: "company", label: "会社概要" }, "（タグのみ）", [
-  '<div id="O_adminPagearea" class="company">',
+  '<div class="company">',
   '\t<{if $company.image_url}><p><img src="<{$company.image_url}>" alt="会社概要"></p><{/if}>',
   '\t<{$company.content}>',
   '</div>'
