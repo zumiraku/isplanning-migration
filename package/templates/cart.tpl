@@ -91,7 +91,7 @@
             <td colspan="6" class="basketTotal">
                 <dl class="totalWrap">
                     <dt class="totalItem">合計金額：</dt>
-                    <dd class="totalPrice"><em><{$cart.total_price}>円 <span>(税込)</span></em></dd>
+                    <dd class="totalPrice"><em><{$cart.total_price}> <span>(税込)</span></em></dd>
                 </dl>
             </td>
         </tr>

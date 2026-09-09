@@ -106,11 +106,37 @@ function evalExpr(expr, data, sections) {
     return undefined;
   }
 
-  function addExpr() {
+  /* 🔴 掛け算・割り算・剰余
+   *
+   *    移植した一覧は「4件ごとに <tr> を入れる」書き方をしています。
+   *
+   *      <{if $smarty.section.i.index % 4 == 0}><tr><{/if}>
+   *
+   *    ここに % が無かったせいで、条件が常に undefined になり、
+   *    **<tr> が1つも出ませんでした。** 描画は成功して見え、未展開タグも
+   *    空srcも0。プレビューを撮って「商品が1行に1件ずつ縦に並んでいる」
+   *    のを見て初めて分かりました。
+   *
+   *    実機のSmartyは % を解釈します。**描画器が追いついていないだけ**で、
+   *    それを「テンプレートの不具合」と読み違えるところでした。 */
+  function mulExpr() {
     let l = primary();
-    while (peek() && peek().type === 'op' && (peek().value === '+' || peek().value === '-')) {
+    while (peek() && peek().type === 'op' &&
+           (peek().value === '*' || peek().value === '/' || peek().value === '%')) {
       const op = next().value;
       const r = primary();
+      if (op === '*') { l = Number(l) * Number(r); }
+      else if (op === '/') { l = Number(r) === 0 ? 0 : Number(l) / Number(r); }
+      else { l = Number(r) === 0 ? 0 : Number(l) % Number(r); }
+    }
+    return l;
+  }
+
+  function addExpr() {
+    let l = mulExpr();
+    while (peek() && peek().type === 'op' && (peek().value === '+' || peek().value === '-')) {
+      const op = next().value;
+      const r = mulExpr();
       l = op === '+' ? Number(l) + Number(r) : Number(l) - Number(r);
     }
     return l;
@@ -165,7 +191,7 @@ function truthy(v) {
 
 function tokenize(src) {
   const out = [];
-  const re = /\s*(?:(\$[A-Za-z0-9_.\[\]]+)|'([^']*)'|"([^"]*)"|(\d+)|(==|!=|<=|>=|<|>)|(\|\||&&|\bor\b|\band\b|\bnot\b|!)|([+\-])|(\()|(\)))/gy;
+  const re = /\s*(?:(\$[A-Za-z0-9_.\[\]]+)|'([^']*)'|"([^"]*)"|(\d+)|(==|!=|<=|>=|<|>)|(\|\||&&|\bor\b|\band\b|\bnot\b|!)|([-+*/%])|(\()|(\)))/gy;
   let m;
   while ((m = re.exec(src)) !== null) {
     if (m[1] !== undefined)      { out.push({ type: 'var', value: m[1].slice(1) }); }

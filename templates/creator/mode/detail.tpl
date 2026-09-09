@@ -101,7 +101,7 @@
 			</dl><!-- <dl>【税込み33000円未満の場合は送料が必要です】</dl> -->
 			<dl class="itemPrice-wrap">
 				<dt><span>数量：</span></dt>
-				<dd class="itemCount"><{$item.special_display}> X
+				<dd class="itemCount"><{if $item.special_display}><{$item.special_display}> X<{/if}>
 					<input type="number" inputmode="numeric" class="quantityInput"
 					       id="<{$item.quantity_id}>" data-id="<{$item.quantity_id}>"
 					       value="<{if $item.order_quantity_min}><{$item.order_quantity_min}><{else}>1<{/if}>"

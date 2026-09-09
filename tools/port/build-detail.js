@@ -94,7 +94,15 @@ body = body.replace("[ITEMCAPTION_3]<!-- 追加画像説明文3 -->", "<{$item.d
 body = body.replace("<span>[TAXPRICE]</span>円（税込）", "<span><{$item.price_html}></span>円（税込）");
 
 const QTY = [
-  '<{$item.special_display}> X',
+  /* 🔴 「X」は特殊表示があるときだけ出します
+   *
+   *    元テンプレートは [ITEMCAPTION_1] X [QUANTITY] と決め打ちで、
+   *    特殊表示が空の商品では「数量： X 1」と X だけが残ります。
+   *    この店舗はほとんどの商品に「1200個」「100個入り」などが入って
+   *    いるので滅多に出ませんが、出たときに意味不明です。
+   *
+   *    入っている商品では元と1文字も変わりません。 */
+  '<{if $item.special_display}><{$item.special_display}> X<{/if}>',
   '\t\t\t\t\t<input type="number" inputmode="numeric" class="quantityInput"',
   '\t\t\t\t\t       id="<{$item.quantity_id}>" data-id="<{$item.quantity_id}>"',
   '\t\t\t\t\t       value="<{if $item.order_quantity_min}><{$item.order_quantity_min}><{else}>1<{/if}>"',

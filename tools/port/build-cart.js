@@ -88,7 +88,18 @@ const rows = [
 '            <td colspan="6" class="basketTotal">',
 '                <dl class="totalWrap">',
 '                    <dt class="totalItem">合計金額：</dt>',
-'                    <dd class="totalPrice"><em><{$cart.total_price}>円 <span>(税込)</span></em></dd>',
+/* 🔴 合計金額に「円」を足しません
+ *
+ *    元テンプレートはこう書いています。
+ *
+ *      <td class="basketPrice">[BASKET_PRICE]円</td>          ← 円あり
+ *      <dd class="totalPrice"><em>[BASKET_TOTALPRICE] <span>(税込)</span>  ← 円なし
+ *
+ *    **1件ごとの価格には付け、合計には付けない。** 店舗がそう書いている
+ *    ということは、合計のほうは単位込みで返ってくるということです。
+ *    こちらが足したせいで、プレビューが「58,300円円」になっていました。
+ *    元のとおりにします。 */
+'                    <dd class="totalPrice"><em><{$cart.total_price}> <span>(税込)</span></em></dd>',
 '                </dl>',
 '            </td>',
 '        </tr>',
