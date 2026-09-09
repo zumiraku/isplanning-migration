@@ -1,0 +1,1 @@
+(function(){var rows=Array.from(document.querySelectorAll("tr"));for(var i=0;i<rows.length;i++){if((rows[i].innerText||"").indexOf("完了")<0)continue;return rows[i].outerHTML.replace(/s+/g," ").slice(0,1600);}return "(無し)";})()

@@ -1,0 +1,1 @@
+(function(){return Array.from(document.querySelectorAll("button,a")).map(function(b){return (b.innerText||"").replace(/s+/g," ").trim()+" | "+(b.className||"").toString().slice(0,40);}).filter(function(t){return t.trim().length>2;}).slice(0,40);})()

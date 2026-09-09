@@ -1,0 +1,1 @@
+(function(){var e=Array.from(document.querySelectorAll("a, button")).filter(function(x){return (x.innerText||"").replace(/s+/g,"").indexOf("機能をもっと見る")>=0;});if(e.length<2)return "(2つ目がありません: "+e.length+")";e[1].click();return "clicked #2";})()

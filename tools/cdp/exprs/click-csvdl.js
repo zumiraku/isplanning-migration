@@ -1,0 +1,1 @@
+(function(){var b=Array.from(document.querySelectorAll("button,a")).filter(function(x){return (x.innerText||"").replace(/s+/g,"")==="CSVダウンロード";})[0];if(!b)return "(無し)";b.click();return "clicked";})()

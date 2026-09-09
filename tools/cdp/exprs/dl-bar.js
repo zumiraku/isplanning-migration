@@ -1,0 +1,1 @@
+(function(){var bar=document.querySelector(".p-bottom-control-bar");if(!bar)return "(バーがありません)";var b=Array.from(bar.querySelectorAll("button,a")).filter(function(x){return (x.innerText||"").indexOf("ダウンロード")>=0;})[0];if(!b)return "(ボタンがありません)";b.click();return "clicked";})()

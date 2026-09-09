@@ -16,7 +16,9 @@ const WHERE = {
   design_brandpage: BASE + "design_brandpage.html",
   creator: BASE + "flex_design_top.html",
   editor: CONSOLE + "design/editor?shopId=isplanning",
-  dashboard: CONSOLE + "dashboard?shopId=isplanning"
+  dashboard: CONSOLE + "dashboard?shopId=isplanning",
+  products: CONSOLE + "products?shopId=isplanning",
+  catalog: CONSOLE + "settings/feature-catalog?shopId=isplanning"
 };
 
 const name = process.argv[2];

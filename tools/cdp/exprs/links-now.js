@@ -1,0 +1,1 @@
+(function(){var o=[];Array.from(document.querySelectorAll("a")).forEach(function(a){var t=(a.innerText||"").replace(/s+/g," ").trim();if(t&&/一括|CSV|ダウンロード|アップロード|登録/.test(t))o.push(t+"  ->  "+a.getAttribute("href"));});return o.slice(0,40);})()

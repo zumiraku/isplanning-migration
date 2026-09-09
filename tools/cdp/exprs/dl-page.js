@@ -1,0 +1,1 @@
+(function(){var b=Array.from(document.querySelectorAll("button,a")).filter(function(x){return (x.innerText||"").indexOf("ダウンロードページへ")>=0;})[0];if(b){b.click();return "clicked";}var l=Array.from(document.querySelectorAll("a")).filter(function(x){return (x.innerText||"").indexOf("ダウンロード一覧")>=0;})[0];if(l){return "link: "+l.getAttribute("href");}return "(見つかりません)";})()

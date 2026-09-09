@@ -1,0 +1,1 @@
+(function(){var out=[];Array.from(document.querySelectorAll("*")).forEach(function(e){if(e.children.length>2)return;var t=(e.innerText||"").replace(/s+/g," ").trim();if(!t||t.length>24)return;if(t.indexOf("ダウンロード")<0&&t.indexOf("取得")<0&&t.indexOf("出力")<0)return;out.push(e.tagName+" ."+String(e.className||"").slice(0,40)+" : "+t);});return out.slice(0,30);})()

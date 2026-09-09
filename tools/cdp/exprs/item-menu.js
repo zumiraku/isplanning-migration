@@ -1,0 +1,1 @@
+(function(){var o=[];Array.from(document.querySelectorAll("a")).forEach(function(a){var t=(a.innerText||"").replace(/s+/g," ").trim();if(t&&a.href&&a.href.indexOf("newmanager")>=0)o.push(t+"  "+a.href.split("/").pop());});return o.slice(0,80);})()

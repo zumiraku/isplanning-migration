@@ -41,3 +41,5 @@ snapshot/refetch/
 /.h.html
 /.d.html
 /.s.html
+tools/cdp/csv/*.csv
+tools/cdp/preview-out/_probe.html

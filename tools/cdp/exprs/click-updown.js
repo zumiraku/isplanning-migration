@@ -1,0 +1,1 @@
+(function(){var e=Array.from(document.querySelectorAll("a,button,li,[role=menuitem]")).filter(function(x){return (x.innerText||"").replace(/s+/g,"")==="アップロード・ダウンロード";})[0];if(!e)return "(無し)";var href=e.getAttribute&&e.getAttribute("href");e.click();return "clicked href="+href;})()

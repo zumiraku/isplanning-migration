@@ -1,0 +1,1 @@
+(function(){var rows=Array.from(document.querySelectorAll("tr"));for(var i=0;i<rows.length;i++){var t=(rows[i].innerText||"");if(t.indexOf("完了")<0)continue;var ic=rows[i].querySelector("i.v-icon, svg");if(!ic)continue;ic.click();var p=ic.parentElement; if(p) p.click();return "clicked row "+i;}return "(完了行がありません)";})()

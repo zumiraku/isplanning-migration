@@ -1,0 +1,1 @@
+(function(){return Array.from(document.querySelectorAll("a,button,li,[role=menuitem]")).map(function(e){return (e.innerText||"").replace(/s+/g," ").trim();}).filter(function(t){return t && t.length<30 && /一括|CSV|ダウンロード|アップロード|登録|出力|取込/.test(t);}).slice(0,30);})()
