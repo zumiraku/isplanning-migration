@@ -113,10 +113,27 @@ function cutAtAdminPagearea(html) {
      末尾に「対応する閉じが無い開き」が残る */
 const PAIRED = ["div", "table", "tbody", "thead", "tr", "td", "th", "ul", "ol", "li", "p", "span", "a", "dl", "dt", "dd", "form"];
 
+/* 🔴 閉じ忘れは「黙って捨てる」のではなく「閉じる」
+
+     現行の特商法には、閉じていない <td> が1つあります（お支払い方法の行）。
+
+       <td>
+       銀行振込・代金引換<br>
+       …必ず受け取るようにお願いいたします。
+       </tr>              ← <td> が閉じないまま行が終わる
+
+     ブラウザは黙って直すので、公開中のサイトでは何も起きていません。
+     最初の版はこれを**捨てて**いました（</tr> に出会ったとき、間に
+     残っていた <td> をスタックから外すだけ）。**出力はそのまま
+     壊れたまま**です。管理画面が保存前に検査していると、こういう
+     ところで黙って弾かれます。
+
+     間に残っているものを、先に閉じてから外します。**見た目は1ピクセルも
+     変わりません。**ブラウザがやっていたことを、先にやっておくだけです。 */
 function balance(html) {
   const re = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(\/?)>/g;
   const stack = [];
-  const dropAt = [];
+  const edits = [];          /* [位置, 消す長さ, 差し込む文字列] */
   let m;
   while ((m = re.exec(html))) {
     const closing = m[1] === "/";
@@ -124,17 +141,27 @@ function balance(html) {
     if (!PAIRED.includes(tag) || m[3] === "/") { continue; }
     if (closing) {
       const at = stack.lastIndexOf(tag);
-      if (at < 0) { dropAt.push([m.index, m[0].length]); } else { stack.length = at; }
+      if (at < 0) {
+        edits.push([m.index, m[0].length, ""]);        /* 相手のいない閉じ */
+      } else {
+        let fill = "";
+        for (let i = stack.length - 1; i > at; i--) { fill += "</" + stack[i] + ">"; }
+        if (fill) { edits.push([m.index, 0, fill]); }  /* 閉じ忘れを先に閉じる */
+        stack.length = at;
+      }
     } else {
       stack.push(tag);
     }
   }
   let out = html;
-  for (let i = dropAt.length - 1; i >= 0; i--) {
-    out = out.slice(0, dropAt[i][0]) + out.slice(dropAt[i][0] + dropAt[i][1]);
+  let dropped = 0, filled = 0;
+  for (let i = edits.length - 1; i >= 0; i--) {
+    const [at, len, ins] = edits[i];
+    if (len) { dropped++; } else { filled++; }
+    out = out.slice(0, at) + ins + out.slice(at + len);
   }
   for (let i = stack.length - 1; i >= 0; i--) { out += "\n</" + stack[i] + ">"; }
-  return { html: out, dropped: dropAt.length, closed: stack.length };
+  return { html: out, dropped: dropped, filled: filled, closed: stack.length };
 }
 
 function save(file, body, label) {
@@ -145,7 +172,8 @@ function save(file, body, label) {
   fs.writeFileSync("templates/creator/port-src/" + file, out);
   console.log("  " + label.padEnd(12) + String(out.split("\n").length).padStart(4) + " 行  " +
               String(out.length).padStart(6) + " バイト  / URL書き換え " + r.rewritten +
-              " / 相手のいない閉じを外した " + b.dropped + " / 閉じ足した " + b.closed);
+              " / 相手のいない閉じを外した " + b.dropped +
+              " / 閉じ忘れを閉じた " + b.filled + " / 末尾に足した " + b.closed);
   if (r.missing.length) {
     console.log("     🔴 対応表に無いURL " + r.missing.length + " 件: " + r.missing.join("  "));
   }
