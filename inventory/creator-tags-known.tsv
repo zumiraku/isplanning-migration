@@ -176,9 +176,9 @@ $cart.bulk.has_item	confirmed	reference common/index.html
 $cart.bulk.list	confirmed	reference common/index.html
 $cart.bulk.list.name	confirmed	reference common/index.html
 $cart.bulk.list.discount_price	confirmed	reference common/index.html
-$recently_item.has_item	assumed	$recently_item は確認済みだが has_item の有無は未確認
-$recently_item.list	assumed	同上
-$recently_item.list.name	assumed	共通の商品一覧系フィールドからの類推
+$recently_item.has_item	confirmed	実データで確認（商品詳細に印を入れてプレビュー）→「あり」
+$recently_item.list	confirmed	実データで確認 → list[0].name「ノック式ボールペン（色指定可）」
+$recently_item.list.name	confirmed	実データで確認（同上）
 $recently_item.list.url	assumed	同上
 $recently_item.list.price	assumed	同上
 $recently_item.list.image_M	assumed	同上
@@ -399,3 +399,7 @@ $guide.delivery	confirmed	reference guide/index.html（tools/fetch-reference.sh 
 $guide.tax	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
 $guide.return	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
 $module.freespace_calendar	confirmed	モジュール管理に登録するもの。ベーシックのカテゴリー別フリースペース（自動挿入）の代わり。クリエイターに該当タグが無いため（ct646 の卓上カレンダー用）
+$category.child_category.list.item_count	confirmed	reference category/index.html（子カテゴリの件数。現行「熱中症対策(387)」の (387)）
+$module.category_extra	confirmed	当方が追加。カテゴリごとの独自内容（商品一覧の上）。606件・112種類を3つに分割
+$module.category_bottom	confirmed	当方が追加。カテゴリごとの独自内容（商品一覧の下）。598件・49種類
+$module.category_title	confirmed	当方が追加。カテゴリ独自タイトル。$category.name は登録名しか返さない
