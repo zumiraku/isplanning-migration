@@ -40,28 +40,65 @@ body = body.replace('<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]',
 	<{/section}>`);
 
 /* --- カテゴリ名・サブカテゴリ・カテゴリ画像 -------------------------------- */
-body = body.replace("[NAMECURRENT]", "<{$category.name}>");
+/* 🔴 $category.name は登録名しか返しません
+ *
+ *    現行 「～49円（予算別粗品　税別単価）」 / $category.name 「～49円」
+ *    現行 「夏向け粗品（夏の粗品）」        / $category.name 「夏向け粗品」
+ *
+ *    ベーシックの [NAMECURRENT] はカテゴリごとの独自タイトルでした。
+ *    606件・500種類をモジュールにしてあります（tools/cdp/category-title.js）。
+ *    万一そのカテゴリが無ければ登録名で出します。 */
+body = body.replace("[NAMECURRENT]", "<{$module.category_title1}>");
 body = body.replace("[GROUP4_0]",
 `<{if $category.child_category.has_item}>
 	<ul class="subcats">
 	<{section name=c loop=$category.child_category.list}>
-	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}></a></li>
+	  <{* 🔴 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
+	       $category.child_category.list[c].item_count というタグがあるのに、
+	       名前だけを出していました。 *}>
+	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}>(<{$category.child_category.list[c].item_count}>)</a></li>
 	<{/section}>
 	</ul>
 	<{/if}>`);
-body = body.replace("[CATEGORY_IMAGE]", "<{if $category.image_url}><img src=\"<{$category.image_url}>\" alt=\"<{$category.name}>\"><{/if}>");
+/* 🔴 カテゴリのバナーは1枚ではありません
+ *
+ *    `$category.image_url` は1枚しか返しません。現行の #O_categotyBnr には
+ *    カテゴリによって2枚3枚入っています（ct667 は包装のし名入れ＋季節で選ぶ）。
+ *    バナーは下のモジュールが現行のまま持っているので、ここでは出しません。 */
+body = body.replace('\t<div id="O_categotyBnr">[CATEGORY_IMAGE]</div>\n', "");
 
-/* --- カテゴリー別フリースペース -------------------------------------------
-   🔴 クリエイターにフリースペースのタグがありません
+/* 🔴 書き出したテンプレートは53枚のうちの1枚でした
+ *
+ *    design_brandpage.txt には、3枚のバナー（数量選択可能・季節で選ぶ・
+ *    包装のし名入れ）が直接書かれています。ベーシックは**カテゴリごとに
+ *    テンプレートが別**なので、これはそのうち1枚の中身にすぎません。
+ *
+ *    公開中の606カテゴリを調べたら、この3枚があるのは**58件だけ**でした。
+ *    そのまま残すと、残り548カテゴリに無いはずのバナーが出ます。
+ *
+ *    バナーもカテゴリごとの内容として、下のモジュールが持っています。 */
+body = body.replace(/<!-- 管理画面「カテゴリー別イメージの登録」画像 -->[\s\S]*?<\/div>\n/, "");
 
-      ベーシックはカテゴリごとの自由なHTMLを、商品一覧の上に自動で
-      差し込んでいました。design_brandpage.txt にはタグすら書かれていません。
-      リファレンスの category セクションにも該当タグはありません。
+/* --- カテゴリー別の独自内容 -------------------------------------------------
+   🔴 「中身が入っているのは ct646 だけ」は誤りでした
 
-      中身が入っているのを確認できたのは ct646（卓上カレンダー）だけなので、
-      そこだけモジュールで補います。他のカテゴリでは何も出ません。 */
+      ここには「確認できたのは ct646（卓上カレンダー）だけなので、そこだけ
+      補います。他のカテゴリでは何も出ません」と書いてありました。
+      **公開中の606カテゴリを実際に取って比べたら、601カテゴリに中身が
+      ありました。**
+
+        ct22  「夏は熱中症対策が欠かせない季節なので…」＋ 夏のバナー5枚
+        ct5   「ロット単位で多すぎる場合は…」＋ 誘導タイル4枚
+        ct306 「防災グッズは非常時に活躍…」
+
+      クリエイターにカテゴリ説明のタグはありません（$category.* は31個
+      ありますが、説明文を出すものが無い）。カテゴリ識別コードで振り分ける
+      モジュールにまとめました。中身は112種類しかないので、同じものは
+      まとめてあります。1つに収まらないので3つに分けています。
+
+      作り直すときは tools/cdp/category-extra.js です。 */
 body = body.replace('<div class="O_ItemLine">',
-  "<{if $category.code == 'ct646'}><{$module.freespace_calendar}><{/if}>\n\n\t<div class=\"O_ItemLine\">");
+  "<{$module.category_extra1}><{$module.category_extra2}><{$module.category_extra3}>\n\n\t<div class=\"O_ItemLine\">");
 
 /* --- 件数と並び替え。単価順は 製造元順（C37） ------------------------------- */
 body = body.replace("[TOTAL]", "<{$category.total_count}>");
@@ -115,8 +152,18 @@ body = body.replace("[PAGER]",
 	    <{if $category.pager.list[p].is_current_page}><span><{$category.pager.list[p].number}></span>
 	    <{else}><a href="<{$category.pager.list[p].url}>"><{$category.pager.list[p].number}></a><{/if}>
 	  <{/section}>
-	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次へ</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
+	  <{* 🔴 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
+	       「次へ」だと、何件ずつ進むのかが読めません。 *}>
+	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次の<{$category.display_count}>件 &raquo;</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
 	<{/if}>`);
+body = body.replace("<a href=\"<{$category.pager.prev_url}>\" rel=\"prev\">前へ</a>",
+  "<a href=\"<{$category.pager.prev_url}>\" rel=\"prev\">&laquo; 前の<{$category.display_count}>件</a>");
+
+/* --- 商品一覧の下のカテゴリ別内容 ------------------------------------------
+   606カテゴリ中598に <h2 class="categorybottom"> の塊があります。
+   ページ送りのあとに置きます。49種類・63KBの1モジュールです。 */
+body = body.replace("[SUISEN4_2]",
+  "<{$module.category_bottom1}>" + String.fromCharCode(10) + String.fromCharCode(10) + "\t[SUISEN4_2]");
 
 /* --- おすすめ商品 ---------------------------------------------------------- */
 const RC = "$category.recommend_item.list[rc]";

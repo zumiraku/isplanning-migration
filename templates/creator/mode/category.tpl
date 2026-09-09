@@ -49,26 +49,23 @@
 	</div>
 	
 	<!--▼商品カテゴリー名-->
-	<h2><{$category.name}></h2>
+	<h2><{$module.category_title1}></h2>
 
 	<div id="O_subCategory">
 	<{if $category.child_category.has_item}>
 	<ul class="subcats">
 	<{section name=c loop=$category.child_category.list}>
-	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}></a></li>
+	  <{* 🔴 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
+	       $category.child_category.list[c].item_count というタグがあるのに、
+	       名前だけを出していました。 *}>
+	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}>(<{$category.child_category.list[c].item_count}>)</a></li>
 	<{/section}>
 	</ul>
 	<{/if}>
 	</div>
 
-	<div id="O_categotyBnr"><{if $category.image_url}><img src="<{$category.image_url}>" alt="<{$category.name}>"><{/if}></div>
-<!-- 管理画面「カテゴリー別イメージの登録」画像 -->
-	<div id="O_categotyBnr">
-<a href="/view/category/ct667"><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_unit3.png" alt="数量選択可能"></a>
-<a href="/view/page/page5.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner5.svg" alt="季節で選ぶ"></a>
-<a href="/view/page/page2.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname.svg" alt="包装のし名入れ"></a></div>
 
-	<{if $category.code == 'ct646'}><{$module.freespace_calendar}><{/if}>
+	<{$module.category_extra1}><{$module.category_extra2}><{$module.category_extra3}>
 
 	<div class="O_ItemLine">
 	<p class="total">全 <{$category.total_count}> 件</p> <div class="list-link">並び替え：<a href="<{$category.sort_new_url}>">新着順</a> <a href="<{$category.sort_recommend_url}>">おすすめ順</a> <a href="<{$category.sort_manufacturer_url}>">単価順</a> <a href="<{$category.sort_low_price_url}>">価格</a> <a href="<{$category.sort_name_url}>">商品名</a></div>
@@ -108,12 +105,14 @@
 </table>
 	<div id="pager">
 		<{if $category.pager.has_item}>
-	  <{if not $category.pager.is_first}><a href="<{$category.pager.first_url}>">最初へ</a> <a href="<{$category.pager.prev_url}>" rel="prev">前へ</a><{/if}>
+	  <{if not $category.pager.is_first}><a href="<{$category.pager.first_url}>">最初へ</a> <a href="<{$category.pager.prev_url}>" rel="prev">&laquo; 前の<{$category.display_count}>件</a><{/if}>
 	  <{section name=p loop=$category.pager.list}>
 	    <{if $category.pager.list[p].is_current_page}><span><{$category.pager.list[p].number}></span>
 	    <{else}><a href="<{$category.pager.list[p].url}>"><{$category.pager.list[p].number}></a><{/if}>
 	  <{/section}>
-	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次へ</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
+	  <{* 🔴 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
+	       「次へ」だと、何件ずつ進むのかが読めません。 *}>
+	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次の<{$category.display_count}>件 &raquo;</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
 	<{/if}>
 	</div>
 
@@ -126,6 +125,8 @@
 
 	<h3>こちらの商品もおすすめです。</h3>
 <div class="section" id="r_recommend_ct">
+	<{$module.category_bottom1}>
+
 	<{if $category.recommend_item.has_item}>
 	<table class="tbl02"><tr>
 	<{section name=rc loop=$category.recommend_item.list}>

@@ -32,6 +32,10 @@ function chunks(html) {
                /* 🔴 16進の実体参照（&#x1F449; など）も戻します。
                 *    10進だけ見ていて、絵文字の行を丸ごと「欠落」と誤検知しました。 */
                .replace(/&#x([0-9a-f]+);/gi, (m, n) => String.fromCodePoint(parseInt(n, 16)))
+               /* 🔴 名前付きの実体参照も戻します。&raquo; を残していたので、
+                *    ページ送りの「次の40件 »」を毎回「欠落」と数えていました。 */
+               .replace(/&raquo;/g, "»").replace(/&laquo;/g, "«")
+               .replace(/&quot;/g, "\"").replace(/&#39;|&apos;/g, "'")
                /* 🔴 波ダッシュは移植で ～(U+FF5E) に揃えています。
                 *    現行は 〜(U+301C) なので、揃えないと同じ文が別物に見えます。 */
                .split("〜").join("～")

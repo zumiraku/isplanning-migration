@@ -23,7 +23,7 @@ const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_module_editor.html";
 const SET = 5;
-const LAST = 13;
+const LAST = 20;
 
 const CM = "document.querySelector('.CodeMirror').CodeMirror";
 const HAS_CM = "(document.querySelector('.CodeMirror') && document.querySelector('.CodeMirror').CodeMirror) ? 1 : 0";
@@ -35,7 +35,14 @@ const WANT = {
   footer: "package/modules/footer.tpl",
   calendar1: "package/modules/calendar1.tpl",
   calendar2: "package/modules/calendar2.tpl",
-  freespace_calendar: "package/modules/freespace_calendar.tpl"
+  freespace_calendar: "package/modules/freespace_calendar.tpl",
+  /* 🔴 カテゴリごとの独自内容。606カテゴリ・112種類を3つに分けています。
+   *    tools/cdp/category-extra.js が作ります。 */
+  category_extra1: "package/modules/category_extra1.tpl",
+  category_extra2: "package/modules/category_extra2.tpl",
+  category_extra3: "package/modules/category_extra3.tpl",
+  category_bottom1: "package/modules/category_bottom1.tpl",
+  category_title1: "package/modules/category_title1.tpl"
 };
 
 const doWrite = process.argv[2] === "write";

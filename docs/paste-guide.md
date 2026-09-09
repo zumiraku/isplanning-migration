@@ -90,7 +90,7 @@
 | ページ種別 | ファイル | 行数 |
 |---|---|---:|
 | トップ | `package/templates/top.tpl` | 277 |
-| 商品カテゴリー | `package/templates/category.tpl` | 161 |
+| 商品カテゴリー | `package/templates/category.tpl` | 162 |
 | 商品詳細 | `package/templates/detail.tpl` | 344 |
 | 商品検索結果 | `package/templates/search.tpl` | 140 |
 | 買い物カゴ | `package/templates/cart.tpl` | 181 |
