@@ -151,9 +151,32 @@ header = r1.html;
 let left = read("design_leftmenu.html");
 left = left.replace(/<!--[\s\S]*?-->/g, "");        // ベーシック特有の注意書きを除去
 left = convert(left);
-/* 営業日カレンダーはタグが無いので、既存のモジュールを呼びます */
-left = left.replace(/\[CALENDAR_DATE\]\s*\[CALENDAR\]/, "<{$module.calendar1}>")
-           .replace(/\[CALENDAR_DATE2\]\s*\[CALENDAR2\]/, "<{$module.calendar2}>");
+/* 🔴 モジュールの中からモジュールは呼べません
+ *
+ *    営業日カレンダーにはタグが無いので、最初は左メニューの中で
+ *    `<{$module.calendar1}>` と書いていました。**展開されません。**
+ *    プレビューを撮って分かりました。
+ *
+ *      <div id="sideCalender">
+ *        <div class="calendar_1"> </div>   ← 空
+ *        <div class="calendar_2"> </div>   ← 空
+ *      </div>
+ *
+ *    モジュール（calendar1）には中身が4,502文字ちゃんと入っていて、
+ *    呼び出しだけが素通りします。**エラーは出ません。**
+ *    ページ種別からモジュールを呼ぶのは効きます（category.tpl の
+ *    `<{$module.freespace_calendar}>` は出ています）。効かないのは
+ *    モジュールの中からの呼び出しだけです。
+ *
+ *    中身をそのまま埋め込みます。カレンダーは毎月手で直すものなので、
+ *    直す先が左メニューになるだけです（モジュールは残しておきます）。 */
+function calendarBody(file) {
+  const raw = fs.readFileSync("package/modules/" + file, "utf8");
+  /* 先頭の注意書き（<{* … *}>）は、埋め込み先で邪魔になるので落とします */
+  return raw.replace(/^<\{\*[\s\S]*?\*\}>\s*/, "").trimEnd();
+}
+left = left.replace(/\[CALENDAR_DATE\]\s*\[CALENDAR\]/, calendarBody("calendar1.tpl"))
+           .replace(/\[CALENDAR_DATE2\]\s*\[CALENDAR2\]/, calendarBody("calendar2.tpl"));
 left = left.replace(/(<div id="M_leftContents">)/, "$1" + String.fromCharCode(10) + '  <button class="l-menu-close" type="button" aria-label="メニューを閉じる">×</button>');
 const r2 = rewrite(left);
 left = r2.html;

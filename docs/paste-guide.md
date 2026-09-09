@@ -40,7 +40,7 @@
 | モジュールID | 管理用名称 | ファイル | 行数 | 中身 |
 |---|---|---|---:|---|
 | `header` | ヘッダー | `package/modules/header.tpl` | 110 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
-| `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` | 149 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
+| `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` | 264 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
 | `footer` | フッター | `package/modules/footer.tpl` | 188 | コラム・各種ご案内・会社情報 |
 | `calendar1` | 営業日カレンダー（今月） | `package/modules/calendar1.tpl` | 74 | 営業日カレンダー（今月） |
 | `calendar2` | 営業日カレンダー（翌月） | `package/modules/calendar2.tpl` | 69 | 営業日カレンダー（翌月） |

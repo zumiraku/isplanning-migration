@@ -87,7 +87,36 @@ body = body.slice(0, addStart) + ADD_IMG + body.slice(addEnd);
 body = body.replace("[DETAIL_EXT]", "");
 body = body.replace("[DETAIL]<!-- 商品詳細説明 -->", "<{$item.description}>");
 /* 🔴 description2 は description と完全一致するので出しません。 */
-body = body.replace("[ITEMCAPTION_2]<!-- 追加画像説明文2 -->", "<{$item.description3}>");
+/* 🔴 [ITEMCAPTION_2] / [ITEMCAPTION_3] は「追加商品画像の説明文」でした
+ *
+ *    元テンプレートのコメントのとおりです（追加画像説明文2／3）。
+ *    クリエイターモードでは `$item.add_image.list[i].description` に
+ *    当たりますが、**画像が登録されている商品でしか取り出せません。**
+ *    この店舗は画像を入れずに説明文だけ使っています。
+ *
+ *      $item.add_image.has_item      なし
+ *      $item.add_image.list          空
+ *
+ *    実データで確かめました（003001000005）。商品詳細のタグ123個を
+ *    すべて出させて調べ、この2つの中身を返すものは**1つもありません**でした。
+ *
+ *      $item.description    707文字  品番・品名の説明文
+ *      $item.description2     0文字
+ *      $item.description3   706文字  ← description と同じ中身
+ *      $item.description4     0文字
+ *
+ *    description3 を当てていたので、**同じ説明文が2回出ていました。**
+ *    山口様のご指摘そのものです。
+ *
+ *    description2 / description4 に切り替えます。いまは空なので
+ *    **何も出ません（重複は消えます）。** 商品CSVで
+ *    「追加画像説明文2/3 → 商品説明2/4」を移していただければ、
+ *    テンプレートを触らずにそのまま出るようになります。
+ *
+ *    ⚠️ 現行サイトでは、この2枠に販売単位の表と名入れ料金の表が出ています。
+ *       保存した8商品すべてに中身がありました。**移行後は空になります。**
+ *       docs/client-defects-2026-09-08.md に書いてあります。 */
+body = body.replace("[ITEMCAPTION_2]<!-- 追加画像説明文2 -->", "<{$item.description2}>");
 body = body.replace("[ITEMCAPTION_3]<!-- 追加画像説明文3 -->", "<{$item.description4}>");
 
 /* --- 価格・数量・特殊表示 -------------------------------------------------- */

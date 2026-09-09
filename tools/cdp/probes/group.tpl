@@ -1,0 +1,20 @@
+<div class="ZQ">
+ZQg_nameSTART<{$item.group.name}>ZQg_nameEND
+ZQg_codeSTART<{$item.group.code}>ZQg_codeEND
+ZQg_descSTART<{$item.group.description}>ZQg_descEND
+ZQg_contentSTART<{$item.group.content}>ZQg_contentEND
+ZQg_htmlSTART<{$item.group.html}>ZQg_htmlEND
+ZQg_textSTART<{$item.group.text}>ZQg_textEND
+ZQg_titleSTART<{$item.group.title}>ZQg_titleEND
+ZQg_urlSTART<{$item.group.url}>ZQg_urlEND
+ZQmodgroupSTART<{$module.group}>ZQmodgroupEND
+ZQnp_descSTART<{$item.name_print.description}>ZQnp_descEND
+ZQnp_nameSTART<{$item.name_print.name}>ZQnp_nameEND
+ZQnp_htmlSTART<{$item.name_print.html}>ZQnp_htmlEND
+ZQnp_priceSTART<{$item.name_print.price}>ZQnp_priceEND
+ZQcaption2START<{$item.caption2}>ZQcaption2END
+ZQcaption3START<{$item.caption3}>ZQcaption3END
+ZQaddcodeSTART<{$item.addcode}>ZQaddcodeEND
+ZQdetail2START<{$item.detail2}>ZQdetail2END
+ZQdetail3START<{$item.detail3}>ZQdetail3END
+</div>

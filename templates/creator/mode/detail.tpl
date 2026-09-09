@@ -85,7 +85,7 @@
 		<div class="Item_detail_txt">
 			<{$item.description}>		
 			
-		<div id="Item_detail_caption2"><{$item.description3}></div>		
+		<div id="Item_detail_caption2"><{$item.description2}></div>		
 		
 		</div>
 

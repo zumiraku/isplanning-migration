@@ -39,7 +39,15 @@ function chunks(html) {
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<[^>]*>/g, "\n");
   return body.split("\n")
-    .map(s => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/\s+/g, " ").trim())
+    /* 🔴 数値参照も戻します
+     *
+     *    現行のページは 〜 を `&#12316;`、© を `&#169;` と書いています。
+     *    プレビューはブラウザから取るので、そこは文字になっています。
+     *    戻さないと、**同じ文なのに「移植版に無い」**と出ます。
+     *    会社概要・特商法・ご利用案内で2件ずつ、これで出ていました。 */
+    .map(s => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<")
+               .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)))
+               .replace(/\s+/g, " ").trim())
     .filter(s => s.length >= 8);
 }
 
