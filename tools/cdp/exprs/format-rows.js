@@ -1,0 +1,1 @@
+(function(){var out=[];Array.from(document.querySelectorAll("input[type=checkbox]")).forEach(function(cb,i){var box=cb;for(var k=0;k<7&&box.parentElement;k++){box=box.parentElement;var t=(box.innerText||"").replace(/s+/g," ").trim();if(t&&t.replace("表示","").trim().length>1){out.push(i+" | "+t.slice(0,40));break;}}});return out.slice(0,110);})()

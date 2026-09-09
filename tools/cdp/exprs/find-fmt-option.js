@@ -1,0 +1,1 @@
+(function(){var hits=[];Array.from(document.querySelectorAll("*")).forEach(function(e){if(e.children.length>1)return;var t=(e.innerText||"").replace(/s+/g," ").trim();if(t.indexOf("移行用")>=0)hits.push(e.tagName+" ."+String(e.className||"").slice(0,30)+" : "+t.slice(0,40));});return hits.slice(0,10);})()

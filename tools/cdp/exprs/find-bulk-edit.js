@@ -1,0 +1,1 @@
+(function(){var out=[];Array.from(document.querySelectorAll("a")).forEach(function(a){var t=(a.innerText||"").replace(/s+/g," ").trim();if(/商品一括修正|商品一括登録|複数商品画像/.test(t))out.push(t.slice(0,30)+"  ->  "+a.getAttribute("href"));});return out;})()

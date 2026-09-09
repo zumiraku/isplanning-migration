@@ -1,0 +1,1 @@
+(function(){var b=Array.from(document.querySelectorAll("button")).filter(function(x){return (x.innerText||"").replace(/s+/g,"")==="登録";}).pop();if(!b)return "(登録ボタンがありません)";b.click();return "clicked";})()

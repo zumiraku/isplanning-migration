@@ -1,0 +1,1 @@
+(function(){var t=(document.body.innerText||"").replace(/s+/g," ");var d=document.forms.download_form, m=document.forms.formMain;function f(x){return x?Array.from(x.elements).map(function(e){return e.name+"/"+(e.type||e.tagName)+"="+String(e.value||"").slice(0,30);}):[];}return {text:t.slice(0,1800), download:f(d), main:f(m)};})()
