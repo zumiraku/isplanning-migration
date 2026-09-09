@@ -1,19 +1,9 @@
 <{* ==========================================================================
-     文書の頭 — すべてのページ種別で共通
-     各ページのHTML欄は「完全なHTML文書」です。本文の断片ではありません。
+     プライバシー — ベーシックモードからの移植
 
-     🔴 $makeshop.head / $makeshop.body_top / $makeshop.body_bottom は必須。
-        リファレンスに「必ず記載」と書かれており、これが無いと
-        プラットフォームが差し込んでいるものが一切読み込まれません。
-        この店舗の場合、具体的には次が消えます。
-
-          - Googleアナリティクス（G-BK1PPN5MEV）
-          - u-komi のレビュー読み込みスクリプト
-          - かご投入などプラットフォーム側の挙動
-
-        C32 で「GA4はプラットフォーム側から出ているので移行で消えない」と
-        書いたのは正しいのですが、それは**このタグを書いていれば**の話です。
-        書き忘れれば、壊れようがないと思っていたものが壊れます。
+     生成物です。直すときは tools/port/build-pages.js を直してください。
+     マークアップは design_（現行の文面）.txt のままで、タグとURLだけ
+     置き換えています。class も id も並び順も変えていません。
    ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
@@ -28,37 +18,31 @@
 <meta property="og:description" content="<{$page.description}>">
 <meta property="og:site_name" content="<{$shop.name}>">
 <link rel="icon" href="<{$shop.favicon_url}>">
+<meta name="googlebot" content="NOODP">
+<meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
+<meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
+<meta name="google-site-verification" content="LvZm_KlYvKyFf9HCkCnvyRUTHeNFcweS7S6_I1qJ9pw">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">
 <link rel="stylesheet" href="<{$page.css}>">
 <{$makeshop.head}>
 </head>
 <body>
 <{$makeshop.body_top}>
 <{$module.header}>
-<main class="container">
-<{* ==========================================================================
-     ãã©ã¤ãã·ã¼ããªã·ã¼ â Creator Modeï¼æ¬æé¨åï¼
 
-     ð´ GENERATED â ç´æ¥ç·¨éããªãã§ãã ããã
-        tools/build-privacy-body.sh ã templates/basic-export/privacy.html
-        ããçæãã¾ããæè¨ã¯ç¾è¡ãµã¤ãã®ã¾ã¾ã§ãä¸å­ãå¤ãã¦ãã¾ããã
+<div id="wrapper">
+  <div id="O_container">
+    <{$module.leftmenu}>
+    <div class="M_mainContents">
 
-     ããã«ã¯ä»¥åãæ¬æã®ä»£ããã«èª¿æ»ä¸­ã®ã¡ã¢ãå¥ã£ã¦ãã¾ãããã³ã¡ã³ãã§ã¯
-     ãªãæ¬æã ã£ãã®ã§ã**ãã®ã¾ã¾ãå®¢æ§ã«è¡¨ç¤ºããã¾ãã** åäººæå ±ã®
-     åãæ±ããæ¸ããã¼ã¸ã«ããã¡ãã®ã¡ã¢ãåºã¦ããç¶æã§ããã
-
-     æ¬æãç¡ãã£ãçç±:
-       ãã®ãã¼ã¸ã¯ããã¿ã¼ã® JavaScript ããéããããã¢ããã§ãéå¸¸ã®
-       ãªã³ã¯ãããã¾ããããµã¤ããããã«ãã¯ã­ã¼ã«çµæã«ãç¾ãããç¬èª
-       ãã¼ã¸82ä»¶ã«ãå«ã¾ããªããããèª¿æ»ããä¸¸ãã¨æ¼ãã¦ãã¾ããã
-       å®ä½ã¯ /html/privacy.htmlãEUC-JP ã®ã·ã¹ãã ãã¼ã¸ã§ãã
-
-     åã®è¦ãç®ã¯ 590Ã500 ã®ãããã¢ããã§ããããããã§ã¯éå¸¸ã®ãã¼ã¸ã¨
-     ãã¦åºãã¾ããã¹ããã§ãããã¢ããã¯éãã¾ããã
-   ========================================================================== *}>
-
+<div id="O_adminPagearea" class="company">
+	<h2>個人情報保護ポリシー</h2>
+	<{* 🔴 このページ種別だけリファレンスにタグがありません。
+	     現行サイトの文面をそのまま使っています。 *}>
 <h1 class="h-page">ãã©ã¤ãã·ã¼ããªã·ã¼</h1>
 
 <div class="article">
@@ -123,7 +107,11 @@
      アドレスまで電子メールでお問い合わせください。</p>
   <p>個人情報管理担当 : 山口裕二 (isp@isp-sp.com)</p>
 </div>
-</main>
+</div>
+
+    </div><!-- /.M_mainContents -->
+  </div><!-- /#O_container -->
+</div><!-- /#wrapper -->
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

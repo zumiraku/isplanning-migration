@@ -1,19 +1,9 @@
 <{* ==========================================================================
-     文書の頭 — すべてのページ種別で共通
-     各ページのHTML欄は「完全なHTML文書」です。本文の断片ではありません。
+     お知らせ一覧 — ベーシックモードからの移植
 
-     🔴 $makeshop.head / $makeshop.body_top / $makeshop.body_bottom は必須。
-        リファレンスに「必ず記載」と書かれており、これが無いと
-        プラットフォームが差し込んでいるものが一切読み込まれません。
-        この店舗の場合、具体的には次が消えます。
-
-          - Googleアナリティクス（G-BK1PPN5MEV）
-          - u-komi のレビュー読み込みスクリプト
-          - かご投入などプラットフォーム側の挙動
-
-        C32 で「GA4はプラットフォーム側から出ているので移行で消えない」と
-        書いたのは正しいのですが、それは**このタグを書いていれば**の話です。
-        書き忘れれば、壊れようがないと思っていたものが壊れます。
+     生成物です。直すときは tools/port/build-pages.js を直してください。
+     マークアップは design_（タグのみ）.txt のままで、タグとURLだけ
+     置き換えています。class も id も並び順も変えていません。
    ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
@@ -28,82 +18,57 @@
 <meta property="og:description" content="<{$page.description}>">
 <meta property="og:site_name" content="<{$shop.name}>">
 <link rel="icon" href="<{$shop.favicon_url}>">
+<meta name="googlebot" content="NOODP">
+<meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
+<meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
+<meta name="google-site-verification" content="LvZm_KlYvKyFf9HCkCnvyRUTHeNFcweS7S6_I1qJ9pw">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">
 <link rel="stylesheet" href="<{$page.css}>">
 <{$makeshop.head}>
 </head>
 <body>
 <{$makeshop.body_top}>
 <{$module.header}>
-<main class="container">
-<{* ==========================================================================
-     お知らせ一覧 — Creator Mode（本文部分）
 
-     100記事、2013年から。年7件ほどのペースで2026年も更新されており、
-     53件がカタログ案内、1件あたり平均250文字。「中身が薄い」ページ群では
-     ありません（news-plan.md）。
+<div id="wrapper">
+  <div id="O_container">
+    <{$module.leftmenu}>
+    <div class="M_mainContents">
 
-     🔴 URLが変わります。/new/index.html?mode=list → /view/news/list、
-        個別記事は /view/news/yymmddhhmmss。日時形式なので旧URLから
-        導出できず、URL一括設定の対象外です（C33）。13年分の被リンクを
-        持つ100URLについて、まだ打ち手がありません。
+<div id="O_adminPagearea" class="company">
+	<h2>お知らせ一覧</h2>
+	<{if $news.has_item}>
+	<ul class="infoList">
+	<{section name=n loop=$news.list}>
+		<li>
+			<span class="infodate">[<{$news.list[n].date.year}>/<{$news.list[n].date.month}>/<{$news.list[n].date.day}>]</span>
+			<a class="infoa" href="<{$news.list[n].url}>"><{$news.list[n].title}></a>
+		</li>
+	<{/section}>
+	</ul>
 
-     ページャーは $news.pager が構造体で返ります。
+	<div class="M_pager">
+	<{if $news.pager.has_item}>
+	  <{if not $news.pager.is_first}><a href="<{$news.pager.first_url}>">最初へ</a> <a href="<{$news.pager.prev_url}>" rel="prev">前へ</a><{/if}>
+	  <{section name=p loop=$news.pager.list}>
+	    <{if $news.pager.list[p].is_current_page}><span><{$news.pager.list[p].number}></span>
+	    <{else}><a href="<{$news.pager.list[p].url}>"><{$news.pager.list[p].number}></a><{/if}>
+	  <{/section}>
+	  <{if not $news.pager.is_last}><a href="<{$news.pager.next_url}>" rel="next">次へ</a> <a href="<{$news.pager.last_url}>">最後へ</a><{/if}>
+	<{/if}>
+	</div>
+	<{else}>
+	<p>お知らせはまだありません。</p>
+	<{/if}>
+</div>
 
-     🔴 ここには「カテゴリ側の $category.pager はHTMLがそのまま返るので
-        扱いが違う」と書いてありました。**確かめずに書いた一文でした。**
-        $category.pager も同じ構造体で、カテゴリ側はそれを値として出して
-        いたため607ページに「Array」と表示されていました。いまは3つとも
-        同じ書き方に揃えてあります。
-   ========================================================================== *}>
-
-<h1 class="h-page">お知らせ</h1>
-
-<{if $news.has_item}>
-
-  <p class="listbar__count">全 <b><{$news.total_count}></b> 件</p>
-
-  <ul class="newslist">
-    <{section name=i loop=$news.list}>
-      <li>
-        <a href="<{$news.list[i].url}>">
-          <time class="newsmeta"><{$news.list[i].date.year}>.<{$news.list[i].date.month}>.<{$news.list[i].date.day}></time>
-          <span class="card__name"><{$news.list[i].title}></span>
-        </a>
-      </li>
-    <{/section}>
-  </ul>
-
-  <{* ページャー。数字だけでなく前後のリンクも出します。100記事あるので
-       「次へ」が無いと読み進められません。 *}>
-  <nav class="pager" aria-label="ページ送り">
-    <{if $news.pager.is_first}>
-    <{else}>
-      <a href="<{$news.pager.first_url}>">最初へ</a>
-      <a href="<{$news.pager.prev_url}>">前へ</a>
-    <{/if}>
-
-    <{section name=p loop=$news.pager.list}>
-      <{if $news.pager.list[p].is_current_page}>
-        <span aria-current="page"><{$news.pager.list[p].number}></span>
-      <{else}>
-        <a href="<{$news.pager.list[p].url}>"><{$news.pager.list[p].number}></a>
-      <{/if}>
-    <{/section}>
-
-    <{if $news.pager.is_last}>
-    <{else}>
-      <a href="<{$news.pager.next_url}>">次へ</a>
-      <a href="<{$news.pager.last_url}>">最後へ</a>
-    <{/if}>
-  </nav>
-
-<{else}>
-  <p class="notice">現在お知らせはございません。</p>
-<{/if}>
-</main>
+    </div><!-- /.M_mainContents -->
+  </div><!-- /#O_container -->
+</div><!-- /#wrapper -->
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

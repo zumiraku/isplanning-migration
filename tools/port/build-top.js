@@ -71,7 +71,7 @@ const r = rewrite(body);
 body = r.html;
 
 const out = shell({ name: "トップ", from: "mainpage", slider: true, body: body.trim() });
-fs.writeFileSync("templates/creator/mode/top-body.tpl", out);
+fs.writeFileSync("templates/creator/mode/top.tpl", out);
 
 console.log("トップ: " + out.split("\n").length + " 行");
 console.log("  URL書換 " + r.rewritten + " 本 / 未対応 " + r.missing.length + (r.missing.length ? " " + r.missing.join(" ") : ""));

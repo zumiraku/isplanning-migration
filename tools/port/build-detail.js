@@ -57,11 +57,11 @@ body = body.replace("[BRANDNAME]", "<{$item.name}>");
 
 /* --- 画像 ------------------------------------------------------------------ */
 const MAIN_IMG = [
-  '<a href="<{$item.image_L}>" class="js-zoom" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>',
+  '<a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>',
   '\t\t\t<{if $item.multi_image.has_item}>',
   '\t\t\t<div class="M_imageThumbnail">',
   '\t\t\t  <{section name=m loop=$item.multi_image.list}>',
-  '\t\t\t  <div class="M_imageThumbnail-item"><a href="<{$item.multi_image.list[m].image_L}>" class="js-zoom" data-zoom><img src="<{$item.multi_image.list[m].image_S}>" alt="" border="0"></a></div>',
+  '\t\t\t  <div class="M_imageThumbnail-item"><a href="<{$item.multi_image.list[m].image_L}>" data-zoom><img src="<{$item.multi_image.list[m].image_S}>" alt="" border="0"></a></div>',
   '\t\t\t  <{/section}>',
   '\t\t\t</div>',
   '\t\t\t<{/if}>'
@@ -77,7 +77,7 @@ if (addStart < 0) { console.error("追加画像の範囲が取れません"); pr
 const ADD_IMG = [
   '<{if $item.add_image.has_item}>',
   '\t\t\t<{section name=a loop=$item.add_image.list}>',
-  '\t\t\t<div><a href="<{$item.add_image.list[a].image_url}>" class="js-zoom" data-zoom><img src="<{$item.add_image.list[a].image_url}>" alt="" border="0"></a></div>',
+  '\t\t\t<div><a href="<{$item.add_image.list[a].image_url}>" data-zoom><img src="<{$item.add_image.list[a].image_url}>" alt="" border="0"></a></div>',
   '\t\t\t<{/section}>',
   '\t\t\t<{/if}>'
 ].join("\n");

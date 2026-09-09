@@ -161,7 +161,7 @@ const r = rewrite(body);
 body = r.html;
 
 const out = shell({ name: "買い物カゴ", from: "basketpage", slider: false, body: body.trim() });
-fs.writeFileSync("templates/creator/mode/cart-body.tpl", out);
+fs.writeFileSync("templates/creator/mode/cart.tpl", out);
 
 console.log("買い物かご: " + out.split("\n").length + " 行");
 console.log("  URL書換 " + r.rewritten + " 本 / 未対応 " + r.missing.length + (r.missing.length ? " " + r.missing.join(" ") : ""));

@@ -59,11 +59,11 @@
 	<div class="O_itemDetailTop">	
 		<div id="O_itemDetailL">
 		<div id="itemImg">
-            <a href="<{$item.image_L}>" class="js-zoom" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>
+            <a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>
 			<{if $item.multi_image.has_item}>
 			<div class="M_imageThumbnail">
 			  <{section name=m loop=$item.multi_image.list}>
-			  <div class="M_imageThumbnail-item"><a href="<{$item.multi_image.list[m].image_L}>" class="js-zoom" data-zoom><img src="<{$item.multi_image.list[m].image_S}>" alt="" border="0"></a></div>
+			  <div class="M_imageThumbnail-item"><a href="<{$item.multi_image.list[m].image_L}>" data-zoom><img src="<{$item.multi_image.list[m].image_S}>" alt="" border="0"></a></div>
 			  <{/section}>
 			</div>
 			<{/if}>
@@ -72,7 +72,7 @@
 		<div id="Other_img">
 			<{if $item.add_image.has_item}>
 			<{section name=a loop=$item.add_image.list}>
-			<div><a href="<{$item.add_image.list[a].image_url}>" class="js-zoom" data-zoom><img src="<{$item.add_image.list[a].image_url}>" alt="" border="0"></a></div>
+			<div><a href="<{$item.add_image.list[a].image_url}>" data-zoom><img src="<{$item.add_image.list[a].image_url}>" alt="" border="0"></a></div>
 			<{/section}>
 			<{/if}><!-- 商品追加画像3 -->
 		</div>

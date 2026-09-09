@@ -1,19 +1,9 @@
 <{* ==========================================================================
-     文書の頭 — すべてのページ種別で共通
-     各ページのHTML欄は「完全なHTML文書」です。本文の断片ではありません。
+     お知らせ詳細 — ベーシックモードからの移植
 
-     🔴 $makeshop.head / $makeshop.body_top / $makeshop.body_bottom は必須。
-        リファレンスに「必ず記載」と書かれており、これが無いと
-        プラットフォームが差し込んでいるものが一切読み込まれません。
-        この店舗の場合、具体的には次が消えます。
-
-          - Googleアナリティクス（G-BK1PPN5MEV）
-          - u-komi のレビュー読み込みスクリプト
-          - かご投入などプラットフォーム側の挙動
-
-        C32 で「GA4はプラットフォーム側から出ているので移行で消えない」と
-        書いたのは正しいのですが、それは**このタグを書いていれば**の話です。
-        書き忘れれば、壊れようがないと思っていたものが壊れます。
+     生成物です。直すときは tools/port/build-pages.js を直してください。
+     マークアップは design_（タグのみ）.txt のままで、タグとURLだけ
+     置き換えています。class も id も並び順も変えていません。
    ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
@@ -28,53 +18,42 @@
 <meta property="og:description" content="<{$page.description}>">
 <meta property="og:site_name" content="<{$shop.name}>">
 <link rel="icon" href="<{$shop.favicon_url}>">
+<meta name="googlebot" content="NOODP">
+<meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
+<meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
+<meta name="google-site-verification" content="LvZm_KlYvKyFf9HCkCnvyRUTHeNFcweS7S6_I1qJ9pw">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">
 <link rel="stylesheet" href="<{$page.css}>">
 <{$makeshop.head}>
 </head>
 <body>
 <{$makeshop.body_top}>
 <{$module.header}>
-<main class="container">
-<{* ==========================================================================
-     お知らせ詳細 — Creator Mode（本文部分）
 
-     本文は $news.content にHTMLとして入っているので、そのまま出します。
-     ベーシックモード時代の96件で、検索結果に出る説明文にHTMLタグが
-     そのまま混ざっていました。テンプレート側でタグを剥がす処理を入れると
-     本文まで壊れるので、descriptionは $page.description に任せます。
-   ========================================================================== *}>
+<div id="wrapper">
+  <div id="O_container">
+    <{$module.leftmenu}>
+    <div class="M_mainContents">
 
-<nav class="breadcrumb" aria-label="現在位置">
-  <ol>
-    <li><a href="<{$url.top}>">ホーム</a></li>
-    <li><a href="<{$url.news}>">お知らせ</a></li>
-    <li><span aria-current="page"><{$news.title}></span></li>
-  </ol>
-</nav>
+<div id="O_adminPagearea" class="company">
+	<p class="M_topicPath"><a href="<{$url.top}>">ホーム</a> &nbsp;&gt; <a href="<{$url.news}>">お知らせ</a></p>
+	<h2><{$news.title}></h2>
+	<p class="infodate"><{$news.date.year}>年<{$news.date.month}>月<{$news.date.day}>日</p>
+	<div class="article"><{$news.content}></div>
+	<p class="M_pager">
+		<{if $news.prev_url}><a href="<{$news.prev_url}>" rel="prev">前のお知らせ</a><{/if}>
+		<a href="<{$url.news}>">お知らせ一覧</a>
+		<{if $news.next_url}><a href="<{$news.next_url}>" rel="next">次のお知らせ</a><{/if}>
+	</p>
+</div>
 
-<article class="article">
-  <time class="newsmeta"><{$news.date.year}>年<{$news.date.month}>月<{$news.date.day}>日</time>
-  <h1 class="h-page"><{$news.title}></h1>
-  <{$news.content}>
-</article>
-
-<nav class="newsnav" aria-label="前後のお知らせ">
-  <{if $news.prev_url}>
-    <a class="newsnav__prev" href="<{$news.prev_url}>"><small>前のお知らせ</small></a>
-  <{/if}>
-  <a class="btn btn--ghost" href="<{$url.news}>">お知らせ一覧へ</a>
-  <{if $news.next_url}>
-    <a class="newsnav__next" href="<{$news.next_url}>"><small>次のお知らせ</small></a>
-  <{/if}>
-</nav>
-
-<p class="u-center" style="margin-top:var(--s-10)">
-  <a class="btn btn--primary" href="<{$url.top}>">粗品・景品をさがす</a>
-</p>
-</main>
+    </div><!-- /.M_mainContents -->
+  </div><!-- /#O_container -->
+</div><!-- /#wrapper -->
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

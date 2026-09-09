@@ -377,3 +377,24 @@ $recommend_item.list.icon.list.image_url	assumed	同上
 $recently_item.list.icon.has_item	assumed	同上（最近チェックした商品）。外れてもアイコンが出ないだけ
 $recently_item.list.icon.list	assumed	同上
 $recently_item.list.icon.list.image_url	assumed	同上
+$company.image_url	confirmed	reference company/index.html（tools/fetch-reference.sh で取得）
+$company.content	confirmed	reference company/index.html（tools/fetch-reference.sh で取得）
+$contract.dealer	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.manager	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.address	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.tel	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.mail	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.other_charge	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.expire_app	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.defective	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.amount	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.receive_date	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.pay_method	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.expire_pay	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.expire_return	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$contract.return_charge	confirmed	reference contract/index.html（tools/fetch-reference.sh で取得）
+$guide.order	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
+$guide.payment	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
+$guide.delivery	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
+$guide.tax	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
+$guide.return	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
