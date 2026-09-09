@@ -39,6 +39,7 @@ run "platform hooks are wired to href, not submit"  sh tools/check-platform-hook
 run "all-pages.css is rebuilt from its sources"   sh tools/check-css-fresh.sh
 run "all-pages.js is rebuilt from its sources"    sh tools/check-js-fresh.sh
 run "package/templates is rebuilt too"            sh tools/check-templates-fresh.sh
+run "the paste guide counts match the files"      node tools/port/sync-paste-guide.js --check
 run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "CSS and templates line up"                   sh tools/check-css-coverage.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh

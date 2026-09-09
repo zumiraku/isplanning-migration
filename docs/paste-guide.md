@@ -35,9 +35,9 @@
 
 | 管理用名称 | ファイル | 行数 | 中身 |
 |---|---|---:|---|
-| `header` | `package/modules/header.tpl` | 88 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
+| `header` | `package/modules/header.tpl` | 110 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
 | `leftmenu` | `package/modules/leftmenu.tpl` | 149 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
-| `footer` | `package/modules/footer.tpl` | 185 | コラム・各種ご案内・会社情報 |
+| `footer` | `package/modules/footer.tpl` | 188 | コラム・各種ご案内・会社情報 |
 | `calendar1` | `package/modules/calendar1.tpl` | 74 | 営業日カレンダー（今月） |
 | `calendar2` | `package/modules/calendar2.tpl` | 69 | 営業日カレンダー（翌月） |
 | `freespace_calendar` | `package/modules/freespace_calendar.tpl` | 247 | 卓上カレンダーのカテゴリ（ct646）の説明と休業日 |
@@ -50,7 +50,7 @@
 
 | 箱 | ファイル | 行数 | 大きさ |
 |---|---|---:|---:|
-| CSS | `package/paste/all-pages.css` | 8,851 | 177KB |
+| CSS | `package/paste/all-pages.css` | 9,023 | 185KB |
 | JavaScript | `package/paste/all-pages.js` | 266 | 12KB |
 
 どちらも **箱の中で Ctrl+A → Ctrl+V** で丸ごと置き換えます。
@@ -60,7 +60,7 @@
 ではありません。
 
 **🔴 CSSが入りきらない可能性があります。**
-以前の箱は110KBで、今回は177KBです。**入るかどうかは貼ってみないと
+以前の箱は110KBで、今回は185KBです。**入るかどうかは貼ってみないと
 分かりません。** エラーが出たら教えてください。その場合は、CSSをストレージに
 置いて読み込む形に切り替えます（いま `gigaplus` の `default.css` を読んでいる
 のと同じやり方です）。
@@ -77,17 +77,17 @@
 
 | ページ種別 | ファイル | 行数 |
 |---|---|---:|
-| トップ | `package/templates/top.tpl` | 267 |
-| 商品カテゴリー | `package/templates/category.tpl` | 151 |
-| 商品詳細 | `package/templates/detail.tpl` | 334 |
-| 商品検索結果 | `package/templates/search.tpl` | 130 |
-| 買い物カゴ | `package/templates/cart.tpl` | 171 |
-| お知らせ一覧 | `package/templates/news-list.tpl` | 79 |
-| お知らせ詳細 | `package/templates/news-detail.tpl` | 61 |
-| 利用案内 | `package/templates/guide.tpl` | 73 |
-| 会社概要 | `package/templates/company.tpl` | 55 |
-| 特定商取引法 | `package/templates/contract.tpl` | 73 |
-| プライバシーポリシー | `package/templates/policy.tpl` | 119 |
+| トップ | `package/templates/top.tpl` | 277 |
+| 商品カテゴリー | `package/templates/category.tpl` | 161 |
+| 商品詳細 | `package/templates/detail.tpl` | 344 |
+| 商品検索結果 | `package/templates/search.tpl` | 140 |
+| 買い物カゴ | `package/templates/cart.tpl` | 181 |
+| お知らせ一覧 | `package/templates/news-list.tpl` | 89 |
+| お知らせ詳細 | `package/templates/news-detail.tpl` | 71 |
+| 利用案内 | `package/templates/guide.tpl` | 89 |
+| 会社概要 | `package/templates/company.tpl` | 65 |
+| 特定商取引法 | `package/templates/contract.tpl` | 86 |
+| プライバシーポリシー | `package/templates/policy.tpl` | 129 |
 
 **触らないページ種別が4つあります。** 商品レビュー一覧・商品レビュー投稿・
 まとめ買い割引・会員制/年齢確認。この店舗では使っていないので、素の
