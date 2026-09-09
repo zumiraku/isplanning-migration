@@ -52,14 +52,17 @@
 	</ul>
 
 	<div class="M_pager">
-	<{if $news.pager.has_item}>
+	<{* 🔴 $news.pager.has_item はリファレンスにありません。
+	     カテゴリと検索には $…pager.has_item があるのに、news-list だけ
+	     載っていません。無いタグを条件にすると Smarty は黙って偽にするので、
+	     **ページ送りが一度も出なくなります。** section は空配列なら何も
+	     出さないので、囲む必要がありません。 *}>
 	  <{if not $news.pager.is_first}><a href="<{$news.pager.first_url}>">最初へ</a> <a href="<{$news.pager.prev_url}>" rel="prev">前へ</a><{/if}>
 	  <{section name=p loop=$news.pager.list}>
 	    <{if $news.pager.list[p].is_current_page}><span><{$news.pager.list[p].number}></span>
 	    <{else}><a href="<{$news.pager.list[p].url}>"><{$news.pager.list[p].number}></a><{/if}>
 	  <{/section}>
 	  <{if not $news.pager.is_last}><a href="<{$news.pager.next_url}>" rel="next">次へ</a> <a href="<{$news.pager.last_url}>">最後へ</a><{/if}>
-	<{/if}>
 	</div>
 	<{else}>
 	<p>お知らせはまだありません。</p>

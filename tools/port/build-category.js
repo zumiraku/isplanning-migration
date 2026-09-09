@@ -51,6 +51,18 @@ body = body.replace("[GROUP4_0]",
 	<{/if}>`);
 body = body.replace("[CATEGORY_IMAGE]", "<{if $category.image_url}><img src=\"<{$category.image_url}>\" alt=\"<{$category.name}>\"><{/if}>");
 
+/* --- カテゴリー別フリースペース -------------------------------------------
+   🔴 クリエイターにフリースペースのタグがありません
+
+      ベーシックはカテゴリごとの自由なHTMLを、商品一覧の上に自動で
+      差し込んでいました。design_brandpage.txt にはタグすら書かれていません。
+      リファレンスの category セクションにも該当タグはありません。
+
+      中身が入っているのを確認できたのは ct646（卓上カレンダー）だけなので、
+      そこだけモジュールで補います。他のカテゴリでは何も出ません。 */
+body = body.replace('<div class="O_ItemLine">',
+  "<{if $category.code == 'ct646'}><{$module.freespace_calendar}><{/if}>\n\n\t<div class=\"O_ItemLine\">");
+
 /* --- 件数と並び替え。単価順は 製造元順（C37） ------------------------------- */
 body = body.replace("[TOTAL]", "<{$category.total_count}>");
 body = body.replace("href=[NEWSORT]",       'href="<{$category.sort_new_url}>"')

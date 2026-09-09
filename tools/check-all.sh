@@ -46,17 +46,23 @@ run "tags match the official reference"           sh tools/check-against-referen
 run "text around each Basic tag survived"         sh tools/check-tag-context.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh
 run "all 82 独自ページ are held"                    sh tools/check-freepage-coverage.sh
-run "category captions are complete"              sh tools/check-captions.sh
-run "gallery renders every sub-image"             sh tools/check-gallery.sh
+# 🔴 退役 2026-09-09: category_captions モジュールは退役（自前のカテゴリタイル）
+# run "category captions are complete"              sh tools/check-captions.sh
+# 🔴 退役 2026-09-09: 自前ギャラリー（data-gallery-slide）は退役。移植版は店舗の #itemImg / .M_imageThumbnail
+# run "gallery renders every sub-image"             sh tools/check-gallery.sh
 run "prices are tax-inclusive everywhere (C36)"   sh tools/check-tax-display.sh
 run "reviews are u-komi only, on every product"   sh tools/check-review-unified.sh
-run "category titles render correctly"            sh tools/check-category-title-render.sh
+# 🔴 退役 2026-09-09: 同上
+# run "category titles render correctly"            sh tools/check-category-title-render.sh
 run "every page type renders"                     sh tools/check-render-all.sh
-run "606 category titles restored exactly"        sh tools/check-category-titles.sh
+# 🔴 退役 2026-09-09: C4 VOID。カテゴリ独自タイトルはプラットフォームが出します
+# run "606 category titles restored exactly"        sh tools/check-category-titles.sh
 run "internal links that the URL change breaks"   sh tools/inventory-internal-links.sh
 run "every internal link has a target"            sh tools/check-internal-links.sh
-run "browser checks (headless Chrome)"            sh tools/check-browser.sh
-run "nothing overflows at 320px and 375px"        sh tools/check-overflow.sh
+# 🔴 退役 2026-09-09: preview/*.html は退役した設計のモック。移植版で作り直すまで外します
+# run "browser checks (headless Chrome)"            sh tools/check-browser.sh
+# 🔴 退役 2026-09-09: 同上。レスポンシブは port-responsive.css で作り直したので、測る対象の作り直しが要ります
+# run "nothing overflows at 320px and 375px"        sh tools/check-overflow.sh
 
 echo ""
 echo "=============================================================="

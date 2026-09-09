@@ -1,0 +1,20 @@
+class	理由
+M_ShopLogo	ロゴ画像。元サイトでも .M_ShopLogo に指定は無く、.logo-box img で当たっています
+M_categoryImage	カテゴリ画像。同上（#O_categotyBnr img）
+M_cl_img	商品一覧の画像。.M_cl_imgWrap 側に指定があります
+M_displayImg	トップの一覧セル。元サイトでも指定なし。テーブルの td 指定で足ります
+M_innerBox	検索結果のセル。同上
+M_imageThumbnail-item	サムネイル1枚。親の .M_imageThumbnail に指定があります
+boldsa	フッターの会社名。元サイトでも指定なし（address の指定で足ります）
+border	表の属性名と同名のクラス。元テンプレートに書かれていたもので指定は無い
+calendar_1	左メニューのカレンダーの入れ物。#sideCalender と #sideCalender td で当たります
+calendar_2	同上（翌月ぶん）
+clearfix	回り込み解除。元サイトでも指定が無く、実際には効いていませんでした
+detail-cart	カートに入れるボタン。#O_itemDetailBottomR .goCart a で当たります
+f5	フッター見出しの微調整。元サイトでも指定なし
+flogo	フッターのロゴ。親の .flogo-wrap に指定があります
+guide	ご利用案内ページの識別用。こちらが付けたもので、見た目には使いません
+sale	セールの見出し。親の .saleBox に指定があります
+saleRate	割引率。同上
+section	トップの区切り。元サイトでも指定なし（.M_section 側が本体）
+section-inner	同上

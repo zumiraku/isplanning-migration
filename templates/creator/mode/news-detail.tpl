@@ -43,7 +43,7 @@
 	<p class="M_topicPath"><a href="<{$url.top}>">ホーム</a> &nbsp;&gt; <a href="<{$url.news}>">お知らせ</a></p>
 	<h2><{$news.title}></h2>
 	<p class="infodate"><{$news.date.year}>年<{$news.date.month}>月<{$news.date.day}>日</p>
-	<div class="article"><{$news.content}></div>
+	<div><{$news.content}></div>
 	<p class="M_pager">
 		<{if $news.prev_url}><a href="<{$news.prev_url}>" rel="prev">前のお知らせ</a><{/if}>
 		<a href="<{$url.news}>">お知らせ一覧</a>

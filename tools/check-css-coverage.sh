@@ -24,8 +24,28 @@
 set -e
 cd "$(dirname "$0")/.."
 
-CSS=templates/creator/mode/all-pages.css
-[ -f "$CSS" ] || { echo "missing $CSS" >&2; exit 1; }
+# 🔴 読むCSSは1本ではありません
+#
+#    店舗は2本のスタイルシートを読んでいます。
+#
+#      m_sys_common.css   → all-pages.css（こちらの箱に入れる）
+#      gigaplus の default.css → 外部のまま <link> で読む（22KB・393クラス）
+#
+#    2本目を見ていなかったせいで、.mb10 .mt10 .clearfix .ta_c のような
+#    ユーティリティが「CSSに無い」と33件も出ていました。**実際は当たって
+#    いるのに、検査だけが騒いでいる**状態です。これを放っておくと、本物の
+#    欠落が33件の中に埋もれます。
+#
+#    外部ファイルは控えを持ちます（tools/port/fetch-external-css.sh）。
+#    検査のたびに取りに行くと、ネットが無いと落ちるためです。
+CSS_MAIN=templates/creator/mode/all-pages.css
+CSS_EXT=templates/basic-export/external/gigaplus-default.css
+[ -f "$CSS_MAIN" ] || { echo "missing $CSS_MAIN" >&2; exit 1; }
+[ -f "$CSS_EXT" ]  || { echo "missing $CSS_EXT — tools/port/fetch-external-css.sh を回してください" >&2; exit 1; }
+
+CSS="${TMPDIR:-.}/css-coverage-all.css"
+cat "$CSS_MAIN" "$CSS_EXT" > "$CSS"
+trap 'rm -f "$CSS"' EXIT
 
 perl -CS -e '
   use utf8;
@@ -109,9 +129,26 @@ perl -CS -e '
     stack tabs__panel
   );
 
+  # 🔴 「クラス名そのものには指定が無いが、それで正しい」ものの除外表
+  #
+  #    店舗の元CSSは、クラスではなく構造で当てている箇所が多くあります。
+  #    たとえば カートに入れるボタンは .detail-cart ではなく
+  #    #O_itemDetailBottomR .goCart a で当たっています。元サイトでも
+  #    そもそも指定が無いクラス（.clearfix .boldsa .f5 …）もあります。
+  #
+  #    これを毎回18件ずつ報告していると、**本物の欠落がその中に埋もれます。**
+  #    理由を1行ずつ書いて除外します。理由が書けないものは除外しません。
+  my %allow;
+  if (open my $a, "<:encoding(UTF-8)", "inventory/css-coverage-allow.tsv") {
+    <$a>;
+    while (my $l = <$a>) { chomp $l; my ($c) = split /\t/, $l; $allow{$c} = 1 if $c; }
+    close $a;
+  }
+
   my (@missing, @unused, @ancestor_only);
   for my $k (sort keys %used) {
     next if $platform{$k} || $k =~ $platform_re;
+    next if $allow{$k};
     if (!$defined{$k}) { push @missing, $k; next }
     next if $container_only{$k};
     push @ancestor_only, $k unless $subject{$k};
@@ -154,5 +191,12 @@ perl -CS -e '
     print "OK  未使用のクラスなし\n";
   }
 
-  exit((@missing || @ancestor_only) ? 1 : 0);
+  # 🔴 「祖先としてしか書かれていない」は、もう失敗にしません
+  #
+  #    こちらが設計していたころは、.x figure {…} と書いて .x {…} を
+  #    書き忘れる事故を捕まえるための検査でした。移植後の相手は店舗が
+  #    11年かけて育てた 8,479行のCSSで、**構造で当てるのが普通の書き方**です
+  #    （#O_itemDetailBottomR .goCart a のように）。23件が毎回出ると、
+  #    本物の欠落がその中に埋もれます。報告は残して、判定からは外します。
+  exit(@missing ? 1 : 0);
 ' "$CSS" templates/creator/mode/*.tpl package/modules/*.tpl

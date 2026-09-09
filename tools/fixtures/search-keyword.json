@@ -52,7 +52,9 @@
                 "image_url": "/icon/new.gif"
               }
             ]
-          }
+          },
+          "image_S": "/img/1.jpg",
+          "image_L": "/img/1.jpg"
         },
         {
           "name": "商品2",
@@ -71,7 +73,9 @@
                 "image_url": "/icon/new.gif"
               }
             ]
-          }
+          },
+          "image_S": "/img/2.jpg",
+          "image_L": "/img/2.jpg"
         },
         {
           "name": "商品3",
@@ -90,7 +94,9 @@
                 "image_url": "/icon/new.gif"
               }
             ]
-          }
+          },
+          "image_S": "/img/3.jpg",
+          "image_L": "/img/3.jpg"
         }
       ]
     },

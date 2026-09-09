@@ -47,24 +47,24 @@ $category.child_category	confirmed	reference category.html (存在のみ・下�
 $category.recommend_item	confirmed	reference category.html (存在のみ・下位フィールドは未確認)
 $item.multi_image.has_item	confirmed	reference detail/index.html
 $item.is_stock_display	confirmed	reference detail/index.html
-$item.stock_quantity	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$item.stock_quantity	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
 $item.is_soldout	confirmed	reference detail/index.html
 $item.cart_entry_url	confirmed	reference detail/index.html
 $item.favorite_entry_url	confirmed	reference detail/index.html
 $item.caption_1	assumed	ベーシックの [ITEMCAPTION_1] 相当。命名は未確認
-$category.child_category.has_item	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.child_category.list.name	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.child_category.list.url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.recommend_item.has_item	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.recommend_item.list.name	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.recommend_item.list.url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.recommend_item.list.price	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.recommend_item.list.image_M	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.child_category.has_item	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.child_category.list.name	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.child_category.list.url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.recommend_item.has_item	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.recommend_item.list.name	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.recommend_item.list.url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.recommend_item.list.price	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.recommend_item.list.image_M	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
 $category.item.list	confirmed	reference category.html（ループの対象そのもの）
 $category.breadcrumb_list	confirmed	reference category.html（同上）
 $category.breadcrumb_list.list	confirmed	reference category.html（同上）
-$category.child_category.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$category.recommend_item.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.child_category.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$category.recommend_item.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
 $category.item.list.icon.list	confirmed	reference category.html（同上）
 $item.multi_image	confirmed	reference detail.html（同上）
 $item.multi_image.list	confirmed	reference detail.html（同上）
@@ -86,18 +86,18 @@ $search.is_sort_new_selected	confirmed	reference search.html
 $search.is_sort_high_price_selected	confirmed	reference search.html
 $search.is_sort_low_price_selected	confirmed	reference search.html
 $search.is_sort_name_selected	confirmed	reference search.html
-$search.item.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.name	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.price	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.image_M	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.original_code	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.is_soldout	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.cart_entry_url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.icon.has_item	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.icon.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.item.list.icon.list.image_url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$search.pager	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.name	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.price	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.image_M	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.original_code	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.is_soldout	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.cart_entry_url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.icon.has_item	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.icon.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.item.list.icon.list.image_url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$search.pager	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
 $makeshop.head	confirmed	reference common/index.html（head内に必ず記載）
 $makeshop.body_top	confirmed	reference common/index.html（body開始直後に必ず記載）
 $makeshop.body_bottom	confirmed	reference common/index.html（body終了直前に必ず記載）
@@ -216,24 +216,24 @@ $shop.banner.list	confirmed	reference common/index.html
 $shop.banner.list.image_url	confirmed	reference common/index.html
 $shop.banner.list.url	confirmed	reference common/index.html
 $shop.banner.list.target	confirmed	reference common/index.html
-$recommend_item.has_item	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$recommend_item.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$recommend_item.list.name	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$recommend_item.list.url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$recommend_item.list.price	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$recommend_item.list.image_M	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$new_item.has_item	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$new_item.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$new_item.list.name	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$new_item.list.url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$new_item.list.price	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$new_item.list.image_M	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$ranking_item.has_item	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$ranking_item.list	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$ranking_item.list.name	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$ranking_item.list.url	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$ranking_item.list.price	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
-$ranking_item.list.image_M	verified	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$recommend_item.has_item	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$recommend_item.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$recommend_item.list.name	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$recommend_item.list.url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$recommend_item.list.price	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$recommend_item.list.image_M	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$new_item.has_item	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$new_item.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$new_item.list.name	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$new_item.list.url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$new_item.list.price	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$new_item.list.image_M	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$ranking_item.has_item	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$ranking_item.list	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$ranking_item.list.name	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$ranking_item.list.url	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$ranking_item.list.price	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
+$ranking_item.list.image_M	confirmed	実測 2026-09-08。切替中の実ページで出力を確認（保全済みHTML）
 $module.header	confirmed	モジュール管理画面（既存）
 $module.footer	confirmed	モジュール管理画面（既存）
 $module.side_bar	confirmed	モジュール管理画面（既存）
@@ -398,3 +398,4 @@ $guide.payment	confirmed	reference guide/index.html（tools/fetch-reference.sh �
 $guide.delivery	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
 $guide.tax	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
 $guide.return	confirmed	reference guide/index.html（tools/fetch-reference.sh で取得）
+$module.freespace_calendar	confirmed	モジュール管理に登録するもの。ベーシックのカテゴリー別フリースペース（自動挿入）の代わり。クリエイターに該当タグが無いため（ct646 の卓上カレンダー用）

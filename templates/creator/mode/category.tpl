@@ -68,6 +68,8 @@
 <a href="/view/page/page5.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner5.svg" alt="季節で選ぶ"></a>
 <a href="/view/page/page2.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname.svg" alt="包装のし名入れ"></a></div>
 
+	<{if $category.code == 'ct646'}><{$module.freespace_calendar}><{/if}>
+
 	<div class="O_ItemLine">
 	<p class="total">全 <{$category.total_count}> 件</p> <div class="list-link">並び替え：<a href="<{$category.sort_new_url}>">新着順</a> <a href="<{$category.sort_recommend_url}>">おすすめ順</a> <a href="<{$category.sort_manufacturer_url}>">単価順</a> <a href="<{$category.sort_low_price_url}>">価格</a> <a href="<{$category.sort_name_url}>">商品名</a></div>
 	</div>

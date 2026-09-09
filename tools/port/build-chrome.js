@@ -52,8 +52,21 @@ const CART = `<a class="h-cart" href="<{$url.cart}>">買い物かご<span class=
 
 /* 検索。🔴 <form> にしないこと（C44）。system.js は href のクリックだけを
    見ていて、action も submit も参照しません。 */
-const SEARCH = `<input type="text" id="<{$search_form.keyword_id}>" data-id="<{$search_form.keyword_id}>" placeholder="キーワードを入力して検索">
-<a class="searchbox__go" href="<{$search_form.search_url}>" role="button" aria-label="検索"></a>`;
+/* 🔴 id は元のまま、プラットフォーム用は data-id に
+ *
+ *    m_sys_common.css は**プラットフォームが出していたid**で当てています。
+ *
+ *      li#gNav06 input#MakeShopTopSearchInput { … }
+ *      li#gNav06 #MakeShopTopSearchButton { background: … h-search.png … }
+ *
+ *    最初は自前の .searchbox__go を付けていました。そのCSSは旧設計側に
+ *    書いてあって、退役と一緒に消えたので、**検索ボタンが素の文字リンクに
+ *    なっていました。** 新しくCSSを書き足すのではなく、元のidに戻します。
+ *
+ *    プラットフォームが読むのは data-id と href なので、id は見た目のために
+ *    使えます（system.js の getFormValue は [data-id=…] で引いています）。 */
+const SEARCH = `<input type="text" id="MakeShopTopSearchInput" data-id="<{$search_form.keyword_id}>" placeholder="キーワードを入力して検索">
+<a id="MakeShopTopSearchButton" href="<{$search_form.search_url}>" role="button" aria-label="検索"></a>`;
 
 function convert(html) {
   html = html.split("/shop/idinfo.html").join(IDINFO);

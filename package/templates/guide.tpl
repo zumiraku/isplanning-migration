@@ -43,19 +43,19 @@
 	<h2>ご利用案内</h2>
 
 	<h3 id="about_order">商品のご注文方法</h3>
-	<div class="article"><{$guide.order}></div>
+	<div><{$guide.order}></div>
 
 	<h3 id="about_payment">お支払いについて</h3>
-	<div class="article"><{$guide.payment}></div>
+	<div><{$guide.payment}></div>
 
 	<h3 id="about_delivaly">配送について</h3>
-	<div class="article"><{$guide.delivery}></div>
+	<div><{$guide.delivery}></div>
 
 	<h3 id="about_tax">消費税について</h3>
-	<div class="article"><{$guide.tax}></div>
+	<div><{$guide.tax}></div>
 
 	<h3 id="about_return">返品について</h3>
-	<div class="article"><{$guide.return}></div>
+	<div><{$guide.return}></div>
 
 	<{* 🔴 id は現行サイトのアンカーに合わせてあります。
 	     フッターや商品ページから /view/guide#about_payment のように

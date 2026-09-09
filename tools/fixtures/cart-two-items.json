@@ -34,7 +34,9 @@
               "value": "青"
             }
           ]
-        }
+        },
+        "image_S": "/img/a.jpg",
+        "image_L": "/img/a.jpg"
       },
       {
         "name": "ご縁に感謝 ハンディモップ",
@@ -54,7 +56,9 @@
         "selected_option": {
           "has_item": false,
           "list": []
-        }
+        },
+        "image_S": "/img/b.jpg",
+        "image_L": "/img/b.jpg"
       }
     ],
     "bulk": {
@@ -74,7 +78,9 @@
         "name": "見たことのある商品",
         "url": "/view/item/1",
         "image_M": "/img/c.jpg",
-        "price": 1000
+        "price": 1000,
+        "image_S": "/img/c.jpg",
+        "image_L": "/img/c.jpg"
       }
     ]
   },

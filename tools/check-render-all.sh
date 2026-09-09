@@ -35,7 +35,26 @@ fail=0
 check() {
   tpl="$1"; fx="$2"; want_marker="$3"; want_min="$4"
   o="$OUT/$(basename "$tpl").html"
-  if ! node tools/render-smarty.js "templates/creator/mode/$tpl" "tools/fixtures/$fx" > "$o" 2>"$o.err"; then
+  # 🔴 共通部品の値を足してから描画します
+  #
+  #    ページごとの fixture には $url.* も $shop.* も入っていません。
+  #    そのまま描くと、どのページでも 空href 3件・空src 1件 が出ます
+  #    （ヘッダーのロゴとホームへのリンク）。**テンプレートの不具合と
+  #    区別がつかなくなる**ので、_common.json を重ねます。
+  merged="$o.fixture.json"
+  node -e '
+    const fs = require("fs");
+    const base = JSON.parse(fs.readFileSync("tools/fixtures/_common.json", "utf8"));
+    const page = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+    for (const k of Object.keys(page)) {
+      base[k] = (base[k] && typeof base[k] === "object" && !Array.isArray(base[k]) &&
+                 page[k] && typeof page[k] === "object" && !Array.isArray(page[k]))
+        ? Object.assign({}, base[k], page[k]) : page[k];
+    }
+    fs.writeFileSync(process.argv[2], JSON.stringify(base));
+  ' "tools/fixtures/$fx" "$merged"
+
+  if ! node tools/render-smarty.js "templates/creator/mode/$tpl" "$merged" > "$o" 2>"$o.err"; then
     printf "  NG  %-24s 描画できません: %s\n" "$tpl" "$(head -1 "$o.err")"
     fail=1; return
   fi
@@ -57,24 +76,32 @@ check() {
 
 echo "ページ種別ごとに描画して検査"
 echo ""
-check detail.tpl            item-addimage.json   'class="gallery__slide"'  6
-check detail.tpl            item-noimage.json    'class="gallery__slide"'  1
-check category.tpl          cat-ct5-full.json    'class="card"'            3
-check category.tpl          cat-ct646.json       'class="card"'            3
+# 🔴 2026-09-09、期待値をぜんぶ書き換えました
+#
+#    ここに並んでいた class は gallery__slide / card / carttable__name /
+#    newslist / h-section / table-scroll ── **どれもこちらが設計した名前**で、
+#    移植で全部なくなりました。放っておくと「もう出荷しない画面」を
+#    測り続けます。同じ失敗を前にもしています。
+#
+#    いまの期待値は、店舗の元マークアップにあるクラスです。
+check detail.tpl            item-addimage.json   'data-zoom'               2
+check detail.tpl            item-noimage.json    'itemCount'               1
+check category.tpl          cat-ct5-full.json    'class="categorylist"'    3
+check category.tpl          cat-ct646.json       'class="categorylist"'    3
 
 # 🔴 search.tpl は一度も描画されていませんでした。クロールが検索URLに当たらず
 #    実物のHTMLが無いので、リファレンスとソースだけで書いたテンプレートです。
 #    **手元に見本が無いものほど、検査していないと壊れます。**
-check search.tpl            search-keyword.json  'class="card"'            3
-check search.tpl            search-empty.json    'class="notice"'          1
-check cart-body.tpl         cart-two-items.json  'carttable__name'         2
-check cart-body.tpl         cart-empty.json      'carttable__empty'        1
-check news-list-body.tpl    news-list.json       'class="newslist"'        1
-check news-detail-body.tpl  news-detail.json     'class="article"'         1
-check info-body.tpl         news-detail.json     'class="h-section"'      6
-check company-body.tpl      news-detail.json     'class="table-scroll"'   1
-check ordercontract-body.tpl news-detail.json    'class="table-scroll"'   1
-check privacy-body.tpl      news-detail.json     'class="article"'         1
+check search.tpl            search-keyword.json  'class="M_innerBox"'      3
+check search.tpl            search-empty.json    'id="r_searchInput"'      1
+check cart.tpl              cart-two-items.json  'class="basketName"'      2
+check cart.tpl              cart-empty.json      'class="basketEmpty"'     1
+check news-list.tpl         news-list.json       'class="infoList"'        1
+check news-detail.tpl       news-detail.json     'class="infodate"'        1
+check guide.tpl             news-detail.json     'id="about_payment"'      1
+check company.tpl           news-detail.json     'id="O_adminPagearea"'    1
+check contract.tpl          news-detail.json     'class="tbl01"'           1
+check policy.tpl            news-detail.json     'id="O_adminPagearea"'    1
 
 echo ""
 if [ "$fail" -eq 0 ]; then

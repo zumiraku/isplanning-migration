@@ -39,22 +39,23 @@ body = body.replace("[SUISEN1NN]", grid("$recommend_item", "rc"));
 body = body.replace('href="/shop/shopbrand.html?search="', 'href="<{$url.top}>"');
 
 /* --- 商品レビュー --------------------------------------------------------- */
-/* 🔴 旧レビューは2026年11月で終了し、この店舗は u-komi に移っています（C30）。
-      ただし $review_item.* はリファレンスに載っていて、いまも動きます。
-      **終わるまでは出す**のが、いまの見た目に近い状態です。 */
-body = body.replace("[IF_REVIEW]", "<{if $review_item.is_enabled and $review_item.has_item}>")
-           .replace("[ENDIF_REVIEW]", "<{/if}>");
-body = body.replace("[REVIEW_VIEW_ALL_2]", `<{section name=rv loop=$review_item.list}>
-<div class="M_reviewBox">
-  <div class="M_reviewImg"><a href="<{$review_item.list[rv].url}>"><img src="<{$review_item.list[rv].image_S}>" alt="<{$review_item.list[rv].name}>" border="0"></a></div>
-  <div class="M_reviewInfo">
-    <p class="M_reviewName"><a href="<{$review_item.list[rv].url}>"><{$review_item.list[rv].name}></a></p>
-    <p class="M_reviewRate"><{$review_item.list[rv].star_html}></p>
-    <p class="M_reviewRead"><{$review_item.list[rv].content}></p>
-    <p class="M_reviewDate"><{$review_item.list[rv].reviewer_name}>　<{$review_item.list[rv].date.year}>/<{$review_item.list[rv].date.month}>/<{$review_item.list[rv].date.day}></p>
-  </div>
-</div>
-<{/section}>`);
+/* 🔴 旧レビューは使いません
+ *
+ *    最初は $review_item.* で作りました。リファレンスに載っていて動くので、
+ *    「今の見た目に近い」と考えたためです。**方針と食い違っていました。**
+ *
+ *      - 旧レビューは 2026年11月で終了します
+ *      - この店舗はすでに u-komi に移っています（C30）
+ *      - 現行サイトも、旧レビューが無ければこの枠をJSで隠しています
+ *        （design_head_top.txt が #r_review_wrap を display:none に）
+ *
+ *    終わるものを新しく作り込むと、数か月後にまた作り直しになります。
+ *    枠ごと出しません。u-komi は商品詳細に出ています。 */
+const revStart = body.indexOf("[IF_REVIEW]");
+const revEnd = body.indexOf("[ENDIF_REVIEW]") + "[ENDIF_REVIEW]".length;
+if (revStart < 0 || revEnd < 0) { console.error("レビュー枠の範囲が取れません"); process.exit(1); }
+body = body.slice(0, revStart) + body.slice(revEnd);
+
 
 /* --- 最近チェックした商品 ------------------------------------------------- */
 body = body.replace("[IF_RECENT]", "<{if $recently_item.has_item}>")

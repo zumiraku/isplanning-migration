@@ -1,7 +1,21 @@
 {
   "_note": "空のカゴ。買い物を続ける導線が出ているか",
-  "cart": { "has_item": false, "list": [], "bulk": { "has_item": false, "list": [] },
-            "total_quantity": 0, "total_price": "0円" },
-  "recently_item": { "has_item": false, "list": [] },
-  "url": { "top": "/" }
+  "cart": {
+    "has_item": false,
+    "list": [],
+    "bulk": {
+      "has_item": false,
+      "list": []
+    },
+    "total_quantity": 0,
+    "total_price": "0円",
+    "order_url": "/view/order"
+  },
+  "recently_item": {
+    "has_item": false,
+    "list": []
+  },
+  "url": {
+    "top": "/"
+  }
 }

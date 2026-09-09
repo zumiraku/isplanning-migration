@@ -1,0 +1,67 @@
+{
+  "_comment": "全ページ共通の部品（ヘッダー・左メニュー・フッター）が使う値。ページごとの fixture に足して描画します。これが無いと、どのページも空hrefが3件・空srcが1件出て、テンプレートの不具合と区別がつきません。",
+
+  "url": {
+    "top": "/",
+    "news": "/view/news",
+    "guide": "/view/guide",
+    "company": "/view/company",
+    "contract": "/view/contract",
+    "policy": "/view/policy",
+    "support": "/view/contact",
+    "login": "/view/member/login",
+    "logout": "/view/member/logout",
+    "member_entry": "/view/member/entry",
+    "mypage": "/view/member/mypage",
+    "cart": "/view/cart",
+    "favorite": "/view/member/favorite",
+    "mail_magazine": "/view/member/mailmagazine",
+    "catalog": "/view/catalog",
+    "order_history": "/view/member/order-history",
+    "member_edit": "/view/member/member-edit",
+    "point": "/view/member/point"
+  },
+
+  "shop": {
+    "name": "粗品と景品の発見マーケット",
+    "logo_url": "https://shop1-makeshop.akamaized.net/shopimages/isplanning/logo.png",
+    "favicon_url": "/favicon.ico",
+    "tel": "072-970-6710",
+    "address": "〒581-0014 大阪府八尾市中田4-132-3",
+    "copyright": "Copyright ISPLANNING",
+    "mainvisual": "<div class=\"M_slider\">メインビジュアル</div>",
+    "is_member_entry_enabled": true
+  },
+
+  "member": { "is_logged_in": false },
+
+  "page": {
+    "title": "テスト",
+    "description": "テスト",
+    "canonical_url": "https://www.isp-sp.com/",
+    "css": "/view/asset/user.css",
+    "javascript": "/view/asset/user.js"
+  },
+
+  "makeshop": { "head": "", "body_top": "", "body_bottom": "" },
+
+  "module": {
+    "header": "<div id=\"headerWrap\"><h1>粗品や景品、ノベルティの名入れ通販</h1></div>",
+    "leftmenu": "<div id=\"M_leftContents\">左メニュー</div>",
+    "footer": "<div id=\"footerWrap\">フッター</div>",
+    "calendar1": "<div class=\"calendar_1\">カレンダー</div>",
+    "calendar2": "<div class=\"calendar_2\">カレンダー</div>",
+    "freespace_calendar": "<div class=\"box_cate\">フリースペース</div>"
+  },
+
+  "search_form": {
+    "search_url": "#makeshop-common-search-url",
+    "keyword_id": "makeshop-search-keyword",
+    "name_id": "makeshop-search-name",
+    "price_low_id": "makeshop-search-price-low",
+    "price_high_id": "makeshop-search-price-high",
+    "category_id": "makeshop-search-category",
+    "original_code_id": "makeshop-search-original-code",
+    "category_list": [{ "code": "", "name": "すべてのカテゴリー" }]
+  }
+}

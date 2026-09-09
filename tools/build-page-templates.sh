@@ -67,7 +67,7 @@ mkdir -p package/modules
 
 echo ""
 echo "モジュール:"
-for m in header leftmenu footer calendar1 calendar2; do
+for m in header leftmenu footer calendar1 calendar2 freespace_calendar; do
   printf "  %-22s %7s バイト  (tools/port/build-chrome.js が生成)\n" "$m.tpl" "$(wc -c < "package/modules/$m.tpl")"
 done
 

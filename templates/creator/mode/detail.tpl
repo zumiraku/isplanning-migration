@@ -308,7 +308,7 @@ src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="t
 		</div>
 
 		<div class="M_section">
-			<div class="review-container" data-gname="<{$item.system_code}>" data-pid="<{$item.system_code}>" data-group="true" data-action="widget"></div>
+			
 		</div>
 </div>-->
 

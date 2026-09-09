@@ -57,19 +57,19 @@ write({ file: "guide", label: "ご利用案内" }, "（タグのみ）", [
   '\t<h2>ご利用案内</h2>',
   '',
   '\t<h3 id="about_order">商品のご注文方法</h3>',
-  '\t<div class="article"><{$guide.order}></div>',
+  '\t<div><{$guide.order}></div>',
   '',
   '\t<h3 id="about_payment">お支払いについて</h3>',
-  '\t<div class="article"><{$guide.payment}></div>',
+  '\t<div><{$guide.payment}></div>',
   '',
   '\t<h3 id="about_delivaly">配送について</h3>',
-  '\t<div class="article"><{$guide.delivery}></div>',
+  '\t<div><{$guide.delivery}></div>',
   '',
   '\t<h3 id="about_tax">消費税について</h3>',
-  '\t<div class="article"><{$guide.tax}></div>',
+  '\t<div><{$guide.tax}></div>',
   '',
   '\t<h3 id="about_return">返品について</h3>',
-  '\t<div class="article"><{$guide.return}></div>',
+  '\t<div><{$guide.return}></div>',
   '',
   '\t<{* 🔴 id は現行サイトのアンカーに合わせてあります。',
   '\t     フッターや商品ページから /view/guide#about_payment のように',
@@ -111,8 +111,18 @@ write({ file: "contract", label: "特定商取引法" }, "（タグのみ）", [
 ]).join("\n"));
 
 /* --- プライバシーポリシー --------------------------------------------------- */
-let privacy = fs.readFileSync("templates/creator/mode/privacy-body.tpl", "utf8");
-/* 生成元のコメント見出しは二重エンコードで読めません。落とします。 */
+/* 🔴 置き場所は templates/creator/port-src/ です
+ *
+ *    mode/ に置いたままにすると、check-css-coverage.sh が「出荷する
+ *    テンプレート」として読んでしまい、もう使わないクラスを毎回
+ *    報告します。前に一度、退役した設計を検査が測り続けていました。
+ *
+ * 🔴 このファイルは一部が二重エンコードでした
+ *
+ *    見出しとコメントだけが壊れていて、本文は正しいUTF-8。
+ *    ファイル全体を変換すると、正しい部分のほうが壊れます。
+ *    tools/port/fix-mojibake.js が行単位で直しました。 */
+let privacy = fs.readFileSync("templates/creator/port-src/privacy-body.tpl", "utf8");
 privacy = privacy.replace(/^<\{\*[\s\S]*?\*\}>\s*/, "");
 write({ file: "policy", label: "プライバシー" }, "（現行の文面）", [
   '<div id="O_adminPagearea" class="company">',
@@ -138,14 +148,17 @@ write({ file: "news-list", label: "お知らせ一覧" }, "（タグのみ）", 
   '\t</ul>',
   '',
   '\t<div class="M_pager">',
-  '\t<{if $news.pager.has_item}>',
+  '\t<{* 🔴 $news.pager.has_item はリファレンスにありません。',
+  '\t     カテゴリと検索には $…pager.has_item があるのに、news-list だけ',
+  '\t     載っていません。無いタグを条件にすると Smarty は黙って偽にするので、',
+  '\t     **ページ送りが一度も出なくなります。** section は空配列なら何も',
+  '\t     出さないので、囲む必要がありません。 *}>',
   '\t  <{if not $news.pager.is_first}><a href="<{$news.pager.first_url}>">最初へ</a> <a href="<{$news.pager.prev_url}>" rel="prev">前へ</a><{/if}>',
   '\t  <{section name=p loop=$news.pager.list}>',
   '\t    <{if $news.pager.list[p].is_current_page}><span><{$news.pager.list[p].number}></span>',
   '\t    <{else}><a href="<{$news.pager.list[p].url}>"><{$news.pager.list[p].number}></a><{/if}>',
   '\t  <{/section}>',
   '\t  <{if not $news.pager.is_last}><a href="<{$news.pager.next_url}>" rel="next">次へ</a> <a href="<{$news.pager.last_url}>">最後へ</a><{/if}>',
-  '\t<{/if}>',
   '\t</div>',
   '\t<{else}>',
   '\t<p>お知らせはまだありません。</p>',
@@ -159,7 +172,7 @@ write({ file: "news-detail", label: "お知らせ詳細" }, "（タグのみ）"
   '\t<p class="M_topicPath"><a href="<{$url.top}>">ホーム</a> &nbsp;&gt; <a href="<{$url.news}>">お知らせ</a></p>',
   '\t<h2><{$news.title}></h2>',
   '\t<p class="infodate"><{$news.date.year}>年<{$news.date.month}>月<{$news.date.day}>日</p>',
-  '\t<div class="article"><{$news.content}></div>',
+  '\t<div><{$news.content}></div>',
   '\t<p class="M_pager">',
   '\t\t<{if $news.prev_url}><a href="<{$news.prev_url}>" rel="prev">前のお知らせ</a><{/if}>',
   '\t\t<a href="<{$url.news}>">お知らせ一覧</a>',

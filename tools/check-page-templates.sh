@@ -73,12 +73,28 @@ echo ""
 #    他のページでは正しい修正でしたが、トップにとってはあれが正しい h1 でした。
 #
 #    1ページに h1 は1つ。0でも2つ以上でも報告します。
+#    🔴 2026-09-09、数え方を直しました
+#
+#       移植後、11ページ全部が「h1 が 0」で落ちました。**h1 はヘッダーに
+#       あります。** 店舗の元テンプレートは 上段メニュー に
+#
+#         <h1>粗品や景品、ノベルティの名入れ通販｜粗品のことなら発見マーケット</h1>
+#
+#       を置いていて、全ページ共通です。ページ側のファイルだけ数えると0に
+#       見えますが、配信されるHTMLには1つあります。**モジュールを足して
+#       数えます。**
+#
+#       ページ側の見出しが <h2> なのも元どおりです。作り変えません。
 echo ""
 echo "見出し:"
 h1fail=0
+hdr=package/modules/header.tpl
+hdr_h1=0
+[ -f "$hdr" ] && hdr_h1=$(perl -CS -0777 -ne 's{<\{\*.*?\*\}>}{}gs; my $c = () = /<h1\b/g; print $c' "$hdr")
+printf "  %-22s h1 %s  （全ページ共通）\n" "$(basename "$hdr")" "$hdr_h1"
 for f in package/templates/*.tpl; do
-  case "$(basename "$f")" in category-captions.tpl|category-tiles.tpl) continue;; esac
   n=$(perl -CS -0777 -ne 's{<\{\*.*?\*\}>}{}gs; my $c = () = /<h1\b/g; print $c' "$f")
+  n=$((n + hdr_h1))
   if [ "$n" = "1" ]; then
     printf "  %-22s h1 %s\n" "$(basename "$f")" "$n"
   else

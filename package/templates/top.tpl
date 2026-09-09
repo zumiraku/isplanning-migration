@@ -227,26 +227,7 @@
 </div>
 	
 	
-<{if $review_item.is_enabled and $review_item.has_item}>
-<div id="r_review_wrap">	
-<h2 class="main-ttl">商品レビュー</h2>
-<div class="M_section" id="r_review">
-	<div class="section-inner" id="review_inner">
-		<{section name=rv loop=$review_item.list}>
-<div class="M_reviewBox">
-  <div class="M_reviewImg"><a href="<{$review_item.list[rv].url}>"><img src="<{$review_item.list[rv].image_S}>" alt="<{$review_item.list[rv].name}>" border="0"></a></div>
-  <div class="M_reviewInfo">
-    <p class="M_reviewName"><a href="<{$review_item.list[rv].url}>"><{$review_item.list[rv].name}></a></p>
-    <p class="M_reviewRate"><{$review_item.list[rv].star_html}></p>
-    <p class="M_reviewRead"><{$review_item.list[rv].content}></p>
-    <p class="M_reviewDate"><{$review_item.list[rv].reviewer_name}>　<{$review_item.list[rv].date.year}>/<{$review_item.list[rv].date.month}>/<{$review_item.list[rv].date.day}></p>
-  </div>
-</div>
-<{/section}>
-	</div>    
-</div>
-</div>
-<{/if}>
+
 	
 	
 	

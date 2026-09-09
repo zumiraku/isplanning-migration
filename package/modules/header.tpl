@@ -54,8 +54,8 @@
                         <li id="gNav04"><a href="/view/page/page4.html">エスピーソース</a></li>
                         <li id="gNav05"><a href="/view/category/ct667">少量購入OK</a></li>
                         <li id="gNav05"><a href="/view/category/ct4">予算で探す</a></li>
-                        <li id="gNav06"><div class="search-box"><input type="text" id="<{$search_form.keyword_id}>" data-id="<{$search_form.keyword_id}>" placeholder="キーワードを入力して検索">
-<a class="searchbox__go" href="<{$search_form.search_url}>" role="button" aria-label="検索"></a></div></li>
+                        <li id="gNav06"><div class="search-box"><input type="text" id="MakeShopTopSearchInput" data-id="<{$search_form.keyword_id}>" placeholder="キーワードを入力して検索">
+<a id="MakeShopTopSearchButton" href="<{$search_form.search_url}>" role="button" aria-label="検索"></a></div></li>
                     </ul>
                     </div>
                 <!--//header--></div>

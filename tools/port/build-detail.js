@@ -147,8 +147,16 @@ body = body.replace("[BRANDGROUP]", '<{if $item.group.has_item}><h3><{$item.grou
 
 /* --- レビュー（u-komi） ---------------------------------------------------- */
 body = body.replace(/\[REVIEW_BUTTON\]|\[REVIEW_WRITE\]/g, "");
-body = body.replace("[REVIEW_VIEW_ALL]",
-  '<div class="review-container" data-gname="<{$item.system_code}>" data-pid="<{$item.system_code}>" data-group="true" data-action="widget"></div>');
+/* 🔴 u-komi の枠は、元テンプレートに**すでにあります**（コメントの外）。
+ *
+ *      <!--<div class="Review"> … [REVIEW_VIEW_ALL] … </div>-->   ← 旧レビュー、無効
+ *      <div class="review-container" data-gname="[SYSTEM_CODE]" …>  ← これが本体
+ *
+ *    最初は [REVIEW_VIEW_ALL] を u-komi の枠に置き換えていました。**その結果、
+ *    コメントの中に2つ目の枠ができました。** コメントの中なので描画は
+ *    されませんが、次に読む人が「なぜ2つ？」と迷います。[SYSTEM_CODE] は
+ *    下の一括置換で本体のほうに入るので、ここは空にするのが正しいです。 */
+body = body.replace("[REVIEW_VIEW_ALL]", "");
 body = body.replace(/\[SYSTEM_CODE\]/g, "<{$item.system_code}>");
 
 /* 残った制御タグ（コメントアウト部分の中身など）を掃除 */

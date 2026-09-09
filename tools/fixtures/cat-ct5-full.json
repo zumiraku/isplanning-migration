@@ -58,7 +58,9 @@
                 "image_url": "/icon/new.gif"
               }
             ]
-          }
+          },
+          "image_S": "/img/1.jpg",
+          "image_L": "/img/1.jpg"
         },
         {
           "name": "商品B",
@@ -73,7 +75,9 @@
           "icon": {
             "has_item": false,
             "list": []
-          }
+          },
+          "image_S": "/img/2.jpg",
+          "image_L": "/img/2.jpg"
         },
         {
           "name": "商品C",
@@ -88,7 +92,9 @@
           "icon": {
             "has_item": false,
             "list": []
-          }
+          },
+          "image_S": "/img/3.jpg",
+          "image_L": "/img/3.jpg"
         }
       ]
     },
@@ -125,13 +131,17 @@
           "name": "おすすめ1",
           "url": "/view/item/9",
           "image_M": "/img/9.jpg",
-          "price": 40
+          "price": 40,
+          "image_S": "/img/9.jpg",
+          "image_L": "/img/9.jpg"
         },
         {
           "name": "おすすめ2",
           "url": "/view/item/8",
           "image_M": "/img/8.jpg",
-          "price": 45
+          "price": 45,
+          "image_S": "/img/8.jpg",
+          "image_L": "/img/8.jpg"
         }
       ]
     },
