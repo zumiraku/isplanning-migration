@@ -43,3 +43,4 @@ snapshot/refetch/
 /.s.html
 tools/cdp/csv/*.csv
 tools/cdp/preview-out/_probe.html
+node_modules/
