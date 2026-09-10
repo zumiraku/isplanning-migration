@@ -33,8 +33,8 @@ if (rankStart < 0 || rankEnd < 0) { console.error("ランキングの範囲が�
 body = body.slice(0, rankStart) + ranking() + body.slice(rankEnd);
 
 /* --- 新着・おすすめ ------------------------------------------------------- */
-body = body.replace("[NEW1NN]", grid("$new_item", "nw2"));
-body = body.replace("[SUISEN1NN]", grid("$recommend_item", "rc"));
+body = body.replace("[NEW1NN]", grid("$new_item", "nw2", 16));
+body = body.replace("[SUISEN1NN]", grid("$recommend_item", "rc", 12));
 /* 「新着商品一覧はこちら」もベーシックのURLです */
 body = body.replace('href="/shop/shopbrand.html?search="', 'href="<{$url.top}>"');
 

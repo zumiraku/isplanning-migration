@@ -108,7 +108,7 @@
         <h2 class="main-ttl">人気ランキング<span>粗品の現在の人気順位です、参考にご検討ください。</span></h2>
 		<div class="rank-wrap">
         <ul class="clear rank-list">
-        <{section name=r loop=$ranking_item.list}>
+        <{section name=r loop=$ranking_item.list max=5}>
         <li class="rankList" id="rank<{$smarty.section.r.index_next}>">
             <em><{$smarty.section.r.index_next}></em>
             <div class="rankImg"><a href="<{$ranking_item.list[r].url}>"><img src="<{$ranking_item.list[r].image_M}>" alt="<{$ranking_item.list[r].name}>" width="100" border="0"></a></div>
@@ -127,7 +127,7 @@
 <div class="M_section clear" id="r_new">
 <h2 class="main-ttl">新着商品<span>最近追加の粗品をピックアップ、下記は一例です。</span><a class="link_green-bg linkbar" href="<{$url.top}>">新着商品一覧はこちら</a></h2>
 <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-<{section name=nw2 loop=$new_item.list}>
+<{section name=nw2 loop=$new_item.list max=16}>
   <{if $smarty.section.nw2.index > 0 and $smarty.section.nw2.index % 4 == 0}></tr><tr><{/if}>
   <td align="center" class="lims" width="25%" valign="top">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
@@ -140,7 +140,7 @@
           <{section name=nw2i loop=$new_item.list[nw2].icon.list}><img src="<{$new_item.list[nw2].icon.list[nw2i].image_url}>" align="absmiddle" border="0"><{/section}>
         <{/if}>
       </td></tr>
-      <tr class="woong"><td valign="top" align="center"><{$new_item.list[nw2].price}>円（税込）</td></tr>
+      <tr class="woong"><td valign="top" align="center"><{$new_item.list[nw2].price|number_format}>円（税込）</td></tr>
     </table>
   </td>
 <{/section}>
@@ -150,7 +150,7 @@
 <div class="M_section" id="r_recommend">
 <h2 class="main-ttl">定番（人気）の商品<span>人気粗品のご紹介、下記は一例です。販売単位数量はほとんどの商品でご相談可能です。</span></h2>
 <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-<{section name=rc loop=$recommend_item.list}>
+<{section name=rc loop=$recommend_item.list max=12}>
   <{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>
   <td align="center" class="lims" width="25%" valign="top">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
@@ -163,7 +163,7 @@
           <{section name=rci loop=$recommend_item.list[rc].icon.list}><img src="<{$recommend_item.list[rc].icon.list[rci].image_url}>" align="absmiddle" border="0"><{/section}>
         <{/if}>
       </td></tr>
-      <tr class="woong"><td valign="top" align="center"><{$recommend_item.list[rc].price}>円（税込）</td></tr>
+      <tr class="woong"><td valign="top" align="center"><{$recommend_item.list[rc].price|number_format}>円（税込）</td></tr>
     </table>
   </td>
 <{/section}>
@@ -250,7 +250,7 @@
           <{section name=rcni loop=$recently_item.list[rcn].icon.list}><img src="<{$recently_item.list[rcn].icon.list[rcni].image_url}>" align="absmiddle" border="0"><{/section}>
         <{/if}>
       </td></tr>
-      <tr class="woong"><td valign="top" align="center"><{$recently_item.list[rcn].price}>円（税込）</td></tr>
+      <tr class="woong"><td valign="top" align="center"><{$recently_item.list[rcn].price|number_format}>円（税込）</td></tr>
     </table>
   </td>
 <{/section}>

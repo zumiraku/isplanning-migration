@@ -20,17 +20,17 @@
       landed() を必ず通してください。飛ばされたら測らずに 🔴 を出します。
 --------------------------------------------------------------------------- */
 
-/* [名前, 現行のパス, 移植版のパス] */
+/* [名前, 現行のパス, 移植版のパス, ページ種別] */
 const PAGES = [
-  ["トップ", "/", "/"],
-  ["カテゴリ", "/shopbrand/003/001/X/", "/view/category/ct5"],
-  ["商品詳細", "/shopdetail/003001000005/", "/view/item/003001000005"],
-  ["カゴ", "/shop/basket.html", "/view/cart"],
-  ["お知らせ一覧", "/new/index.html", "/view/news/list"],
-  ["ご利用ガイド", "/html/info.html", "/view/guide"],
-  ["会社概要", "/html/company.html", "/view/company"],
-  ["取引条件", "/html/ordercontract.html", "/view/contract"],
-  ["個人情報", "/html/privacy.html", "/view/policy"]
+  ["トップ", "/", "/", 2],
+  ["カテゴリ", "/shopbrand/003/001/X/", "/view/category/ct5", 4],
+  ["商品詳細", "/shopdetail/003001000005/", "/view/item/003001000005", 3],
+  ["カゴ", "/shop/basket.html", "/view/cart", 6],
+  ["お知らせ一覧", "/new/index.html", "/view/news/list", 9],
+  ["ご利用ガイド", "/html/info.html", "/view/guide", 11],
+  ["会社概要", "/html/company.html", "/view/company", 12],
+  ["取引条件", "/html/ordercontract.html", "/view/contract", 13],
+  ["個人情報", "/html/privacy.html", "/view/policy", 14]
 ];
 
 /* 開いた先が、頼んだパスと同じかどうか。

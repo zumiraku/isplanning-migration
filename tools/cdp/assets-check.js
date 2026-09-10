@@ -16,8 +16,8 @@
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { PAGES, landed } = require("./pages.js");
+const { openAt } = require("./bind.js");
 
-const PTK = "45bdf24edcff928f2fc86d299ab4a0dd03aeee10";
 const EXPR = fs.readFileSync(__dirname + "/exprs/assets.js", "utf8");
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -30,7 +30,7 @@ function key(s) { return String(s).split("  ⟨")[0]; }
   console.log("ページ            画像 現行/移植  出ない 現行/移植   CSS 現行/移植   JS 現行/移植");
   const details = [];
 
-  for (const [name, livePath, portPath] of PAGES) {
+  for (const [name, livePath, portPath, type] of PAGES) {
     await p.navigate("about:blank"); await sleep(250);
     await p.navigate("https://www.isp-sp.com" + livePath); await sleep(5000);
     const at = await p.evaluate("location.href");
@@ -39,9 +39,9 @@ function key(s) { return String(s).split("  ⟨")[0]; }
       bad++; continue;
     }
     const live = await p.evaluate(EXPR);
-    await p.navigate("about:blank"); await sleep(250);
-    await p.navigate("https://www.isp-sp.com" + portPath +
-      (portPath.indexOf("?") >= 0 ? "&" : "?") + "ptk=" + PTK); await sleep(5000);
+    /* 🔴 ptk のURLに直接行ってはいけません（bind.js の見出しに理由） */
+    const bound = await openAt(p, type, portPath, 5000);
+    if (!bound.ok) { console.log("🔴 " + name.padEnd(14) + bound.why); bad++; continue; }
     const nu = await p.evaluate(EXPR);
 
     const liveBroken = new Set((live.出ていない画像 || []).map(key));

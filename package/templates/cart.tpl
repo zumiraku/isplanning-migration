@@ -155,7 +155,7 @@
   <td align="center" class="lims" width="25%" valign="top">
     <a href="<{$recently_item.list[rc].url}>"><img src="<{$recently_item.list[rc].image_M}>" alt="<{$recently_item.list[rc].name}>" width="220" height="220" border="0"></a>
     <p class="woong"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>
-    <p class="woong"><{$recently_item.list[rc].price}>円（税込）</p>
+    <p class="woong"><{$recently_item.list[rc].price|number_format}>円（税込）</p>
   </td>
 <{/section}>
 </tr></table>

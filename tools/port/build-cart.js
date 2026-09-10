@@ -31,6 +31,17 @@
       ページが再読み込みされていました。クリエイターに同じURLはありません。
       修正ボタン（$cart.list[i].quantity_url）は元どおり残します。
 --------------------------------------------------------------------------- */
+/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+ *
+ *      現行    販売価格39,600円（税込）
+ *      移植版  販売価格39600円（税込）
+ *
+ *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
+ *    タグには price_html がありません。** 試しに書くと空になり、
+ *    価格そのものが消えました。
+ *
+ *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
+ *    number_format を通すと現行と1文字も違わなくなりました。 */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");
@@ -143,7 +154,7 @@ body = body.replace("[RECENT]",
 '  <td align="center" class="lims" width="25%" valign="top">',
 '    <a href="<{$recently_item.list[rc].url}>"><img src="<{$recently_item.list[rc].image_M}>" alt="<{$recently_item.list[rc].name}>" width="220" height="220" border="0"></a>',
 '    <p class="woong"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>',
-'    <p class="woong"><{$recently_item.list[rc].price}>円（税込）</p>',
+'    <p class="woong"><{$recently_item.list[rc].price|number_format}>円（税込）</p>',
 '  </td>',
 '<{/section}>',
 '</tr></table>'

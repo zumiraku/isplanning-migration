@@ -25,6 +25,17 @@
 
    🔴 <form> にしません（C44）
 --------------------------------------------------------------------------- */
+/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+ *
+ *      現行    販売価格39,600円（税込）
+ *      移植版  販売価格39600円（税込）
+ *
+ *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
+ *    タグには price_html がありません。** 試しに書くと空になり、
+ *    価格そのものが消えました。
+ *
+ *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
+ *    number_format を通すと現行と1文字も違わなくなりました。 */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");
@@ -36,7 +47,16 @@ body = body.replace(/<\/div><!--\.M_mainContents-->\s*$/, "");
 const IT = "$search.item.list[i]";
 
 /* --- 検索語の表示 ---------------------------------------------------------- */
-body = body.replace("[SEARCHNAME]", "<{$search.keyword}>");
+/* 🔴 [SEARCHNAME] は「検索語 : ○○ 」まで含んでいます（実測・2026-09-10）
+ *
+ *      現行    検索語 : ND-P3841 で検索した結果
+ *      移植版  ND-P3841で検索した結果
+ *
+ *    $search.keyword は語だけを返します。前後をこちらで足します。
+ *    語が空のとき（カテゴリだけで絞ったとき）は「検索語 :  で」と
+ *    間が抜けるので、そのときは語だけにします。 */
+body = body.replace("[SEARCHNAME]",
+  "<{if $search.keyword}>検索語 : <{$search.keyword}> <{/if}>");
 
 /* --- 絞り込みフォーム ------------------------------------------------------ */
 body = body.replace("[CATEGORY][SUB_CATEGORY]",
@@ -78,7 +98,7 @@ const items = `<{section name=i loop=$search.item.list}>
 					<div class="M_cl_detail">品番：<{${IT}.original_code}>
 						<p class="M_cl_name"><a href="<{${IT}.url}>"><{${IT}.name}></a></p>
 						<p><span class="M_cl_taxadd"><{${IT}.special_display}></span></p>
-						<p class="M_cl_price"><span class="M_cl_taxPrice"><{${IT}.price}>円（税込）</span></p>
+						<p class="M_cl_price"><span class="M_cl_taxPrice"><{${IT}.price|number_format}>円（税込）</span></p>
 						<{* 🔴 カートボタンは元テンプレートでもコメントアウトされています。 *}>
 					</div>
 					<br class="clear">

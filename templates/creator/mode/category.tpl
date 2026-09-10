@@ -85,13 +85,26 @@
 					</td>
 					<td class="itemtext">
 						<div style="padding-left:10px;">
-							<{$category.item.list[i].description}>
+							<{* 🔴 ここは description ではありません（実測・2026-09-10）
+							     一覧の [DETAIL] は「商品カテゴリー用商品説明文」です。
+							     商品CSVに専用の列（商品カテゴリー用商品説明文／
+							     同 表示可否）があります。description を出していたので、
+							     **1件ごとに商品仕様の全文**が並んでいました。
+
+							     現行    名入れ可能 品番：ND-P3841 品名：…
+							     移植版  ■品番 ND-P3841 ■品名 … ■形態 OPP袋入
+							             ■形態サイズ ■商品サイズ 直径10×140mm
+							             ■色 ■材質 … ■内容 1個 ■通常単価 …
+
+							     40件ぶん並ぶので、カテゴリページが別物になります。
+							     606カテゴリ全部です。 *}>
+							<{$category.item.list[i].category_description}>
 							<p class="soldout2"><{if $category.item.list[i].is_soldout}>＝ 品切れ中 ＝<{/if}></p>
 							<p class="M_mgnT5"><{if $category.item.list[i].icon.has_item}><{section name=ic loop=$category.item.list[i].icon.list}><img src="<{$category.item.list[i].icon.list[ic].image_url}>" align="absmiddle" border="0"><{/section}><{/if}></p>
 							<p class="M_mgnT5">品番：<{$category.item.list[i].original_code}></p>
 							<p class="item-name"><span>品名：</span><a href="<{$category.item.list[i].url}>"><{$category.item.list[i].name}></a></p>
 							<p class="red"><{$category.item.list[i].special_display}></p>
-							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.item.list[i].price}></span>円<span class="M_outtax">（税込）</span></p>
+							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.item.list[i].price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 						</div>
 						<{* 🔴 「カートに入れる」「お気に入り」は元テンプレートでも
 						     コメントアウトされています。山口様の「不要」は、
@@ -118,16 +131,10 @@
 	</div>
 
 
-  <h2 class="categorybottom">粗品選びは【発見マーケット】にお任せ！</h2>
-  <p style="margin: 0 0 50px 0; padding: 1px 100px 30px 100px; line-height: 1.8; font-size:18px; text-align:left;">
-【発見マーケット】でお取り扱いしている粗品の定番アイテムには、タオルやボールペン、卓上カレンダーなどの実用品が揃っています。宣伝効果や販売促進を目的とした粗品には、普段の生活でよく使う実用性が高いものを選ぶことがおすすめです。<br />
-粗品選びに困ったら【発見マーケット】へ。定番アイテムだけでなく、スマートフォンを使う際に便利なスマホグッズもご用意しています。人気のスマホグッズを景品やノベルティとして活用したい方は、ぜひご利用ください。</p>
+  <{$module.category_bottom1}>
 
-
-	<h3>こちらの商品もおすすめです。</h3>
+<h3>こちらの商品もおすすめです。</h3>
 <div class="section" id="r_recommend_ct">
-	<{$module.category_bottom1}>
-
 	<{if $category.recommend_item.has_item}>
 	<table class="tbl02"><tr>
 	<{section name=rc loop=$category.recommend_item.list}>
@@ -136,7 +143,7 @@
 	    <a href="<{$category.recommend_item.list[rc].url}>"><img src="<{$category.recommend_item.list[rc].image_S}>" alt="<{$category.recommend_item.list[rc].name}>" border="0" class="M_cl_img"></a>
 	    <p class="item-name"><a href="<{$category.recommend_item.list[rc].url}>"><{$category.recommend_item.list[rc].name}></a></p>
 	    <{if $category.recommend_item.list[rc].special_display}><p class="red"><{$category.recommend_item.list[rc].special_display}></p><{/if}>
-	    <p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.recommend_item.list[rc].price}></span>円<span class="M_outtax">（税込）</span></p>
+	    <p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.recommend_item.list[rc].price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 	  </td>
 	<{/section}>
 	</tr></table>

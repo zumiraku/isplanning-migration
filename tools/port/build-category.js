@@ -8,8 +8,8 @@
       でした。山口様の「商品特殊表示がない（＠100円（税別）100個入）」は
       これで、Creator では $…special_display です。
 
-      [DETAIL] も「追加の説明」ではなく、**のし可能／包装可能の枠**
-      （<div class="box21">）でした。description です。
+      [DETAIL] は description ではなく **商品カテゴリー用商品説明文**でした
+      （$category.item.list[i].category_description）。下に詳しく書いてあります。
 
    🔴 「カートに入れる」「お気に入り」は元からコメントアウトされています
 
@@ -21,6 +21,17 @@
       実物: itemimages/0000000247463_….jpg（末尾3）。こちらは image_M
       （末尾2）を出していました。
 --------------------------------------------------------------------------- */
+/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+ *
+ *      現行    販売価格39,600円（税込）
+ *      移植版  販売価格39600円（税込）
+ *
+ *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
+ *    タグには price_html がありません。** 試しに書くと空になり、
+ *    価格そのものが消えました。
+ *
+ *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
+ *    number_format を通すと現行と1文字も違わなくなりました。 */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");
@@ -124,13 +135,26 @@ const rows = `<{section name=i loop=$category.item.list}>
 					</td>
 					<td class="itemtext">
 						<div style="padding-left:10px;">
-							<{${IT}.description}>
+							<{* 🔴 ここは description ではありません（実測・2026-09-10）
+							     一覧の [DETAIL] は「商品カテゴリー用商品説明文」です。
+							     商品CSVに専用の列（商品カテゴリー用商品説明文／
+							     同 表示可否）があります。description を出していたので、
+							     **1件ごとに商品仕様の全文**が並んでいました。
+
+							     現行    名入れ可能 品番：ND-P3841 品名：…
+							     移植版  ■品番 ND-P3841 ■品名 … ■形態 OPP袋入
+							             ■形態サイズ ■商品サイズ 直径10×140mm
+							             ■色 ■材質 … ■内容 1個 ■通常単価 …
+
+							     40件ぶん並ぶので、カテゴリページが別物になります。
+							     606カテゴリ全部です。 *}>
+							<{${IT}.category_description}>
 							<p class="soldout2"><{if ${IT}.is_soldout}>＝ 品切れ中 ＝<{/if}></p>
 							<p class="M_mgnT5"><{if ${IT}.icon.has_item}><{section name=ic loop=${IT}.icon.list}><img src="<{${IT}.icon.list[ic].image_url}>" align="absmiddle" border="0"><{/section}><{/if}></p>
 							<p class="M_mgnT5">品番：<{${IT}.original_code}></p>
 							<p class="item-name"><span>品名：</span><a href="<{${IT}.url}>"><{${IT}.name}></a></p>
 							<p class="red"><{${IT}.special_display}></p>
-							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{${IT}.price}></span>円<span class="M_outtax">（税込）</span></p>
+							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{${IT}.price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 						</div>
 						<{* 🔴 「カートに入れる」「お気に入り」は元テンプレートでも
 						     コメントアウトされています。山口様の「不要」は、
@@ -162,8 +186,29 @@ body = body.replace("<a href=\"<{$category.pager.prev_url}>\" rel=\"prev\">前�
 /* --- 商品一覧の下のカテゴリ別内容 ------------------------------------------
    606カテゴリ中598に <h2 class="categorybottom"> の塊があります。
    ページ送りのあとに置きます。49種類・63KBの1モジュールです。 */
-body = body.replace("[SUISEN4_2]",
-  "<{$module.category_bottom1}>" + String.fromCharCode(10) + String.fromCharCode(10) + "\t[SUISEN4_2]");
+/* 🔴 既定の文章とモジュールの文章が、両方出ていました（実測・2026-09-10）
+ *
+ *    現行は、カテゴリ専用テンプレートがあると既定の
+ *    <h2 class="categorybottom">…</h2> ＋ 説明文を**丸ごと差し替え**ます。
+ *    移植版は既定を残したうえでモジュールを足していたので、
+ *    /shopbrand/003/001/X/ でこう出ていました。
+ *
+ *      現行    ～49円 ／ 粗品選びは… ／ こちらの商品もおすすめです。
+ *      移植版  ～49円 ／ 粗品選びは… ／ こちらの商品もおすすめです。
+ *                     ／ 粗品選びは… ／ こちらの商品もおすすめです。
+ *
+ *    モジュールには既定の文章も入っています（598/606カテゴリぶんを
+ *    公開ページから取ったもの）。テンプレート側の既定は外します。 */
+const H2_BOTTOM = '<h2 class="categorybottom">';
+const H3_RECOMMEND = "<h3>こちらの商品もおすすめです。</h3>";
+const dbs = body.indexOf(H2_BOTTOM);
+const dbe = body.indexOf(H3_RECOMMEND);
+if (dbs < 0 || dbe < 0 || dbs > dbe) {
+  console.log("  🔴 既定の下部ブロックが見つかりません（そのままにします）");
+} else {
+  body = body.slice(0, dbs) + "<{$module.category_bottom1}>" +
+    String.fromCharCode(10) + String.fromCharCode(10) + body.slice(dbe);
+}
 
 /* --- おすすめ商品 ---------------------------------------------------------- */
 const RC = "$category.recommend_item.list[rc]";
@@ -176,7 +221,7 @@ body = body.replace("[SUISEN4_2]",
 	    <a href="<{${RC}.url}>"><img src="<{${RC}.image_S}>" alt="<{${RC}.name}>" border="0" class="M_cl_img"></a>
 	    <p class="item-name"><a href="<{${RC}.url}>"><{${RC}.name}></a></p>
 	    <{if ${RC}.special_display}><p class="red"><{${RC}.special_display}></p><{/if}>
-	    <p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{${RC}.price}></span>円<span class="M_outtax">（税込）</span></p>
+	    <p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{${RC}.price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 	  </td>
 	<{/section}>
 	</tr></table>

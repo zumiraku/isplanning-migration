@@ -43,7 +43,7 @@
 <h2>商品検索</h2>
 
 	<div class="section" id="r_searchName">
-		<p class="searchResult"><{$search.keyword}>で検索した結果</p>
+		<p class="searchResult"><{if $search.keyword}>検索語 : <{$search.keyword}> <{/if}>で検索した結果</p>
 	</div>
 
 	<div class="section" id="r_searchInput">
@@ -101,7 +101,7 @@
 					<div class="M_cl_detail">品番：<{$search.item.list[i].original_code}>
 						<p class="M_cl_name"><a href="<{$search.item.list[i].url}>"><{$search.item.list[i].name}></a></p>
 						<p><span class="M_cl_taxadd"><{$search.item.list[i].special_display}></span></p>
-						<p class="M_cl_price"><span class="M_cl_taxPrice"><{$search.item.list[i].price}>円（税込）</span></p>
+						<p class="M_cl_price"><span class="M_cl_taxPrice"><{$search.item.list[i].price|number_format}>円（税込）</span></p>
 						<{* 🔴 カートボタンは元テンプレートでもコメントアウトされています。 *}>
 					</div>
 					<br class="clear">

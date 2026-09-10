@@ -27,6 +27,17 @@
       がそこへのリンクでした。**クリエイターにはこのページ種別がありません**
       （16種の一覧に無い）。同じ画面に重ねて表示する形にします。
 --------------------------------------------------------------------------- */
+/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+ *
+ *      現行    販売価格39,600円（税込）
+ *      移植版  販売価格39600円（税込）
+ *
+ *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
+ *    タグには price_html がありません。** 試しに書くと空になり、
+ *    価格そのものが消えました。
+ *
+ *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
+ *    number_format を通すと現行と1文字も違わなくなりました。 */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");
@@ -208,7 +219,7 @@ const GROUP = [
   '<tr><td>',
   '<p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p>',
   '<{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}>',
-  '<p class="price"><{$item.group.list[g].price}>円（税込）</p>',
+  '<p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p>',
   '</td></tr>',
   '</table>',
   '</td>',
@@ -320,7 +331,7 @@ const RECENT = [
   '</td></tr>',
   '<tr><td>',
   '<p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>',
-  '<p class="price"><{$recently_item.list[rc].price}>円（税込）</p>',
+  '<p class="price"><{$recently_item.list[rc].price|number_format}>円（税込）</p>',
   '</td></tr>',
   '</table>',
   '</td>',

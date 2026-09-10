@@ -1,3 +1,14 @@
+/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+ *
+ *      現行    販売価格39,600円（税込）
+ *      移植版  販売価格39600円（税込）
+ *
+ *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
+ *    タグには price_html がありません。** 試しに書くと空になり、
+ *    価格そのものが消えました。
+ *
+ *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
+ *    number_format を通すと現行と1文字も違わなくなりました。 */
 /* ---------------------------------------------------------------------------
    items.js — 商品一覧のマークアップ
 
@@ -42,10 +53,25 @@
 --------------------------------------------------------------------------- */
 
 /* 4列の表。Smarty の section で4件ごとに行を折り返します。 */
-function grid(listVar, name) {
+/* 🔴 現行と件数が違いました（実測・2026-09-10）
+ *
+ *              現行  移植版
+ *    ランキング   5     10
+ *    新着商品    16     20
+ *    定番の商品   12     20
+ *    最近チェック  4      4   ← 12商品見ても両方4件。上限は同じです
+ *
+ *    現行の [NEW1NN] や [SUISEN1NN] は、件数を管理画面の設定で決めています。
+ *    テンプレートには数字が書いてありません。クリエイターの
+ *    $new_item.list はその設定を見ずに20件返します。
+ *    **並びが4列なので、16→20 は行が1つ増えます。** 見た目が変わるので、
+ *    いま公開ページに出ている件数で止めます。件数を変えたくなったら
+ *    ここの数字だけ直してください。 */
+function grid(listVar, name, max) {
   const it = listVar + ".list[" + name + "]";
+  const cap = max ? " max=" + max : "";
   return `<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-<{section name=${name} loop=${listVar}.list}>
+<{section name=${name} loop=${listVar}.list${cap}}>
   <{if $smarty.section.${name}.index > 0 and $smarty.section.${name}.index % 4 == 0}></tr><tr><{/if}>
   <td align="center" class="lims" width="25%" valign="top">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
@@ -58,7 +84,7 @@ function grid(listVar, name) {
           <{section name=${name}i loop=$${it}.icon.list}><img src="<{$${it}.icon.list[${name}i].image_url}>" align="absmiddle" border="0"><{/section}>
         <{/if}>
       </td></tr>
-      <tr class="woong"><td valign="top" align="center"><{$${it}.price}>円（税込）</td></tr>
+      <tr class="woong"><td valign="top" align="center"><{$${it}.price|number_format}>円（税込）</td></tr>
     </table>
   </td>
 <{/section}>
@@ -69,7 +95,7 @@ function grid(listVar, name) {
    そちらはそのまま使い、中のタグだけ置き換えます。 */
 function ranking() {
   const it = "$ranking_item.list[r]";
-  return `<{section name=r loop=$ranking_item.list}>
+  return `<{section name=r loop=$ranking_item.list max=5}>
         <li class="rankList" id="rank<{$smarty.section.r.index_next}>">
             <em><{$smarty.section.r.index_next}></em>
             <div class="rankImg"><a href="<{${it}.url}>"><img src="<{${it}.image_M}>" alt="<{${it}.name}>" width="100" border="0"></a></div>

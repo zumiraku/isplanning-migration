@@ -18,8 +18,8 @@ const fs = require("fs");
 const { page } = require("./cdp.js");
 const { map } = require("../port/url-map.js");
 const { PAGES, landed } = require("./pages.js");
+const { openAt } = require("./bind.js");
 
-const PTK = "45bdf24edcff928f2fc86d299ab4a0dd03aeee10";
 const EXPR = fs.readFileSync(__dirname + "/exprs/link-sets.js", "utf8");
 
 const only = process.argv[2];
@@ -75,7 +75,7 @@ function split(entry) {
   const p = await page();
   let bad = 0;
 
-  for (const [name, livePath, portPath] of PAGES) {
+  for (const [name, livePath, portPath, type] of PAGES) {
     if (only && only !== livePath && only !== name) { continue; }
 
     await p.navigate("about:blank"); await sleep(250);
@@ -87,9 +87,10 @@ function split(entry) {
       bad++; continue;
     }
     const live = await p.evaluate(EXPR);
-    await p.navigate("about:blank"); await sleep(250);
-    await p.navigate("https://www.isp-sp.com" + portPath +
-      (portPath.indexOf("?") >= 0 ? "&" : "?") + "ptk=" + PTK); await sleep(4200);
+    /* 🔴 ptk のURLに直接行ってはいけません。最後に保存した種別の設計で
+       描かれます。種別を指定して結び直してから測ります。 */
+    const bound = await openAt(p, type, portPath, 4200);
+    if (!bound.ok) { console.log(""); console.log("🔴 " + name + " ── " + bound.why); bad++; continue; }
     const nu = await p.evaluate(EXPR);
 
     console.log("");
