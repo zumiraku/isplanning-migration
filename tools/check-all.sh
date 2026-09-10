@@ -48,6 +48,7 @@ run "Creator Mode templates parse"                sh tools/check-smarty.sh
 run "配列をそのまま出していないか"              node tools/port/check-array-output.js
 # 追加 2026-09-10: コメントの閉じ過ぎで、続くCSSルールが丸ごと消えていました。
 run "CSSのコメントが閉じているか"              node tools/port/check-css-comments.js
+run "現行のclass/idが移植版にもあるか"        node tools/port/check-class-parity.js
 run "tags match the official reference"           sh tools/check-against-reference.sh
 run "text around each Basic tag survived"         sh tools/check-tag-context.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh

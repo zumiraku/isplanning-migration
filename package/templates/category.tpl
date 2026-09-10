@@ -38,7 +38,7 @@
 <div id="wrapper">
   <div id="O_container">
     <{$module.leftmenu}>
-    <div class="M_mainContents">
+    <div class="M_mainContents" id="M_category">
 
 <!--▼商品分類段階リンク-->
 	<div class="M_topicPath">

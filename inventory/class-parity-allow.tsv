@@ -1,0 +1,25 @@
+# check-class-parity.js が黙るもの。理由を書いたものだけ入れます。
+# 形式:  ページ	class/id の名前	理由
+#
+# 🔴 「たぶん要らない」で入れないでください。ここに書いた時点で、
+#    二度と検査に出てきません。実物を見て理由が書けるものだけです。
+#
+トップ	section-inner	旧レビュー枠の中。旧レビューは2026年11月終了、この店舗はu-komiへ移行済み（C30）。現行も #r_review_wrap をJSで隠しています
+トップ	r_review_wrap	同上。枠ごと出していません
+トップ	r_review	同上
+トップ	review_inner	同上
+トップ	rank[RANK_NO]	現行はベーシックのタグをそのまま id に書いています。移植版は id="rank<{$smarty.section.r.index_next}>" で、描かれる id（rank1〜rank5）は同じです
+カテゴリ	[ADDCLASS]	class ではなくベーシックのタグです。クリエイターに同等はありません
+カテゴリ	categorybottom	モジュール category_bottom1 が持っています（49種類・598カテゴリぶん）。テンプレート側から外したのは、同じ見出しが2回出ていたためです
+カテゴリ	O_categotyBnr	カテゴリのバナーは1枚ではないので $category.image_url では足りません。モジュール category_extra1〜3 が現行のまま持っています
+商品詳細	count	数量の▲▼の入れ物。数値入力欄（input type=number）に替えました。押すたびの再読み込みが無くなり、スマホで数字キーが出ます
+商品詳細	up	同上
+商品詳細	down	同上
+商品詳細	itemImg	id を条件付きにしました。ct646 / ct664 は現行と同じ Item_detail_Image、それ以外は itemImg です
+検索	[ADDCLASS]	class ではなくベーシックのタグです
+買い物かご	basketMatomegai	まとめ買い割引は有効になっていません（ページ種別18のプレビューが404）。現行でも [IF_MATOMEGAI] が偽で出ません
+買い物かご	matomegaiWrap	同上
+買い物かご	basketQunantity	数量の▲▼の表。商品詳細と同じく数値入力欄に替えました
+買い物かご	basket-del	「かごの中身を空にする」。クリエイターに該当タグがありません（リファレンス全件を見て確認）。1件ずつの削除（remove_url）は残っています
+ヘッダー	slider	現行は共通ヘッダーに [TOPIMAGE] を置いていますが、実際に描かれるのはトップだけです（カテゴリの公開ページに #M_slider はありません）。移植版は top.tpl に置いています
+ヘッダー	wrapper	#wrapper は各ページテンプレートの側にあります。ヘッダーは中に入る側です

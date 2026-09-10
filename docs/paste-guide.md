@@ -90,10 +90,10 @@
 | ページ種別 | ファイル | 行数 |
 |---|---|---:|
 | トップ | `package/templates/top.tpl` | 278 |
-| 商品カテゴリー | `package/templates/category.tpl` | 163 |
-| 商品詳細 | `package/templates/detail.tpl` | 346 |
+| 商品カテゴリー | `package/templates/category.tpl` | 170 |
+| 商品詳細 | `package/templates/detail.tpl` | 386 |
 | 商品検索結果 | `package/templates/search.tpl` | 141 |
-| 買い物カゴ | `package/templates/cart.tpl` | 182 |
+| 買い物カゴ | `package/templates/cart.tpl` | 183 |
 | お知らせ一覧 | `package/templates/news-list.tpl` | 90 |
 | お知らせ詳細 | `package/templates/news-detail.tpl` | 72 |
 | 利用案内 | `package/templates/guide.tpl` | 379 |

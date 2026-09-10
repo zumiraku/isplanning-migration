@@ -90,6 +90,7 @@
 <{/section}>
         <tr>
             <td colspan="6" class="basketTotal">
+                <p class="haisou_txt"><{$cart.free_shipping_message}></p>
                 <dl class="totalWrap">
                     <dt class="totalItem">合計金額：</dt>
                     <dd class="totalPrice"><em><{$cart.total_price}> <span>(税込)</span></em></dd>

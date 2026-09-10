@@ -97,6 +97,19 @@ const rows = [
 '<{/section}>',
 '        <tr>',
 '            <td colspan="6" class="basketTotal">',
+/* 🔴 配送の案内を落としていました（2026-09-10）
+ *
+ *    元テンプレートの合計行の頭に、こう入っています。
+ *
+ *      <p class="haisou_txt">[CARRIAGE_MSG1]</p>
+ *
+ *    下のほうに置換を書いてあったのですが、**この行ごと作り直して
+ *    いるので、置換する相手がもう居ませんでした。** 静かに消えます。
+ *    クラスの数を現行と突き合わせて初めて分かりました。
+ *
+ *    リファレンスに $cart.free_shipping_message があります。
+ *    「対応するタグはありません」と書いていたのは誤りです。 */
+'                <p class="haisou_txt"><{$cart.free_shipping_message}></p>',
 '                <dl class="totalWrap">',
 '                    <dt class="totalItem">合計金額：</dt>',
 /* 🔴 合計金額に「円」を足しません
@@ -137,8 +150,8 @@ body = body.replace(/\[IFAMAZON\]<p class="amazonButtonWrap">\[AMAZON_PAY_BUTTON
 body = body.replace(/href=\[BASKET_MAIL\]/g, 'href="/shop/enq202208200" target="_blank" rel="noopener"');
 
 /* --- 送料メッセージ -------------------------------------------------------- */
-/* [CARRIAGE_MSG1] / [CARRIAGE_MSG2] に対応するタグはリファレンスにありません。
-   送料無料までの金額だけは $cart.free_shipping_price で出せます。 */
+/* 残りの [CARRIAGE_MSG1] / [CARRIAGE_MSG2]（コメントアウトされている枠）を掃除します。
+   合計行のぶんは上で $cart.free_shipping_message に置き換えました。 */
 body = body.replace(/<p class="haisou_txt">\[CARRIAGE_MSG1\]<\/p>/,
   '<{if $cart.free_shipping_price}><p class="haisou_txt">あと <{$cart.free_shipping_price}> 円のお買い上げで送料無料です</p><{/if}>');
 body = body.replace(/<p class="">\[CARRIAGE_MSG1\]<\/p>/, "");

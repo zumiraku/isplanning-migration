@@ -230,7 +230,13 @@ body = body.replace("[SUISEN4_2]",
 const r = rewrite(body);
 body = r.html;
 
-const out = shell({ name: "商品カテゴリー", from: "brandpage", slider: false, body: body.trim() });
+/* 🔴 id="M_category" を落としていました
+ *
+ *    現行は <div class="M_mainContents" id="M_category"> です。商品詳細の
+ *    O_itemDetail、かごの M_basket と同じ形で、**カテゴリだけ抜けて
+ *    いました。** m_sys_common に #M_category ちょうどを狙った規則は
+ *    0本なので見た目は変わりませんが、公開ページと同じ骨格に戻します。 */
+const out = shell({ name: "商品カテゴリー", from: "brandpage", slider: false, mainId: "M_category", body: body.trim() });
 fs.writeFileSync("templates/creator/mode/category.tpl", out);
 
 console.log("カテゴリ: " + out.split("\n").length + " 行");

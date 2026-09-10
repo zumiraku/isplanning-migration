@@ -27,6 +27,7 @@ const PAGES = [
   ["商品詳細", "/shopdetail/003001000005/", "/view/item/003001000005", 3],
   ["カゴ", "/shop/basket.html", "/view/cart", 6],
   ["お知らせ一覧", "/new/index.html", "/view/news/list", 9],
+  ["お知らせ詳細", "/new/2026-07-28-033258.html", "/view/news/20260728033258", 10],
   ["ご利用ガイド", "/html/info.html", "/view/guide", 11],
   ["会社概要", "/html/company.html", "/view/company", 12],
   ["取引条件", "/html/ordercontract.html", "/view/contract", 13],
