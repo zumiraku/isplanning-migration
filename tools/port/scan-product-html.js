@@ -1,33 +1,13 @@
-/* ---------------------------------------------------------------------------
-   scan-product-html.js — 商品説明文9,643件の中身を調べます
-
-   ※ ここを一度も見ていませんでした
-
-      テンプレート・モジュール・独自ページは1文字ずつ突き合わせました。
-      ところが**商品説明文は商品データ**なので、こちらのファイルには
-      入っていません。9,643件、33MB。中に何が書いてあるかを見ていません。
-
-      切り替えで壊れるのは、たとえばこういうものです。
-
-        ・jQuery を前提にしたスクリプト（プラットフォームが読ませなくなる）
-        ・ベーシックのタグ（[SHOPNAME] など。クリエイターでは展開されない）
-        ・/smartphone/ を指すリンク（切替後は消えるサイト）
-        ・スマホ専用の説明文（クリエイターには対応する欄がない）
-
-     node tools/port/scan-product-html.js
-
-   ※ 読むだけです。CSVは書き換えません。
---------------------------------------------------------------------------- */
+/* scan-product-html.js — 商品説明文9,643件の中身を調べます */
 const fs = require("fs");
 
-const FILE = "tools/cdp/csv/20260909181742.csv";   /* 書き換え前の控え */
+const FILE = "tools/cdp/csv/20260909181742.csv";
 
 if (!fs.existsSync(FILE)) {
   console.error("※ 商品CSVがありません: " + FILE);
   process.exit(1);
 }
 
-/* Shift_JIS を読みます。node に同梱の decoder を使います */
 const buf = fs.readFileSync(FILE);
 let text;
 try { text = new TextDecoder("shift_jis").decode(buf); }
@@ -52,7 +32,6 @@ const lines = text.split("\n");
 console.log("商品CSV: " + lines.length + " 行 / " + Math.round(buf.length / 1024 / 1024) + " MB");
 console.log("");
 
-/* 見出し行から、説明文の列を拾います */
 const head = (lines[0] || "").split(",").map(s => s.replace(/^"|"$/g, ""));
 const cols = [];
 head.forEach(function (h, i) {
@@ -67,7 +46,6 @@ const sample = {};
 for (const [label] of PATTERNS) { tally[label] = 0; sample[label] = []; }
 let rows = 0;
 
-/* 行の途中に改行が入るので、素朴に全文で数えます（列ごとではなく全体） */
 for (const [label, re] of PATTERNS) {
   re.lastIndex = 0;
   const m = text.match(re);
@@ -84,3 +62,4 @@ for (const [label] of PATTERNS) {
     console.log("      例: " + sample[label].map(s => s.slice(0, 34)).join(" / "));
   }
 }
+

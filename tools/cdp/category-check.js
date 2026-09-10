@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   category-check.js — カテゴリごとの独自内容が、移行後も出るか
-
-   ベーシックには53のカテゴリテンプレートがあり、カテゴリごとに違う
-   説明文やバナーが入っています。クリエイターモードのカテゴリは**1枚**です。
-   **カテゴリ別の中身が落ちていないか**を、実際に配信されるページで見ます。
-
-     node tools/cdp/category-check.js
-
-   プレビューは押した種別に固定されるので、カテゴリのプレビューを押してから
-   URLだけ差し替えて回ります。
---------------------------------------------------------------------------- */
+/* category-check.js — カテゴリごとの独自内容が、移行後も出るか */
 const fs = require("fs");
 const https = require("https");
 const { page } = require("./cdp.js");
@@ -18,7 +7,6 @@ const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_edi
 const SET = 5;
 const OUT = "tools/cdp/category-out";
 
-/* 現行URL → 移行後URL。カレンダー・季節・予算など、性格の違うものを選びました。 */
 const CATS = [
   ["ct646", "/shopbrand/051/O/", "/view/category/ct646"],
   ["ct5", "/shopbrand/003/001/X/", "/view/category/ct5"],
@@ -48,16 +36,9 @@ function decode(buf) {
   return s;
 }
 
-/* ※ head は本文ではありません
- *
- *    「夏は熱中症対策が…」は meta description でした。head を混ぜたので、
- *    出るはずのないものを「欠落」と数えていました。 */
 function bodyOnly(html) {
   const at = html.search(/<body/i);
   if (at >= 0) { return html.slice(at); }
-  /* ※ <body> が無いページがあります（ベーシックの出力）。
-   *    そのとき全文を返していたので、head の <title> を「本文の欠落」と
-   *    数えていました。</head> で切ります。 */
   const h = html.toLowerCase().indexOf("</head>");
   return h >= 0 ? html.slice(h) : html;
 }
@@ -72,8 +53,6 @@ function chunks(html) {
     .map(s => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
                .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)))
                .replace(/&#x([0-9a-f]+);/gi, (m, n) => String.fromCodePoint(parseInt(n, 16)))
-               /* ※ 名前付きの実体参照も戻します。&raquo; を残していたので、
-                *    ページ送りの「次の40件 »」を毎回「欠落」と数えていました。 */
                .replace(/&raquo;/g, "»").replace(/&laquo;/g, "«")
                .replace(/&quot;/g, "\"").replace(/&#39;|&apos;/g, "'")
                .split("〜").join("～")
@@ -81,8 +60,6 @@ function chunks(html) {
     .filter(s => s.length >= 10);
 }
 
-/* 商品名・価格はカテゴリの中身なので、比べても意味がありません（在庫で変わります）。
-   説明文・見出し・案内だけを見たいので、数字と価格の行は外します。 */
 function isProductish(s) {
   return /^\d[\d,]*円/.test(s) || /円（税込）$/.test(s) || /^\d+$/.test(s);
 }
@@ -91,7 +68,6 @@ function isProductish(s) {
   fs.mkdirSync(OUT, { recursive: true });
   const p = await page();
 
-  /* カテゴリのプレビューを1度押して、焼き付けます */
   await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=4");
   for (let i = 0; i < 30; i++) {
     await sleep(500);
@@ -123,3 +99,4 @@ function isProductish(s) {
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

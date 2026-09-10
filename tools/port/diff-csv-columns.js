@@ -1,37 +1,10 @@
-/* ---------------------------------------------------------------------------
-   diff-csv-columns.js — 流すCSVが、狙った列以外を触っていないか
-
-   ※ 85列あります
-
-      移したいのは 画像説明文2/3 → PC用追加商品説明文・スマホ商品説明2 の
-      2組だけです。
-      ところがCSVは**85列を丸ごと上書き**します。価格も在庫も送料区分も、
-      1行に全部入っています。**どこか1列でも欠けたり化けたりしたら、
-      9,635商品の商売のデータが壊れます。**
-
-      「狙った列以外は同じ」を、列ごとに数えて確かめます。
-
-     node tools/port/diff-csv-columns.js
-
-   ※ 読むだけです。CSVは書き換えません。
---------------------------------------------------------------------------- */
+/* diff-csv-columns.js — 流すCSVが、狙った列以外を触っていないか */
 const fs = require("fs");
 
 const BACKUP = "tools/cdp/csv/20260909181742.csv";
 const MOVE = "tools/cdp/csv/move-captions.csv";
 const CODE = "システム商品コード";
 
-/* 変わってよい列。ここ以外が変わっていたら止めます
- *
- * ※ 最初この表を間違えて書き、正しいCSVを「流してはいけない」と判定しました。
- *    実際の対応はこうです（tools/port/build-detail.js の調査結果）。
- *
- *      画像説明文2  →  PC用追加商品説明文   ＝ $item.description2
- *      画像説明文3  →  スマホ商品説明2      ＝ $item.description4
- *
- *    スマホ商品説明1（$item.description3）は**移し先ではありません。**
- *    元の 画像説明文2/3 は消さずに残します（クリエイターからは読めない
- *    欄なので、残しても害がありません）。 */
 const ALLOWED = ["PC用追加商品説明文", "スマホ商品説明2",
                  "商品特定コード指定", "更新時間フラグ"];
 
@@ -67,7 +40,6 @@ const back = rows(readSjis(BACKUP));
 const move = rows(readSjis(MOVE));
 const bh = back[0], mh = move[0];
 
-/* 見出しがずれていたら、その時点でおしまいです */
 if (bh.length !== mh.length) {
   console.log("※ 列数が違います: 控え " + bh.length + " / 流す分 " + mh.length);
   process.exit(1);
@@ -136,3 +108,4 @@ if (bad) {
   process.exit(1);
 }
 console.log("OK 変わっているのは狙った列だけです");
+

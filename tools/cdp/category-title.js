@@ -1,19 +1,4 @@
-/* ---------------------------------------------------------------------------
-   category-title.js — カテゴリ独自タイトルをモジュールにする
-
-   ※ $category.name は、現行の見出しと違います
-
-     現行 「～49円（予算別粗品　税別単価）」   $category.name 「～49円」
-     現行 「夏向け粗品（夏の粗品）」          $category.name 「夏向け粗品」
-     現行 「防災グッズ（BCP対策）の粗品」      $category.name 「防災グッズ（BCP対策）」
-
-   ベーシックの [NAMECURRENT] は、カテゴリごとに設定された独自タイトルを
-   出していました。クリエイターの $category.name は登録名しか返しません。
-
-   カテゴリ識別コードで振り分けます。名前が同じものは1つにまとめます。
-
-     node tools/cdp/category-title.js
---------------------------------------------------------------------------- */
+/* category-title.js — カテゴリ独自タイトルをモジュールにする */
 const fs = require("fs");
 
 const SRC = "tools/cdp/category-src";
@@ -33,8 +18,6 @@ for (const r of fs.readFileSync(MAP, "utf8").split("\n")) {
   if (m) { codes.push(m[1]); }
 }
 
-/* 現行の見出しは、パンくずの下にある2つ目の h2 です
-   （1つ目はヘッダーの「2000年8月オープン！…」、3つ目は下の帯）。 */
 const found = [];
 let missing = 0;
 for (const code of codes) {
@@ -44,7 +27,6 @@ for (const code of codes) {
   const body = html.slice(html.search(/<body\b/i));
   const hs = [...body.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)]
     .map(m => m[1].replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim());
-  /* ヘッダーの決まり文句と、下の帯の決まり文句を外します */
   const title = hs.find(t => t && t.indexOf("2000年8月オープン") < 0 && t.indexOf("粗品選びは") < 0);
   if (!title) { missing++; continue; }
   found.push({ code, title: title.split("〜").join("～") });
@@ -89,3 +71,4 @@ parts.forEach((part, i) => {
 console.log("");
 console.log("見出しが取れたカテゴリ " + found.length + " / 取れない " + missing + " / 種類 " + by.size);
 console.log("テンプレートから: " + parts.map((p, i) => "<{$module.category_title" + (i + 1) + "}>").join(""));
+

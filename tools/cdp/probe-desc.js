@@ -1,12 +1,4 @@
-/* ---------------------------------------------------------------------------
-   probe-desc.js — 商品詳細の説明タグ4つに、実際に何が入るのかを確かめる
-
-   $item.description3 と $item.description4 を [ITEMCAPTION_2] / [ITEMCAPTION_3]
-   に当てていましたが、**実データでは description3 が本文の重複、
-   description4 は空**でした。山口様の「説明文が2回出る」の正体です。
-
-   保存はしません。プレビューに印つきで出させて読むだけです。
---------------------------------------------------------------------------- */
+/* probe-desc.js — 商品詳細の説明タグ4つに、実際に何が入るのかを確かめる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -39,11 +31,6 @@ const TAGS = ["description", "description2", "description3", "description4", "sp
   })()`);
   console.log("印を入れた: " + set);
 
-  /* ※ プレビューは、**保存済みの内容**を描きます
-   *
-   *    formPreview に流し込んだHTMLは使われませんでした（印が1つも
-   *    出ません）。いったん保存してからプレビューし、読み終えたら
-   *    元に戻します。ショップには適用していないので影響しません。 */
   await p.evaluate("window.confirm = function(){ return true; }; saveContent(); 1");
   await sleep(4500);
   await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + TYPE);
@@ -59,7 +46,6 @@ const TAGS = ["description", "description2", "description3", "description4", "sp
   const html = await p.evaluate("document.documentElement.outerHTML");
   p.close();
 
-  /* 元に戻します */
   const back = await page();
   await back.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + TYPE);
   for (let i = 0; i < 30; i++) { await sleep(500); if (await back.evaluate("(typeof g_editor_object !== 'undefined' && !!g_editor_object.html_pc) ? 1 : 0")) break; }
@@ -83,3 +69,4 @@ const TAGS = ["description", "description2", "description3", "description4", "sp
     console.log("$item." + t.padEnd(18) + String(seg.length).padStart(6) + " 文字  " + text.slice(0, 90));
   });
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

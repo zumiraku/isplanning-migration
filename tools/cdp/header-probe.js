@@ -1,12 +1,4 @@
-/* ---------------------------------------------------------------------------
-   header-probe.js — 375px でヘッダーがはみ出す理由を、その場で見ます
-
-     node tools/cdp/header-probe.js [page_type]
-
-   sp-preview.js で、トップ(584px) とカテゴリ(530px) だけがはみ出しました。
-   商品詳細と買い物カゴは収まっています。**同じヘッダーモジュールなのに
-   ページで違う**ので、中身と効いているCSSを読みます。
---------------------------------------------------------------------------- */
+/* header-probe.js — 375px でヘッダーがはみ出す理由を、その場で見ます */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -96,3 +88,4 @@ const PROBE = `(function () {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

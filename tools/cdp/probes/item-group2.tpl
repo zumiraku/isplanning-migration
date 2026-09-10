@@ -1,4 +1,3 @@
-<{* 商品グループが現行50点・移植版40点です。上限を動かせるタグがないか。 *}>
 ZQcountSTART<{$item.group.list|@count}>ZQcountEND
 ZQtotalSTART<{$item.group.total_count}>ZQtotalEND
 ZQdispSTART<{$item.group.display_count}>ZQdispEND

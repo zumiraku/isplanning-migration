@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   css-grep.js — 配信されている自前CSSを取ってきて、文字で探します
-
-     node tools/cdp/css-grep.js headerWrap [page_type]
-
-   document.styleSheets は他所のCSSを読めません（SecurityError）。
-   自前のCSSは同一オリジンなので fetch すれば読めます。
---------------------------------------------------------------------------- */
+/* css-grep.js — 配信されている自前CSSを取ってきて、文字で探します */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -70,3 +63,4 @@ function probe(needle) {
   });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

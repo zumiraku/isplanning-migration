@@ -1,22 +1,4 @@
-/* ---------------------------------------------------------------------------
-   check-constraints.js — 制約台帳で `?` のまま残っている項目を、実データで答えます
-
-   ※ 8件が「使っているかどうか分からない」まま残っていました
-
-      クリエイターモードで無くなる機能のうち、**使っているなら切替で消える**
-      ものです。分からないまま切り替えるのは、消えるかどうか分からないまま
-      切り替えるのと同じです。
-
-        C5  スマホ用商品詳細説明        商品データで分かります
-        C6  追加画像レイアウト設定       同上
-        C7  一発購入                同上
-        C9  投票 / 懸賞             配信ページで分かります
-        C12 商品レビューのデザイン設定    同上
-
-      商品CSV（9,643件・85列）と、取ってある配信ページから答えます。
-
-     node tools/port/check-constraints.js
---------------------------------------------------------------------------- */
+/* check-constraints.js — 制約台帳で `?` のまま残っている項目を、実データで答えます */
 const fs = require("fs");
 const path = require("path");
 
@@ -61,14 +43,7 @@ function countNonEmpty(i) {
   return n;
 }
 
-/* ※ 商品カテゴリー用商品説明文は、一覧の [DETAIL] でした（2026-09-10）
- *
- *    ここに「使用 4,730件」と出ていたのに、行き先を決めていませんでした。
- *    カテゴリ一覧は $category.item.list[i].description を出していたので、
- *    **商品仕様の全文**が40件ぶん並んでいました。いまは
- *    category_description に直してあります。数は情報として残します。 */
 
-/* ── 商品データで答えられるもの ── */
 console.log("■ 商品データから");
 const SPOTS = [
   ["C5  スマホ商品説明1", "スマホ商品説明1"],
@@ -80,7 +55,6 @@ const SPOTS = [
 for (const [label, name] of SPOTS) {
   const i = col(name);
   if (i < 0) {
-    /* 名前が違うかもしれないので、近い列名を探します */
     const near = head.filter(h => h.indexOf(name.slice(0, 4)) >= 0);
     console.log("  " + label.padEnd(28) + "列が無い" +
       (near.length ? "（近い名前: " + near.join(" / ") + "）" : ""));
@@ -90,7 +64,6 @@ for (const [label, name] of SPOTS) {
   console.log("  " + label.padEnd(28) + (n ? "※ 使用 " + n + " 件" : "OK 未使用"));
 }
 
-/* 列名の一覧を出して、見落としを防ぎます */
 console.log("");
 console.log("■ 中身のある列（85列のうち）");
 const used = [];
@@ -101,7 +74,6 @@ for (let i = 0; i < head.length; i++) {
 console.log("  " + used.length + " 列に中身があります");
 used.forEach(([h, n]) => console.log("    " + h.padEnd(30) + String(n).padStart(6)));
 
-/* ── 配信ページで答えられるもの ── */
 console.log("");
 console.log("■ 配信ページから");
 const DIR = "tools/cdp/preview-out";
@@ -119,3 +91,4 @@ if (fs.existsSync(DIR)) {
     console.log("  " + label.padEnd(28) + (m ? "※ あり（" + m[0].slice(0, 20) + "）" : "OK 無し"));
   }
 }
+

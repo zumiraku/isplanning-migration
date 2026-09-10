@@ -1,12 +1,4 @@
-/* ---------------------------------------------------------------------------
-   freepage-fetch.js — 独自ページ82枚を、公開中のサイトから取ってくる
-
-   デザインセットに入っている82枚は、差し戻された版の骨格のままでした
-   （`<main class="container">`、左メニュー無し、削除した旧CSSのクラス）。
-   **公開中のページから本文を取り直します。**
-
-   保存先: tools/cdp/freepage-src/
---------------------------------------------------------------------------- */
+/* freepage-fetch.js — 独自ページ82枚を、公開中のサイトから取ってくる */
 const fs = require("fs");
 const https = require("https");
 
@@ -50,3 +42,4 @@ function get(path) {
   }
   console.log("取れた " + ok + " 枚 / 取れない " + ng + " 枚  → " + OUT);
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

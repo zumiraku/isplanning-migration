@@ -1,34 +1,11 @@
 #!/bin/sh
 # map-tags-to-creator.sh — Basic Mode tag -> Creator Mode tag
-#
-# design-backup.md put it plainly: "This list is the migration." Each of the 210
-# Basic Mode tags the shop's templates use either has a Creator Mode counterpart
-# or it is a functional gap, and a gap found by a customer is the failure this
-# whole project exists to avoid.
-#
-# Until 2026-09-04 we were inferring those counterparts from the archive. We were
-# not: the destination platform publishes a tag reference, per page type, at
-#
-#   http://reference.makeshop.jp/taglist/creator-mode/<page>.html
-#
-# The mappings below are the ones read off it so far, keyed by Basic Mode tag.
-# Everything else is emitted as 要確認 with the reference page to look at, so the
-# remaining work is mechanical rather than a research problem.
-#
-# Note the shape change this table hides. Basic Mode tags are standalone
-# substitutions - [BRANDNAME] means "the product name here". Creator Mode is a
-# loop with a subject: $category.item.list[i].name. So a one-to-one row is a
-# convenience for tracking coverage, not a search-and-replace instruction.
-#
-# Output: inventory/tag-mapping.csv
-# Needs Git Bash. Run from the repository root.
 
 src="inventory/basic-mode-tags.csv"
 out="${1:-inventory/tag-mapping.csv}"
 
 [ -f "$src" ] || { echo "no $src - run inventory-basic-tags.sh first"; exit 1; }
 
-# Basic tag | Creator equivalent | note
 map_for() {
   case "$1" in
     '[SYSTEM_CODE]')     echo '$item.system_code|商品詳細。u-komiの設置タグで使用' ;;
@@ -82,12 +59,6 @@ sed 's/^"//; s/"$//' "$src" | tail -n +2 | while IFS= read -r line; do
     continue
   fi
 
-  # The Basic Mode listing-layout family does not map to anything - it dissolves.
-  # [PRODUCTION_START] opens the product loop, [PRODUCTION_ITEM4_START] opens a
-  # row of four, [GROUP4_0] lays out sub-categories four across, [SUISEN4_2] is
-  # two rows of four recommendations, [ADDCLASS] injects a class per cell.
-  # Creator Mode has one loop and the columns are CSS, so there is no counterpart
-  # to find. Counting these as unresolved overstates the remaining work.
   case "$tag" in
     '[PRODUCTION_'*|'[ADDCLASS]'|'[ADDCODE]')
       printf '"%s","%s","%s","%s","%s","%s","%s"\n' \
@@ -96,13 +67,6 @@ sed 's/^"//; s/"$//' "$src" | tail -n +2 | while IFS= read -r line; do
       continue ;;
   esac
 
-  # Retired by the platform, or already unused on this shop. Neither is work.
-  #
-  #   [REVIEW_*]  MakeShop retires the old 商品レビュー at the end of November
-  #               2026 and u-komi replaces it. The client has already switched
-  #               and asked us to delete the tags (C30).
-  #   [RECENT]    最近見た商品. Commented out in this shop's own templates - the
-  #               rcmd.jp _displayHistory slot does the job instead (C31).
   case "$tag" in
     '[REVIEW_'*)
       printf '"%s","%s","%s","%s","%s","%s","%s"\n' \
@@ -121,10 +85,6 @@ sed 's/^"//; s/"$//' "$src" | tail -n +2 | while IFS= read -r line; do
     eq=$(echo "$hit"   | awk -F'|' '{print $1}')
     note=$(echo "$hit" | awk -F'|' '{print $2}')
     st="判明"
-    # 欠落 is the status this whole inventory exists to produce: a tag whose
-    # function has no Creator Mode counterpart at all. It is not work to be
-    # scheduled, it is a capability the shop loses unless someone decides
-    # otherwise, so it must never be filed alongside "not looked at yet".
     [ "$eq" = "要確認" ] && st="要確認"
     [ "$eq" = "欠落" ] && st="欠落"
   else
@@ -150,3 +110,4 @@ echo "report            : $out"
 echo ""
 echo "highest-use tags still unresolved:"
 sed 's/"//g' "$out" | awk -F, 'NR>1 && $6=="要確認" && $3=="output"{printf "%6d  %s\n", $2, $1}' | sort -rn | head -10
+

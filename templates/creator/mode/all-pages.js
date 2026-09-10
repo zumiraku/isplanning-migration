@@ -43,40 +43,10 @@
    ========================================================================== */
 ;
 /* ---------- port-chrome.js ---------- */
-/* ---------------------------------------------------------------------------
-   port-chrome.js — 旧サイトの共通headにあった挙動の移植 ＋ スマホの引き出し
-
-   ※ 「上部固定がない」の正体はここでした
-
-      旧サイトは 共通head管理 に素のJSを置いていて、スクロールすると
-      #headerWrap に .fixed を付けていました。CSS側の #headerWrap.fixed は
-      m_sys_common.css の518行目にちゃんとあります。**HTMLとCSSだけ移植して
-      JSを見落とすと、固定ヘッダーだけが消えます。**
-
-        $(window).scroll(function () {
-          if($(window).scrollTop() > 20) { $('#headerWrap').addClass('fixed'); }
-          else { $('#headerWrap').removeClass('fixed'); }
-        });
-
-      同じ場所に「ページトップへ戻る」もありました。.pageTop は下段メニューに
-      あるのに、出す処理がheadにあったので、片方だけ移しても動きません。
-
-   jQuery に依存しません
-
-      旧サイトは jQuery 3.3.1 を自前で読み、さらに code.jquery.com からも
-      読んでいました（二重）。クリエイターモードはプラットフォームが 3.7.1 を
-      読むので、**そこに乗るか落ちるかを読み込み順に賭けたくありません。**
-      素のJSで書き直しています。挙動は同じです。
-
-   スマホの左メニュー
-
-      山口様のご指摘そのままです ──「左メニュー部分はスマホでは lll で
-      呼び出す感じだと思いますが」。960px 未満で引き出しになります。
---------------------------------------------------------------------------- */
+/* port-chrome.js — 旧サイトの共通headにあった挙動の移植 ＋ スマホの引き出し */
 (function () {
   "use strict";
 
-  /* --- 1. スクロールでヘッダーを固定 -------------------------------------- */
   var headerWrap = document.getElementById("headerWrap");
   if (headerWrap) {
     var onScroll = function () {
@@ -87,7 +57,6 @@
     onScroll();
   }
 
-  /* --- 2. ページトップへ戻る ---------------------------------------------- */
   var pageTop = document.querySelector(".pageTop");
   if (pageTop) {
     pageTop.style.display = "none";
@@ -102,7 +71,6 @@
     });
   }
 
-  /* --- 3. 左メニューの引き出し -------------------------------------------- */
   var menu = document.getElementById("M_leftContents");
   var toggle = document.querySelector(".l-menu-toggle");
   if (menu && toggle) {
@@ -130,26 +98,15 @@
     var closeBtn = menu.querySelector(".l-menu-close");
     if (closeBtn) { closeBtn.addEventListener("click", close); }
 
-    /* Esc で閉じる。開いたまま迷子にならないように。 */
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && menu.classList.contains("is-open")) { close(); }
     });
 
-    /* 広い画面に戻したら、開いた状態を残さない */
     window.addEventListener("resize", function () {
       if (window.innerWidth > 960 && menu.classList.contains("is-open")) { close(); }
     });
   }
 
-  /* --- 4. 画像の拡大 -------------------------------------------------------
-     ※ 山口様のご指摘「画像が拡大できない」
-
-     ベーシックには「商品画像拡大画面」というページ種別があり、[VIEWBUTTON]
-     がそこへのリンクでした。**クリエイターにはこのページ種別がありません**
-     （16種の一覧に無い）。別ページに飛ばせないので、同じ画面に重ねます。
-
-     リンクの href が拡大画像そのものなので、**JSが動かなくても画像は開きます。**
-     壊れ方が「別タブで画像が開くだけ」で済むようにしてあります。 */
   var zoomLinks = document.querySelectorAll("a[data-zoom]");
   if (zoomLinks.length) {
     var box = null;
@@ -200,27 +157,9 @@
   }
 }());
 
+
 /* ---------- search-submit.js ---------- */
-/* -----------------------------------------------------------------------------
-   search-submit.js — 検索欄で Enter を押したときに検索する
-
-   検索は <form> ではありません。プラットフォームの system.js が
-
-     $('[href="' + searchUrl + '"]').on('click', …)
-
-   という形でしか検索を張っておらず、action 属性も submit イベントも
-   一度も参照しないためです（実サーバの system.js を読んで確認）。
-
-   その結果、<form> をやめた副作用として **Enter が効かなくなります。**
-   検索窓に文字を入れて Enter、はいちばん多い操作なので、ここで補います。
-
-   マーカーの文字列は直書きしません。プラットフォームが
-   #makeshop-page-common-search-data の data-search-url で公開しているので、
-   そちらを読みます。将来 makeshop 側が名前を変えても追従します。
-
-   このファイルが読まれなくても、検索ボタン自体は効きます（バインドしている
-   のはプラットフォーム側なので）。落ちるのは Enter だけです。
------------------------------------------------------------------------------ */
+/* search-submit.js — 検索欄で Enter を押したときに検索する */
 (function () {
   var data = document.getElementById('makeshop-page-common-search-data');
   var url = data && data.getAttribute('data-search-url');
@@ -232,20 +171,6 @@
     var el = e.target;
     if (!el || !el.matches || !el.matches('input')) { return; }
 
-    /* 検索欄の中で押されたときだけ。商品ページの数量欄などは対象外です。
-     *
-     * ※ 探すクラスは .search-box と #r_searchInput です
-     *
-     *    最初は .searchbox と .refine__form を見ていました。**どちらも
-     *    こちらが設計したときの名前**で、移植で無くなっています。
-     *    いまのマークアップは店舗のもので、
-     *
-     *      ヘッダー      <div class="search-box">      （上段メニュー）
-     *      検索ページ    <div id="r_searchInput">      （絞り込みの表）
-     *
-     *    です。ハイフンの位置が違うだけなので、目では気づけませんでした。
-     *    verify-chrome.html が「Enterがリンクのクリックにならない」で
-     *    落ちて分かりました。 */
     var box = el.closest('.search-box, #r_searchInput');
     if (!box) { return; }
 
@@ -256,3 +181,4 @@
     go.click();
   });
 }());
+

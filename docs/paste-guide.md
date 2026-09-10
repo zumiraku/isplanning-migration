@@ -39,12 +39,12 @@
 
 | モジュールID | 管理用名称 | ファイル | 行数 | 中身 |
 |---|---|---|---:|---|
-| `header` | ヘッダー | `package/modules/header.tpl` | 110 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
-| `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` | 264 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
-| `footer` | フッター | `package/modules/footer.tpl` | 191 | コラム・各種ご案内・会社情報 |
-| `calendar1` | 営業日カレンダー（今月） | `package/modules/calendar1.tpl` | 74 | 営業日カレンダー（今月） |
-| `calendar2` | 営業日カレンダー（翌月） | `package/modules/calendar2.tpl` | 69 | 営業日カレンダー（翌月） |
-| `freespace_calendar` | 卓上カレンダー説明 | `package/modules/freespace_calendar.tpl` | 247 | 卓上カレンダーのカテゴリ（ct646）の説明と休業日 |
+| `header` | ヘッダー | `package/modules/header.tpl` | 100 | ヘッダーの文言・電話番号・送料の帯・トレンドキーワード |
+| `leftmenu` | 左メニュー | `package/modules/leftmenu.tpl` | 253 | 左メニュー（予算で選ぶ・シーンで選ぶ・商品別カテゴリー） |
+| `footer` | フッター | `package/modules/footer.tpl` | 178 | コラム・各種ご案内・会社情報 |
+| `calendar1` | 営業日カレンダー（今月） | `package/modules/calendar1.tpl` | 61 | 営業日カレンダー（今月） |
+| `calendar2` | 営業日カレンダー（翌月） | `package/modules/calendar2.tpl` | 56 | 営業日カレンダー（翌月） |
+| `freespace_calendar` | 卓上カレンダー説明 | `package/modules/freespace_calendar.tpl` | 235 | 卓上カレンダーのカテゴリ（ct646）の説明と休業日 |
 
 ---
 
@@ -54,8 +54,8 @@
 
 | 箱 | ファイル | 行数 | 大きさ |
 |---|---|---:|---:|
-| CSS | `package/paste/all-pages.css` | 9,530 | 205KB |
-| JavaScript | `package/paste/all-pages.js` | 258 | 11KB |
+| CSS | `package/paste/all-pages.css` | 9,155 | 181KB |
+| JavaScript | `package/paste/all-pages.js` | 184 | 7KB |
 
 どちらも **箱の中で Ctrl+A → Ctrl+V** で丸ごと置き換えます。
 
@@ -89,17 +89,17 @@
 
 | ページ種別 | ファイル | 行数 |
 |---|---|---:|
-| トップ | `package/templates/top.tpl` | 310 |
-| 商品カテゴリー | `package/templates/category.tpl` | 177 |
-| 商品詳細 | `package/templates/detail.tpl` | 386 |
-| 商品検索結果 | `package/templates/search.tpl` | 141 |
-| 買い物カゴ | `package/templates/cart.tpl` | 174 |
-| お知らせ一覧 | `package/templates/news-list.tpl` | 95 |
-| お知らせ詳細 | `package/templates/news-detail.tpl` | 72 |
-| 利用案内 | `package/templates/guide.tpl` | 379 |
-| 会社概要 | `package/templates/company.tpl` | 66 |
-| 特定商取引法 | `package/templates/contract.tpl` | 175 |
-| プライバシーポリシー | `package/templates/policy.tpl` | 130 |
+| トップ | `package/templates/top.tpl` | 253 |
+| 商品カテゴリー | `package/templates/category.tpl` | 133 |
+| 商品詳細 | `package/templates/detail.tpl` | 360 |
+| 商品検索結果 | `package/templates/search.tpl` | 120 |
+| 買い物カゴ | `package/templates/cart.tpl` | 153 |
+| お知らせ一覧 | `package/templates/news-list.tpl` | 75 |
+| お知らせ詳細 | `package/templates/news-detail.tpl` | 52 |
+| 利用案内 | `package/templates/guide.tpl` | 358 |
+| 会社概要 | `package/templates/company.tpl` | 46 |
+| 特定商取引法 | `package/templates/contract.tpl` | 155 |
+| プライバシーポリシー | `package/templates/policy.tpl` | 108 |
 
 **触らないページ種別が4つあります。** 商品レビュー一覧・商品レビュー投稿・
 まとめ買い割引・会員制/年齢確認。この店舗では使っていないので、素の

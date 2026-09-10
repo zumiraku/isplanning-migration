@@ -1,17 +1,4 @@
-/* ---------------------------------------------------------------------------
-   shell.js — 全ページ共通の文書の外側
-
-   各ページのHTML欄は「完全なHTML文書」です。本文の断片ではありません。
-
-   ※ $makeshop.head / body_top / body_bottom は必須
-      これが無いと GA4（G-BK1PPN5MEV）も u-komi もカゴ投入も動きません。
-
-   ※ 旧サイトの 共通head管理 にあったものを全部持ってきます
-      Google の所有権確認3本、Noto Sans JP と Mochiy Pop One、そして
-      **gigaplus の default.css**。default.css は22KBのユーティリティCSSで、
-      m_sys_common.css とは別物です。**片方だけ移すと余白と文字サイズが
-      全部ずれます。**
---------------------------------------------------------------------------- */
+/* shell.js — 全ページ共通の文書の外側 */
 const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
 <meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
 <meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
@@ -22,54 +9,12 @@ const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
 <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://gigaplus.makeshop.jp/isplanning/css/default.css">`;
 
-/* トップだけスライダーが入ります。旧テンプレートでは 上段メニュー の中に
-   [TOPIMAGE] がありましたが、モジュールは全ページ共通なので、ここで
-   ページ側に持たせています。 */
-/* ※ 本文の入れ物の id を落としていました（2026-09-10 実測）
- *
- *    現行のかごページは <div class="M_mainContents" id="M_basket"> です。
- *    移植では先頭のこの行を捨てて、シェルの <div class="M_mainContents"> に
- *    任せていました。**id が消えます。**
- *
- *    元CSSには id を前提にしたルールがあります。
- *
- *      #M_basket .btnWrap.clear { width: 100% }
- *      #r_basket .btnWrap .btnOrder { float: right }
- *
- *    width が効かないので、右に流したボタンが親からはみ出していました
- *    （実測 右227px）。「ご購入手続きへ進む」がずれて見えます。
- *    商品詳細も同じで、id="O_itemDetail" を落としていました。
- *
- *    シェルに id を渡せるようにします。 */
-/* ※ お知らせ一覧のタイトルが、店名に化けていました（2026-09-10 実測）
- *
- *      現行    お知らせ一覧ページ
- *      移植版  粗品と景品の発見マーケット　ISPLANNING
- *
- *    `$page.title` は、お知らせ一覧では**店名しか返しません。** 現行の
- *    「お知らせ一覧ページ」は管理画面の設定から来ていて、デザインの
- *    ファイルには入っていません。ページ種別ごとに持たせます。
- *
- * ※ 空の meta description を出していました
- *
- *    現行はカゴとお知らせ一覧に description がありません。こちらは
- *    `content=""` の空タグを出していました。中身が無いなら出しません。
- */
 
-/* ※ 商品ページの og:image が消えていました（2026-09-10 実測）
- *
- *    現行の商品ページには、プラットフォームが og:image を入れています。
- *
- *      https://makeshop-multi-images.akamaized.net/isplanning/itemimages/…jpg
- *
- *    こちらのシェルは og:title / og:description / og:site_name / og:type は
- *    出していましたが、**og:image を出していませんでした。**
- *    SNSやLINEで商品ページを共有したときに、画像が出ません。
- *    お客様の販促に直結します。画面に出ないので、見た目の検査では
- *    永久に見つかりませんでした。
- *
- *    ページ種別ごとに出す画像が違うので、シェルに渡す形にします。 */
 function shell(opts) {
+  return stripSmartyComments(shellRaw(opts));
+}
+
+function shellRaw(opts) {
   const slider = opts.slider
     ? '\n<div class="slider">\n<{$shop.mainvisual}>\n</div>\n'
     : "";
@@ -131,4 +76,11 @@ ${opts.body}
 `;
 }
 
-module.exports = { shell, HEAD_EXTRA };
+/* Smarty のコメントは貼り付ける中身を膨らませるだけなので、書き出す前に落とします */
+function stripSmartyComments(s) {
+  return s.replace(/<\{\*[\s\S]*?\*\}>[ \t]*\r?\n?/g, "")
+          .replace(/\n{3,}/g, "\n\n");
+}
+
+module.exports = { shell, HEAD_EXTRA, stripSmartyComments };
+

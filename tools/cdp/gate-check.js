@@ -1,20 +1,4 @@
-/* ---------------------------------------------------------------------------
-   gate-check.js — 会員制・年齢確認が本当に入っているのか
-
-   ※ トップのプレビューが、会員制ページを返します。
-
-        <head>  トップのもの（title / description / canonical = /）
-        <body>  会員制ページのもの（.verify と著作権表示だけ）
-
-      中の <{if $member_verification.is_enabled}> も
-      <{if $age_verification.is_enabled}> も**偽**なので、中身は空です。
-      つまり「ゲートを出す判断」と「ゲートの中身」が食い違っています。
-
-      切り替え後に本当にお客様がこれを見るなら、**トップが真っ白**という
-      最悪の事故です。設定そのものを見に行きます。
-
-     node tools/cdp/gate-check.js
---------------------------------------------------------------------------- */
+/* gate-check.js — 会員制・年齢確認が本当に入っているのか */
 const { page } = require("./cdp.js");
 
 const TRY = [
@@ -30,7 +14,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 (async () => {
   const p = await page();
 
-  /* まず、いまのサイト本体（ベーシック）がゲートを出すか */
   await p.navigate("https://www.isp-sp.com/");
   await sleep(3500);
   const live = await p.evaluate(`(function(){
@@ -43,14 +26,12 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("  " + JSON.stringify(live));
   console.log("");
 
-  /* ゲートが cookie で通るものなら、その痕跡があるはずです */
   const cookies = await p.send("Network.getCookies", { urls: ["https://www.isp-sp.com/"] });
   const names = (cookies.result && cookies.result.cookies || []).map(c => c.name);
   console.log("isp-sp.com の cookie " + names.length + " 件");
   console.log("  " + names.join(" "));
   console.log("");
 
-  /* 管理画面に設定の画面があるか、順に当たります */
   for (const [name, url] of TRY) {
     await p.navigate(url);
     await sleep(2500);
@@ -75,3 +56,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

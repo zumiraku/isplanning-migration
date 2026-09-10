@@ -1,17 +1,4 @@
-/* ---------------------------------------------------------------------------
-   search-url.js — クリエイターの検索URLが、キーワード付きで効くか
-
-   独自ページ page16 に、ベーシックの検索URLが1本だけ残っています。
-
-     /shop/shopbrand.html?search=%A5%C6%A5%A3%A5%C3%A5%B7%A5%E5&sort=recommend…
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ EUC-JP の「ティッシュ」
-
-   切り替え後は 301 で回るはずですが、**引数の名前が変わる**ので
-   （`search` → `search_keyword`）、キーワードが落ちる恐れがあります。
-   推測で書き換えないために、**先に効くことを確かめます。**
-
-     node tools/cdp/search-url.js ティッシュ
---------------------------------------------------------------------------- */
+/* search-url.js — クリエイターの検索URLが、キーワード付きで効くか */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -22,7 +9,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 (async () => {
   const p = await page();
-  /* まず検索ページのプレビューを開いて、ptk 付きのURLをもらいます */
   await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=5");
   for (let i = 0; i < 40; i++) {
     await sleep(500);
@@ -65,3 +51,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

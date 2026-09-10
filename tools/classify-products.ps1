@@ -1,10 +1,3 @@
-<#
-  Classify sampled product pages into variant classes.
-
-  The migration risk on 商品詳細 is not "one page" - it is however many distinct
-  option/pricing behaviours exist across 9,514 products. This produces the list
-  Stage 4 tests against.
-#>
 param(
   [string]$SampleCsv = 'inventory\pages-products-sample.csv',
   [string]$OutCsv    = 'inventory\product-variants.csv'
@@ -14,8 +7,6 @@ $eucjp = [System.Text.Encoding]::GetEncoding(51932)
 $rows  = Import-Csv $SampleCsv
 $out   = New-Object System.Collections.ArrayList
 
-# Build Japanese search terms from code points. PowerShell 5.1 reads a .ps1 with no
-# BOM as ANSI, so literal Japanese in this file gets mangled before it ever runs.
 $NAIRE = [string]::Join('', [char[]](0x540D, 0x5165, 0x308C))   # 名入れ
 $TANKA = [string]::Join('', [char[]](0x5358, 0x4FA1))           # 単価
 
@@ -72,3 +63,4 @@ foreach ($f in 'has_updatePrice','has_ajaxPrice','has_naire','has_rcmd','has_qty
 }
 Write-Output ""
 Write-Output "-> $OutCsv"
+

@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     粗品にボールペン名入れをご検討されている方へ — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -72,7 +65,6 @@
 <strong style="font-weight: normal;color: #333;">粗品</strong>や景品をお探しの方は、当店をご利用ください。当店では、人気のある<strong style="font-weight: normal;color: #333;">ボールペン名入れ</strong>も行っています。予算から粗品を選ぶ事ができますので、法律で定められている限度額に合った粗品を選んで頂けます。
 		</p>
 
-
 <div class="normal-box3" style="width:350px; height: 42px; margin:0 0 20px 0;"><a href="/view/category/ct171"><p>● 名入れにおすすめボールペンのページ</p></a></div>
 
 <div class="columnlink"><a href="#colum-wrap"><img alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a>
@@ -80,19 +72,6 @@
 
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

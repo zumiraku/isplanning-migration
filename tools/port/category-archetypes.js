@@ -1,23 +1,9 @@
-/* ---------------------------------------------------------------------------
-   category-archetypes.js — 606カテゴリを型に分けて、代表を選びます
-
-   ※ 606カテゴリのうち6件しか実測していませんでした
-
-      商品ページで「1件しか測っていない」ことが実害（商品グループ50点が
-      空）につながりました。カテゴリも同じ状態です。
-
-      型で分けて、型ごとに代表を出します。**型が同じなら通り道も同じ**なので、
-      代表が通れば型ごと通ったと言えます。逆に、代表の無い型があるなら
-      そこは測っていないのと同じです。
-
-     node tools/port/category-archetypes.js
---------------------------------------------------------------------------- */
+/* category-archetypes.js — 606カテゴリを型に分けて、代表を選びます */
 const fs = require("fs");
 
 const SRC = "package/url-bulk/categories-url.csv";
 if (!fs.existsSync(SRC)) { console.error("※ ありません: " + SRC); process.exit(1); }
 
-/* 既に実測しているもの */
 const TESTED = ["ct646", "ct5", "ct22", "ct29", "ct667", "ct306"];
 
 const rows = fs.readFileSync(SRC, "utf8").split("\n").filter(Boolean);
@@ -31,7 +17,6 @@ for (const line of rows) {
 console.log("カテゴリ " + cats.length + " 件");
 console.log("");
 
-/* 旧URLの形で型を分けます */
 function shape(old) {
   const parts = old.replace(/\/$/, "").split("/");
   if (old.indexOf("all_items") >= 0) { return "すべての商品"; }
@@ -64,3 +49,4 @@ if (pick.length) {
 } else {
   console.log("OK どの型にも実測済みの代表があります");
 }
+

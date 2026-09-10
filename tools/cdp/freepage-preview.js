@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   freepage-preview.js — 独自ページのプレビューを押して、配信されるHTMLを見る
-
-     node tools/cdp/freepage-preview.js 6 39 45
-
-   本文が入っていることは突き合わせで確かめました。ここで見るのは
-   **枠が正しく付くか**です（ヘッダー・左メニュー・フッター・幅）。
---------------------------------------------------------------------------- */
+/* freepage-preview.js — 独自ページのプレビューを押して、配信されるHTMLを見る */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -65,3 +58,4 @@ const MEASURE = `(function(){
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

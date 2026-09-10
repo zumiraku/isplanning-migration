@@ -1,32 +1,4 @@
-<#
-  analyse-category-titles.ps1 — C4 / Gate A decision (A)
-
-  Creator Mode drops per-category custom page titles. All 607 current values are
-  backed up in inventory/categories-seo-backup.csv, so nothing is lost — but they
-  have to be reproduced somehow, and the client is being asked to choose between:
-
-    A  generate them from a template rule
-    B  set the important ones by hand
-    C  both
-
-  He cannot choose sensibly without knowing how close a rule would get. This
-  measures it instead of guessing.
-
-  Method:
-    * the true category name comes from each page's own breadcrumb (#M_category),
-      whose last element is the category - the <h1> is useless here because every
-      page on the site carries the same one (S0-16)
-    * the current title is checked for that name
-    * whatever surrounds the name is the editorial part, and those are grouped:
-      a handful of recurring shapes means a rule reproduces most titles, many
-      one-off shapes means it does not
-
-  No Japanese string literals: every Japanese value comes from the data, read
-  with an explicit EUC-JP decode. PowerShell 5.1 reads a BOM-less UTF-8 script as
-  ANSI, so literals here would arrive mangled.
-
-  Output: inventory/category-title-analysis.csv
-#>
+# analyse-category-titles.ps1 — C4 / Gate A decision (A)
 
 [CmdletBinding()]
 param()
@@ -42,7 +14,6 @@ $out     = Join-Path $root 'inventory\category-title-analysis.csv'
 $euc  = [System.Text.Encoding]::GetEncoding(51932)
 $rows = New-Object System.Collections.Generic.List[object]
 
-# url -> archived file
 $fileByUrl = @{}
 foreach ($p in (Import-Csv $pages)) {
   if ($p.url -and $p.file) { $fileByUrl[$p.url.Trim()] = $p.file.Trim() }
@@ -65,16 +36,12 @@ foreach ($t in $titles) {
     $path = Join-Path $snapDir $fname
     if (Test-Path $path) {
       $html = $euc.GetString([System.IO.File]::ReadAllBytes($path))
-      # The breadcrumb block, then its last text node.
       $m = [regex]::Match($html, '(?is)id="M_category"(.*?)</div>')
       if ($m.Success) {
         $parts = [regex]::Split($m.Groups[1].Value, '(?s)<[^>]*>') |
                  ForEach-Object { ($_ -replace '&nbsp;', ' ' -replace '&gt;', '>').Trim() } |
                  Where-Object { $_ -and $_ -ne '>' }
         if ($parts.Count -gt 0) { $catName = $parts[$parts.Count - 1] }
-        # The element before it is the parent. The dominant title shape uses both -
-        # "{parent}の粗品通販ページ{child}まで【shop】" - so a rule that only has the
-        # current category name cannot reproduce it.
         if ($parts.Count -gt 2) { $parentName = $parts[$parts.Count - 2] }
       }
     } else { $noFile++ }
@@ -82,9 +49,6 @@ foreach ($t in $titles) {
 
   if (-not $catName) { $noCrumb++ }
 
-  # Does the current title contain the category name, and what surrounds it?
-  # The parent name is substituted too, because the dominant shape uses both and
-  # leaving the parent literal makes one template look like ninety-seven.
   $contains = $false
   $prefix = ''
   $suffix = ''
@@ -131,3 +95,4 @@ Write-Host ('  one rule covers        : {0} of {1}' -f $top1, $rows.Count)
 Write-Host ('  five rules cover       : {0} of {1}' -f $top5, $rows.Count)
 Write-Host ('  ten rules cover        : {0} of {1}' -f $top10, $rows.Count)
 Write-Host ('report          : {0}' -f (Split-Path $out -Leaf))
+

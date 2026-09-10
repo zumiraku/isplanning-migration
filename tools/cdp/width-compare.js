@@ -1,14 +1,4 @@
-/* ---------------------------------------------------------------------------
-   width-compare.js — 現行サイトと移植版を、同じ幅で並べて測る
-
-   はみ出しが出たとき、**移行で増えたのか、もともとそうなのか**が分から
-   ないと直しようがありません。現行の公開ページを同じ幅で測って比べます。
-
-     node tools/cdp/width-compare.js
-
-   ※ 現行はスマホ幅だと /smartphone/ に飛ぶので、PCとして比べられるのは
-      768px 以上だけです。
---------------------------------------------------------------------------- */
+/* width-compare.js — 現行サイトと移植版を、同じ幅で並べて測る */
 const { page } = require("./cdp.js");
 
 const WIDTHS = [768, 960, 1280, 1440];
@@ -59,3 +49,4 @@ const MEASURE = `(function(){
   await p.send("Emulation.clearDeviceMetricsOverride");
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

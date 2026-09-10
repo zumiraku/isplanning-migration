@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     粗品や景品を購入するなら — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -41,7 +34,6 @@
 
 <div class="M_mainContents">
 
-
 <!--　FANコンテンツここから　-->
 <div id="fan_contents">
 <h2>粗品や景品を購入するなら</h2>
@@ -52,8 +44,6 @@
 企業の知名度を上げるために粗品を配る事は少なくはありません。しかし、いざ配るとなるとどんなものを配れば良いのか分からないという事もあります。こちらでは、粗品や景品として活用できるものについて紹介しています。
         </p>
     </div>
-
-
 
     <h3>扇子やうちわ</h3>
     <div style="overflow: hidden;margin: 0 0 30px; text-align:left;">
@@ -99,19 +89,6 @@
 </div> 
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     商品検索結果 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_searchpage.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -102,8 +95,7 @@
 						<p class="M_cl_name"><a href="<{$search.item.list[i].url}>"><{$search.item.list[i].name}></a></p>
 						<p><span class="M_cl_taxadd"><{$search.item.list[i].special_display}></span></p>
 						<p class="M_cl_price"><span class="M_cl_taxPrice"><{$search.item.list[i].price|number_format}>円（税込）</span></p>
-						<{* ※ カートボタンは元テンプレートでもコメントアウトされています。 *}>
-					</div>
+											</div>
 					<br class="clear">
 				</div>
 			</li>
@@ -121,19 +113,6 @@
 	<{/if}>
 	</div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

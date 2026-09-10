@@ -1,44 +1,9 @@
 #!/usr/bin/env node
-/* ---------------------------------------------------------------------------
- *  render-smarty.js — run a Creator Mode template against made-up data and
- *  print the HTML it produces.
- *
- *  WHY THIS EXISTS
- *
- *  Every defect this project has hit in the templates was invisible until a
- *  page was pasted into the console and previewed by hand:
- *
- *    - $item.breadcrumb_list did not exist, so the breadcrumb rendered empty
- *    - the gallery read $item.multi_image while the shop uses $item.add_image,
- *      so it showed one slide and the client's swipe feature was simply absent
- *    - the dots had CSS but no markup and had never once appeared
- *
- *  Smarty drops what it does not recognise without complaining, so a template
- *  full of wrong tags renders as a clean page with things missing. Reading the
- *  source does not catch that, and neither does counting lines in the console.
- *
- *  This renders the template here, with data we choose, so the shape of the
- *  output can be asserted before anyone pastes anything.
- *
- *  WHAT IT IS NOT
- *
- *  Not Smarty. It implements the constructs these templates actually use and
- *  nothing else. It cannot tell you whether a TAG NAME is real - only the
- *  reference and the live preview can - but it can tell you what the template
- *  does with the data it is given, which is the half that keeps going wrong.
- *
- *  Unknown variables render empty, exactly as Smarty does. That is deliberate:
- *  the failure mode being reproduced is silence.
- *
- *  Usage:
- *    node tools/render-smarty.js <template.tpl> <fixture.json>
- * ------------------------------------------------------------------------- */
+/* render-smarty.js — run a Creator Mode template against made-up data and */
 'use strict';
 
 const fs = require('fs');
 
-/* --- data lookup ---------------------------------------------------------- */
-/* "item.add_image.list[a].image_url" with a = current index of section "a" */
 function lookup(data, path, sections) {
   const parts = String(path).split('.');
   let cur = data;
@@ -62,7 +27,6 @@ function lookup(data, path, sections) {
   return cur;
 }
 
-/* $smarty.section.NAME.field */
 function smartyVar(path, sections) {
   const m = /^smarty\.section\.([A-Za-z0-9_]+)\.([A-Za-z0-9_]+)$/.exec(path);
   if (!m) { return undefined; }
@@ -85,9 +49,6 @@ function value(path, data, sections) {
   return lookup(data, path, sections);
 }
 
-/* --- expressions ---------------------------------------------------------- */
-/* Supports: $a.b, 'str', 123, ==, !=, <, >, <=, >=, +, -, and/&&, or/||, ()
-   Enough for every condition in these templates and nothing more. */
 function evalExpr(expr, data, sections) {
   const toks = tokenize(expr);
   let pos = 0;
@@ -106,19 +67,6 @@ function evalExpr(expr, data, sections) {
     return undefined;
   }
 
-  /* ※ 掛け算・割り算・剰余
-   *
-   *    移植した一覧は「4件ごとに <tr> を入れる」書き方をしています。
-   *
-   *      <{if $smarty.section.i.index % 4 == 0}><tr><{/if}>
-   *
-   *    ここに % が無かったせいで、条件が常に undefined になり、
-   *    **<tr> が1つも出ませんでした。** 描画は成功して見え、未展開タグも
-   *    空srcも0。プレビューを撮って「商品が1行に1件ずつ縦に並んでいる」
-   *    のを見て初めて分かりました。
-   *
-   *    実機のSmartyは % を解釈します。**描画器が追いついていないだけ**で、
-   *    それを「テンプレートの不具合」と読み違えるところでした。 */
   function mulExpr() {
     let l = primary();
     while (peek() && peek().type === 'op' &&
@@ -174,8 +122,6 @@ function evalExpr(expr, data, sections) {
   return orExpr();
 }
 
-/* Smarty compares loosely; '' == undefined has to be true or every
-   `$x == ''` guard in the templates would behave differently here than there. */
 function looseEq(a, b) {
   if (a === undefined || a === null) { a = ''; }
   if (b === undefined || b === null) { b = ''; }
@@ -213,8 +159,6 @@ function tokenize(src) {
   return out;
 }
 
-/* --- the template itself -------------------------------------------------- */
-/* Split into text and <{ … }> tags, then walk it as a stream. */
 function parse(src) {
   const nodes = [];
   const re = /<\{(.*?)\}>/gs;
@@ -234,9 +178,6 @@ function render(src, data) {
   let out = '';
   let i = 0;
 
-  /* Returns the rendered string for nodes[from…] until the matching closer,
-     and leaves `i` on the node after it. Skipping is the same walk with
-     output thrown away, so nested blocks nest correctly either way. */
   function block(stopAt, emit) {
     let s = '';
     while (i < nodes.length) {
@@ -245,9 +186,9 @@ function render(src, data) {
 
       const tag = n.v;
 
-      if (/^\*/.test(tag)) { i++; continue; }                 // comment
+      if (/^\*/.test(tag)) { i++; continue; }
 
-      if (stopAt.some((k) => tagIs(tag, k))) { return s; }     // caller handles
+      if (stopAt.some((k) => tagIs(tag, k))) { return s; }
 
       if (tagIs(tag, 'if')) {
         i++;
@@ -261,7 +202,6 @@ function render(src, data) {
         continue;
       }
 
-      // a plain output tag: <{$x}> or <{$x|modifier:"y"}>
       i++;
       if (emit && tag.startsWith('$')) {
         const path = tag.replace(/^\$/, '').split('|')[0].trim();
@@ -315,10 +255,9 @@ function render(src, data) {
     let s = '';
 
     if (!emit || total === 0) {
-      // Walk the body once with output off so `i` lands past <{/section}>.
       i = start;
       block(['/section'], false);
-      i++;                                   // consume <{/section}>
+      i++;
       return '';
     }
 
@@ -328,7 +267,7 @@ function render(src, data) {
       s += block(['/section'], true);
     }
     delete sections[name];
-    i++;                                     // consume <{/section}>
+    i++;
     return s;
   }
 
@@ -336,7 +275,6 @@ function render(src, data) {
   return out;
 }
 
-/* --- cli ------------------------------------------------------------------ */
 const [tpl, fixture] = process.argv.slice(2);
 if (!tpl || !fixture) {
   console.error('usage: node tools/render-smarty.js <template.tpl> <fixture.json>');
@@ -347,3 +285,4 @@ const data = JSON.parse(fs.readFileSync(fixture, 'utf8'));
 process.stdout.write(render(src, data));
 
 module.exports = { render };
+

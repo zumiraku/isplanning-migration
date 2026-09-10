@@ -1,7 +1,3 @@
-<{* レビューの実データを見ます。
-     現行の ct646 / ct664 は MakeShop純正の枠（[REVIEW_VIEW_ALL]）で、
-     移植版は外部ウィジェットに置き換わっています。
-     純正を出し直すために、使えるタグと中身を確かめます。 *}>
 ZQenabledSTART<{if $item.review.is_enabled}>有効<{else}>無効<{/if}>ZQenabledEND
 ZQhasSTART<{if $item.review.has_item}>あり<{else}>無し<{/if}>ZQhasEND
 ZQtotalSTART<{$item.review.total_count}>ZQtotalEND

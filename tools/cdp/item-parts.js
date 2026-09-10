@@ -1,21 +1,4 @@
-/* ---------------------------------------------------------------------------
-   item-parts.js — 1商品を、部品ごとに現行と突き合わせます
-
-   ※ 商品詳細には「カテゴリ専用テンプレート」が3つありました
-
-      ct261 / ct646 / ct664 の3つだけ、現行は別のHTMLで出ています。
-      違いは文言だけではありません。
-
-        画像   既定は #itemImg + サムネイル（スライダー）
-               3つは #Item_detail_Image に1枚（[RESIZE_IMAGE_500]）
-        レビュー 既定は外部ウィジェット
-               3つは MakeShop純正の枠（[REVIEW_VIEW_ALL]）
-
-      item-compare.js は「数の増減」を見ますが、こちらは
-      **どの部品が、いくつ出ているか**を並べます。
-
-     node tools/cdp/item-parts.js 051000000001
---------------------------------------------------------------------------- */
+/* item-parts.js — 1商品を、部品ごとに現行と突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -73,7 +56,6 @@ const KEYS = [
   console.log("  見出し 現行 : " + (live.heads || []).join(" / "));
   console.log("  見出し 移植 : " + (nu.heads || []).join(" / "));
 
-  /* 本文にあって、相手に無い言葉 */
   function chunks(s) {
     return (s || "").split(/[。、｜|・\n]/).map(x => x.trim()).filter(x => x.length >= 6);
   }
@@ -88,3 +70,4 @@ const KEYS = [
   console.log("");
   console.log(diff ? "※ ちがう部品 " + diff + " 件" : "OK 部品はすべて同じ数です");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

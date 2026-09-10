@@ -1,19 +1,4 @@
-/* ---------------------------------------------------------------------------
-   head-audit.js — <head> の中身を、現行と1項目ずつ突き合わせます
-
-   ※ 見た目ばかり測って、<head> を一度も比べていませんでした
-
-      タイトル・説明文・canonical・OGP は**画面に出ません**。だから
-      「167項目通過」「位置は1pxも違わない」と言えても、そこが空でも
-      気づきません。検索からの流入はここで決まります。**お客様の商売に
-      直結する**のに、測っていませんでした。
-
-     node tools/cdp/head-audit.js            ページ種別ぜんぶ
-     node tools/cdp/head-audit.js top
-
-   ※ 商品名・カテゴリ名は現行と移植版で中身が同じはずです。
-      **文字列としてそのまま比べます。**
---------------------------------------------------------------------------- */
+/* head-audit.js — <head> の中身を、現行と1項目ずつ突き合わせます */
 const { page } = require("./cdp.js");
 
 const EDITOR = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -140,7 +125,6 @@ function norm(v) {
       console.log("     現行  : " + a.slice(0, 110));
       console.log("     移植版: " + b.slice(0, 110));
     }
-    /* 外部ホストの増減 */
     const gone = live.hosts.filter(h => nu.hosts.indexOf(h) < 0);
     const added = nu.hosts.filter(h => live.hosts.indexOf(h) < 0);
     if (gone.length) { ng++; console.log("  ※ 読み込まれなくなった外部: " + gone.join(" ")); }
@@ -154,3 +138,4 @@ function norm(v) {
   console.log("");
   console.log(bad ? "※ 違いが 合計 " + bad + " 件" : "OK すべての head が現行と揃っています");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

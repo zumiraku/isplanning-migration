@@ -1,27 +1,8 @@
-/* ---------------------------------------------------------------------------
-   verify-caption-move.js — 流す予定のCSVが、既存の中身を消さないか
-
-   ※ ここは取り返しがつきません
-
-      切替後に `move-captions.csv` を流して、画像説明文2/3 を
-      スマホ商品説明1・2 へ移す計画です。9,635商品。
-
-      ところが**スマホ商品説明2には、もともと中身のある商品が125件**
-      あります（「地域限定商品です」「納期」など）。上書きなら、
-      その125件は消えます。CSVの投入は元に戻せません。
-
-      「追記で保全した」と記録にはありますが、**記録ではなくCSVそのもの**
-      を読んで確かめます。
-
-     node tools/port/verify-caption-move.js                 スマホ商品説明2
-     node tools/port/verify-caption-move.js スマホ商品説明1   もう一方
-
-   ※ 読むだけです。CSVは書き換えません。
---------------------------------------------------------------------------- */
+/* verify-caption-move.js — 流す予定のCSVが、既存の中身を消さないか */
 const fs = require("fs");
 
-const BACKUP = "tools/cdp/csv/20260909181742.csv";   /* 書き換え前の控え */
-const MOVE = "tools/cdp/csv/move-captions.csv";      /* 流す予定 */
+const BACKUP = "tools/cdp/csv/20260909181742.csv";
+const MOVE = "tools/cdp/csv/move-captions.csv";
 const CODE = "システム商品コード";
 const TARGET = process.argv[2] || "スマホ商品説明2";
 
@@ -30,7 +11,6 @@ function readSjis(f) {
   return new TextDecoder("shift_jis").decode(fs.readFileSync(f));
 }
 
-/* CSVを、引用符と改行を守って切ります */
 function rows(text) {
   const out = [];
   let cur = [], field = "", q = false;
@@ -72,7 +52,6 @@ if (bCode < 0 || mCode < 0 || bVal < 0 || mVal < 0) {
   process.exit(1);
 }
 
-/* 流す分を、商品コードで引けるようにします（総当たりは遅すぎます） */
 const moveBy = new Map();
 for (let r = 1; r < move.length; r++) {
   const row = move[r];
@@ -120,3 +99,4 @@ if (lost) {
   process.exit(1);
 }
 console.log("OK 元の文はすべて残ります");
+

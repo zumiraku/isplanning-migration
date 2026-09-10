@@ -1,23 +1,4 @@
-/* ---------------------------------------------------------------------------
-   modules.js — モジュールを1つずつ開いて、IDと中身を読む／書き込む
-
-     node tools/cdp/modules.js              全部読むだけ
-     node tools/cdp/modules.js write        必要なものを書き込んで確かめる
-
-   ※ テンプレートが呼ぶのは「モジュールID」です
-
-      一覧に出ている「モジュール名」は見出しにすぎません。
-      <{$module.leftmenu}> が探すのは ID のほう。違っていても
-      **エラーは出ず、その部分だけ空**になります。
-
-   ※ モジュール画面は、ページ種別の画面と別物です
-
-        ページ種別  g_editor_object["html_pc"]  →  saveContent()
-        モジュール  textarea[name=content] に付いた CodeMirror ひとつ
-                    →  updateModule()
-
-      同じつもりで書くと、**何も入らないまま保存**します。
---------------------------------------------------------------------------- */
+/* modules.js — モジュールを1つずつ開いて、IDと中身を読む／書き込む */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -28,7 +9,6 @@ const LAST = 20;
 const CM = "document.querySelector('.CodeMirror').CodeMirror";
 const HAS_CM = "(document.querySelector('.CodeMirror') && document.querySelector('.CodeMirror').CodeMirror) ? 1 : 0";
 
-/* テンプレートが呼ぶ ID → 流し込むファイル */
 const WANT = {
   header: "package/modules/header.tpl",
   leftmenu: "package/modules/leftmenu.tpl",
@@ -36,8 +16,6 @@ const WANT = {
   calendar1: "package/modules/calendar1.tpl",
   calendar2: "package/modules/calendar2.tpl",
   freespace_calendar: "package/modules/freespace_calendar.tpl",
-  /* ※ カテゴリごとの独自内容。606カテゴリ・112種類を3つに分けています。
-   *    tools/cdp/category-extra.js が作ります。 */
   category_extra1: "package/modules/category_extra1.tpl",
   category_extra2: "package/modules/category_extra2.tpl",
   category_extra3: "package/modules/category_extra3.tpl",
@@ -46,22 +24,9 @@ const WANT = {
 };
 
 const doWrite = process.argv[2] === "write";
-/* ※ 改行コードをLFに揃えます
- *
- *    リポジトリの作業コピーは CRLF です（git の autocrlf）。CodeMirror は
- *    setValue のときに LF へ揃えるので、**渡した文字数と入った文字数が
- *    合わなくなり**、行数ぶんだけ短く見えます。freespace_calendar で
- *    234文字ずれました。先に揃えてから渡します。 */
 function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10)).join(String.fromCharCode(10)); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-/* ※ 数値参照は「両側とも」戻してから比べます
- *
- *    サーバーは保存のときに一部の文字を数値参照にします（— は &#8212;、
- *    ※ は &#128308;）。ところが**元のファイル自体が &#12316; や &#169;
- *    を持っています**（現行サイトから写した文面です）。片側だけ戻すと、
- *    こちらの &#12316; まで 〜 に変わって、一致しないと誤判定します。
- *    フッターで実際にそうなりました。両側に同じ処理をかけます。 */
 function unescapeNum(s) { return s.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n))); }
 
 const READ = `(function(){
@@ -140,3 +105,4 @@ async function waitCm(p) {
   p.close();
   if (ng) { process.exit(1); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

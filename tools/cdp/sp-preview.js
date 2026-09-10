@@ -1,26 +1,8 @@
-/* ---------------------------------------------------------------------------
-   sp-preview.js — スマートフォンの名乗りで、実際に何が出るか
-
-   ページ種別の「スマホ」欄は全部 0 文字です。空のまま切り替えて
-   **スマホが真っ白になる**なら、それが一番大きな事故になります。
-
-   デザインセットは「レスポンシブ」なので PC と同じページが出るはず、と
-   記録には書いてあります。**書いてあることを信じずに、もう一度出します。**
-
-     node tools/cdp/sp-preview.js
-
-   見るもの
-     - /smartphone/ に飛ばされないか
-     - こちらのヘッダー・ドロワー・左メニューが入っているか
-     - 375px 幅ではみ出さないか
-     - 本文の文字数（真っ白でないこと）
---------------------------------------------------------------------------- */
+/* sp-preview.js — スマートフォンの名乗りで、実際に何が出るか */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
 const SET = 5;
-/* ※ 4種別しか見ていませんでした。実機幅でしか出ない崩れがあるので、
- *    ページ種別は全部まわします（2026-09-09）。 */
 const PAGES = [
   ["トップ", 2], ["商品詳細", 3], ["商品カテゴリー", 4], ["商品検索結果", 5],
   ["買い物カゴ", 6], ["レビュー一覧", 7], ["レビュー投稿", 8],
@@ -29,23 +11,6 @@ const PAGES = [
   ["まとめ買い割引", 18]
 ];
 
-/* ※ 会員制・年齢確認（19）は、ここでは出しません
- *
- *    トップと会員制は**同じパス「/」**をプレビューに使います。19を出すと、
- *    ルートの描画が19の保存内容に置き換わり、**プレビューを押し直しても
- *    戻りません。** page_type=2 を保存し直すまで、トップはゲートページの
- *    ままです（実測。ログインし直しても直りませんでした。ptk はセッション
- *    ではなくデザインセットに紐づいています）。
- *
- *    19の中身は分かっています。Basics標準のゲートページで、会員確認も
- *    年齢確認も無効なので著作権表示だけを返します
- *    （tools/cdp/box-out/type19.tpl）。ここで測る意味がありません。
- *
- *    どうしても出すときは、そのあと必ず保存し直してください。
- *
- *      node tools/cdp/box-dump.js 19
- *      node tools/cdp/paste.js top package/templates/top.tpl html   ← 必須
- */
 
 const IPHONE = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) " +
   "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1";
@@ -98,16 +63,6 @@ const LOOK = `(function () {
     { userAgent: IPHONE, platform: "iPhone" });
 
   for (const [name, type] of PAGES) {
-    /* ※ トップのプレビューURLは、サイトのルートそのものです
-     *
-     *      トップ            https://www.isp-sp.com/?ptk=…
-     *      会員制・年齢確認   https://www.isp-sp.com/?ptk=…   ← 同じ
-     *
-     *    直前に別のページ種別をプレビューしていると、タブはすでにその
-     *    URLにいます。「isp-sp.com が入るまで」で待つと最初から満たされ、
-     *    **前のページを測ります。** トップの本文が 52文字（＝会員制の
-     *    著作権表示）と出たのはこれです。いったん空ページへ行って、
-     *    タブの状態を必ずリセットします。 */
     await p.navigate("about:blank");
     await sleep(400);
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
@@ -118,13 +73,6 @@ const LOOK = `(function () {
     }
     if (!ready) { console.log(name.padEnd(12) + "※ 編集画面が開けません"); ng++; continue; }
 
-    /* ※ 前の実行のプレビューURLが残っていると、それを測ってしまいます
-     *
-     *    押したあと「URLに isp-sp.com が入るまで」待っていました。タブが
-     *    **前回のプレビューのまま**だと、その条件は最初から満たされていて、
-     *    古いページをそのまま測ります。実際、トップの本文が 52文字
-     *    （＝会員制ページの著作権表示だけ）と出ました。
-     *    **押す前のURLを控えて、変わるまで**待ちます。 */
     const wasAt = await p.evaluate("location.href");
     await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
     let url = "";
@@ -136,13 +84,6 @@ const LOOK = `(function () {
     await sleep(3500);
     const r = await p.evaluate(LOOK);
 
-    /* ※ まとめ買い割引（18）のプレビューURLは 404 です
-     *
-     *    機能が有効になっていないページ種別なので、プレビューが
-     *    `/error/404.html` を返し、その404ページが3秒でトップへ飛ばします。
-     *    いまはベーシックモードなので、スマホの名乗りだとトップが
-     *    `/smartphone/` へ転送されます。**こちらのテンプレートの問題では
-     *    ありません**（PCの名乗りでも同じ404です。sp-redirect.js で確認）。 */
     const marks = [];
     const toSp = r.url.indexOf("/smartphone/") >= 0;
     if (type === 18 && toSp) {
@@ -150,18 +91,6 @@ const LOOK = `(function () {
         "保存済み。sp-redirect.js で確認済み");
       continue;
     }
-    /* ※ 会員制・年齢確認（19）は、著作権表示だけ返すのが正しい動作です
-     *
-     *    中身は Basics 標準のゲートページで、こう書かれています。
-     *
-     *      <{if $member_verification.is_enabled}> … 会員確認 … <{/if}>
-     *      <{if $age_verification.is_enabled}>    … 年齢確認 … <{/if}>
-     *      <p class="copyright"><{$shop.copyright}></p>
-     *
-     *    この店舗は会員確認も年齢確認も使っていないので、両方の if が
-     *    偽になり、**著作権表示の52文字だけ**が残ります。ヘッダーも
-     *    フッターも元から呼んでいません（tools/cdp/box-out/type19.tpl）。
-     *    どちらかの機能を入れたときだけ表に出るページです。 */
     if (type === 19) {
       console.log(name.padEnd(12) + "－ 会員確認・年齢確認とも無効なので著作権表示のみ（" +
         r.text + "字）。Basics標準のゲートページで、正しい挙動です");
@@ -190,3 +119,4 @@ const LOOK = `(function () {
   console.log(ng ? "※ スマホで気になるもの " + ng + " 件" : "OK スマホ（iPhoneの名乗り・375px）でも同じページが正しく出ます");
   if (ng) { process.exit(1); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

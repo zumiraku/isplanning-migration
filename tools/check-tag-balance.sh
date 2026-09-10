@@ -1,44 +1,11 @@
 #!/bin/sh
 # check-tag-balance.sh — the one failure this whole project exists to prevent
-#
-# From the README, and from the client's own reaction to being told the
-# migration was "ボタン一つ":
-#
-#   現状のサイトは全ページで、HTMLのタグを意図的に閉じない書き方に依存しています。
-#   これはベーシックモードが自動で補完してくれる前提の作りで、クリエイターモード
-#   では補完されません。
-#
-# That is the migration in one sentence. Basic Mode closes tags for you; Creator
-# Mode does not. An unclosed <div> in Basic Mode is invisible. The same unclosed
-# <div> in Creator Mode swallows the rest of the page.
-#
-# And until now we had no test for it on our own output. The converter has a div
-# balancer, the responsive check proves nothing scrolls sideways, the content
-# check proves no text was lost - but nothing asserted that what we produce is
-# actually well-formed. A page can pass all three and still be one missing
-# </div> away from collapsing the moment it stops being auto-repaired.
-#
-# So: count openings and closings per element, per file, and fail on any
-# imbalance. Void elements are excluded, and so are elements HTML legitimately
-# allows to be left open - <li>, <p>, <tr>, <td> and friends - because flagging
-# those would bury the real findings in noise. The containers that matter are
-# the ones that nest: div, section, table, ul, form.
-#
-# -Strict includes elements whose end tag HTML makes optional - li, p, tr, td.
-# The default excludes them because an unclosed <li> is legal and flagging it
-# buries the real findings. But after the converter started closing everything
-# explicitly, strict is the stronger claim and the corpus passes it, so it is
-# worth being able to assert.
-#
-# Needs Git Bash (perl). Run from the repository root.
 
 strict=0
 case "$1" in -Strict|--strict) strict=1; shift ;; esac
 out="${1:-inventory/tag-balance.csv}"
 status=0
 
-# Elements whose end tag is optional in HTML5, or void. An unclosed <li> is
-# legal and harmless; an unclosed <div> is the bug we are hunting.
 OPTIONAL='li|p|tr|td|th|dt|dd|option|thead|tbody|tfoot|colgroup|caption|rt|rp'
 if [ "$strict" = "1" ]; then OPTIONAL='__none__'; fi
 VOID='area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr'
@@ -49,11 +16,6 @@ check_file() {
   f="$1"
   perl -CSD -0777 -ne '
       my $html = $_;
-      # Comments, scripts and styles can contain anything that looks like markup.
-      # Smarty タグを先に外します。属性値の中に > を含む <{$url.top}> のような
-      # 書き方があるため、HTML のタグ抽出が途中で切れます。いまのところ要素の
-      # 数え間違いは起きていませんが、同じ構造で本文チェックが3ページを誤検知
-      # したので、こちらにも入れておきます。
       $html =~ s/<\{.*?\}>//gs;
       $html =~ s/<!--.*?-->//gs;
       $html =~ s/<script\b.*?<\/script>//gsi;
@@ -99,3 +61,4 @@ if [ "$bad" -gt 0 ]; then
   status=1
 fi
 exit $status
+

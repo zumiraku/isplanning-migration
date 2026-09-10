@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     クリスマスの粗品に最適な商品 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -73,7 +66,6 @@
 当店では、<strong style="font-weight: normal;color: #333;">クリスマスの粗品</strong>に最適な商品をはじめ、お正月やハロウィンなどにも最適な商品をたくさん取り扱っています。お子様からご年配の方と幅広い方に喜んで頂ける品を準備しておりますので、お気軽にご注文ください。
 		</p>
 
-
 <div style="text-align: center; margin:80px 0 50px 0;">
 <img src="https://gigaplus.makeshop.jp/isplanning/fan_image/xmas.jpg" alt"クリスマス" style="width: 600px; margin: 0px 50px 10px 0px;"/>
 </div>
@@ -84,19 +76,6 @@
 
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

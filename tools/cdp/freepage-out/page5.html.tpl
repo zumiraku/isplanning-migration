@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     季節で選ぶ粗品 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -61,7 +54,6 @@
     <ul class="page_season">
     <li><a href="/view/category/ct646" style="text-decoration:none;"><img src="https://gigaplus.makeshop.jp/isplanning/images/season_calendar.jpg" style="display: block; margin: auto; padding:8px 0 0 0;" alt="卓上カレンダー" /><p class="page_scene7"><span class="page_scenep">卓上カレンダーはこちらから</span></p></a><p style="margin:0 6px 0 8px;">名入れの卓上カレンダーはノベルティグッズでも特に人気のアイテムとなっております。年末年始の粗品に1年間使えるカレンダーをおすすめいたします。</p></li>
     </ul>
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -136,19 +128,6 @@
 <p class="btn_link"><a href="/view/page/page9.html" style="display: block; margin: auto;">商品別カテゴリー一覧</a></p>
 <p class="btn_link"><a href="/view/page/page4.html" style="display: block; margin: auto;">SP SOURCE、名入れのご案内</a></p>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

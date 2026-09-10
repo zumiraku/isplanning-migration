@@ -1,5 +1,3 @@
-/* JPEGのSOFマーカーから縦横を読むだけの小道具。移植で「一覧にどのサイズの
-   画像を出すか」を、推測ではなく実寸で決めるために使います。 */
 const fs = require("fs");
 const b = fs.readFileSync(process.argv[2]);
 let i = 2;
@@ -13,3 +11,4 @@ while (i < b.length) {
   i += 2 + b.readUInt16BE(i + 2);
 }
 console.log("読めません");
+

@@ -1,53 +1,12 @@
-/* ===========================================================================
-   port-responsive.css — 移植した旧デザインに、狭い画面での挙動だけを足す層
+/* port-responsive.css — 移植した旧デザインに、狭い画面での挙動だけを足す層 */
 
-   ※ 旧デザインは固定幅です
-
-      m_sys_common.css は 8,479行あって @media が3つしかありません。
-      #header は 1200px、#M_leftContents は 200px の float:left、
-      .M_mainContents は 960px の float:right。**スマホでは横に飛び出します。**
-      管理画面もそう言っています ──「ベーシックモードに変更する場合…
-      レスポンシブデザインに非対応となります」。
-
-      ご依頼の1番目が「HTML・CSSの作り込みが崩れないこと（レスポンシブ）」
-      でした。だから移植だけでは足りません。**見た目は旧サイトのまま、
-      狭い画面での折り返しだけを足します。**
-
-   ※ 旧CSSは一行も書き換えません
-
-      上書きだけで済ませます。元CSSに手を入れると、直したつもりが別の
-      ページを壊します（8,479行の影響範囲を全部は追えません）。この層は
-      m_sys_common の**後ろ**に置いて、狭い画面でだけ効かせます。
-
-   左メニューは ☰ で開きます
-
-      山口様のご指摘そのままです ──「良く左メニュー部分はスマホでは lll で
-      呼び出す感じだと思いますが」。960px 未満で引き出しになります。
-   =========================================================================== */
-
-/* --- 共通の安全弁 ---------------------------------------------------------
-   ※ overflow-x: hidden を外しました
-
-      最初は html, body に overflow-x: hidden を入れていました。横スクロールを
-      止める常套手段ですが、**止めているのではなく隠しているだけ**です。
-
-      その結果、はみ出し検査（scrollWidth と innerWidth の比較）が
-      **11ページ全部「FIT」と言い続けました。** 実際には 375px のスマホで
-      ヘッダーも電話番号もナビも右が切れていて、撮って初めて分かりました。
-
-      自分で入れた1行が、自分の検査を無効にしていたことになります。
-      隠さずに直します。
---------------------------------------------------------------------------- */
 html, body { max-width: 100%; }
 img, video, iframe { max-width: 100%; height: auto; }
 
-/* 旧デザインは table を多用します。はみ出す代わりに、その中だけ横に送れる
-   ようにします。ページ全体が横に動くのを防ぐためです。 */
 @media screen and (max-width: 1240px) {
   .M_mainContents table { max-width: 100%; }
 }
 
-/* --- 1240px 以下：固定幅をやめて流動に -------------------------------------- */
 @media screen and (max-width: 1240px) {
   #header,
   #O_container,
@@ -71,13 +30,12 @@ img, video, iframe { max-width: 100%; height: auto; }
   .M_mainContents {
     width: auto !important;
     float: none !important;
-    margin-left: 212px;   /* 左メニュー200px + 余白 */
+    margin-left: 212px;
     padding-left: 0;
     box-sizing: border-box;
   }
 }
 
-/* --- 960px 以下：1カラムにして、左メニューを引き出しに --------------------- */
 @media screen and (max-width: 960px) {
   #M_leftContents {
     position: fixed;
@@ -104,7 +62,6 @@ img, video, iframe { max-width: 100%; height: auto; }
     width: auto !important;
   }
 
-  /* 開いているときの背景。押すと閉じます（JSが付ける） */
   .l-menu-scrim {
     position: fixed;
     inset: 0;
@@ -114,19 +71,6 @@ img, video, iframe { max-width: 100%; height: auto; }
 
   .l-menu-toggle { display: inline-flex; }
 
-  /* ※ 上の緑帯が折り返さず、画面が横に伸びていました（2026-09-09 実測）
-   *
-   *    `.h-txt-inner` は `display:flex` の `flex-wrap:nowrap` です。375px でも
-   *    見出しと送料の一文が横に並んだままで、**584px の幅を要求します。**
-   *    スマートフォンではそこでレイアウト視域がその幅まで広がります
-   *    （実測 `window.innerWidth` 584 ／ `documentElement.clientWidth` 375）。
-   *    `#headerWrap` は `width:100%` なので**広がったほうを基準にして**
-   *    584px の帯になり、画面から 209px はみ出していました。
-   *
-   *    手元のプレビュー（静的HTML）では出ません。**追従JSが効いた実機幅で
-   *    しか出ない**ためです。iPhoneの名乗り＋375pxで測って見つけました。
-   *
-   *    折り返させると視域が広がらなくなり、ヘッダーも 375px に収まります。 */
   .h-txt-inner {
     flex-wrap: wrap;
     justify-content: center;
@@ -137,14 +81,11 @@ img, video, iframe { max-width: 100%; height: auto; }
     line-height: 1.4;
     padding: 4px 0;
   }
-  /* 追従したときは、元のとおり帯を畳みます（m_sys_common の指定を保ちます） */
   #headerWrap.fixed .header-txt { padding: 0; overflow: hidden; }
-  /* 念のため、帯そのものが画面幅を超えられないようにします */
   #headerWrap { max-width: 100vw; }
   .header-txt h1,
   .header-txt p.shipping { max-width: 100%; }
 
-  /* ヘッダーの3カラムを縦に */
   .head_contents { display: block; }
   .logo-box, .contents_center, .contents_right {
     float: none !important;
@@ -173,7 +114,6 @@ img, video, iframe { max-width: 100%; height: auto; }
   .header_keyword .torend-key { display: flex; flex-wrap: wrap; gap: 6px; }
   .header_keyword .torend-key li { float: none !important; }
 
-  /* フッターの段組を縦に */
   .footer_guide_small, #footer_guidebig, .flogo-wrap, .column-inner {
     display: block !important;
     float: none !important;
@@ -188,7 +128,6 @@ img, video, iframe { max-width: 100%; height: auto; }
   #f_nav li { float: none !important; }
 }
 
-/* --- ☰ ボタン。960px 未満でだけ出します ------------------------------------ */
 .l-menu-toggle {
   display: none;
   position: fixed;
@@ -197,11 +136,11 @@ img, video, iframe { max-width: 100%; height: auto; }
   z-index: 9100;
   align-items: center;
   gap: 6px;
-  min-height: 44px;              /* 指で押せる大きさ */
+  min-height: 44px;
   padding: 0 14px;
   border: 0;
   border-radius: 6px;
-  background: #4b8b1e;           /* 旧サイトの緑 */
+  background: #4b8b1e;
   color: #fff;
   font-size: 15px;
   font-weight: 700;
@@ -216,7 +155,6 @@ img, video, iframe { max-width: 100%; height: auto; }
   background: #fff;
 }
 
-/* 引き出しの中の閉じるボタン */
 .l-menu-close {
   position: absolute;
   top: 8px;
@@ -233,7 +171,6 @@ img, video, iframe { max-width: 100%; height: auto; }
   .l-menu-close { display: none; }
 }
 
-/* --- 480px 以下：文字と余白をもう一段詰める -------------------------------- */
 @media screen and (max-width: 480px) {
   .header-txt h1 { font-size: 11px; }
   .h-tel p { font-size: 18px; }
@@ -241,9 +178,6 @@ img, video, iframe { max-width: 100%; height: auto; }
   .M_mainContents { padding-left: 0; padding-right: 0; }
 }
 
-/* --- 画像の拡大（ライトボックス）-------------------------------------------
-   ※ ベーシックの「商品画像拡大画面」の代わりです。クリエイターに同じ
-      ページ種別が無いので、同じ画面に重ねます。 */
 .zoombox {
   position: fixed;
   inset: 0;
@@ -276,14 +210,9 @@ img, video, iframe { max-width: 100%; height: auto; }
   line-height: 1;
   cursor: pointer;
 }
-/* 拡大できることを指で分かるように */
 a[data-zoom] { cursor: zoom-in; }
 
-/* --- 移植で新しく作った要素だけの指定 ---------------------------------------
-   ※ 旧サイトに無かったものだけです。旧サイトにあったものは
-      m_sys_common.css と gigaplus の default.css が持っています。 */
 
-/* ヘッダーのかご。元は [CART_INSIDE1] がテーブルごと吐いていました。 */
 .h-cart {
   display: inline-flex;
   align-items: center;
@@ -301,7 +230,6 @@ a[data-zoom] { cursor: zoom-in; }
   text-align: center;
 }
 
-/* カテゴリページのサブカテゴリ。元は [GROUP4_0] が吐いていました。 */
 .subcats {
   display: flex;
   flex-wrap: wrap;
@@ -320,25 +248,7 @@ a[data-zoom] { cursor: zoom-in; }
 }
 .subcats li a:hover { background: #e9f3e0; }
 
-/* --- 固定幅の部品を狭い画面で畳む -------------------------------------------
-   ※ 実測で出たものだけを直しています
-
-      移植版のプレビューを 320px と 375px で測って、はみ出した要素を
-      名指しで出しました。旧サイトは固定幅なので当然はみ出します。
-      **推測で片っ端から max-width を当てるのではなく、測って出たものを
-      1つずつ**潰します。
-
-      320px で出たもの:
-        a.use-button.link_green      → 372
-        a.link_green.top-naire-link  → 676
-        a.link_green.season-list-link→ 382 / 451
-        a.link_green.wd320           → 346
-        a.basketbtn_04               → 816
-        div.btnOrder / その中の a    → 490
-        検索の絞り込み table         → 952
---------------------------------------------------------------------------- */
 @media screen and (max-width: 1240px) {
-  /* 緑のボタン類。旧CSSは px 固定で、文字数ぶんの幅を持たせています。 */
   .link_green,
   .use-button,
   .basketbtn_04,
@@ -354,14 +264,12 @@ a[data-zoom] { cursor: zoom-in; }
     word-break: break-word;
   }
 
-  /* 買い物かごの「ご購入手続きへ進む」 */
   .btnOrder, .btnOrder a, .btnBack, .btnBack a {
     width: auto !important;
     max-width: 100%;
     box-sizing: border-box;
   }
 
-  /* 検索の絞り込みは表組みです。狭い画面では縦に積みます。 */
   #r_searchInput table,
   #r_searchInput tbody,
   #r_searchInput tr,
@@ -376,7 +284,6 @@ a[data-zoom] { cursor: zoom-in; }
   #r_searchInput input,
   #r_searchInput select { width: 100%; box-sizing: border-box; }
 
-  /* 商品詳細の左右2カラムと、送料表の画像 */
   #O_itemDetailL, #O_itemDetailR,
   #O_itemDetailBottomL, #O_itemDetailBottomR {
     float: none !important;
@@ -385,44 +292,16 @@ a[data-zoom] { cursor: zoom-in; }
     box-sizing: border-box;
   }
 
-  /* 季節で選ぶの4枚並び */
   .season-list { display: flex; flex-wrap: wrap; }
   .season-list > li { width: auto !important; max-width: 100%; box-sizing: border-box; }
 }
 
-/* 検索結果の画像枠。元は width:220px + padding:5px の固定で、
-   320px の画面では左右の余白と合わさって外に出ます。 */
 @media screen and (max-width: 1240px) {
   .M_cl_imgWrap { width: auto !important; max-width: 220px; box-sizing: border-box; }
   .M_innerList { display: flex; flex-wrap: wrap; }
   .M_innerList > li { max-width: 100%; box-sizing: border-box; }
 }
 
-/* --- 2カラムの組み方 --------------------------------------------------------
-   ※ 元サイトは <table> で組んでいました
-
-      ベーシックモードは、左メニューと本文のあいだに <table><tr><td> を
-      **プラットフォームが自動で挿入**します。だから元CSSの
-
-        #O_container   { width: 1000px }
-        #M_leftContents{ float: left;  width: 200px }
-        .M_mainContents{ float: right; width: 960px }
-
-      は、実際には効いていませんでした。200 + 960 = 1160px は 1000px の
-      箱に入りません。**クリエイターには自動挿入が無い**ので、そのまま
-      持ってくると右カラムが左メニューの下に落ちます。
-
-      実際に落ちました。撮った画面では、ヘッダーも左メニューもコラムも
-      正しいのに**本文だけ真っ白**。要素は出ていて、位置が
-      top=5516px（左メニューの真下）でした。
-
-      幅はヘッダーに合わせて 1200px にします。組み方は flex です。
-      float のままだと、また同じ落ち方をしたときに気づきにくいので。
-
-   ※ 960px 未満では触りません
-      左メニューが引き出し（position:fixed）になるので、flex にすると
-      本文の左に200pxの空きが残ります。
---------------------------------------------------------------------------- */
 @media screen and (min-width: 961px) {
   #O_container {
     width: 1200px;
@@ -430,18 +309,6 @@ a[data-zoom] { cursor: zoom-in; }
     display: flex;
     align-items: flex-start;
     box-sizing: border-box;
-    /* ※ 左メニューと本文のあいだの30pxが抜けていました（2026-09-10 実測）
-     *
-     *    現行と並べて測ったら、本文の列がまるごと30px左にずれていました。
-     *
-     *      現行    #M_leftContents 40..240 / .M_mainContents 270..1240（970）
-     *      移植版  #M_leftContents 40..240 / .M_mainContents 240..1240（1000）
-     *
-     *    ベーシックでは、プラットフォームが挿入する <td> のすき間が
-     *    ここに 30px 入っていました。flex に組み替えたときに、その分を
-     *    引き継いでいませんでした。**本文に乗っている新着・おすすめ・
-     *    ランキングが全部30pxずれます。** 山口様の言う「細かなズレ」は
-     *    これです。 */
     gap: 30px;
   }
   #M_leftContents {
@@ -452,20 +319,10 @@ a[data-zoom] { cursor: zoom-in; }
     float: none !important;
     flex: 1 1 auto;
     width: auto !important;
-    min-width: 0;   /* flex の子が中身の幅で膨らむのを止めます */
+    min-width: 0;
   }
 }
 
-/* --- 2カラムを直してから見えるようになった、はみ出し --------------------------
-   ※ 本文が表示されるまで、これらは測れませんでした
-
-      右カラムが左メニューの下に落ちていたあいだ、その中身は幅の判定に
-      出てきませんでした。組み方を直した瞬間に新しく4件出ています。
-      **直したら別のものが見える**のは正常です。測り直さないと分かりません。
-
-        div.project      →340   フッターの熱中症声かけプロジェクト
-        #O_itemDetailTop 内の div →514 / 464   商品詳細の左右2カラム
---------------------------------------------------------------------------- */
 @media screen and (max-width: 1240px) {
   .project, .project img, .project a, .project p {
     width: auto !important;
@@ -474,7 +331,6 @@ a[data-zoom] { cursor: zoom-in; }
     box-sizing: border-box;
   }
 
-  /* 商品詳細の上段・下段も2カラムです。狭い画面では縦に積みます。 */
   .O_itemDetailTop, .O_itemDetailBottom {
     display: block;
     width: auto !important;
@@ -492,45 +348,16 @@ a[data-zoom] { cursor: zoom-in; }
   #itemImg img, #Other_img img { max-width: 100%; height: auto; }
 }
 
-/* ※ 幅を絞っただけでは足りませんでした
- *
- *    .project は 38px まで縮んでいたのに、はみ出し検査は 340 と言い続けました。
- *    **幅ではなく位置**です。#footer が display:flex のままで折り返さず、
- *    .project が右へ押し出されていました。要素の幅だけ見ていると、
- *    こういう出方は追えません。 */
 @media screen and (max-width: 1240px) {
   #footer { flex-wrap: wrap; }
   #footer > * { min-width: 0; }
   .flogo-wrap, .project { flex: 1 1 100%; }
 }
 
-/* --- ヘッダーのかご ---------------------------------------------------------
-   ※ 足すのは「開け閉め」だけです
-
-      元サイトは onmouseover で MakeShop_toggleBasketBox(true) を呼んで
-      いました。**プラットフォームが定義していた関数**で、クリエイターに
-      あるとは限りません。無ければマウスを乗せるたびにエラーになります。
-
-      見た目は店舗のCSSが全部持っています ── 位置も幅も枠も、
-      .contents_right #M_basketOpenedBox に !important 付きで書いてあり、
-      バッジも #M_basketClosedBox #M_basket em にあります。
-      **こちらが背景や枠を足すと、その設計と喧嘩します。**
-      最初はそう書いていました。表示の切り替えだけに削ります。
---------------------------------------------------------------------------- */
 #M_basketOpenedBox { display: none; }
 #M_headBasketSwitch:hover #M_basketOpenedBox,
 #M_headBasketSwitch:focus-within #M_basketOpenedBox { display: block; }
 
-/* --- 会社概要の表と地図 ------------------------------------------------------
-   ※ 320px / 375px で 471px はみ出していました
-
-      会社概要は <table class="tbl01"> の中に Google マップの iframe を
-      width="530" で埋めています。表のセルは中身より小さくなれないので、
-      表ごと画面の外に出ます。
-
-      表を縦積みにはしません（項目名と値の対応が読めなくなります）。
-      **表の中だけ横に送れる**ようにして、地図は幅いっぱいに縮めます。
---------------------------------------------------------------------------- */
 @media screen and (max-width: 1240px) {
   .company .tbl01,
   .transaction .tbl01 { width: 100% !important; table-layout: fixed; }
@@ -541,9 +368,6 @@ a[data-zoom] { cursor: zoom-in; }
   .company iframe { width: 100% !important; max-width: 100%; height: 320px; }
 }
 
-/* 表の中の長いリンク（Googleマップの「大きな地図で見る」など）。
-   セルを table-layout:fixed にしても、中の <a> が折り返せなければ
-   同じことです。実測: a.infoa が 539px。 */
 @media screen and (max-width: 1240px) {
   .company a, .transaction a,
   .company .tbl01 a, .transaction .tbl01 a {
@@ -552,15 +376,6 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ セレクタの強さを合わせないと効きません
- *
- *    .company a { word-break … } を書いても直りませんでした。店舗のCSSに
- *
- *      .company table.tbl01 td .infoa { width: 350px; display: block; … }
- *
- *    という**より強い指定**があり、そちらが勝っていたからです。
- *    実測で a.infoa が 539px のまま動かず、CSSを読んで気づきました。
- *    同じ形のセレクタで上書きします。 */
 @media screen and (max-width: 1240px) {
   .company table.tbl01 td .infoa,
   .company.transaction table.tbl01 td .infoa {
@@ -571,19 +386,6 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ トップの商品一覧が、狭い画面で縮みません
- *
- *    店舗のCSSは4列を固定で組んでいます。
- *
- *      #r_new > table   { display: flex; }
- *      #r_new .lims     { width: 220px !important; padding-right: 26px; }
- *
- *    4列 × 220px ＋ 余白 で 958〜984px。**768pxでも960pxでもはみ出します。**
- *    切り替え後はスマホのお客様もこのページを見るので、そのままには
- *    できません（いまは /smartphone/ の別サイトに飛んでいます）。
- *
- *    折り返して、幅を割合にします。段組みが2列になるだけで、中身も
- *    並び順も変わりません。 */
 @media screen and (max-width: 1024px) {
   #r_new > table,
   #r_recommend > table,
@@ -615,18 +417,6 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ 会社概要の本文が `<pre>` で包まれています（2026-09-09 実測）
- *
- *    `<{$company.content}>` が返すHTMLは、プラットフォーム側で
- *    `<pre>` に入っています（こちらのテンプレートは包んでいません）。
- *    `<pre>` は `white-space: pre` なので、**行が折り返しません。**
- *
- *      A（熱中症予防のリンク）  幅474px  右端663px
- *      IFRAME（Googleマップ）  右端551px
- *
- *    375px で 696px まで横に伸びていました。`pre-wrap` にすると、
- *    **いまの改行はそのままで、長い行だけが折り返します。**
- *    960px の画面では折り返す行が無いので、見た目は変わりません。 */
 #O_adminPagearea pre,
 .M_mainContents pre {
   white-space: pre-wrap;
@@ -634,24 +424,6 @@ a[data-zoom] { cursor: zoom-in; }
   overflow-wrap: anywhere;
 }
 
-/* ※ カテゴリの商品一覧（table.tbl02）が縮みません（2026-09-09 実測）
- *
- *    元のCSSはこうです。
- *
- *      table.tbl02              width: 960px;
- *      table.tbl02 td.categorylist   width: 260px;
- *      table.tbl02 td table td.itemimg img   width: 220px;
- *
- *    テンプレートは4件ごとに `<tr>` を開きます。**4列 × 260px は
- *    375px には入りません**（実測 右端 523px、はみ出す要素 694個）。
- *
- *    テーブルのままでは列は折り返せないので、狭い画面だけ
- *    ブロックに変えて2列で折り返します。**行の区切りも順番も
- *    変わりません。** 商品の並びはテンプレートのままです。
- *
- *    境目は 767px です。768〜1024px では4列のまま画像が縮んで収まるので
- *    （実測で 768/960/1280 すべて収まっています）、**そこまで2列に
- *    変えると、現行サイトと違う見え方を増やすだけ**になります。 */
 @media screen and (max-width: 767px) {
   table.tbl02 { width: 100% !important; }
   table.tbl02 > tbody { display: block; width: 100%; }
@@ -677,28 +449,12 @@ a[data-zoom] { cursor: zoom-in; }
     max-width: 220px;
     height: auto;
   }
-  /* 下段の「こちらの商品もおすすめです。」は入れ子のテーブルがありません。
-     `td.categorylist` の直下に画像が入ります。 */
   table.tbl02 td.categorylist img {
     max-width: 100%;
     height: auto;
   }
 }
 
-/* ※ ランキング枠が、狭い画面で画面外へ出ます（2026-09-09 実測）
- *
- *    トップの `ul.rank-list` は、元のCSSがこう組んでいます。
- *
- *      ul.rank-list.clear      width: calc(100% - 470px);  left: 470px;
- *      .index-rank li:first-child  position: absolute;  left: -475px;  width: 450px;
- *
- *    1位を左の 470px の欄に絶対配置して、2位以降を右に流す形です。
- *    **375px では calc が負になり**、右へ流した2位以降が画面の外
- *    （右端 569px）へ出ます。1位も 450px 幅のまま右端 499px です。
- *    これがスマートフォンのレイアウト視域を 584px へ広げていました。
- *
- *    実測で 7 件ありました（1位＋6件）。件数に依らない形で戻します。
- *    段に積み直すだけで、順位も中身も変わりません。 */
 @media screen and (max-width: 1024px) {
   ul.rank-list,
   ul.rank-list.clear {
@@ -725,30 +481,17 @@ a[data-zoom] { cursor: zoom-in; }
     height: auto !important;
     float: none !important;
   }
-  /* 2位・3位は名前を 100px 下げる指定があります。積んだら不要です */
   .index-rank li:nth-child(2) .rank-name,
   .index-rank li:nth-child(3) .rank-name { margin-top: 8px; }
 
   li.rankList img { max-width: 100%; height: auto; }
-  /* ※ .rank-number は触りません
-   *
-   *    `font-size: 0` の背景画像バッジ（89×75）です。一度 `width: auto;
-   *    height: auto` を当てましたが、中身が無いので **0×0 になって消えます。**
-   *    `position: absolute; left: 0` のままで、上で li を `position: relative`
-   *    に戻しているので、1位の左上に正しく乗ります。 */
 }
 
-/* 481px 以上なら2列に収まります */
 @media screen and (min-width: 481px) and (max-width: 1024px) {
   .index-rank li:not(:first-child),
   li.rankList:not(:first-child) { width: 48% !important; }
 }
 
-/* ※ レコメンドの横並びは、外から幅を渡されません
- *
- *    商品詳細の `.rcmdjp-carousel` はプラットフォームが差し込むもので、
- *    中身の幅で広がります（768pxで984px）。**こちらのCSSでは中身を
- *    触れません**が、入れ物ではみ出しを止められます。 */
 @media screen and (max-width: 1240px) {
   .rcmdjp-carousel,
   [class^="rcmdjp-"],
@@ -761,47 +504,11 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ メインビジュアルが中央に寄っていませんでした（2026-09-10 実測）
- *
- *    現行と並べて測ると、スライダーだけ40px左にずれていました。
- *
- *      現行    .bx-wrapper  40..1250
- *      移植版  .bx-wrapper   0..1210
- *
- *    元CSSの `.slider` は `max-width: 1200px` だけで、中央寄せの指定が
- *    ありません。ベーシックでは外側の入れ物が中央に寄せていましたが、
- *    クリエイターでは `.slider` が body の直下に来るので、左端に貼り付き
- *    ます。**幅は合っているのに位置だけずれる**ので、ヘッダーとの縦線が
- *    揃わず、いちばん目につくズレになっていました。 */
 .slider {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* ※ 本文の箱が二重で、余白が2回効いていました（2026-09-10 実測）
- *
- *    ご利用案内と会社概要だけ、中身が10px右にずれていました。
- *
- *      現行    #O_adminPagearea 270..1240 (970) / table.tbl01 280..1240
- *      移植版  #O_adminPagearea 280..1240 (960) / table.tbl01 290..1240
- *
- *    現行は `<div id="O_adminPagearea" class="M_mainContents company">` の
- *    **1枚だけ**です。移植版は外側に `.M_mainContents` を置いたうえに、
- *    ご利用案内は自前で、会社概要は `<{$company.content}>` が持ってくる
- *    ぶんで、`.M_mainContents` が入れ子になっています。
- *    元CSSの `.M_mainContents { padding-left: 10px }` が2回効いて、
- *    ちょうど10pxずれていました。
- *
- *    入れ子になったほうだけ、親の余白を打ち消します。
- *    自分の余白は残すので、中の表の位置は現行と同じになります。
- *
- *    ※ 最初に書いたルールは効きませんでした
- *
- *       `.M_mainContents .M_mainContents`（0,2,0）では届きません。
- *       元CSSに **`#O_adminPagearea { margin: -10px 0 0 0 }`**（1,0,0）が
- *       あって、左余白を0に戻していました。実測しても margin-left が
- *       0px のままで、その場で直接指定したら 10px 動いたので分かりました。
- *       id を含めた形（1,2,0）にします。上の -10px は残します。 */
 .M_mainContents .M_mainContents,
 .M_mainContents #O_adminPagearea.M_mainContents {
   margin-left: -10px;
@@ -810,22 +517,6 @@ a[data-zoom] { cursor: zoom-in; }
   width: auto;
 }
 
-/* ※ 左メニューのボタンが見つけられませんでした（山口様のご指摘・2026-09-10）
- *
- *    「左メニューもSPに行く段階で消えてなくなります」
- *
- *    消してはいません。960px 未満で引き出しに畳んで、☰ ボタンで開く形に
- *    していました。ところがそのボタンが
- *
- *      position: fixed; top: 8px; left: 8px
- *
- *    で画面の左上に浮いていました。**上の緑の帯に重なる**うえ、
- *    ヘッダーの文字に紛れて、押せるものだと分かりません。
- *    ご指摘のとおり「無い」のと同じです。
- *
- *    流れの中に戻して、横いっぱいの帯にします。文言も
- *    「カテゴリーから探す」に変えて、何が開くのか分かるようにします。
- *    重なりも無くなります。 */
 @media screen and (max-width: 960px) {
   .l-menu-toggle {
     display: flex;
@@ -845,22 +536,6 @@ a[data-zoom] { cursor: zoom-in; }
   .l-menu-toggle__bars span { height: 3px; margin: 4px 0; }
 }
 
-/* ※ トレンドキーワードの帯が、下の内容に重なっていました（2026-09-10 実測）
- *
- *    元CSSはこうです。
- *
- *      .header_keyword { height: 46px; line-height: 46px }
- *
- *    高さが固定です。狭い画面でキーワードを折り返すようにしたので、
- *    中身は4段になるのに**箱は46pxのまま**。あふれた3段ぶんが
- *    そのまま下の内容の上に乗っていました。
- *    実測で、親から下へ 204px 突き抜けています。
- *
- *    山口様の「細かなズレ、重なりが多くみられます」は、
- *    スマホではこれがいちばん大きく出ます。
- *
- *    ※ `.fixed .header_keyword { height: 0 }` は触りません。
- *       追従したときに帯を畳む指定で、そちらのほうが強く効きます。 */
 @media screen and (max-width: 960px) {
   .header_keyword {
     height: auto;
@@ -885,25 +560,6 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ 商品グループと「最近チェックした商品」が、狭い画面で画面外へ出ます
-      （2026-09-10 実測。写し mirror/detail.html を375pxで測定）
-
-        画面 360px に対して table#M_group の幅が **818px**
-
-      商品グループの枠は、今日こちらで組み直したものです（それまでは
-      "Array" という文字しか出ていませんでした）。現行のPCページに
-      合わせて4列にしたので、セルの中の `<img width="220">` が最低幅を
-      作り、**4列 × 220px は 360px に入りません。**
-
-      現行のPCサイトはそもそも横幅が固定なので、狭い画面での正解が
-      ありません。ここはカテゴリの `table.tbl02` と同じ扱いにします。
-      767px 以下で2列に折り返します。順番も区切りも変わりません。
-
-      同じ形の表が3つあります。
-        #M_group   商品グループ（商品詳細）
-        #recent    最近チェックした商品（ct646 の商品詳細のタブ1）
-        #M_recent  最近チェックした商品（買い物かご）
---------------------------------------------------------------------------- */
 @media screen and (max-width: 767px) {
   table#M_group,
   table#recent,
@@ -940,9 +596,6 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* 768〜1024px でも、商品グループの4列は入りません（2026-09-10 実測）
-   画面 753px に対して table#M_group が 818px。1セル約205pxの4列です。
-   この幅では2列にすると隙間が目立つので、表を固定幅にして画像を縮めます。 */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   table#M_group,
   table#recent {
@@ -954,10 +607,6 @@ a[data-zoom] { cursor: zoom-in; }
   table#recent td.itemBox { width: 25% !important; }
   table#M_group td.itemImg,
   table#recent td.itemImg { width: auto !important; }
-  /* ※ 内側の表も止めないと、画像が外側のセルより広くなります。
-     外側だけ table-layout:fixed にしたら、セル186pxの中に198pxの画像が
-     残りました（#M_group td.itemImg img の max-width:198px がそのまま
-     効いていました）。内側の表を100%に閉じ、画像は 100% で頭打ちにします。 */
   table#M_group td.itemBox > table,
   table#recent td.itemBox > table {
     width: 100% !important;
@@ -972,12 +621,6 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ セルの中の文字も 198px で固定されています（2026-09-10 実測）
-
-     .itemBox table tr td p.name / p.spe / p.price  →  width: 198px
-
-   表とセルと画像を100%にしても、この3つが198pxのまま残り、768pxで
-   12px はみ出していました。狭い画面では幅の指定を外します。 */
 @media screen and (max-width: 1024px) {
   .itemBox table tr td p.name,
   .itemBox table tr td p.spe,
@@ -988,28 +631,10 @@ a[data-zoom] { cursor: zoom-in; }
   }
 }
 
-/* ※ 「かごの中身を空にする」を外した副作用（2026-09-10 実測）
-
-     現行の .btnBack にはリンクが2本あります。
-
-       <a>買い物を続ける</a><a class="basket-del">かごの中身を空にする</a>
-
-     クリエイターに「かごを空にする」URLが無いので2本目を外したところ、
-     `.btnWrap a:last-child { background: … }` が**1本目に当たるように
-     なり**、買い物を続けるの背景（basket-home.png）が塗りつぶされて
-     いました。画像名の突き合わせで 1枚 → 0枚 と出ました。
-     元の見た目に戻します。 */
 .btnWrap .btnBack a:last-child {
   background: #007c5a url(https://gigaplus.makeshop.jp/isplanning/images/basket-home.png) no-repeat 23% 50%;
 }
 
-/* ※ 「こちらの商品もおすすめです。」が、320pxで画面外へ出ます
-      （2026-09-10 実測。写し mirror/category.html を320pxで測定）
-
-      現行と同じ形にしたところ（130px幅の小さな表を5つ横に並べる）、
-      画面305pxに対して310pxになりました。現行のPCサイトは横幅が固定
-      なので、狭い画面での正解がありません。商品グループと同じ扱いで、
-      767px以下は2列に折り返します。 */
 @media screen and (max-width: 767px) {
   #r_recommend_ct > table {
     width: 100% !important;
@@ -1027,10 +652,10 @@ a[data-zoom] { cursor: zoom-in; }
     box-sizing: border-box;
     padding: 5px;
   }
-  /* 区切りの細い列は、折り返すと意味がないので隠します */
   #r_recommend_ct > table > tbody > tr > td.line { display: none; }
   #r_recommend_ct > table > tbody > tr > td > table {
     width: 100% !important;
     max-width: 130px;
   }
 }
+

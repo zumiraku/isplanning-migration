@@ -1,17 +1,3 @@
-<#
-  Extract the unique content body from each archived free page, then classify it
-  into a template archetype.
-
-  Container names are not reliable here: only 20 of 83 pages use <div class="PageArea">,
-  and the site's <h1> lives in the header chrome, not the content. So instead of
-  guessing selectors, derive the chrome boundaries from the corpus itself - these are
-  template-generated pages, so whatever prefix and suffix ALL of them share is chrome
-  by definition, and what remains is the page's own content.
-
-  Outputs:
-    templates/basic-export/freepages/<slug>.html   content body, UTF-8, no BOM
-    inventory/freepage-archetypes.csv              one row per page, with signals
-#>
 param(
   [string]$OutDir = 'templates\basic-export\freepages',
   [string]$OutCsv = 'inventory\freepage-archetypes.csv'
@@ -30,18 +16,8 @@ foreach ($r in (Import-Csv inventory\pages-freepages-desktop.csv)) {
   $body = $h.Substring($b)
   $path = ([uri]$r.url).AbsolutePath
 
-  # The footer carries a hidden input holding the page's own path
-  # (<input name="return_path" value="/html/pageNN.html">). That single field stops
-  # the common suffix dead at ~300 chars, leaving the whole footer inside "content".
-  # Normalise just that attribute to a constant so every page's chrome aligns.
-  # Deliberately surgical: a blanket replace of /html/* would also destroy the
-  # internal links we need for the Stage 5/6 link-rewrite work.
   $norm = [regex]::Replace($body, '(?i)(name="return_path"\s+value=")[^"]*(")', '${1}__SELF__${2}')
-  # ssl_tempid is a per-request session token that appears in several footer forms;
-  # it varies between fetches, not between pages, so it must be normalised too.
   $norm = [regex]::Replace($norm, '(?i)(name="ssl_tempid"\s+value=")[0-9a-f]{32}(")', '${1}__TEMPID__${2}')
-  # MakeShop appends a long per-page hex comment after the footer; it is the last
-  # thing breaking the common suffix, so the tail of the chrome stays inside "content".
   $norm = [regex]::Replace($norm, '<!--[0-9a-f]{32,}', '<!--__HASH__')
 
   $pages += [pscustomobject]@{
@@ -54,7 +30,6 @@ foreach ($r in (Import-Csv inventory\pages-freepages-desktop.csv)) {
 }
 Write-Output "pages loaded: $($pages.Count)"
 
-# --- derive shared chrome ---------------------------------------------------
 function Get-CommonPrefixLength($a, $b) {
   $n = [Math]::Min($a.Length, $b.Length); $i = 0
   while ($i -lt $n -and $a[$i] -eq $b[$i]) { $i++ }
@@ -66,9 +41,6 @@ function Get-CommonSuffixLength($a, $b) {
   $i
 }
 
-# A global minimum is worthless here: one structurally different page (page6, one of
-# the five that still serve the PC template) drags it to 22 characters. Measure each
-# page against a reference page instead, so an outlier only affects itself.
 $ref = ($pages | Sort-Object { $_.body.Length })[[int]($pages.Count/2)]
 Write-Output "chrome reference: $($ref.slug) ($($ref.body.Length) chars)"
 
@@ -85,12 +57,9 @@ $rows = New-Object System.Collections.ArrayList
 foreach ($p in $pages) {
   $preLen = $p.preLen; $sufLen = $p.sufLen
   if ($p.slug -eq $ref.slug) {
-    # The reference cannot be diffed against itself; use the corpus-typical boundary.
     $preLen = [int](($preStats | Group-Object | Sort-Object Count -Descending)[0]).Name
     $sufLen = [int](($sufStats | Group-Object | Sort-Object Count -Descending)[0]).Name
   }
-  # Slice the normalised string: boundaries were measured on it, and it differs from
-  # the original only in the footer's return_path value, which is chrome regardless.
   $len = $p.norm.Length - $preLen - $sufLen
   $body = if ($len -gt 0) { $p.norm.Substring($preLen, $len) } else { '' }
 
@@ -137,3 +106,4 @@ Write-Output "=== overlong <title> (>60 chars truncates in search results) ==="
 $rows | Where-Object { [int]$_.title_len -gt 60 } | Sort-Object { -[int]$_.title_len } |
   Select-Object -First 8 | ForEach-Object { "  {0,3} chars  {1}" -f $_.title_len, $_.slug }
 "  total over 60: $(@($rows | Where-Object { [int]$_.title_len -gt 60 }).Count) of $($rows.Count)"
+

@@ -1,14 +1,4 @@
-/* ---------------------------------------------------------------------------
-   open.js — URLを開いて、中身の骨格を報告する
-
-     node tools/cdp/open.js <URL> [待ち秒]
-
-   ※ 編集画面は console.makeshop.jp ではありません
-
-      新しい管理画面は入れ物だけで、中身は
-      shop1.makeshop.jp/makeshop/newmanager/ の iframe です。
-      別ドメインなので、親からは中を触れません。**直接そちらを開きます。**
---------------------------------------------------------------------------- */
+/* open.js — URLを開いて、中身の骨格を報告する */
 const { page } = require("./cdp.js");
 
 const url = process.argv[2];
@@ -53,3 +43,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("リンク:"); info.links.forEach(b => console.log("  " + b));
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

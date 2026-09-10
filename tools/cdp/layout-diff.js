@@ -1,18 +1,4 @@
-/* ---------------------------------------------------------------------------
-   layout-diff.js — 重なり・ズレを、現行サイトと突き合わせて「増えたぶんだけ」出す
-
-   ※ そのまま数えると使えません
-
-      移植版のトップで重なり37件・はみ出し122件。ところが中身を見ると、
-      インラインの `<a>` に入った画像や、スライダーの複製など、
-      **元サイトでも同じように出るもの**ばかりでした。数えるだけでは
-      どれが移植で増えたのか分かりません。
-
-      現行サイトに同じ検査をかけて、**移植版にだけ出るもの**を引き算します。
-
-     node tools/cdp/layout-diff.js top 1280
-     node tools/cdp/layout-diff.js top 375     （現行はスマホ版サイトへ飛ぶので参考値）
---------------------------------------------------------------------------- */
+/* layout-diff.js — 重なり・ズレを、現行サイトと突き合わせて「増えたぶんだけ」出す */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -27,14 +13,6 @@ const PAGES = {
   cart:     { type: 6,  live: "https://www.isp-sp.com/shop/basket.html" },
   search:   { type: 5,  live: "https://www.isp-sp.com/shop/shopbrand.html?search=%A5%BF%A5%AA%A5%EB" },
   "news-list":   { type: 9,  live: "https://www.isp-sp.com/new/index.html" },
-  /* ※ プライバシーは比べられません
-   *
-   *    現行の /html/privacy.html は、フッターのJavaScriptから開く
-   *    **ポップアップ専用のページ**です。実測でヘッダーも左メニューも
-   *    フッターもありません（本文2,477文字だけ）。
-   *    移植版はフッター付きの通常ページなので、引き算すると
-   *    フッターのコラム8本がまるごと「移植版にだけ出る」と出ます。
-   *    比較の意味が無いので外します。位置は geometry.js で見ています。 */
   guide:    { type: 11, live: "https://www.isp-sp.com/html/info.html" },
   company:  { type: 12, live: "https://www.isp-sp.com/html/company.html" },
   contract: { type: 13, live: "https://www.isp-sp.com/html/ordercontract.html" }
@@ -60,7 +38,6 @@ async function settle(p) {
   await sleep(700);
 }
 
-/* 商品名などの中身は現行と移植版で違うので、鍵からは外します */
 function keyOverlap(o) { return o.a.replace(/\[.*?\]/g, "[]") + " × " + o.b.replace(/\[.*?\]/g, "[]"); }
 function keyOut(o) { return o.what.replace(/\[.*?\]/g, "[]") + " ← " + o.parent; }
 
@@ -129,3 +106,4 @@ function keyOut(o) { return o.what.replace(/\[.*?\]/g, "[]") + " ← " + o.paren
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

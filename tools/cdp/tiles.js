@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   tiles.js — 1ページを、読める大きさに切って撮ります
-
-   ※ 縦12,000pxを1枚にすると、縮んで**ズレも重なりも見えません。**
-      1枚に収めた画像で「大丈夫」と判断するのは、測っていないのと同じです。
-
-     node tools/cdp/tiles.js top 1280        トップのPC
-     node tools/cdp/tiles.js top 375         トップのスマホ
-     node tools/cdp/tiles.js detail 1280 3   3枚目だけ撮り直す
-
-   保存先: tools/cdp/shots/<ページ>-<幅>-<番号>.png
---------------------------------------------------------------------------- */
+/* tiles.js — 1ページを、読める大きさに切って撮ります */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -66,7 +55,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   await sleep(4000);
 
-  /* 遅れて出る画像を一度読ませます */
   await p.evaluate("window.scrollTo(0, document.body.scrollHeight); 1");
   await sleep(1500);
   await p.evaluate("window.scrollTo(0, 0); 1");
@@ -80,7 +68,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   const n = Math.ceil(total / TILE);
   console.log(name + " " + width + "px  高さ " + total + "  → " + n + " 枚");
 
-  /* 全体を一度に描かせてから切り出します（追従ヘッダーが毎回写り込むのを防ぎます） */
   await p.send("Emulation.setDeviceMetricsOverride",
     { width: width, height: total, deviceScaleFactor: 1, mobile: mobile });
   await sleep(1200);
@@ -103,3 +90,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

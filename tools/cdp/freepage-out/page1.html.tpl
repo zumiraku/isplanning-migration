@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     ご注文用紙ダウンロード — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -43,8 +36,6 @@
 	<h2>ご注文用紙ダウンロード</h2>
 <p class="nameall" style="font-size:18px;">粗品のご注文用紙ダウンロードページです。FAX注文の際に印刷頂きましてご使用ください。<br>FAXは24時間受け付けております。</p>
 
-
-
 <img src="https://gigaplus.makeshop.jp/isplanning/images/ordersheet_s.gif" alt="注文書画像" style="float: right; width: 300px; margin: 10px 70px 10px 10px;">
 
 	<ul class="OrderForm">
@@ -54,7 +45,6 @@
 		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxorder_calendar.pdf" target="_blank">カレンダー専用ＦＡＸ注文用紙（PDF版）</a></li>
 		<li><a href="https://gigaplus.makeshop.jp/isplanning/uploads/faxorder_uchiwa.pdf" target="_blank">うちわ専用ＦＡＸ注文用紙（PDF版）</a></li>
 	</ul>
-
 
 <ul class="txtList03">
 <li><p style="margin-left: 1%; line-height:25px;">●お見積は各商品ページの「この商品を問合せ」からもご利用ください。</p>
@@ -73,19 +63,6 @@
 	<p class="nameall" style="font-size:16px;">お客様からいただいた個人情報は商品の発送とご連絡以外には、一切使用致しません。当社が責任をもって安全に蓄積・保管し、第三者に譲渡・提供することはございません。（メーカー直送の場合はメーカーにて管理又は出荷後速やかに破棄いたします。）</p>
 </div><!-- PageArea -->
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

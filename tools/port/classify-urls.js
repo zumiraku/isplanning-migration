@@ -1,24 +1,9 @@
-/* ---------------------------------------------------------------------------
-   classify-urls.js — サイトマップの全URLを形ごとに分けて、実測済みかを見ます
-
-   ※ 「旧URLは転送されます」を、8本で確かめて全体の結論にしていました
-
-      2026-09-08 の切替後に旧URL8本を測って、すべて200でした。
-      それは事実ですが、**サイトマップには10,307本**あります。
-      8本が代表になっているのは、10,307本が**その8本と同じ形**である
-      ときだけです。そこを数えていませんでした。
-
-      形ごとに分けて、実測済みの形に全部収まるかを見ます。
-      収まらない形が1つでもあれば、それは「まだ確かめていない」ものです。
-
-     node tools/port/classify-urls.js
---------------------------------------------------------------------------- */
+/* classify-urls.js — サイトマップの全URLを形ごとに分けて、実測済みかを見ます */
 const fs = require("fs");
 
 const FILE = "inventory/urls-sitemap.csv";
 if (!fs.existsSync(FILE)) { console.error("※ ありません: " + FILE); process.exit(1); }
 
-/* 2026-09-08 に実際に開いて200を確認した8本 */
 const TESTED = [
   "/shopdetail/000000003919/",
   "/shopdetail/000000023610/",
@@ -30,7 +15,6 @@ const TESTED = [
   "/"
 ];
 
-/* URLの形。上から順に当てます */
 const SHAPES = [
   [/^\/$/,                         "トップ"],
   [/^\/shopdetail\/\d{12}\/?$/,    "商品（12桁）"],
@@ -78,7 +62,6 @@ for (let i = 1; i < lines.length; i++) {
   if (!sample[s]) { sample[s] = u; }
 }
 
-/* 実測した8本が、どの形に当たるか */
 const testedShapes = new Set(TESTED.map(shapeOf));
 
 console.log("サイトマップ " + n + " 本");
@@ -100,3 +83,4 @@ if (unchecked) {
 } else {
   console.log("OK すべての形が、実測済みの形に収まっています");
 }
+

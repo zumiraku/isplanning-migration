@@ -1,33 +1,4 @@
-/* ---------------------------------------------------------------------------
-   preview.js — ページ種別ごとに「プレビュー」を押して、配信されるHTMLを保存する
-
-     node tools/cdp/preview.js              11ページぶん
-     node tools/cdp/preview.js contract     1つだけ
-
-   ※ プレビューのURLを開くだけでは、古いものが返ります
-
-      HTMLは **`プレビュー` を押した瞬間に焼き付けられ**、URLはその焼き付けを
-      見にいくだけです。押さずにURLを開いて「変わっていない」と判断し、
-      1巡むだにしました。ここでは毎回押してから読みます。
-
-      押す中身は画面から読み取ったとおりです。
-
-        function previewContent() {
-            formMain.is_preview = 'Y';
-            formPreview.content_html       = getEditorContent('html');
-            formPreview.content_css        = getEditorContent('css');
-            formPreview.content_javascript = getEditorContent('javascript');
-            document.formPreview.submit();     // target=_blank
-        }
-
-   ※ target=_blank は開きません
-
-      人が押していないフォーム送信なので、ポップアップとして止められます。
-      **同じタブで開くように target を _self にしてから押します。**
-      送る中身は1バイトも変わりません。
-
-   保存先: tools/cdp/preview-out/<ページ>.html
---------------------------------------------------------------------------- */
+/* preview.js — ページ種別ごとに「プレビュー」を押して、配信されるHTMLを保存する */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -51,8 +22,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   for (const [name, type] of PAGES) {
     if (only && only !== name) { continue; }
 
-    /* ※ 直前のプレビューでショップ側に居ることがあります。
-     *    "makeshop" で探すと見つからず落ちました。最初のタブを取ります。 */
     const p = await page();
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
     let ok = false;
@@ -86,3 +55,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("");
   console.log(done.length + " 枚を " + OUT + " に保存しました");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

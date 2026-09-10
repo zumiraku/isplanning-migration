@@ -90,7 +90,6 @@
 </div>
 </div>
 
-
 <div class="guide-inner" id="about_payment">
 	<h3 class="guide-ttl mt70">お支払・送料について</h3>
 	

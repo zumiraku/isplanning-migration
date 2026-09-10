@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     トップ — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_mainpage.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -65,16 +58,6 @@
   <td class="woong" valign="top"><a href="<{$latest_news.list[nw].url}>"><{$latest_news.list[nw].title}></a></td>
 </tr></table>
 <{/section}>
-<{* ※ お知らせの枠の「底」を落としていました（2026-09-10 実測）
-
-     現行はお知らせの一覧のあとに、角丸の下辺が入ります。
-
-       <td class="line" width="5" height="5"><img src="/images/left_edge.gif"></td>
-       <td class="line" height="5">&nbsp;</td>
-       <td class="line" width="5" height="5"><img src="/images/right_edge.gif"></td>
-
-     画像名の突き合わせで left_edge.gif と right_edge.gif が
-     **1枚 → 0枚** と出ました。枠の下だけが開いて見えます。 *}>
 <table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
   <td class="line" width="5" height="5"><img src="/images/left_edge.gif"></td>
   <td class="line" height="5">&nbsp;</td>
@@ -141,7 +124,6 @@
 	</div>
     <{/if}>
 
-
 <div class="M_section clear" id="r_new">
 <h2 class="main-ttl">新着商品<span>最近追加の粗品をピックアップ、下記は一例です。</span><a class="link_green-bg linkbar" href="<{$url.top}>">新着商品一覧はこちら</a></h2>
 <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
@@ -159,20 +141,7 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$new_item.list[nw2].price|number_format}>円（税込）</td></tr>
-      <{* ※ 4行目が丸ごと抜けていました（実測・2026-09-10）
-
-           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
-           リンク**で、角かっこ付きの太字です。
-
-             <tr height="20" class="woong"><td valign="top" align="center">
-               <a href="/view/category/ct6"><b>[50円～99円]</b></a>
-             </td></tr>
-
-           現行と移植版の文言を突き合わせて出ました。
-           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
-           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
-           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
-      <tr height="20" class="woong"><td valign="top" align="center">
+            <tr height="20" class="woong"><td valign="top" align="center">
         <a href="<{$new_item.list[nw2].base_category.url}>"><b>[<{$new_item.list[nw2].base_category.name}>]</b></a>
       </td></tr>
     </table>
@@ -198,20 +167,7 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$recommend_item.list[rc].price|number_format}>円（税込）</td></tr>
-      <{* ※ 4行目が丸ごと抜けていました（実測・2026-09-10）
-
-           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
-           リンク**で、角かっこ付きの太字です。
-
-             <tr height="20" class="woong"><td valign="top" align="center">
-               <a href="/view/category/ct6"><b>[50円～99円]</b></a>
-             </td></tr>
-
-           現行と移植版の文言を突き合わせて出ました。
-           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
-           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
-           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
-      <tr height="20" class="woong"><td valign="top" align="center">
+            <tr height="20" class="woong"><td valign="top" align="center">
         <a href="<{$recommend_item.list[rc].base_category.url}>"><b>[<{$recommend_item.list[rc].base_category.name}>]</b></a>
       </td></tr>
     </table>
@@ -290,19 +246,6 @@
 	</div>
     <{/if}>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

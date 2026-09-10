@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     粗品やギフトは名入れがおすすめ！～熨斗に関する豆知識も併せてご紹介～ — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -150,7 +143,6 @@
     <a href="JavaScript:top_sendmail()" class="c-btn-anchor" rel="nofollow">お問い合わせはこちらへ</a>
     </div>
 
-
   <!--　その他ここから　-->
   <div class="u-mt40 c-linkblock">
     <div class="u-mb30 u-c-a">
@@ -220,7 +212,6 @@
 <div class="columnlink"><a href="#colum-wrap"><img alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
 
 </div>
-
 
 <style type="text/css">
 #i1{
@@ -360,19 +351,6 @@
 </style>
 <!--　コンテンツここまで　-->
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

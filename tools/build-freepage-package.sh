@@ -1,23 +1,5 @@
 #!/bin/sh
 # build-freepage-package.sh — the 86 free pages, ready for フリーページ管理
-#
-# ※ 2026-09-05: rebuilt. The first version produced body fragments, because
-# フリーページ管理 looked like a content box. It is not - it is a whole
-# document, the same as the eleven page templates. Saving page82 with one line
-# of text produced exactly that on screen: one line of text, no header, no
-# footer, no stylesheet.
-#
-# So each page is now wrapped in the same shell: the doctype, the three
-# 必ず記載 tags, $module.header and $module.footer. Without $makeshop.head a
-# free page would load no analytics; without $module.header it would have no
-# navigation at all, and 86 pages with no way back to the shop is worse than
-# not migrating them.
-#
-# The <title> is written in rather than taken from $page.title. It is knowable,
-# it is stable, and the brief asked for the titles to be fixed - so it should
-# not depend on a field being filled in correctly 86 times.
-#
-# Needs Git Bash. Run from the repository root.
 
 src="templates/creator/freepages"
 list="inventory/freepages-admin-list.csv"
@@ -83,15 +65,9 @@ echo ""
 echo "被リンクの多い順:"
 sed 's/"//g' "$out/MANIFEST.csv" | awk -F, 'NR>1 && NR<=6{printf "  %2s 本  %-10s %s\n", $1, $3, substr($4,1,36)}'
 
-# --- 付属文書 -----------------------------------------------------------------
-# ※ このスクリプトは冒頭で out ディレクトリを rm -rf します。手で置いた
-#    ファイルは消えます。実際に PAGE-NAMES.md と REDO.txt を消しました。
-#    以後はここで作り直します。
 
-# ページ名の対応表。フリーページ編集の3つ目の入力欄に入れる値です。
 {
   cat <<'HD'
-# フリーページ 82枚 — 3つの入力欄に入れるもの
 
 フリーページ編集の画面には入力するところが**3つ**あります。ID（ページURL）と
 本文だけではありません。
@@ -122,27 +98,8 @@ HD
   ' "$out/MANIFEST.csv"
 } > "$out/PAGE-NAMES.md"
 
-# 貼り直しが要るページ。内部リンクを持つものが対象です。
 {
   cat <<'HD'
-# 貼り直したいフリーページ ── 切替前にやる必要はありません
-#
-# 内部リンクを新URLに書き換えたため、すでに貼ってあるものとは中身が違います。
-#
-#   /html/pageNN.html   -> /view/page/pageNN.html
-#   /shopbrand/…        -> /view/category/ctNNN
-#   /shopdetail/コード  -> /view/item/コード
-#
-# ■ 切替前の必須作業ではありません（2026-09-05）
-#
-#   URL一括設定のCSVが旧URLを「追加URL」として登録するので、いま入っている
-#   ページの中の旧リンクもそのまま到達できます。この貼り直しは「正規URLで
-#   直接リンクする」ための整理です。
-#
-#   ※ ただしCSVを入れないまま放置すると、これらのリンクは404になります。
-#
-# 被リンクの多い順です。着手するときは上から進めてください。
-#
 HD
   perl -ne '
     next if $.==1;
@@ -160,3 +117,4 @@ echo ""
 echo "付属文書:"
 printf "  %-16s %s 行\n" "PAGE-NAMES.md" "$(grep -c '' "$out/PAGE-NAMES.md")"
 printf "  %-16s %s 枚が対象\n" "REDO.txt" "$(grep -c '^page' "$out/REDO.txt")"
+

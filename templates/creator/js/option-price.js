@@ -1,27 +1,4 @@
-/* =============================================================================
-   option-price.js — replaces MakeShop's updateOptionPrice / updateOptionPriceAjax
-   isp-sp.com Creator Mode rebuild.
-
-   Why this exists: the Basic Mode pricing behaviour is platform JavaScript emitted
-   by オプションテーブル形式, which Creator Mode discontinues. See spec/option-engine.md.
-
-   Contract preserved from Basic Mode:
-     POST /shop/shopdetail_option.html
-     body: uid=<internal id>&option1_id=<n>&option2_id=<n>
-     ->   {"price":18295,"no_tax_price":"16632","tax":1663,"point":0,
-           "quantity":null,"is_member_price":false, ...}
-
-   Differences from the code it replaces, all deliberate:
-     - no jQuery, no global functions
-     - JSON.parse, never eval()
-     - binds via data-* attributes, not id/name lookups, because Creator Mode
-       emits different markup and id-based selectors would break silently
-     - uid comes from the template, never derived from the URL: the older
-       cccssxxxxxx product codes do not embed it and deriving it returns
-       price 0 rather than an error
-     - fails loud - disables add-to-cart rather than letting an unpriced or
-       stale-priced order through
-   ========================================================================== */
+/* option-price.js — replaces MakeShop's updateOptionPrice / updateOptionPriceAjax */
 (function () {
   'use strict';
 
@@ -61,12 +38,6 @@
     });
   };
 
-  /* A `0` in either position means that axis is not used by this product — it is
-     not an unmade choice. 47 of the 73 measured combinations are `n_0`, single-axis
-     products, and the endpoint prices them normally. Rejecting them (which an
-     earlier version of this file did) locks the cart on most of the catalogue
-     while working perfectly on the one 3x7 product we had in front of us.
-     Only `0_0` is a genuine non-selection, i.e. a placeholder option. */
   OptionPricer.prototype.selection = function () {
     for (var i = 0; i < this.inputs.length; i++) {
       var el = this.inputs[i];
@@ -85,8 +56,6 @@
     return null;
   };
 
-  /* Locking the cart whenever the displayed price is not known-good is the whole
-     point: a wrong price that looks plausible is worse than a visible error. */
   OptionPricer.prototype.setEnabled = function (ok, message) {
     if (this.submit) {
       this.submit.disabled = !ok;
@@ -102,13 +71,6 @@
     this.setEnabled(false, message);
   };
 
-  /* 割引設定 / 会員価格 (C23). When the endpoint says a member price applies, that
-     is what the customer actually pays, so that is what the page must show —
-     rendering `price` to a logged-in member displays a number they will not be
-     charged. Every response in the oracle came back is_member_price:false because
-     all 73 probes were anonymous, so this branch is reasoned from the field names,
-     not observed. Confirm it against /shopdetail/003003000870/ while logged in as
-     a member before cutover; until then it fails loud rather than guessing. */
   function effectivePricing(data) {
     if (data.is_member_price !== true) { return data; }
     if (!(Number(data.member_price) > 0)) { return null; }
@@ -133,8 +95,6 @@
     if (this.out.tax)    this.out.tax.textContent    = yen(data.tax);
     if (this.out.point && data.point >= 0) this.out.point.textContent = yen(data.point);
 
-    // quantity === "0" means this combination is out of stock. null means the
-    // product has no per-option stock management, which is not an error.
     if (String(data.quantity) === '0') {
       this.fail('選択されたオプションは品切れです。他の組み合わせをお選びください。');
       return;
@@ -150,7 +110,7 @@
     }
 
     var self = this;
-    var token = ++this.token;   // stale responses must never overwrite a newer one
+    var token = ++this.token;
 
     if (this.source === 'inline') {
       var node = this.root.querySelector('[data-price-table]');
@@ -195,3 +155,4 @@
     init();
   }
 })();
+

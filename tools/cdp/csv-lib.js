@@ -1,21 +1,8 @@
-/* ---------------------------------------------------------------------------
-   csv-lib.js — 商品CSVを読み書きする
-
-   ※ 行単位で切れません
-
-      商品説明はHTMLで、**中に改行もカンマも引用符も入ります。** 行で切ると
-      1商品が何行にも割れます。引用符の中かどうかを見ながら1文字ずつ進めます。
-
-   ※ 文字コードは Shift_JIS です
-
-      UTF-8でもEUC-JPでもありません。読むときも書くときも変換します。
---------------------------------------------------------------------------- */
+/* csv-lib.js — 商品CSVを読み書きする */
 const fs = require("fs");
 
 function decode(buf) { return new TextDecoder("shift_jis").decode(buf); }
 
-/* Shift_JIS への書き出しは Node に無いので、iconv が要ります。
-   入っていない環境でも読むほうは動くように、遅延で読み込みます。 */
 function encode(text) {
   const iconv = require("iconv-lite");
   return iconv.encode(text, "Shift_JIS");
@@ -53,3 +40,4 @@ function build(rows) {
 }
 
 module.exports = { decode, encode, parse, build, quote };
+

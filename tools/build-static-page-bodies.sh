@@ -1,26 +1,9 @@
 #!/bin/sh
 # build-static-page-bodies.sh — 会社概要 / 利用案内 / 特定商取引法 / プライバシー
-#
-# These four are not 独自ページ. Each has its own page type in the Creator Mode
-# editor, and each already has converted content in templates/creator/freepages/
-# - company, info, ordercontract, privacy.
-#
-# So the body is the converted HTML, wrapped in a heading. No platform tags are
-# involved: these pages are prose, and prose is what we already have, verified
-# character-for-character against the source.
-#
-# ordercontract carries the client's decision on 引渡し時期 - 7日以内, recorded
-# in inventory/approved-content-changes.csv. It is the one place in this whole
-# corpus where the text was deliberately changed, and it is a legal disclosure,
-# so it is worth knowing that this file is where it lands.
-#
-# Output: templates/creator/mode/<page>-body.tpl
-# Needs Git Bash. Run from the repository root.
 
 src="templates/creator/freepages"
 out="templates/creator/mode"
 
-# slug | page type | h1
 set -- \
   "company|会社概要|会社概要" \
   "info|利用案内|ご利用ガイド" \
@@ -55,3 +38,4 @@ for spec in "$@"; do
   } > "$out/$slug-body.tpl"
   printf "  %-16s -> %-24s %6s 行\n" "$slug" "$slug-body.tpl" "$(wc -l < "$out/$slug-body.tpl")"
 done
+

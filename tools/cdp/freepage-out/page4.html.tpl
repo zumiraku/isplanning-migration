@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     SP SOURCE（エスピーソースカタログ）名入れのご案内 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -71,7 +64,6 @@
 <li><em>■</em>TEL：072-970-6710</li>
 </ul>
 
-
         <h3>名入れ　ご注文行程</h3>
         
         <div class="flex_test-item3">
@@ -136,7 +128,6 @@
 包装紙はエスピーソースカタログ記載の包装紙と異なりますのでご了承くださいませ。<br>
 包装紙の柄は下記でご確認下さい。</p>
 
-
 <ul class="txtList03" style="border:none;">
 <li><div class="normal-box3" style="width:300px; height: 42px; margin:10px 0 40px 0;"><a href="/view/page/page2.html#About_Noshi"><p>● 「包装」・「のし」はこちら</p></a>
 </div>
@@ -144,8 +135,6 @@
 </div></li>
 <li><img src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname3.png" alt="名入れ包装のし可能画像" style="width: 258px; margin:7px 200px 0 20px;"></li>
 </ul>
-
-
 
 <p>エスピーソースカタログに「送料無料」と記載がございますが、商品代金の合計3万円（税別）未満は送料が必要となりますのでご了承くださいませ。<br>
 （3万円未満には名入れ代、包装代、のし代等オプション加工は含みません）</p>
@@ -171,7 +160,6 @@ e-mail =<br>
 <a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600,height=600'); return false;"><img src="https://gigaplus.makeshop.jp/isplanning/images/estimation_cart2.png" alt="見積り依頼フォーム" style="margin:0 10px;"></a>
 </div>
 
-
 <div style="clear: both; padding: 40px 0 ;">
 <div style=" border: solid 1px #ccc; padding: 5px;margin:5px 0;text-align:left;">
 <h2 style="border-top:none;background:none; color: #009B44;margin:5px; padding: 0px 5px 0px  5px;font-size: 15px;font-weight:bold;border-left: solid 5px #009B44;">エスピーソースカタログ品の名入れは当店へ</h2>
@@ -186,19 +174,6 @@ e-mail =<br>
 <p class="btn_link"><a href="/view/page/page8.html" style="display: block; margin: auto;">シーンで選ぶ粗品一覧</a></p>
 <p class="btn_link"><a href="/view/page/page9.html" style="display: block; margin: auto;">商品別カテゴリー一覧</a></p>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

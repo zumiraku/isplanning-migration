@@ -1,30 +1,4 @@
-/* ---------------------------------------------------------------------------
-   csv-build.js — 商品CSVを作り直す（説明文の移し替え）
-
-     node tools/cdp/csv-build.js <元CSV> <出力> [商品コード…]
-
-   やること
-
-     PC用追加商品説明文  ← 既存 ＋ 画像説明文2（販売単位の表）
-     スマホ商品説明2     ← 既存 ＋ 画像説明文3（名入れ料金の表）
-
-   ※ 上書きしません
-
-      PC用追加商品説明文には 1,160商品、スマホ商品説明2には 125商品の
-      中身がすでにあります（少量購入の案内、地域限定商品です、など）。
-      **消さずに後ろに足します。**
-
-   ※ 移す先はクリエイターモードのタグに対応します
-
-      PC用追加商品説明文 → $item.description2 → Item_detail_caption2
-      スマホ商品説明2    → $item.description4 → Item_detail_caption3
-
-      現行サイトの位置と同じところに出ます。
-
-   ※ この2つはベーシックモードでも描画されます（[DETAIL_EXT] と
-      スマホ版）。**流すのは「ショップに適用」のあと**にしてください。
-      先に流すと、切り替えまでのあいだ表が二重に出ます。
---------------------------------------------------------------------------- */
+/* csv-build.js — 商品CSVを作り直す（説明文の移し替え） */
 const fs = require("fs");
 const iconv = require("iconv-lite");
 const { decode, parse, build } = require("./csv-lib.js");
@@ -85,7 +59,6 @@ console.log("書き換えた行 : " + touched);
 console.log("追記になった : " + appended + " 箇所（既存の中身は消していません）");
 console.log("変化なしで除外: " + skipped);
 
-/* 出したものを読み直して、狙いどおりか確かめます。 */
 const chk = parse(decode(fs.readFileSync(out)));
 let bad = 0;
 for (let i = 1; i < chk.length; i++) {
@@ -94,3 +67,4 @@ for (let i = 1; i < chk.length; i++) {
   if ((r[C3] || "").trim() && (r[SP2] || "").indexOf((r[C3] || "").trim()) < 0) { bad++; }
 }
 console.log("読み直しの確認: " + (bad ? "※ " + bad + " 箇所が入っていません" : "OK 全行に入っています"));
+

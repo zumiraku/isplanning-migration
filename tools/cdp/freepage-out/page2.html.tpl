@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     粗品の名入れ・包装・熨斗のご案内 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -42,7 +35,6 @@
 <div class="PageArea">
 <h2>粗品の名入れ・包装・熨斗のご案内</h2>
 
-
 		<ul class="txtList02">
 			<li><a class="btn_design4" href="#about_Naire">【名入れ】について<img style="margin:0 8px 0 10px;" alt="矢印" src="https://gigaplus.makeshop.jp/isplanning/images/item-down.png"></a></li>
 			<li><a class="btn_design4" href="#About_Noshi">【包装】【のし】はこちら<img style="margin:0 8px 0 10px;" alt="矢印" src="https://gigaplus.makeshop.jp/isplanning/images/item-down.png"></a></li>
@@ -54,12 +46,9 @@
 
 <h3 id="About_Naire">名入れについて</h3>
 
-
 <p>当社はお客様に名入して頂きました商品画像を名入れサンプルとして一切ＷＥＢ上には掲載いたしませんのでご安心ください。</p>
 
 <!-- <p style="text-align:center;"><img alt="名入れご注文方法" src="https://gigaplus.makeshop.jp/isplanning/uploads/naire2013d.gif"></p> -->
-
-
 
     <div class="flex_test-box3">
         <div class="flex_test-item3">
@@ -67,7 +56,6 @@
         </div>
 
         <div class="flex_test-item3">
-
 
 <p class="nameall">商品各ページに、名入れ可能と表示商品のみ選択できます。</p>
 <p class="nameall">名入れには、別途「名入れ代」「版代」等必要になります。</p>
@@ -81,7 +69,6 @@
 <li><p style="margin-left: 5%; line-height:25px;">●カテゴリーに表示画像</p>
 <p><img alt="名入れ可能カテゴリーに表示画像" src="https://gigaplus.makeshop.jp/isplanning/images/housounosiname.svg" style="margin:0 0 86px 0;"></p><p><img alt="名入れ見本画像" src="https://gigaplus.makeshop.jp/isplanning/images/nairesample3.jpg" style="margin:0 0 5px 0; width:350px;"></p></li>
 </ul>
-
 
             <p class="namenumber">１．名入れのご注文方法（買い物カゴ）</p>
         
@@ -168,9 +155,7 @@
         </div>
     </div>
 
-
 <div class="normal-box4" style="width:300px; height: 40px; margin:20px 0 30px 0;"><a href="/view/page/page3.html"><p>● 名入れサンプル画像</p></a></div>
-
 
 <h5>■名入れ商品のご返品は、いかなる理由でも一切お受けできません。</h5>
 
@@ -187,7 +172,6 @@
 <div id="About_Noshi"></div>
 <h3>包装・熨斗について</h3>
 
-
     <div class="flex_test-box3">
         <div class="flex_test-item3">
             包装や熨斗の初めての方、良く解らない方はご遠慮なくお問合せ下さい
@@ -201,7 +185,6 @@
 ページに記載している場合は記載通りの料金になります。</p>
 <p class="nameall"><strong>納期</strong>は、商品・数量にもよりますが<em>通常約10日間前後</em>必要になります。<br>
 正確な納期はご注文後にご連絡となります。（お急ぎの場合はご相談可能な場合もございますのでお問い合わせください）</p>
-
 
 <ul class="txtList03">
 <li><p style="margin-left: 10%; line-height:25px;">●詳細ページに表示画像</p>
@@ -235,7 +218,6 @@
 
 <span class="namefax"><a href="/view/item/000000020565">● 熨斗シールのページはこちら</a></span>
 <div style="text-align:center;"><img alt="のしシール画像" src="https://gigaplus.makeshop.jp/isplanning/images/noshisticker.svg"></div>
-
 
 <p class="namenumber">２．FAX注文用紙</p>
 <p class="nameall">FAX注文用紙をプリントアウトして、必要事項をご記入の上FAXお願い致します。</p>
@@ -315,22 +297,8 @@ e-mail =<br>
 
 </div>
 
-
 <!-- PageArea -->
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

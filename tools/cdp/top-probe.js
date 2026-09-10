@@ -1,22 +1,9 @@
-/* ---------------------------------------------------------------------------
-   top-probe.js — トップのプレビューが 52文字しか返さない件を突き止めます
-
-   sp-preview で、**トップだけ**が本文52文字（会員制ページの著作権表示と
-   同じ長さ）になります。他の13種別は正常です。
-
-     ・タブの残りではありません（about:blank を挟んでも同じ）
-     ・保存済みのHTMLは 14,495文字あります（box-audit）
-     ・preview.js が取った top.html は 90,565文字あり、167項目に通っています
-
-   何が起きているのかを、押す前と押した後の両方から見ます。
-
-     node tools/cdp/top-probe.js [page_type]
---------------------------------------------------------------------------- */
+/* top-probe.js — トップのプレビューが 52文字しか返さない件を突き止めます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
-const SET = Number(process.argv[3] || 5);   /* 対照実験のために切り替えられます */
+const SET = Number(process.argv[3] || 5);
 const TYPE = Number(process.argv[2] || 2);
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -33,7 +20,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   if (!ready) { console.log("※ 編集画面が開けません"); p.close(); return; }
 
-  /* 押す前 — 何を送ろうとしているか */
   const before = await p.evaluate(`(function () {
     var f = document.formPreview;
     var out = { action: f ? f.action : "(フォーム無し)", fields: [] };
@@ -84,7 +70,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("会員制の枠    : " + (after.verify ? "※ あり（会員制ページが出ています）" : "無し"));
   console.log("本文の先頭    : " + after.head);
 
-  /* もう一度、同じURLを取り直したらどうなるか */
   const again = await p.evaluate(`fetch(location.href, { cache: "reload" })
     .then(function (r) { return r.text(); })
     .then(function (t) {
@@ -101,3 +86,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("保存          : tools/cdp/box-out/preview-type" + TYPE + ".html");
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

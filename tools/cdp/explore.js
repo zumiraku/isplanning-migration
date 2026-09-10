@@ -1,9 +1,4 @@
-/* ---------------------------------------------------------------------------
-   explore.js — クリエイターモードの編集画面がどう出来ているかを見る
-
-   画面を人手で触るのではなく、**保存が本当にサーバーへ届いたか**を
-   機械で読めるようにするための下調べです。まず何が置かれているかを見ます。
---------------------------------------------------------------------------- */
+/* explore.js — クリエイターモードの編集画面がどう出来ているかを見る */
 const { page } = require("./cdp.js");
 
 const URL = "https://console.makeshop.jp/design/editor?shopId=isplanning";
@@ -41,3 +36,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   info.links.forEach(b => console.log("  " + b));
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

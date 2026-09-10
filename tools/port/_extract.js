@@ -1,8 +1,3 @@
-/* 公開ページから、指定した id/class のブロックを取り出す小道具。
-   移植では「ベーシックのタグが何を吐いていたか」を実物で見る必要があります。
-
-   ※ 公開ページは EUC-JP です。utf8 で読むと日本語が全部化けて、
-      マークアップの判断まで狂います。判定してから読みます。 */
 const fs = require("fs");
 const [file, sel, lenArg] = process.argv.slice(2);
 const len = Number(lenArg || 1400);
@@ -17,3 +12,4 @@ if (i < 0) { console.log("（" + sel + " は見つかりません）"); process.
 
 let start = s.lastIndexOf("<", i);
 console.log(s.slice(start, start + len).replace(/\n\s*\n/g, "\n"));
+

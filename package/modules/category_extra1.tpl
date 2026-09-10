@@ -1,12 +1,3 @@
-<{* ==========================================================================
-     カテゴリごとの独自内容 — ベーシックからの移植
-
-     ※ クリエイターモードにカテゴリ説明のタグはありません。
-        $category.* は31個ありますが、説明文を出すものがありません。
-        カテゴリ識別コードで振り分けます。
-
-     生成物です。直すときは tools/cdp/category-extra.js を直してください。
-   ========================================================================== *}>
 <{if $category.code == 'ct640'}>
 <div id="O_subCategory">
 	
@@ -66,7 +57,6 @@
 
 	<!-- <div id="O_categotyBnr"><img src="/design/isplanning/CODE0000000019.gif" class="M_categoryImage"></div> -->
 
-
 <ul class="categotybanner">
 <div class="sample2"><li><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_mothersday.jpg" alt="母の日画像"></li><div class="mask"><div class="caption">母の日に最適な粗品の販売ページです。カーネーションやバラをモチーフにした商品が人気です。バッグやポーチなどの小物、日傘やアームカバーなどの紫外線対策グッズなどもおすすめです。</div></div></div>
 <div class="sample2"><li><img src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner7.png" alt="季節で選ぶ"></li><a href="/view/page/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
@@ -80,9 +70,6 @@
 
 	<!-- <div id="O_categotyBnr"><img src="/design/isplanning/CODE0000000019.gif" class="M_categoryImage"></div> -->
 
-
-
-
 <ul class="categotybanner">
 <div class="sample2"><li><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_valentine2.jpg" alt="バレンタインデー画像"></li><div class="mask"><div class="caption">バレンタインデーの粗品といえばチョコレート。低単価なチョコレートを掲載販売しております。<br>スイーツタオルやシャンパンハンドソープなど<br>キュートな商品も多数ございます。</div></div></div>
 <div class="sample2"><li><img src="https://gigaplus.makeshop.jp/isplanning/images/seasonbanner7.png" alt="季節で選ぶ"></li><a href="/view/page/page5.html"><div class="mask"><div class="caption">季節で選ぶ<br>粗品はこちら</div></div></a></div>
@@ -95,11 +82,6 @@
 	</div>
 
 	<!-- <div id="O_categotyBnr"><img src="/design/isplanning/CODE0000000019.gif" class="M_categoryImage"></div> -->
-
-
-
-
-
 
 <ul class="categotybanner">
 <div class="sample2"><li><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_sp_spring2.png" alt="春画像"></li><div class="mask"><div class="caption">春の粗品に最適な桜柄のをお探しの方は、<br>発見マーケットをご利用ください。<br>販売単位もご相談可能商品もございます。</div></div></div>
@@ -122,15 +104,7 @@
 
 <div align="center"></div>
 
-
 <div class="box_cate"><p>発見マーケットでは熱中症対策グッズの販売を行っております。クールタオル、扇子やうちわ、ひんやりグッズやハンディファンなどが粗品として喜ばれます。食品では塩分補給のキャンディ、熱中対策水などが人気です。</p></div>
-
-
-
-
-
-
-
 
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
@@ -177,15 +151,7 @@
 
 <div align="center"></div>
 
-
-
-
 <div class="box_cate"><p>節電グッズに関する粗品の販売ページです。温度計やうちわの手作りキットなどが人気です。エコな観点からも熱中症に気を付けながら節電対策を心がけましょう。</p></div>
-
-
-
-
-
 
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
@@ -232,15 +198,7 @@
 
 <div align="center"></div>
 
-
-
-
-
 <div class="box_cate"><p>風鈴の粗品の販売ページです。風鈴は夏の粗品や景品によく用いられています。</p></div>
-
-
-
-
 
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
@@ -287,15 +245,7 @@
 
 <div align="center"></div>
 
-
-
-
-
-
-
 <div class="box_cate"><p>夏のイベント、お祭りでの配布と言えば「うちわ」です。低単価で名入れもできますのでお薦めです。色柄も豊富にあり。骨もプラスティック、竹製とお選びできます。名入れに関する事などご不明点はお問い合わせください。</p></div>
-
-
 
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
@@ -342,16 +292,6 @@
 
 <div align="center"></div>
 
-
-
-
-
-
-
-
-
-
-
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
 <p style="display: inline-block;"><a class="btn_design3" href="/view/page/page13.html">コラム：熱中症の種類</a></p>
@@ -397,15 +337,7 @@
 
 <div align="center"></div>
 
-
-
-
-
-
 <div class="box_cate"><p>コンパクトに携帯できる扇子は、夏の販促品として欠かせないアイテムです。名入れもできますので景品や粗品としても最適です。箱の有無、のし掛けもできる商品もございますのでご検討くださいませ。</p></div>
-
-
-
 
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
@@ -452,15 +384,7 @@
 
 <div align="center"></div>
 
-
-
-
-
-
-
-
 <div class="box_cate"><p>夏は熱中症対策が欠かせない季節なので、扇子やうちわ、ひんやりグッズやハンディファンなどが粗品として喜ばれます。夏柄のティッシュやロールティッシュが人気商品です。</p></div>
-
 
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
@@ -507,14 +431,6 @@
 
 <div class="box_cate"><p>夏は熱中症対策が欠かせない季節なので、扇子やうちわ、ひんやりグッズやハンディファンなどが粗品として喜ばれます。食品では素麺が一番人気です。店舗や会社の販売促進にぜひお役立てください。</p></div>
 
-
-
-
-
-
-
-
-
 <div style="margin:0 0 50px 0;">
 <p style="display: inline-block; margin:0 20px 0 0;"><a class="btn_design3" href="/view/page/page18.html">コラム：熱中症を予防しよう</a></p>
 <p style="display: inline-block;"><a class="btn_design3" href="/view/page/page13.html">コラム：熱中症の種類</a></p>
@@ -558,7 +474,6 @@
 	
 	</div>
 
-
 <div class="box_cate"><p>敬老の日、敬老会の贈り物として記念になる粗品を多数ご用意しております。<br>「いつまでもお元気で」などの文言がパッケージにプリントされた商品もございます、ぜひご利用くださいませ。</p></div>
 
 <div align="center"><table border="0" cellspacing="10">
@@ -572,8 +487,6 @@
 	
 	</div>
 
-
-
 <div class="box_cate"><p>ハロウィンのイベントの粗品、景品を幅広くそろえております。<br>ハロウィンらしいパッケージのティッシュや食品、お菓子のセットなどが人気で、店舗で開催するキャンペーンの宣伝効果や集客効果が期待できます。</p></div>
 <div align="center"><table border="0" cellspacing="10">
 <tr>
@@ -586,9 +499,6 @@
 	
 	</div>
 
-
-
-
 <div align="center"><table border="0" cellspacing="10">
 <tr>
  <td style="padding: 0 0 50px 0;"><a href="/view/category/ct30"><img src="https://gigaplus.makeshop.jp/isplanning/images/main_bar_halloween2.jpg" alt="ハロウィン"><p  style="text-align:center; margin:10px 0 0 0;">ハロウィンの粗品ページはこちら</a></p></td><!-- 管理画面「カテゴリー別イメージの登録」画像 -->
@@ -600,16 +510,7 @@
 	
 	</div>
 
-
 <div class="box_cate"><p>クリスマスにもらって嬉しい粗品を販売しております。ミニツリーやクリスマスブーツ（お菓子類）、クリスマスティッシュなど種類も豊富で見ているだけで楽しくなります。</p></div>
-
-
-
-
-
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -658,16 +559,7 @@
 	
 	</div>
 
-
-
 <div class="box_cate"><p>年末から年始までイベントの多い冬の季節におすすめの干支の粗品、正月に向く商品を販売しております。干支の根付、干支タオル、干支の土鈴置物などが人気です。</p></div>
-
-
-
-
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -715,15 +607,6 @@
 <div id="O_subCategory">
 	
 	</div>
-
-
-
-
-
-
-
-
-
 
 <div class="box_cate"><p>冬の粗品は、お客様がほっこり温かくなるような物を選ぶ事が重要なポイントです、鍋スープや吸湿発熱マスクなど販売しております。</p></div>
 
@@ -774,16 +657,7 @@
 	
 	</div>
 
-
-
-
 <div class="box_cate"><p>冬の粗品で一番人気がブランケットです。一般的なサイズ、ビッグブランケットやいろんな色柄を取り揃えておりますので粗品としてご活用ください。</p></div>
-
-
-
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -832,16 +706,7 @@
 	
 	</div>
 
-
-
-
-
-
-
-
 <div class="box_cate"><p>冬の粗品に「湯たんぽ」はいかがでしょうか。寒い冬にぴったりです。</p></div>
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -890,16 +755,7 @@
 	
 	</div>
 
-
-
-
-
 <div class="box_cate"><p>冬の粗品にカイロは最適です。エコな観点からも繰り返し使えるエコカイロが人気です。ほっこり温かい気分になる粗品です。</p></div>
-
-
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -948,16 +804,7 @@
 	
 	</div>
 
-
-
-
-
-
-
-
-
 <div class="box_cate"><p>冬の粗品は、お客様が手放せなくなるような物を選ぶ事が重要なポイントです、冬の季節にマフラー類は最適ではないでしょうか。</p></div>
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -1006,16 +853,7 @@
 	
 	</div>
 
-
-
-
-
-
 <div class="box_cate"><p>寒い季節の粗品選びは暖かグッズが基本です。スマートフォンの普及で手袋をしたままタッチできるスマホタッチグローブが人気です。寒い季節には手放す事ができないアイテムとなるでしょう。</p></div>
-
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -1064,16 +902,7 @@
 	
 	</div>
 
-
-
-
-
-
-
 <div class="box_cate"><p>ネックウォーマーも冬の季節に人気の粗品となります。ソックス、ベスト、ブーツなども掲載しております。</p></div>
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -1121,17 +950,6 @@
 <div id="O_subCategory">
 	
 	</div>
-
-
-
-
-
-
-
-
-
-
-
 
 <div class="container_summer">
   <div class="box_summer">

@@ -1,8 +1,3 @@
-<#
-  Stage 0, pass 2 - closes the two gaps left by the first pass:
-    a) we held the SP version of 11 URLs only, but every URL is two documents
-    b) 9,514 product pages were entirely unsampled
-#>
 $ErrorActionPreference = 'Continue'
 
 Write-Output "=== 1/3 free pages (MOBILE) ==="
@@ -22,3 +17,4 @@ Write-Output "=== classify ==="
 .\tools\classify-products.ps1
 
 Write-Output "=== STAGE 0 PASS 2 COMPLETE ==="
+

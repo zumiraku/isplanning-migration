@@ -1,17 +1,4 @@
-/* ---------------------------------------------------------------------------
-   js-audit.js — 配信されるページで、JavaScript が実際に動くか
-
-   全ページ共通のJSは保存できています。**動くかどうかは別の話**です。
-   ページを開いてコンソールのエラーを拾い、こちらが入れた仕掛けが
-   実際に反応するかを確かめます。
-
-     node tools/cdp/js-audit.js
-
-   見るもの
-     - JavaScript のエラー（1件でもあると、そこから下が止まります）
-     - ヘッダー追従 / ドロワー / 拡大表示 / 検索の Enter
-     - プラットフォームの印（検索・カート）が押せる形になっているか
---------------------------------------------------------------------------- */
+/* js-audit.js — 配信されるページで、JavaScript が実際に動くか */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -21,7 +8,6 @@ const PAGES = [["トップ", 2], ["商品詳細", 3], ["商品カテゴリー", 
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-/* ページ自身に、自分のエラーを集めさせます */
 const CATCH = `(function(){
   window.__errs = [];
   window.addEventListener("error", function (e) {
@@ -65,16 +51,6 @@ const CHECK = `(function(){
   let bad = 0;
 
   for (const [name, type] of PAGES) {
-    /* ※ トップのプレビューURLは、サイトのルートそのものです
-     *
-     *      トップ            https://www.isp-sp.com/?ptk=…
-     *      会員制・年齢確認   https://www.isp-sp.com/?ptk=…   ← 同じ
-     *
-     *    直前に別のページ種別をプレビューしていると、タブはすでにその
-     *    URLにいます。「isp-sp.com が入るまで」で待つと最初から満たされ、
-     *    **前のページを測ります。** トップの本文が 52文字（＝会員制の
-     *    著作権表示）と出たのはこれです。いったん空ページへ行って、
-     *    タブの状態を必ずリセットします。 */
     await p.navigate("about:blank");
     await sleep(400);
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
@@ -82,13 +58,6 @@ const CHECK = `(function(){
       await sleep(500);
       if (await p.evaluate("(typeof previewContent === 'function') ? 1 : 0")) { break; }
     }
-    /* ※ 前の実行のプレビューURLが残っていると、それを測ってしまいます
-     *
-     *    押したあと「URLに isp-sp.com が入るまで」待っていました。タブが
-     *    **前回のプレビューのまま**だと、その条件は最初から満たされていて、
-     *    古いページをそのまま測ります。実際、トップの本文が 52文字
-     *    （＝会員制ページの著作権表示だけ）と出ました。
-     *    **押す前のURLを控えて、変わるまで**待ちます。 */
     const wasAt = await p.evaluate("location.href");
     await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
     let url = "";
@@ -100,34 +69,7 @@ const CHECK = `(function(){
     await p.evaluate(CATCH);
     await sleep(3000);
     const r = await p.evaluate(CHECK);
-    /* ※ window.scrollTo では scroll イベントが出ません
-     *
-     *    自動操作の scrollTo は位置だけ変えて、**イベントを出しません**
-     *    （実測: events 0 / pageYOffset 900）。そのため全ページで
-     *    「追従しない」と誤検知していました。**本物のホイール操作**を
-     *    送ります。 */
-    /* ※ ホイールの送信はやめました
-     *
-     *    Input.dispatchMouseEvent の mouseWheel は、当たった要素によっては
-     *    スクロールしないうえ、**応答が返らずに固まる**ことがありました
-     *    （2026-09-10、2回とも10分以上）。
-     *
-     *    追従の約束は「スクロールされたら fixed を付ける」です。
-     *    位置を変えて scroll イベントを出せば、その約束どおりかを
-     *    そのまま見られます。実際の利用者がスクロールしたときに
-     *    ブラウザが出すのと同じイベントです。 */
     await sleep(300);
-    /* ※ ホイールが効かないことがあります
-     *
-     *    Input.dispatchMouseEvent の mouseWheel は、当たった要素によっては
-     *    スクロールしません（スライダーの上など）。実際、全ページで
-     *    「追従しない」と出ました。**追従そのものは動いています** ──
-     *    scrollTo したあと scroll イベントを出すと fixed が付きます
-     *    （tools/cdp/exprs/sticky.js で実測）。
-     *
-     *    ホイールで動かなかったときは、位置を変えて scroll を出します。
-     *    実際の利用者はスクロールすればブラウザが scroll を出すので、
-     *    この形で追従の約束どおりかを見られます。 */
     await p.evaluate("window.scrollTo(0, 400); window.dispatchEvent(new Event(\"scroll\")); 1");
     await sleep(700);
     r.fixedAfterScroll = await p.evaluate(
@@ -155,3 +97,4 @@ const CHECK = `(function(){
   console.log("");
   console.log(bad ? "※ 気になるもの " + bad + " 件" : "OK JSエラーなし。仕掛けもすべて入っています");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

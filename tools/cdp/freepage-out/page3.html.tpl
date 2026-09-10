@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     名入れサンプル・名入れのメリット — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -80,7 +73,6 @@ function m_win(url,windowname,width,height) {
 <p style="display: inline-block;"><a class="btn_design3" style="font-size:18px;" href="/view/category/ct454">名入れのできる粗品商品一覧</a></p>
 </div>
 
-
 <div style="text-align:center">
 <h3>名入れボールペン等サンプル画像</h3>
 
@@ -135,7 +127,6 @@ USBイルミライト 卓上加湿器</p></a>
 </table>
 </div>
 
-
 <div id="flexboxlink">
   <a class="box-itema" href="/view/page/page2.html#About_Noshi">包装･熨斗のご案内<p style="text-align:center; margin:40px 0 0 0;">詳しくはこちら</p></a>
   <a class="box-itemb" href="/view/page/page2.html">名入れのご案内<p style="text-align:center; margin:40px 0 0 0;">詳しくはこちら</p></a>
@@ -146,8 +137,6 @@ USBイルミライト 卓上加湿器</p></a>
 <a class="btn_design3" style="margin:0 20px 0 30px;" href="/view/page/page11.html">名入れボールペンのメリットについて</a><a class="btn_design3" style="margin:0 20px 0 20px;" href="/view/page/page42.html">名入れの記念品がおすすめ</a><br>
 <a class="btn_design3" style="margin:0 20px 0 40px;" href="/view/page/page67.html">粗品・景品に名入れをしてオリジナルのアイテムを配ろう</a>
 <a class="btn_design3" style="margin:0 20px 0 0;" href="/view/page/page31.html">エスピーソースカタログ名入れサービスなら</a></span>
-
-
 
 <div style="clear: both; padding: 40px 0 ;">
 <div style=" border: solid 1px #ccc; padding: 5px;margin:5px 0;text-align:left;">
@@ -161,19 +150,6 @@ USBイルミライト 卓上加湿器</p></a>
 </div>
 <!-- PageArea -->
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

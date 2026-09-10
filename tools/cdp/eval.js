@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   eval.js — 開いているタブで、ファイルに書いた式を評価する
-
-     node tools/cdp/eval.js <式を書いたファイル> [待ち秒]
-
-   URLや長い式をコマンド行に直接書くと環境の安全装置に弾かれるので、
-   式はファイルに置いて渡します。返り値は JSON にして出します。
---------------------------------------------------------------------------- */
+/* eval.js — 開いているタブで、ファイルに書いた式を評価する */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -23,3 +16,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log(typeof out === "string" ? out : JSON.stringify(out, null, 2));
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

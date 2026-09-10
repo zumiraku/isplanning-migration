@@ -1,27 +1,4 @@
-/*
- * tabs.js - the product page's three-tab block.
- *
- * The Basic Mode original did this with three radio inputs and three labels,
- * a well-known CSS-only pattern. It works, but a screen reader hears three
- * radio buttons named "tab" rather than a tab strip, and the panels are only
- * reachable by understanding that the radios control them.
- *
- * This does it the other way round. The markup ships with every panel visible
- * and each one headed by an <h2>, so with JavaScript disabled - or before this
- * file loads - the page is simply three stacked sections and nothing is
- * unreachable. Only once the script runs do the panels collapse to one and the
- * ARIA roles appear. The same rule the gallery follows: never put content
- * behind a script.
- *
- * Keyboard behaviour follows the WAI-ARIA tabs pattern: arrows move between
- * tabs and activate as they go, Home/End jump to the ends, Tab moves out of
- * the strip and into the open panel.
- *
- * Usage:
- *   <div class="tabs" data-tabs>
- *     <ul class="tabs__list">…<button class="tabs__tab" data-tab-for="x">…
- *     <div class="tabs__panel" id="x"><h2 class="h-section">…</h2>…
- */
+/* tabs.js — the product page's three-tab block. */
 (function () {
   'use strict';
 
@@ -32,8 +9,6 @@
     var panels = buttons.map(function (b) {
       return root.querySelector('#' + b.getAttribute('data-tab-for'));
     });
-    // If any panel is missing, leave the block alone: three visible sections
-    // beat a tab strip whose tabs open nothing.
     if (panels.indexOf(null) !== -1) { return; }
 
     var list = root.querySelector('.tabs__list');
@@ -82,8 +57,6 @@
       select(next, true);
     });
 
-    // data-enhanced is what the stylesheet keys the panel headings off, so it
-    // must go on before the first select() or the headings flash visible.
     root.setAttribute('data-enhanced', 'true');
     select(0);
   }
@@ -98,3 +71,4 @@
     init();
   }
 }());
+

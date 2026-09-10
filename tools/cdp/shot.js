@@ -1,17 +1,4 @@
-/* ---------------------------------------------------------------------------
-   shot.js — 山口様が見たのと同じ画面を、そのまま画像で取ります
-
-   ※ これまで「はみ出し」しか測っていませんでした
-
-      横にはみ出していなければ通す検査ばかりで、**ズレ（位置の食い違い）と
-      重なり（要素が重なって読めない）は一度も測っていません。**
-      山口様のご指摘はそこです。数字で通っていても、見れば分かります。
-
-        node tools/cdp/shot.js                 全ページ・1280と375
-        node tools/cdp/shot.js top 375         1枚だけ
-
-   保存先: tools/cdp/shots/<ページ>-<幅>.png
---------------------------------------------------------------------------- */
+/* shot.js — 山口様が見たのと同じ画面を、そのまま画像で取ります */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -66,7 +53,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       }
       await sleep(4500);
 
-      /* 遅れて動く画像を待ちます */
       await p.evaluate(`(function(){
         window.scrollTo(0, document.body.scrollHeight);
         return 1;
@@ -96,3 +82,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

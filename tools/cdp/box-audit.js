@@ -1,22 +1,4 @@
-/* ---------------------------------------------------------------------------
-   box-audit.js — ページ種別ごとの CSS / JavaScript 欄に何が残っているか
-
-   ※ ページ種別には HTML のほかに CSS と JavaScript の欄があります
-
-      こちらは HTML 欄しか書き換えていませんでした。**差し戻された版の
-      CSS と JavaScript が、ページごとの欄に残っている**可能性があります。
-
-      実際、商品詳細のページで
-
-        Uncaught TypeError: $ is not a function
-          @ /view/asset/user-5-1-3-….js
-
-      が出ています。jQuery を前提にしたコードが、ページ種別のJS欄に
-      残っていて、jQuery が読まれていないので1行目で落ちています。
-      **落ちた時点で、その下は動きません。**
-
-     node tools/cdp/box-audit.js
---------------------------------------------------------------------------- */
+/* box-audit.js — ページ種別ごとの CSS / JavaScript 欄に何が残っているか */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -74,3 +56,4 @@ const READ = `(function(){
   console.log("");
   console.log(flagged ? "※ 中身の残っている欄が " + flagged + " 種別" : "OK ページ種別ごとの CSS / JS 欄は空です");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

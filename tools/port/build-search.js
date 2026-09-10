@@ -1,41 +1,4 @@
-/* ---------------------------------------------------------------------------
-   build-search.js — 商品検索結果ページを移植する
-
-   ※ キーワード欄をここにも置きます
-
-      以前は「ヘッダーの検索窓と同じIDが2つ出るから」と外していました。
-      **外す必要はありませんでした。** system.js はこう書いています。
-
-        count === $('[data-id="' + keywordId + '"]').length ? index : 0
-
-      トリガー（[href="#makeshop-common-search-url"]）の数と欄の数が一致
-      すれば、**N番目のトリガーはN番目の欄を読みます。** ヘッダー1本＋この
-      フォーム1本で2対2なので、それぞれ自分の欄を読みます。元の7項目
-      フォームがそのまま戻せます。
-
-      ただし HTML の id は重複させられないので、こちらは data-id だけに
-      します。プラットフォームが見ているのは data-id です。
-
-   ※ 商品単価だけは戻せません
-
-      [PRODUCT]（商品単価）に対応する data-id-* がありません。公開されて
-      いるのは keyword / name / price-low / price-high / category /
-      original-code の6つだけです。**並び替えの単価順はあるので、そちらで
-      代用**していただく形になります。山口様にお伝えする事項です。
-
-   ※ <form> にしません（C44）
---------------------------------------------------------------------------- */
-/* ※ 一覧の価格に桁区切りがありません（実測・2026-09-10）
- *
- *      現行    販売価格39,600円（税込）
- *      移植版  販売価格39600円（税込）
- *
- *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
- *    タグには price_html がありません。** 試しに書くと空になり、
- *    価格そのものが消えました。
- *
- *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
- *    number_format を通すと現行と1文字も違わなくなりました。 */
+/* build-search.js — 商品検索結果ページを移植する */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");
@@ -46,19 +9,9 @@ body = body.replace(/<\/div><!--\.M_mainContents-->\s*$/, "");
 
 const IT = "$search.item.list[i]";
 
-/* --- 検索語の表示 ---------------------------------------------------------- */
-/* ※ [SEARCHNAME] は「検索語 : ○○ 」まで含んでいます（実測・2026-09-10）
- *
- *      現行    検索語 : ND-P3841 で検索した結果
- *      移植版  ND-P3841で検索した結果
- *
- *    $search.keyword は語だけを返します。前後をこちらで足します。
- *    語が空のとき（カテゴリだけで絞ったとき）は「検索語 :  で」と
- *    間が抜けるので、そのときは語だけにします。 */
 body = body.replace("[SEARCHNAME]",
   "<{if $search.keyword}>検索語 : <{$search.keyword}> <{/if}>");
 
-/* --- 絞り込みフォーム ------------------------------------------------------ */
 body = body.replace("[CATEGORY][SUB_CATEGORY]",
 `<select data-id="<{$search_form.category_id}>" aria-label="カテゴリー">
 			  <{section name=c loop=$search_form.category_list}>
@@ -70,13 +23,10 @@ body = body.replace("[MINPRICE]", `<input type="number" inputmode="numeric" data
 body = body.replace("[MAXPRICE]", `<input type="number" inputmode="numeric" data-id="<{$search_form.price_high_id}>" value="<{$search.price_high}>" aria-label="価格の上限">`);
 body = body.replace("[CONTENT]", `<input type="text" data-id="<{$search_form.keyword_id}>" value="<{$search.keyword}>" aria-label="キーワード">`);
 body = body.replace("[ORIGINALCODE]", `<input type="text" data-id="<{$search_form.original_code_id}>" value="<{$search.original_code}>" aria-label="商品コード">`);
-/* 商品単価は受け口がありません。欄を出すと「入れても効かない」ことになるので、
-   その旨を書いておきます。空欄より不親切ではありません。 */
 body = body.replace("[PRODUCT]", `<span class="minikome">単価での絞り込みは、並び替えの「単価順」をお使いください</span>`);
 
 body = body.replace("<a href=[OK]>検索</a>", `<a href="<{$search_form.search_url}>" role="button">検索</a>`);
 
-/* --- 件数と並び替え -------------------------------------------------------- */
 body = body.replace("[TOTAL]", "<{$search.total_count}>");
 body = body.replace("href=[NEWSORT]",       'href="<{$search.sort_new_url}>"')
            .replace("href=[SORTRECOMMEND]", 'href="<{$search.sort_recommend_url}>"')
@@ -84,7 +34,6 @@ body = body.replace("href=[NEWSORT]",       'href="<{$search.sort_new_url}>"')
            .replace("href=[SORTPRICE]",     'href="<{$search.sort_low_price_url}>"')
            .replace("href=[SORTBRANDNAME]", 'href="<{$search.sort_name_url}>"');
 
-/* --- 結果の繰り返し -------------------------------------------------------- */
 const s = body.indexOf("[SEARCH_RESULT]");
 const e = body.indexOf("[/SEARCH_RESULT]") + "[/SEARCH_RESULT]".length;
 if (s < 0 || e < 0) { console.error("結果ループの範囲が取れません"); process.exit(1); }
@@ -107,7 +56,6 @@ const items = `<{section name=i loop=$search.item.list}>
 <{/section}>`;
 body = body.slice(0, s) + items + body.slice(e);
 
-/* --- ページャー ------------------------------------------------------------ */
 body = body.replace("[PAGER]",
 `<div id="pager">
 	<{if $search.pager.has_item}>
@@ -130,3 +78,4 @@ console.log("検索: " + out.split("\n").length + " 行");
 console.log("  URL書換 " + r.rewritten + " 本 / 未対応 " + r.missing.length);
 const leftover = out.match(/\[[A-Z_0-9\/]{2,}\]/g);
 console.log("  未変換のベーシックタグ: " + (leftover ? [...new Set(leftover)].join(" ") : "なし"));
+

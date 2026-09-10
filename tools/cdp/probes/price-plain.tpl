@@ -1,4 +1,3 @@
-<{* 修飾子なしで、値そのものを見ます *}>
 ZQplainSTART<{$item.price}>ZQplainEND
 ZQhtmlSTART<{$item.price_html}>ZQhtmlEND
 ZQexclSTART<{$item.price_excluded_tax}>ZQexclEND

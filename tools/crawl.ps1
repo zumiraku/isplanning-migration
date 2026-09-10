@@ -1,14 +1,3 @@
-<#
-  Stage 0 crawler - isp-sp.com Basic -> Creator Mode migration
-
-  Archives raw bytes (EUC-JP preserved, never re-encoded) and extracts a
-  per-page inventory row. Runs sequentially with a delay: this is the client's
-  live production shop, not a test target.
-
-  Usage:
-    .\tools\crawl.ps1 -UrlFile inventory\urls-freepages.txt -UaProfile desktop `
-                      -OutCsv inventory\pages-freepages-desktop.csv -SaveBody
-#>
 param(
   [Parameter(Mandatory=$true)][string]$UrlFile,
   [Parameter(Mandatory=$true)][ValidateSet('desktop','mobile')][string]$UaProfile,
@@ -28,7 +17,6 @@ $UA = @{
 $bodyDir = Join-Path 'snapshot' $UaProfile
 if ($SaveBody -and -not (Test-Path $bodyDir)) { New-Item -ItemType Directory -Force -Path $bodyDir | Out-Null }
 
-# Basic Mode is EUC-JP. Decode for parsing only; the archived bytes stay untouched.
 $eucjp = [System.Text.Encoding]::GetEncoding(51932)
 $utf8  = [System.Text.Encoding]::UTF8
 
@@ -116,3 +104,4 @@ foreach ($url in $urls) {
 
 $rows | Export-Csv -Path $OutCsv -NoTypeInformation -Encoding UTF8
 Write-Output "DONE -> $OutCsv  ($($rows.Count) rows)"
+

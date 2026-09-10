@@ -1,12 +1,4 @@
-/* ---------------------------------------------------------------------------
-   ancestors.js — ある要素の親を根まで辿って、幅と「基準になる指定」を並べます
-
-     node tools/cdp/ancestors.js "#headerWrap" [page_type] [width]
-
-   position:fixed の要素の 100% は、ふつう画面幅です。画面375pxで584pxに
-   なるなら、**親のどれかが基準になっています**（transform / filter /
-   will-change / contain のどれか）。当てずっぽうで直さないために測ります。
---------------------------------------------------------------------------- */
+/* ancestors.js — ある要素の親を根まで辿って、幅と「基準になる指定」を並べます */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -84,3 +76,4 @@ function probe(sel) {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

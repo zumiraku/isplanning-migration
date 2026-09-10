@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     少量購入できる粗品・数量選択可能商品の説明 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -41,7 +34,6 @@
 
 <div id="fan_contents"><h4 style="display: block;">少量購入できる粗品・数量選択可能商品の説明</h2></div>
 
-
 <div style="text-align: center"><img alt="数量選択可能商品画像" src="https://gigaplus.makeshop.jp/isplanning/images/slide3.jpg" style="margin: 30px 0 40px 0;"></div>
 
 <img alt="数量選択可能アイコン" src="https://gigaplus.makeshop.jp/isplanning/images/unit10.gif" style="margin: 5px 0 5px 0;">
@@ -50,7 +42,6 @@
 <div class="midashi" style="font-size:16px;"><a href="/view/category/ct667">少量購入できる粗品・数量選択可能商品</a></div>
 <p style="font-size:16px; line-height: 150%; padding: 0 0 1em;">上記バナーを表示した商品のみの対応です</p></div>
 
-
 <div class="flex_test-box">
 <div class="flex_test-item">
 
@@ -58,7 +49,6 @@
 「発見マーケット」では、数量のご相談できる商品もたくさんございますが、お問い合わせや見積りなく買い物カゴでご注文できるように少量購入できる粗品・数量選択可能商品の中からご検討くださいませ。<br>
 商品単価は数量により変動は致しますが、少ない数量でもご購入可能です。</p>
 </div>
-
 
 <div class="flex_test-item"><p><span style="font-size:25px;">1.</span><span style="font-size:16px; line-height: 150%;">オプションから希望の数量をお選びください。商品色が選択できる場合は色や種類も選択ください。</span></p> <img alt="説明画像1" src="https://gigaplus.makeshop.jp/isplanning/images/unit01.png" style="float: right;"></div>
 
@@ -77,19 +67,6 @@
 <p class="btn_link"><a href="/view/page/page9.html" style="display: block; margin: auto;">商品別カテゴリー一覧</a></p>
 <p class="btn_link"><a href="/view/page/page4.html" style="display: block; margin: auto;">SP SOURCE、名入れのご案内</a></p>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

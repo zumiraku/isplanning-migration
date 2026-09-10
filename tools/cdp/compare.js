@@ -1,20 +1,4 @@
-/* ---------------------------------------------------------------------------
-   compare.js — 現行と移植版を、同じ式で、同じ回のうちに比べます
-
-     node tools/cdp/compare.js <式> <ページ種別> <現行のパス> <移植版のパス>
-     node tools/cdp/compare.js tools/cdp/exprs/main-text.js 5 \
-        "/shop/shopbrand.html?search=%A5%BF%A5%AA%A5%EB" \
-        "/view/search?search_keyword=%E3%82%BF%E3%82%AA%E3%83%AB"
-
-   ※ pair-eval.js は移植版側を結び直していません
-
-      ptk のURLへ直接行くと、**最後に保存またはプレビューした種別の設計**で
-      描かれます（bind.js の見出しに詳しく書いてあります）。結び直さずに
-      測ると、検索ページのURLで商品詳細の中身が返ってきます。実際そうなり、
-      「検索結果が出ていない」と危うく報告するところでした。
-
-      ここでは、現行を測ったあと**その場で結び直してから**移植版を測ります。
---------------------------------------------------------------------------- */
+/* compare.js — 現行と移植版を、同じ式で、同じ回のうちに比べます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { openAt, sleep } = require("./bind.js");
@@ -63,3 +47,4 @@ function show(label, r) {
   console.log("");
   show("移植版 種別" + TYPE + "  " + PORT, nu);
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

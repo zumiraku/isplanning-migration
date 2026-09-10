@@ -1,71 +1,8 @@
-/*
- * quote-prefill.js - carry the product into the 見積依頼 form.
- *
- * The client's own words: 「見積依頼フォームはメイクショップの『マルチフォーム』
- * を使っているだけなので細かな設定は出来ません、自動で品名や品番が入力できれば
- * 良いんですが無理なようで」. And this matters more than it sounds - he also says
- * the quote route, not the cart, is where most orders actually start.
- *
- * Today the link is a bare URL. The same href appears on the product page and on
- * four free pages, with nothing identifying the product, so every customer
- * retypes what they were just looking at:
- *
- *   <a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(...)">
- *
- * MakeShop documents no way to seed a マルチフォーム field - not a URL parameter,
- * not a hidden item, not a product-page binding. Checked against the マルチフォーム
- * manual, the new-console manual and the support site.
- *
- * So this does it from our side. The product page appends the product to the
- * link; if the form page renders inside our Creator Mode template, this script
- * loads there too and writes the values into the form.
- *
- * ※ BOTH UNKNOWNS ARE NOW ANSWERED, and the answer is no. Measured on the
- *    live shop, 2026-09-08 JST, after cutover.
- *
- *    /shop/enq202208200 is not a page. It is a bounce - EUC-JP Basic-mode
- *    markup carrying three hidden fields and document.formEnquete.submit():
- *
- *      <form name="formEnquete" method="post" action="/ssl/enquete/">
- *        db=isplanning  login_id=  form_code=202208200
- *
- *    So (1) our Creator template never renders there and this script never
- *    runs, and (2) the query string we append is dropped by the bounce.
- *
- *    The form itself does have the fields we want - t_00 is 品番 and t_01 is
- *    品名, read off the live markup. But posting them straight to
- *    /ssl/enquete/ does not seed them: the returned inputs come back with no
- *    value attribute at all. GET does not work either, nor does adding mode=.
- *    **The multiform cannot be prefilled.** 山口様 said exactly this
- *    (「自動で品名や品番が入力できれば良いんですが無理なようで」) and he was
- *    right; what is new is that we now know why, and which fields they are.
- *
- *    This script therefore does nothing on the live shop. It is left in place
- *    because it is inert and because the field names are worth keeping next to
- *    the code that would use them, should makeshop ever open the form up.
- *
- * The original note, kept because it is what led to the measurement:
- *
- * TWO THINGS WERE UNVERIFIED, and both fail safe:
- *
- *   1. Whether the マルチフォーム page uses the Creator Mode common template at
- *      all. If it does not, this script never runs there and the link simply
- *      carries parameters the form ignores - the same behaviour as today.
- *   2. What the fields are called. The form page is not in our archive and the
- *      live shop is not to be crawled, so the field is found by looking at the
- *      labels a person reads rather than by a name we guessed.
- *
- * It never overwrites text the customer has already typed, and it never touches
- * a field it is not confident about. A quote request that arrives with an empty
- * product line is a nuisance; one that arrives with the wrong product in it is
- * worse than useless.
- */
+/* quote-prefill.js — carry the product into the 見積依頼 form. */
 (function () {
   'use strict';
 
   var LABELS = {
-    // Field intent -> words that appear in the label a customer reads.
-    // Longest first: 商品コード must beat 商品, or the code lands in the name.
     item: ['商品名', '品名', 'ご希望の商品'],
     code: ['商品コード', '品番', 'コード']
   };
@@ -84,13 +21,6 @@
     return out;
   }
 
-  /* Pick the form before looking at any field.
-     A MakeShop page carries a keyword search box in the header, and its label
-     reads 商品検索 - so a document-wide hunt for a field labelled 商品 finds the
-     search box and types the product name into it. The quote form is the one
-     with the most free-text fields; search forms are excluded outright, and a
-     form with a single text field is a search box far more often than it is
-     something worth pre-filling. */
   function targetForm() {
     var best = null, bestCount = 0;
     [].forEach.call(document.querySelectorAll('form'), function (f) {
@@ -103,9 +33,6 @@
     return bestCount >= 2 ? best : null;
   }
 
-  /* The text a person sees next to a field: its <label>, or the table cell that
-     contains it. MakeShop's form markup is a table, so the label is usually the
-     sibling cell rather than a <label for=...>. */
   function labelTextFor(field) {
     var bits = [];
     if (field.id) {
@@ -123,7 +50,7 @@
     for (var w = 0; w < words.length; w++) {
       for (var i = 0; i < fields.length; i++) {
         var f = fields[i];
-        if (f.value) { continue; }              // never overwrite
+        if (f.value) { continue; }
         if (f.dataset && f.dataset.quotePrefilled) { continue; }
         if (labelTextFor(f).indexOf(words[w]) !== -1) { return f; }
       }
@@ -136,7 +63,6 @@
     if (!f) { return false; }
     f.value = value;
     if (f.dataset) { f.dataset.quotePrefilled = '1'; }
-    // Some form scripts watch for input rather than reading on submit.
     f.dispatchEvent(new Event('input', { bubbles: true }));
     f.dispatchEvent(new Event('change', { bubbles: true }));
     return true;
@@ -149,34 +75,12 @@
     var form = targetForm();
     if (!form) { return; }
 
-    /* Fill a given form once and once only.
-
-       Without this, anything that fires DOMContentLoaded a second time - a
-       platform script, a bfcache restore - runs init again. The named fields
-       are protected already (findField skips a field that has a value), but
-       that protection is exactly what makes the second run think it failed to
-       place anything, so it would drop 商品名 and 品番 into the free-text box
-       a second time. The customer would watch their 要望欄 grow.
-
-       Marked on the form, not on the module, so a page that genuinely swaps in
-       a different form still gets it filled. */
     if (form.dataset && form.dataset.quotePrefilled) { return; }
     if (form.dataset) { form.dataset.quotePrefilled = '1'; }
 
     var filledItem = p.item ? fill(form, 'item', p.item) : false;
     var filledCode = p.code ? fill(form, 'code', p.code) : false;
 
-    /* Whatever could not be placed in a named field goes into the free-text
-       box, so it still reaches the shop.
-
-       The earlier version only did this when BOTH failed, and that left a real
-       hole. A form with one field labelled 「商品名・品番」 takes the name, and
-       then the code has nowhere to go: findField skips that field because it now
-       has a value, and the fallback never runs because filledItem was true.
-       品番 disappeared silently - in exactly the case the client asked about
-       (「商品名と品番が入るよう期待しております」).
-
-       Each piece is judged on its own now. */
     var leftover = [];
     if (p.item && !filledItem) { leftover.push('商品名：' + p.item); }
     if (p.code && !filledCode) { leftover.push('品番：' + p.code); }
@@ -186,7 +90,6 @@
         .filter(function (t) { return !t.dataset || !t.dataset.quotePrefilled; });
       if (areas.length) {
         var box = areas[0];
-        /* Prepend, never replace. The customer may have typed here already. */
         box.value = leftover.join('\n') + '\n' + (box.value || '');
         if (box.dataset) { box.dataset.quotePrefilled = '1'; }
         box.dispatchEvent(new Event('input', { bubbles: true }));
@@ -201,3 +104,4 @@
     init();
   }
 }());
+

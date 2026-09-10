@@ -1,8 +1,3 @@
-/* div の開閉を追い、閉じ忘れ・閉じすぎの場所を出す小道具。
-
-   ベーシックのテンプレートは <table><tr><td> をプラットフォームが自動で
-   挿入する前提なので、**ファイル単体では釣り合っていません。** 移植では
-   自分で閉じる必要があり、どこが足りないかを目で探すのは無理です。 */
 const fs = require("fs");
 const file = process.argv[2];
 const strip = s => s.replace(/<\{\*[\s\S]*?\*\}>/g, "").replace(/<!--[\s\S]*?-->/g, "");
@@ -30,3 +25,4 @@ console.log(file.split("/").pop());
 if (!stack.length && !over.length) { console.log("  OK 釣り合っています"); process.exit(0); }
 stack.forEach(x => console.log("  ※ 閉じ忘れ  " + x.label + "  (" + x.line + " 行目で開いています)"));
 over.forEach(l => console.log("  ※ 閉じすぎ  " + l + " 行目"));
+

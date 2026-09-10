@@ -1,18 +1,4 @@
-/* =============================================================================
-   gallery.js — product sub-image gallery
-   isp-sp.com Creator Mode rebuild.
-
-   Client request (C22): サブ画像使用（スマホではスワイプできればと思います）.
-
-   The swiping itself is CSS scroll-snap and needs no JavaScript. This file only
-   adds the things CSS cannot do: keeping the thumbnails and dots in step with
-   whichever slide is showing, and moving the track when a thumbnail is chosen.
-
-   If this script fails to load, the gallery still scrolls and every image is
-   still reachable - it just loses the active-state highlight. That is the
-   intended degradation, and it is why the thumbnails are buttons inside the
-   markup rather than being generated here.
-   ========================================================================== */
+/* gallery.js — product sub-image gallery */
 (function () {
   'use strict';
 
@@ -33,8 +19,6 @@
       }
     }
 
-    // Thumbnail -> scroll the track. scrollIntoView would also scroll the page,
-    // so move the track's own scrollLeft instead.
     for (var t = 0; t < thumbs.length; t++) {
       (function (index) {
         thumbs[index].addEventListener('click', function () {
@@ -44,17 +28,10 @@
       })(t);
     }
 
-    // Slide -> thumbnail. IntersectionObserver against the track, so it stays
-    // correct however the slide was reached: swipe, click, or keyboard.
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         for (var e = 0; e < entries.length; e++) {
           if (entries[e].isIntersecting) {
-            // Position in the track, not a number written into the markup.
-            // The slides come from two loops - 拡大画像 and 追加画像 - and Smarty
-            // cannot continue a counter across them without a variable. Reading
-            // the index here means the template only has to mark a slide, not
-            // number it, so the two can never disagree.
             setActive(slides.indexOf(entries[e].target));
           }
         }
@@ -76,3 +53,4 @@
     init();
   }
 })();
+

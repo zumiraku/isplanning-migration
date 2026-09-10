@@ -1,20 +1,4 @@
-/* ---------------------------------------------------------------------------
-   sp-check.js — 全ページ共通の中身と、スマートフォンの扱い
-
-   ※ box-audit で、スマホ側の欄が全ページ 0 文字でした。
-
-      クリエイターモードは PC とスマートフォンで別々のテンプレートを持てます。
-      スマホ欄が空のまま適用して、**スマホで真っ白になる**ようなら、
-      それが一番大きな事故です。実際にどうなるのかを確かめます。
-
-      確かめること
-        ① 全ページ共通（page_type=1）の HTML / CSS / JS の中身
-        ② デザインセットに「スマートフォン」の設定があるか。
-           あるなら、いまどちらに倒れているか
-        ③ スマホ用プレビューが出せるか。出るなら中身があるか
-
-     node tools/cdp/sp-check.js
---------------------------------------------------------------------------- */
+/* sp-check.js — 全ページ共通の中身と、スマートフォンの扱い */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/";
@@ -61,7 +45,6 @@ const READ_ONE = `(function () {
 (async () => {
   const p = await page();
 
-  /* ① 全ページ共通 */
   await p.navigate(BASE + "flex_design_page_editor.html?design_set_id=" + SET + "&page_type=1");
   const ok = await waitEditor(p, 60);
   if (!ok) {
@@ -84,7 +67,6 @@ const READ_ONE = `(function () {
     console.log("   画面の切替 " + (r.tabs.length ? r.tabs.join(" | ") : "(見当たりません)"));
   }
 
-  /* ② デザインセットの設定画面 */
   console.log("");
   console.log("② デザインセットの設定");
   await p.navigate(BASE + "flex_design_top.html");
@@ -107,7 +89,6 @@ const READ_ONE = `(function () {
   console.log("   入力欄 : " + (set.inputs.length ? set.inputs.slice(0, 20).join(" , ") : "(なし)"));
   console.log("   記述   : " + (set.texts.length ? set.texts.slice(0, 10).join(" / ") : "(スマホに触れた記述なし)"));
 
-  /* ③ 実機のスマホ表示。いまのベーシックモードで、スマホがどこへ行くか */
   console.log("");
   console.log("③ いまのスマホの入口（ベーシックモード）");
   const sp = await p.evaluate(`fetch("https://www.isp-sp.com/", { redirect: "manual" })
@@ -117,3 +98,4 @@ const READ_ONE = `(function () {
 
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

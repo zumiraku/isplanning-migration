@@ -1,28 +1,4 @@
-/* ---------------------------------------------------------------------------
-   sync-paste-guide.js — 貼り付け手順書の「行数」を、実物に合わせる
-
-   ※ 手順書の数字がずれていました
-
-      docs/paste-guide.md は、貼ったあとに「行数が合っているか」を
-      見てもらうための表です。ところが移植をやり直すたびに実物だけが
-      変わり、**表の数字は最初に書いたまま**でした。
-
-        header    88 行 → 実物 110 行
-        top      267 行 → 実物 277 行
-        CSS    8,851 行 → 実物 9,023 行（177KB → 185KB）
-
-      19個のうち19個ぜんぶずれていました。**数えて確かめてもらう表が
-      間違っている**と、合っていても「違う」と見え、本当に貼り損ねても
-      気づけません。手順書はいちばん人が信じるものなので、いちばん
-      ずれてはいけません。
-
-   使い方
-     node tools/port/sync-paste-guide.js          数字を書き直す
-     node tools/port/sync-paste-guide.js --check  ずれていたら失敗する
-
-   ※ 正規表現を使いません。このリポジトリでは、シェル経由で書いた
-      バックスラッシュが何度も落ちました。表の行は「|」で割れば足ります。
---------------------------------------------------------------------------- */
+/* sync-paste-guide.js — 貼り付け手順書の「行数」を、実物に合わせる */
 const fs = require("fs");
 
 const MD = "docs/paste-guide.md";
@@ -52,7 +28,6 @@ for (let i = 0; i < lines.length; i++) {
   if (line.indexOf("|") !== 0) { continue; }
   const cells = line.split("|");
 
-  /* ファイルのセルを探します（`package/…` をバッククォートで囲んだもの） */
   let fileAt = -1, file = null;
   for (let c = 0; c < cells.length; c++) {
     const t = cells[c].trim();
@@ -66,7 +41,6 @@ for (let i = 0; i < lines.length; i++) {
 
   const buf = fs.readFileSync(file);
   const text = buf.toString("utf8");
-  /* 末尾の改行で1行余分に数えないようにします */
   const rows = text.length === 0 ? 0
     : text.split("\n").length - (text[text.length - 1] === "\n" ? 1 : 0);
 
@@ -109,3 +83,4 @@ if (CHECK) {
 fs.writeFileSync(MD, lines.join("\n"));
 console.log("書き直し: " + MD);
 diffs.forEach(d => console.log("   " + d));
+

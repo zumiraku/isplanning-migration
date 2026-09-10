@@ -1,22 +1,4 @@
-/* ---------------------------------------------------------------------------
-   compare-shots.js — 現行サイトと移植版を、同じ幅・同じ位置で撮って並べます
-
-   ※ これが最初から必要でした
-
-      「はみ出していない」を測って合格にしていましたが、山口様のご指摘は
-      **ズレと重なり**です。現行と並べないと判断できません。
-
-     node tools/cdp/compare-shots.js top 1280
-     node tools/cdp/compare-shots.js top 375
-     node tools/cdp/compare-shots.js detail 1280 4     4枚目だけ
-
-   保存先
-     tools/cdp/shots/<ページ>-<幅>-<番号>-live.png    現行サイト
-     tools/cdp/shots/<ページ>-<幅>-<番号>-new.png     移植版
-
-   ※ 追従ヘッダーは撮影のあいだだけ止めます（毎タイルに写り込むため）。
-      止めているのは撮影用の一時指定で、保存内容は触りません。
---------------------------------------------------------------------------- */
+/* compare-shots.js — 現行サイトと移植版を、同じ幅・同じ位置で撮って並べます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -24,7 +6,6 @@ const EDITOR = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_e
 const SET = 5;
 const OUT = "tools/cdp/shots";
 
-/* 左が移植版のページ種別、右が現行サイトの同じページ */
 const PAGES = {
   top:         { type: 2,  live: "https://www.isp-sp.com/" },
   detail:      { type: 3,  live: "https://www.isp-sp.com/shopdetail/003001000005/" },
@@ -53,7 +34,6 @@ const mobile = width < 700;
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-/* 追従ヘッダーと固定の引き出しを、撮影のあいだだけ止めます */
 const FREEZE = `(function(){
   var s = document.getElementById("__shotfix");
   if (!s) {
@@ -96,7 +76,6 @@ async function tile(p, y, h, file) {
   await p.send("Network.setUserAgentOverride",
     { userAgent: mobile ? IPHONE : "", platform: mobile ? "iPhone" : "" });
 
-  /* ── 現行サイト ── */
   await p.navigate("about:blank");
   await sleep(300);
   await p.navigate(PAGES[name].live);
@@ -111,7 +90,6 @@ async function tile(p, y, h, file) {
     console.log("   " + String(i + 1).padStart(2) + "  → " + f);
   }
 
-  /* ── 移植版（プレビュー） ── */
   await p.navigate("about:blank");
   await sleep(300);
   await p.navigate(EDITOR + "?design_set_id=" + SET + "&page_type=" + PAGES[name].type);
@@ -143,3 +121,4 @@ async function tile(p, y, h, file) {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

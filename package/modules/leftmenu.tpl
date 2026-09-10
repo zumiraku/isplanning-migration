@@ -1,13 +1,3 @@
-<{* ==========================================================================
-     leftmenu — ベーシックモードからの移植
-
-     ※ これは作り直しではありません。design_leftmenu.txt の
-        マークアップをそのまま持ってきて、タグとURLだけ置き換えたものです。
-        class も id も並び順も変えていません。m_sys_common.css がそれらに
-        当たっているためです。
-
-        生成物です。直すときは tools/port/build-chrome.js を直してください。
-   ========================================================================== *}>
 <div id="M_leftContents">
   <button class="l-menu-close" type="button" aria-label="メニューを閉じる">×</button>
 	  <div class="side-contents">
@@ -119,7 +109,6 @@
           </ul>
         </li>
       </ul>
-
 
 	<ul class="O_sideBnr">
 <li><a href="/view/page/page1.html"><img src="https://gigaplus.makeshop.jp/isplanning/images/side_bnr03.jpg" alt="FAX注文書・見積書" /><br>FAX注文書・見積書</a></li>

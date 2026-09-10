@@ -1,22 +1,5 @@
 #!/bin/sh
 # check-captions.sh — are the 34 captions complete?
-#
-# The previous check compared the extraction against the same extraction run
-# over the source, declared 34/34 identical, and was worthless: it proved the
-# extractor is deterministic. Ten captions were truncated at their first <br>
-# and shipped into the shop that way.
-#
-# So this checks by a different route. For each caption in the generated
-# template, it takes the **last 12 characters** of the visible text and looks
-# for them in the raw source file. If the caption were cut short, its tail would
-# be some mid-sentence fragment that happens to sit before a tag - which still
-# appears in the source, so that alone is not enough.
-#
-# The decisive test is the second one: **what follows the caption in the source
-# must be </div>**, not more text. A truncated caption is one whose recorded
-# ending is followed by more prose in the file it came from.
-#
-# Needs Git Bash (perl). Run from the repository root.
 
 tpl="templates/creator/mode/category-captions.tpl"
 dir="templates/basic-export/design/design_categorypages"
@@ -35,7 +18,6 @@ perl -CSD -0777 -ne '
   [ -f "$f" ] || { echo "  source missing: $code"; continue; }
   total=$((total + 1))
 
-  # Does the caption, as recorded, run all the way to </div> in the source?
   r=$(CAP="$cap" perl -CSD -0777 -ne '
       use Encode; my $cap = Encode::decode_utf8($ENV{CAP});
       my $h = $_;
@@ -61,3 +43,4 @@ echo ""
 echo "captions checked : $n"
 echo "incomplete       : $b"
 [ "$b" -eq 0 ] && echo "every caption runs to </div> in its source file" || exit 1
+

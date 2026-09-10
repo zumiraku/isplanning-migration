@@ -1,13 +1,4 @@
-/* ---------------------------------------------------------------------------
-   where-old-urls.js — 配信ページに残る旧URLが、どこから来ているか
-
-   テンプレートもモジュールも旧URLは0件です。それでも配信されたページには
-   残っています。**管理画面のデータ側（スライダーのバナー、会社概要の本文、
-   商品説明）から来ているのか**を確かめます。データ側なら、こちらの
-   テンプレートでは直せません（301で飛ぶので壊れはしません）。
-
-     node tools/cdp/where-old-urls.js
---------------------------------------------------------------------------- */
+/* where-old-urls.js — 配信ページに残る旧URLが、どこから来ているか */
 const fs = require("fs");
 
 const FILES = [
@@ -17,7 +8,6 @@ const FILES = [
   ["商品カテゴリー", "tools/cdp/preview-out/category.html"]
 ];
 
-/* だいたいの居場所を、近くの目印で当てます */
 const ZONES = [
   ['class="slider"', "スライダー（管理画面のバナー）"],
   ['id="O_adminPagearea"', "本文（管理画面の文章）"],
@@ -51,3 +41,4 @@ for (const [name, file] of FILES) {
   Object.entries(tally).sort((a, b) => b[1] - a[1])
     .forEach(([k, v]) => console.log("      " + String(v).padStart(4) + "  " + k));
 }
+

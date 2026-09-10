@@ -1,35 +1,4 @@
-﻿<#
-  build-category-calendar.ps1 — the calendar category page (C25)
-
-  One of the five pages the client flagged as 変わった作りのページ:
-  https://www.isp-sp.com/shopbrand/051/O/
-
-  It is not a normal category listing. It is a hand-built 3-column
-  <table class="calender_List"> of curated products sitting under two
-  business-day calendars, all of it inside the category free space. There is no
-  Creator Mode variable tag that reproduces an arbitrary curated list (C16), so
-  the layout is rebuilt as template markup and the content is carried across.
-
-  Everything on the rendered page comes out of the archive - the closed days, the
-  25 product cells, the intro copy - so what is reviewed is the real page, not an
-  impression of it.
-
-  Two things deliberately change:
-
-    * The 3-column table becomes a responsive card grid. At 375px a 3-column
-      table of product photos is unusable, and this is a page people reach from
-      a phone in Q4 when they are buying next year's calendars.
-    * The NEW badge stops being <SPAN style="color: yellow;">, which is yellow
-      text on a white background - invisible on the live site today. It becomes
-      the design system's .badge--new.
-
-  Input   snapshot/desktop/shopbrand_051_O.*.html   raw EUC-JP as captured
-          templates/creator/freepage-template.html  the page shell
-  Output  templates/creator/preview/category-calendar.html
-
-  Saved WITH a UTF-8 BOM: it carries Japanese literals and PowerShell 5.1 reads a
-  BOM-less UTF-8 script as ANSI.
-#>
+# build-category-calendar.ps1 — the calendar category page (C25)
 
 [CmdletBinding()]
 param()
@@ -53,12 +22,6 @@ function HtmlEscape([string]$s) {
   return $s.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;')
 }
 
-# ---------------------------------------------------------------------------
-# 1. The two business-day calendars.
-#    Platform output: a header table carrying "2026年 08月", then a grid whose
-#    closed days are marked only by bgcolor=#cccccc. Colour as the sole carrier
-#    of meaning is why the rebuild adds a text label for screen readers.
-# ---------------------------------------------------------------------------
 $calBlocks = [regex]::Matches($html, '(?is)<div class="calendar_\d">(.*?)</div>')
 $calendars = @()
 foreach ($b in $calBlocks) {
@@ -80,19 +43,6 @@ foreach ($b in $calBlocks) {
   }
 }
 
-# ---------------------------------------------------------------------------
-# 2. The 25 curated product cells.
-# ---------------------------------------------------------------------------
-# ---------------------------------------------------------------------------
-# Cell by cell, never across a </td>.
-#
-# The first version matched name, link and image in one expression spanning the
-# whole cell. Where a cell's markup differs slightly - one has <br /> between the
-# image and its caption - that expression fails at that cell and the lazy (.*?)
-# in the name group expands across the boundary into the NEXT cell, producing a
-# card carrying one product's name with another product's image and link. On a
-# shop page that sends the customer to the wrong product, so it is worse than
-# dropping the row. Cells are isolated first, then parsed independently.
 $items = @()
 $skipped = 0
 foreach ($cellM in [regex]::Matches($html, '(?is)<td>((?:(?!</td>).)*)</td>')) {
@@ -122,9 +72,6 @@ foreach ($cellM in [regex]::Matches($html, '(?is)<td>((?:(?!</td>).)*)</td>')) {
   }
 }
 
-# ---------------------------------------------------------------------------
-# 3. The intro copy, taken verbatim.
-# ---------------------------------------------------------------------------
 $intro = @()
 foreach ($p in [regex]::Matches($html, '(?is)<p>(表示価格は税別です。.*?)</p>|<p>(2027年卓上カレンダー販売中です。.*?)</p>')) {
   $t = $p.Groups[1].Value + $p.Groups[2].Value
@@ -133,9 +80,6 @@ foreach ($p in [regex]::Matches($html, '(?is)<p>(表示価格は税別です。.
   if ($t) { $intro += $t }
 }
 
-# ---------------------------------------------------------------------------
-# 4. Render
-# ---------------------------------------------------------------------------
 $sb = New-Object System.Text.StringBuilder
 
 foreach ($t in $intro) {
@@ -151,20 +95,12 @@ foreach ($c in $calendars) {
   [void]$sb.AppendLine('        <thead><tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr></thead>')
   [void]$sb.AppendLine('        <tbody>')
 
-  # All days in the month, in order, with the closed ones marked. The original
-  # relied on cell background alone; each closed cell now also carries a label
-  # that only assistive technology reads.
   $all = @()
   $all += $c.closed
   $all += $c.open
-  # Month length comes from the calendar, not from the cells we managed to
-  # scrape. Deriving it from captured days silently truncated August at the 30th
-  # and September at the 27th - a business-day calendar missing the end of the
-  # month is wrong information, not just a rendering slip.
   $closedSet = @{}
   foreach ($d in $c.closed) { $closedSet[$d] = $true }
 
-  # Work out the leading blank cells from the first day's weekday.
   $monthNum = [int](($c.label -split '年')[1] -replace '月', '')
   $yearNum  = [int](($c.label -split '年')[0])
   $first = Get-Date -Year $yearNum -Month $monthNum -Day 1
@@ -218,11 +154,6 @@ $page = $page.Replace('{{BREADCRUMB}}',  '<li>卓上カレンダー</li>')
 $page = $page.Replace('{{CSSPATH}}',     '../css/')
 $page = $page.Replace('{{CONTENT}}',     $sb.ToString())
 $page = $page.Replace('href="../top.html"', 'href="top.html"')
-# The shell is written for pages inside preview/freepages/, so every free-page
-# link has to be rewritten for a page sitting one level up. Done as a pattern
-# rather than a list of four names: the footer now links to nine free pages, and
-# the fixed list silently left the other five pointing at files that are not
-# there - which is precisely the class of bug this footer was added to fix.
 $page = [regex]::Replace($page, 'href="((?:page\d+|info|company|ordercontract|privacy)\.html)', 'href="freepages/$1')
 
 [System.IO.File]::WriteAllText($out, $page, $enc)
@@ -235,3 +166,4 @@ foreach ($c in $calendars) {
 Write-Host ('products   : {0}  (NEW badges: {1})' -f $items.Count, ($items | Where-Object { $_.isNew }).Count)
 Write-Host ('intro paras: {0}' -f $intro.Count)
 Write-Host ('written    : templates\creator\preview\category-calendar.html')
+

@@ -1,33 +1,5 @@
 #!/bin/sh
 # extract-category-data.sh — turn 53 templates into one data table
-#
-# C28 is resolved: 52 of the 53 per-category templates are the standard one plus
-# a small amount of per-category data. This pulls that data out, so the rebuild
-# has one template driven by a table rather than 53 files to keep in step.
-#
-# The first version of this tool recorded "the banner image" as the per-category
-# data and was wrong in a way worth writing down: 36 of the 40 banners are the
-# same file, housounosiname3.png. The banner is a shared promotion, not a
-# variation - it belongs in the template once.
-#
-# The real per-category data is the caption. A categotybanner block is a row of
-# tiles; the first holds [CATEGORY_IMAGE] with a caption written for that
-# category, and the tiles after it are the shared promos. **That caption is the
-# only genuinely per-category prose in these files**, it is nowhere else, and it
-# is what a rebuild that ignored these templates would have silently dropped.
-#
-# What else varies, measured (docs/category-templates.md):
-#
-#   category_image  11 of 53 omit [CATEGORY_IMAGE]
-#   subcat_columns  2 use [GROUP3_7] where the rest use [GROUP4_0]
-#   price_tag       3 use [PRICE] instead of [TAXPRICE] - that is C36, a live
-#                   defect, recorded as what the template does rather than as
-#                   something to reproduce
-#
-# ct646 is excluded: genuinely bespoke, needs its own template.
-#
-# Output: inventory/category-data.csv
-# Needs Git Bash (perl). Run from the repository root.
 
 dir="templates/basic-export/design/design_categorypages"
 out="${1:-inventory/category-data.csv}"
@@ -71,3 +43,4 @@ echo "  without カテゴリ画像     : $(sed 's/"//g' "$out" | awk -F, 'NR>1 &
 echo "  3-column sub-cats       : $(sed 's/"//g' "$out" | awk -F, 'NR>1 && $5=="3"' | wc -l)"
 echo "  tax-exclusive price     : $(sed 's/"//g' "$out" | awk -F, 'NR>1 && $6=="PRICE"' | wc -l)   <- C36"
 echo "report                    : $out"
+

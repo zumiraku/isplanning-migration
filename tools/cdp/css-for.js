@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   css-for.js — 配信されるページで、あるセレクタに効いているCSSを全部並べます
-
-     node tools/cdp/css-for.js headerWrap [page_type] [width]
-
-   推測でCSSを直すと、また外します。**実際に読まれているスタイルシートを、
-   ページ自身に読ませます。**
---------------------------------------------------------------------------- */
+/* css-for.js — 配信されるページで、あるセレクタに効いているCSSを全部並べます */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -78,3 +71,4 @@ function probe(needle) {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

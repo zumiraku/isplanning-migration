@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   parity.js — 現行のページと移植版のページを取り込んで、文言の欠落を数えます
-
-   `tools/port/check-content-parity.js` はファイル2枚を比べる道具です。
-   その2枚を、**現行から**と**結び直したプレビューから**取ってきます。
-
-   ※ プレビューは種別ごとに結び直さないと、別のページが返ります
-      （docs/console-map.md「三度目です」）。ここは bind.js を通します。
-
-     node tools/cdp/parity.js
-     node tools/cdp/parity.js カテゴリ        （1ページだけ）
---------------------------------------------------------------------------- */
+/* parity.js — 現行のページと移植版のページを取り込んで、文言の欠落を数えます */
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
@@ -67,3 +56,4 @@ const only = process.argv[2];
   console.log(bad ? "※ 現行にあって移植版に無い塊 " + bad + " 件"
                   : "OK 現行の文言は、移植版に全部あります");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

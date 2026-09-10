@@ -1,23 +1,4 @@
-/* ---------------------------------------------------------------------------
-   top-recover.js — トップのプレビューが会員制ページを返す件の切り分け
-
-   時系列がぴったり合っています。
-
-     初回の sp-preview（種別 2/3/4/6 のみ・19を出していない）  トップ 7,789字 ○
-     preview.js（11枚）                                     top.html 90,565字 ○
-     sp-preview を15種別に拡張 → **19を初めてプレビュー**
-     以後 トップは 52字（会員制ページ）                        ※
-
-   トップと会員制は**プレビューURLが同じ**です。
-
-     トップ            https://www.isp-sp.com/?ptk=…
-     会員制・年齢確認   https://www.isp-sp.com/?ptk=…
-
-   サーバ側が「いま何をプレビュー中か」を持っていて、19に上書きされたまま
-   なのではないか。それを、キャッシュ外しと再送で確かめます。
-
-     node tools/cdp/top-recover.js
---------------------------------------------------------------------------- */
+/* top-recover.js — トップのプレビューが会員制ページを返す件の切り分け */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -79,3 +60,4 @@ async function preview(p, type) {
 
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

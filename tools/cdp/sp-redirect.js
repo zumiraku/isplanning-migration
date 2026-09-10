@@ -1,14 +1,4 @@
-/* ---------------------------------------------------------------------------
-   sp-redirect.js — スマホの名乗りで /smartphone/ へ飛ぶページ種別を洗います
-
-   ※ まとめ買い割引（page_type=18）だけ、iPhoneの名乗りで
-      `/smartphone/` に飛びました。他の14種別は飛びません。
-
-      これがプレビュー特有なのか、切替後も起きるのかで意味が変わります。
-      **PCの名乗りでも飛ぶのか**、**どのURLへ飛ぶのか**を見ます。
-
-     node tools/cdp/sp-redirect.js [page_type…]
---------------------------------------------------------------------------- */
+/* sp-redirect.js — スマホの名乗りで /smartphone/ へ飛ぶページ種別を洗います */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -66,3 +56,4 @@ async function run(p, type, mobile) {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

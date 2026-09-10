@@ -1,27 +1,4 @@
-<#
-  extract-news.ps1 — the /new/ archive
-
-  Pulls the article out of each archived news page and classifies it, so the
-  consolidation decision the client was asked for at Gate A can be made from the
-  actual content rather than from titles.
-
-  The pages are MakeShop's ニュース feature output and the markup is uniform:
-
-      <div class="rightContents" id="news">
-        <div class="section" id="r_news">
-          <div id="newsHead"><span class="date">2013/08/01</span>TITLE</div>
-          <div id="newsContents"> ARTICLE </div>
-
-  100 of the 101 archived files carry it; the 101st is /new/index.html, the list
-  page (#newsList). That is worth recording on its own — see docs/news-plan.md.
-
-  Input   snapshot/desktop/new_*.html   raw EUC-JP bytes as captured
-  Output  templates/basic-export/news/<date>.html   article bodies, UTF-8
-          inventory/news-articles.csv               one row per article
-
-  No Japanese string literals: PowerShell 5.1 reads this BOM-less UTF-8 file as
-  ANSI, so every Japanese pattern below is built from code points.
-#>
+# extract-news.ps1 — the /new/ archive
 
 [CmdletBinding()]
 param()
@@ -40,7 +17,6 @@ $enc  = New-Object System.Text.UTF8Encoding($false)
 
 function Chars([int[]]$points) { -join ($points | ForEach-Object { [char]$_ }) }
 
-# Classification keywords, from code points.
 $KW = @{
   closure   = Chars 0x4F11, 0x696D                                  # 休業
   newyear   = Chars 0x5E74, 0x672B, 0x5E74, 0x59CB                  # 年末年始
@@ -60,7 +36,6 @@ $rows = New-Object System.Collections.Generic.List[object]
 foreach ($f in (Get-ChildItem (Join-Path $srcDir 'new_*.html') | Sort-Object Name)) {
   $html = $euc.GetString([System.IO.File]::ReadAllBytes($f.FullName))
 
-  # new_2013-08-01-173816.html.95B356D9.html -> 2013-08-01-173816
   $slug = ($f.Name -replace '^new_', '') -replace '\.html\..*$', ''
 
   if ($html -notmatch 'id="newsHead"') {
@@ -98,10 +73,6 @@ foreach ($f in (Get-ChildItem (Join-Path $srcDir 'new_*.html') | Sort-Object Nam
   $text   = [regex]::Replace($body, '(?s)<[^>]+>', '')
   $text   = [regex]::Replace($text, '\s+', ' ').Trim()
 
-  # Title first, body only as a fallback: a closure notice that happens to
-  # mention a catalogue is still a closure notice, and a plain `if` cascade lets
-  # the last test win, which mislabelled 57 of the 100 as product news.
-  # Closure is the most specific classification here, so it is tested first.
   $hay = $title
   if (-not $hay) { $hay = $text }
 
@@ -130,14 +101,6 @@ foreach ($f in (Get-ChildItem (Join-Path $srcDir 'new_*.html') | Sort-Object Nam
   })
 }
 
-# ---------------------------------------------------------------------------
-# Duplicates and the proposed action.
-#
-# The rule: anything with real content is kept. A closure notice is kept if it is
-# the most recent of its kind, and folded into that one if it is not — the dates
-# are years past and the page says nothing else. Nothing is deleted outright;
-# retired URLs redirect, so no inbound link or index entry 404s.
-# ---------------------------------------------------------------------------
 $articles = $rows | Where-Object { $_.category -ne 'index-page' }
 $byTitle = $articles | Group-Object title
 
@@ -153,11 +116,6 @@ foreach ($a in ($articles | Where-Object { $_.category -like 'closure*' } | Sort
   if (-not $closureLatest.ContainsKey($a.category)) { $closureLatest[$a.category] = $a.slug }
 }
 
-# Default is keep. These pages are the platform's ニュース feature, so they carry
-# over with the feature rather than being migrated one by one, and deleting them
-# buys nothing we can measure yet. Only the superseded closure notices are put
-# forward as candidates, and even those wait for Search Console: proposing to
-# delete 25 indexed pages without traffic data in front of us is a guess.
 foreach ($a in $articles) {
   if ($a.category -like 'closure*' -and $closureLatest[$a.category] -ne $a.slug) {
     $a.action = 'consolidation candidate (needs Search Console)'
@@ -188,3 +146,4 @@ Write-Host ''
 $median = ($articles | Sort-Object body_len | Select-Object -Skip ([int]($articles.Count / 2)) -First 1).body_len
 Write-Host ('median article length : {0} characters' -f $median)
 Write-Host ('report                : {0}' -f (Split-Path $outCsv -Leaf))
+

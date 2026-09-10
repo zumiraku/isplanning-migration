@@ -1,13 +1,4 @@
-/* ---------------------------------------------------------------------------
-   csv-fetch.js — 出来上がったCSVジョブを取りに行く
-
-   商品CSVの書き出しは、その場では落ちてきません。**ジョブとして受け付けられ**、
-   ダウンロード一覧に並びます。出来上がるまで待って、手元に落とします。
-
-     node tools/cdp/csv-fetch.js
-
-   保存先: tools/cdp/csv/
---------------------------------------------------------------------------- */
+/* csv-fetch.js — 出来上がったCSVジョブを取りに行く */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");
@@ -72,3 +63,4 @@ const ROWS = `(function(){
   console.log("※ 出来上がりません");
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

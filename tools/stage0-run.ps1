@@ -1,7 +1,3 @@
-<#
-  Stage 0 baseline capture - sequential, rate-limited.
-  One request at a time against the client's live production shop.
-#>
 $ErrorActionPreference = 'Continue'
 
 Write-Output "=== 1/4 free pages (desktop) ==="
@@ -21,3 +17,4 @@ Write-Output "=== 4/4 archetypes (mobile) ==="
   -OutCsv inventory\pages-archetypes-mobile.csv -SaveBody -DelayMs 1500
 
 Write-Output "=== STAGE 0 CRAWL COMPLETE ==="
+

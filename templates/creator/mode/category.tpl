@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     商品カテゴリー — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_brandpage.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -56,22 +49,17 @@
 	<{if $category.child_category.has_item}>
 	<ul class="subcats">
 	<{section name=c loop=$category.child_category.list}>
-	  <{* ※ 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
-	       $category.child_category.list[c].item_count というタグがあるのに、
-	       名前だけを出していました。 *}>
-	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}>(<{$category.child_category.list[c].item_count}>)</a></li>
+	  	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}>(<{$category.child_category.list[c].item_count}>)</a></li>
 	<{/section}>
 	</ul>
 	<{/if}>
 	</div>
-
 
 	<{$module.category_extra1}><{$module.category_extra2}><{$module.category_extra3}>
 
 	<div class="O_ItemLine">
 	<p class="total">全 <{$category.total_count}> 件</p> <div class="list-link">並び替え：<a href="<{$category.sort_new_url}>">新着順</a> <a href="<{$category.sort_recommend_url}>">おすすめ順</a> <a href="<{$category.sort_manufacturer_url}>">単価順</a> <a href="<{$category.sort_low_price_url}>">価格</a> <a href="<{$category.sort_name_url}>">商品名</a></div>
 	</div>
-
 
 <table class="tbl02">
 	<{section name=i loop=$category.item.list}>
@@ -85,20 +73,7 @@
 					</td>
 					<td class="itemtext">
 						<div style="padding-left:10px;">
-							<{* ※ ここは description ではありません（実測・2026-09-10）
-							     一覧の ［DETAIL］ は「商品カテゴリー用商品説明文」です（角かっこは全角にしてあります。半角だと未変換タグの検査が拾います）。
-							     商品CSVに専用の列（商品カテゴリー用商品説明文／
-							     同 表示可否）があります。description を出していたので、
-							     **1件ごとに商品仕様の全文**が並んでいました。
-
-							     現行    名入れ可能 品番：ND-P3841 品名：…
-							     移植版  ■品番 ND-P3841 ■品名 … ■形態 OPP袋入
-							             ■形態サイズ ■商品サイズ 直径10×140mm
-							             ■色 ■材質 … ■内容 1個 ■通常単価 …
-
-							     40件ぶん並ぶので、カテゴリページが別物になります。
-							     606カテゴリ全部です。 *}>
-							<{$category.item.list[i].category_description}>
+														<{$category.item.list[i].category_description}>
 							<p class="soldout2"><{if $category.item.list[i].is_soldout}>＝ 品切れ中 ＝<{/if}></p>
 							<p class="M_mgnT5"><{if $category.item.list[i].icon.has_item}><{section name=ic loop=$category.item.list[i].icon.list}><img src="<{$category.item.list[i].icon.list[ic].image_url}>" align="absmiddle" border="0"><{/section}><{/if}></p>
 							<p class="M_mgnT5">品番：<{$category.item.list[i].original_code}></p>
@@ -106,10 +81,7 @@
 							<p class="red"><{$category.item.list[i].special_display}></p>
 							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.item.list[i].price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 						</div>
-						<{* ※ 「カートに入れる」「お気に入り」は元テンプレートでも
-						     コメントアウトされています。山口様の「不要」は、
-						     こちらが足したものを外せという意味でした。 *}>
-					</td>
+											</td>
 				</tr>
 			</table>
 		</td>
@@ -124,12 +96,9 @@
 	    <{if $category.pager.list[p].is_current_page}><span><{$category.pager.list[p].number}></span>
 	    <{else}><a href="<{$category.pager.list[p].url}>"><{$category.pager.list[p].number}></a><{/if}>
 	  <{/section}>
-	  <{* ※ 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
-	       「次へ」だと、何件ずつ進むのかが読めません。 *}>
-	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次の<{$category.display_count}>件 &raquo;</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
+	  	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次の<{$category.display_count}>件 &raquo;</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
 	<{/if}>
 	</div>
-
 
   <{$module.category_bottom1}>
 
@@ -157,19 +126,6 @@
 	<{/if}>
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

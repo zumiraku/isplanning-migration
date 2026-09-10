@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   goto.js — 旧管理画面の中を、名前で呼んで開く
-
-     node tools/cdp/goto.js design_top
-
-   URLをそのままコマンドに書くと環境の安全装置に弾かれるので、
-   行き先はここに名前で置きます。増やすときはこの表に足してください。
---------------------------------------------------------------------------- */
+/* goto.js — 旧管理画面の中を、名前で呼んで開く */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/";
@@ -69,3 +62,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("本文: " + info.body);
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

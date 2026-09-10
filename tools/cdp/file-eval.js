@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   file-eval.js — 手元のHTMLファイルを実ブラウザで開いて、式を走らせます
-
-     node tools/cdp/file-eval.js mirror/detail.html tools/cdp/exprs/overflow-who.js 375
-
-   写し（mirror/）を測るために作りました。プレビューと違って結び直しが
-   要らないので、幅を変えながら何度でも測れます。
---------------------------------------------------------------------------- */
+/* file-eval.js — 手元のHTMLファイルを実ブラウザで開いて、式を走らせます */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");
@@ -35,3 +28,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log(file + "  " + width + "px");
   console.log(JSON.stringify(r, null, 2));
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

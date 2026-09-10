@@ -1,33 +1,9 @@
-/* ---------------------------------------------------------------------------
-   paste.js — ページ種別のHTMLを流し込んで保存し、**届いたかどうかを読み直す**
-
-     node tools/cdp/paste.js contract package/templates/contract.tpl
-     node tools/cdp/paste.js contract            （読むだけ。今の中身を報告）
-
-   ※ 「保存を押した」は、保存できたことの証拠になりません
-
-      管理画面はセッションが切れても編集画面のまま動きます。貼れるし、
-      保存も押せる。ただサーバーには届きません。**エラーも出ません。**
-      これで2巡むだにしました。押したあとに**読み直して比べる**まで、
-      保存できたとは言いません。
-
-   保存の仕組み（画面から読み取ったもの）
-
-     function saveContent() {
-         if (!confirm('この内容で保存しますか？')) return;
-         document.formMain.act.value = 'update';
-         document.formMain.submit();
-     }
-
-     中身は CodeMirror が持っていて、textarea は送信のときに同期されます。
-     だから textarea に直接書いても意味がありません。**エディタ側に
-     入れます。** confirm は自動で「はい」にします。
---------------------------------------------------------------------------- */
+/* paste.js — ページ種別のHTMLを流し込んで保存し、**届いたかどうかを読み直す** */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
-const SET = 5;                                   /* 発見マーケット_移行版 */
+const SET = 5;
 
 const TYPE = {
   common: 1, top: 2, detail: 3, category: 4, search: 5, cart: 6,
@@ -37,7 +13,7 @@ const TYPE = {
 
 const name = process.argv[2];
 const file = process.argv[3];
-const field = process.argv[4] || "html";          /* html / css / javascript */
+const field = process.argv[4] || "html";
 
 if (!name || !(name in TYPE)) {
   console.error("使い方: node tools/cdp/paste.js <" + Object.keys(TYPE).join("|") + "> [ファイル] [html|css|javascript]");
@@ -45,12 +21,6 @@ if (!name || !(name in TYPE)) {
 }
 const pageType = TYPE[name];
 
-/* ※ 改行コードをLFに揃えます
- *
- *    リポジトリの作業コピーは CRLF です（git の autocrlf）。CodeMirror は
- *    setValue のときに LF へ揃えるので、**渡した文字数と入った文字数が
- *    合わなくなり**、行数ぶんだけ短く見えます。freespace_calendar で
- *    234文字ずれました。先に揃えてから渡します。 */
 function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10)).join(String.fromCharCode(10)); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -109,11 +79,9 @@ async function state(p) {
   }
   console.log("  エディタに入りました: " + set.edLen + " 文字");
 
-  /* confirm を自動で「はい」にして保存 */
   await p.evaluate("window.confirm = function(){ return true; }; saveContent(); 1");
   await sleep(4000);
 
-  /* ※ ここからが本題。**押したあとに読み直します。** */
   await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + pageType);
   if (!await waitEditor(p)) {
     const s = await state(p);
@@ -122,21 +90,7 @@ async function state(p) {
   }
   const after = await state(p);
 
-  /* ※ 文字数だけで判定できません
-   *
-   *    サーバーは保存のときに、BMP外の文字や記号を数値参照に置き換えます。
-   *
-   *      —   → &#8212;      （+6文字）
-   *      ※ → &#128308;    （+7文字）
-   *
-   *    どちらも <{* … *}> のコメントの中なので表示には出ませんが、
-   *    文字数は増えます。**戻してから比べます。** */
   const live = await p.evaluate("g_editor_object['" + field + "_pc'].getValue()");
-  /* ※ 数値参照は「両側とも」戻してから比べます
-   *
-   *    元のファイル自体が &#12316; や &#169; を持っています（現行サイトから
-   *    写した文面）。片側だけ戻すと、こちらの &#12316; まで 〜 に変わって
-   *    一致しないと誤判定します。フッターで実際にそうなりました。 */
   const un = t => t.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)));
   const back = un(live);
   const want = un(body);
@@ -158,3 +112,4 @@ async function state(p) {
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

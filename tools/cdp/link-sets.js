@@ -1,19 +1,4 @@
-/* ---------------------------------------------------------------------------
-   link-sets.js — ヘッダー・左メニュー・フッターのリンクを、丸ごと突き合わせます
-
-   ※ ここは「形が合っているか」しか見ていませんでした
-
-      位置（geometry.js）と、はみ出し（layout-diff.js）と、見出しは見ました。
-      **リンクが1本消えていても、どれも気づきません。** 左メニューは
-      カテゴリの入口です。1本欠けると、その先の商品に道が無くなります。
-
-      旧URLと新URLは形が違うので、対応表（tools/port/url-map.js）を通して
-      から比べます。文字（リンクの見た目）も鍵に入れるので、
-      「同じ行き先だが名前が変わった」も拾えます。
-
-     node tools/cdp/link-sets.js
-     node tools/cdp/link-sets.js /                 （1ページだけ）
---------------------------------------------------------------------------- */
+/* link-sets.js — ヘッダー・左メニュー・フッターのリンクを、丸ごと突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { map } = require("../port/url-map.js");
@@ -26,9 +11,6 @@ const only = process.argv[2];
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-/* ベーシックの仕掛けと、クリエイターの仕掛けは、書き方が違うだけで
-   同じ行き先です。ここを知らないと毎回5件が「消えた」と出ます。
-   （実測で1本ずつ突き合わせたもの・2026-09-10） */
 const SAME_RAW = [
   ["javascript:ssl_login('member')", "会員登録"],
   ["/shop/idinfo.html", "会員登録"],
@@ -47,7 +29,6 @@ const SAME_RAW = [
 const SAME = new Map();
 SAME_RAW.forEach(function (p) { SAME.set(p[0], p[1]); SAME.set(p[0].toLowerCase(), p[1]); });
 
-/* 旧URLを新URLの形に寄せます */
 function canon(href) {
   let u = (href || "").trim();
   u = u.replace(/^https?:\/\/www\.isp-sp\.com/i, "");
@@ -55,11 +36,9 @@ function canon(href) {
   if (SAME.has(u)) { return SAME.get(u); }
   if (!u || u.startsWith("#") || u.startsWith("javascript:") ||
       u.startsWith("mailto:") || u.startsWith("tel:")) { return u; }
-  /* 対応表（フラグメント込み → フラグメント無しの順で引きます） */
   if (map.has(u)) { return String(map.get(u)); }
   const hash = u.indexOf("#");
   if (hash > 0 && map.has(u.slice(0, hash))) { return String(map.get(u.slice(0, hash))) + u.slice(hash); }
-  /* 対応表に無いものは、形だけ寄せます */
   u = u.replace(/^\/shopbrand\/(ct\d+)\/?$/, "/view/category/$1");
   u = u.replace(/^\/shopdetail\/(\d+)\/?$/, "/view/item/$1");
   u = u.replace(/\/$/, "");
@@ -87,8 +66,6 @@ function split(entry) {
       bad++; continue;
     }
     const live = await p.evaluate(EXPR);
-    /* ※ ptk のURLに直接行ってはいけません。最後に保存した種別の設計で
-       描かれます。種別を指定して結び直してから測ります。 */
     const bound = await openAt(p, type, portPath, 4200);
     if (!bound.ok) { console.log(""); console.log("※ " + name + " ── " + bound.why); bad++; continue; }
     const nu = await p.evaluate(EXPR);
@@ -101,14 +78,12 @@ function split(entry) {
       if (!a) { console.log("  " + region.padEnd(8) + "※ 現行に枠がありません"); continue; }
       if (!b) { console.log("  " + region.padEnd(8) + "※ 移植版に枠がありません"); bad++; continue; }
 
-      /* 行き先だけの集合と、行き先＋文字の集合の両方で比べます */
       const A = a.map(split), B = b.map(split);
       const bHref = new Set(B.map(x => canon(x.href)));
       const aHref = new Set(A.map(x => canon(x.href)));
       const lost = A.filter(x => !bHref.has(canon(x.href)));
       const extra = B.filter(x => !aHref.has(canon(x.href)));
 
-      /* 行き先は合うが、文字が変わったもの */
       const byHref = new Map();
       B.forEach(x => byHref.set(canon(x.href), x.text));
       const renamed = A.filter(x => bHref.has(canon(x.href)) && byHref.get(canon(x.href)) !== x.text);
@@ -129,3 +104,4 @@ function split(entry) {
   console.log("");
   console.log(bad ? "※ 消えたリンク・枠 " + bad + " 件" : "OK どのページも、リンクは現行と同じ集合です");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

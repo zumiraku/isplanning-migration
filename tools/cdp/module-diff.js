@@ -1,5 +1,4 @@
-/* module-diff.js — モジュールの中身を取り出して、手元のファイルと突き合わせる
-     node tools/cdp/module-diff.js 1 package/modules/footer.tpl                */
+/* module-diff.js — モジュールの中身を取り出して、手元のファイルと突き合わせる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -40,3 +39,4 @@ function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10
     shown++;
   }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

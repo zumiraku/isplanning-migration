@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     粗品・ノベルティは季節にあった商品を！季節商品を購入するなら【発見マ — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -41,7 +34,6 @@
 
 <div style="text-align: left;" class="M_mainContents">
 <div id="breadcrumbs" style="font-size: 80%;padding-bottom: 5px;" itemscope itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://www.isp-sp.com/"><span itemprop="name">HOME</span></a><meta itemprop="position" content="1" /></span>&nbsp;&raquo;&nbsp;<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span itemprop="name">粗品・ノベルティは季節にあった商品を！季節商品を購入するなら【発見マーケット】で～冬のイベントにぴったりな粗品・ノベルティ～</span><meta itemprop="position" content="2" /></span></div>
-
 
 <div style="padding: 0 0 30px;word-break: normal;">
   <h2 class="class1">粗品・ノベルティは季節にあった商品を！季節商品を購入するなら【発見マーケット】で～冬のイベントにぴったりな粗品・ノベルティ～</h2>
@@ -185,19 +177,6 @@
 
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

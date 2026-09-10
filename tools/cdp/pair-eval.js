@@ -1,11 +1,4 @@
-/* ---------------------------------------------------------------------------
-   pair-eval.js — 同じ式を、現行と移植版の同じ商品で走らせます
-
-     node tools/cdp/pair-eval.js tools/cdp/exprs/tab3.js 051000000001
-
-   商品コードの代わりにパスを渡すこともできます（先頭が / のとき）。
-     node tools/cdp/pair-eval.js tools/cdp/exprs/tab3.js /shopbrand/ct646 /view/category/ct646
---------------------------------------------------------------------------- */
+/* pair-eval.js — 同じ式を、現行と移植版の同じ商品で走らせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -23,7 +16,6 @@ const liveUrl = a.startsWith("/") ? "https://www.isp-sp.com" + a
 const portUrl = a.startsWith("/") ? "https://www.isp-sp.com" + b + (b.indexOf("?") >= 0 ? "&" : "?") + "ptk=" + PTK
                                   : "https://www.isp-sp.com/view/item/" + a + "?ptk=" + PTK;
 
-/* ブラウザのキャッシュに当たらないよう、毎回ちがう問合せを付けます */
 const BUST = "zq=" + Date.now();
 function bust(u) { return u + (u.indexOf("?") >= 0 ? "&" : "?") + BUST; }
 
@@ -56,3 +48,4 @@ function show(label, r) {
   console.log("");
   show("移植版 " + portUrl, nu);
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

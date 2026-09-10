@@ -1,12 +1,3 @@
-<{* ==========================================================================
-     カテゴリごとの独自内容 — ベーシックからの移植
-
-     ※ クリエイターモードにカテゴリ説明のタグはありません。
-        $category.* は31個ありますが、説明文を出すものがありません。
-        カテゴリ識別コードで振り分けます。
-
-     生成物です。直すときは tools/cdp/category-extra.js を直してください。
-   ========================================================================== *}>
 <{if $category.code == 'ct217' or $category.code == 'ct218' or $category.code == 'ct219' or $category.code == 'ct220' or $category.code == 'ct221' or $category.code == 'ct222' or $category.code == 'ct223' or $category.code == 'ct224' or $category.code == 'ct225' or $category.code == 'ct226' or $category.code == 'ct227' or $category.code == 'ct228' or $category.code == 'ct229' or $category.code == 'ct230' or $category.code == 'ct623'}>
 <div id="O_subCategory">
 	
@@ -618,9 +609,7 @@
 	
 	</div>
 
-
 <div class="box_cate"><p>クリスマスにふさわしいサンタ柄等の商品を多数そろえています。クリスマスの粗品は発見マーケットでお選びください。</p></div>
-
 
 <div class="container_summer">
   <div class="box_summer">
@@ -673,8 +662,6 @@
 	<div id="O_subCategory">
 	
 	</div>
-
-
 
 <div class="box_cate"><p>クリスマスのイベントに楽しめる抽選セットや福袋の販売ページです。人気のサイコロを振って出た目でもらえるセット商品もございます。</p></div>
 
@@ -1057,14 +1044,6 @@
 	</div>
 
 <div align="center"></div>
-
-
-
-
-
-
-
-
 
 <div class="box_cate"><p>素麺（そうめん）の粗品販売ページです。様々な種類がございますので一度ご覧いただきましてご検討くださいませ。商品によりましては包装、のしが可能です。素麺（そうめん）お買い求めの際は、ぜひ発見マーケットをご利用ください。</p></div>
 

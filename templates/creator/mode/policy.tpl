@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     プライバシー — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（現行の文面）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -42,9 +35,7 @@
 
 <div id="O_adminPagearea" class="company">
 	<h2>個人情報保護ポリシー</h2>
-	<{* ※ このページ種別だけリファレンスにタグがありません。
-	     現行サイトの文面をそのまま使っています。 *}>
-<h2>プライバシーポリシー</h2>
+	<h2>プライバシーポリシー</h2>
 
 <div>
   <p>個人情報保護ポリシー</p>
@@ -110,19 +101,6 @@
 </div>
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

@@ -1,14 +1,4 @@
-/* ---------------------------------------------------------------------------
-   module-add.js — モジュールを新しく作って、中身を入れる
-
-     node tools/cdp/module-add.js category_extra1 "カテゴリ別内容1" package/modules/category_extra1.tpl
-
-   ※ モジュールIDは、テンプレートが呼ぶ名前です
-
-      `<{$module.category_extra1}>` の `category_extra1` を「モジュールID」に
-      入れます。「管理用名称」は一覧に出る見出しで、自由に付けられます。
-      IDが違うと**エラーは出ず、その部分だけ空**になります。
---------------------------------------------------------------------------- */
+/* module-add.js — モジュールを新しく作って、中身を入れる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -68,8 +58,8 @@ function un(s) { return s.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Nu
   console.log("保存: " + saved);
   await sleep(4500);
 
-  /* 一覧から、いま作ったものを探して読み直します */
   const found = await p.evaluate(`location.href`);
   console.log("いまの画面: " + String(found).slice(0, 90));
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

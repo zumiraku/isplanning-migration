@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   layout-audit.js — 重なり・親からのはみ出し・文字切れ・つぶれ を全ページで拾う
-
-   ※ 「横にはみ出していない」だけを測っていました
-
-      山口様のご指摘は**ズレと重なり**です。画面の外に出ていなくても、
-      文字が文字に重なっていれば読めません。これまでの検査は
-      1件も見ていませんでした。
-
-     node tools/cdp/layout-audit.js            全ページ・1280と375
-     node tools/cdp/layout-audit.js top 375    1つだけ
---------------------------------------------------------------------------- */
+/* layout-audit.js — 重なり・親からのはみ出し・文字切れ・つぶれ を全ページで拾う */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -95,3 +84,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("");
   console.log(total ? "※ 気になるもの 合計 " + total + " 件" : "OK 重なりもズレもありません");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

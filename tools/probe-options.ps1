@@ -1,18 +1,3 @@
-<#
-  Capture the option price/stock oracle from /shop/shopdetail_option.html.
-
-  Run once under Basic Mode (-Label basic) to capture ground truth WHILE IT STILL
-  EXISTS, then again under Creator Mode (-Label creator) during the rollback
-  rehearsal. Diffing the two answers Q1b: does the platform endpoint survive the
-  mode switch?
-
-  Public endpoint, no login. Read-only price/stock lookup - the same request a
-  shopper's browser makes when they click an option radio.
-
-    .\tools\probe-options.ps1 -Label basic
-    .\tools\probe-options.ps1 -Label creator
-    .\tools\probe-options.ps1 -Diff basic,creator
-#>
 param(
   [string]$Label = 'basic',
   [string[]]$Compare,
@@ -23,7 +8,6 @@ param(
 $UA  = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'
 $EP  = 'https://www.isp-sp.com/shop/shopdetail_option.html'
 
-# ---- diff mode -------------------------------------------------------------
 if ($Compare) {
   $a = Import-Csv "spec\price-matrix-$($Compare[0]).csv"
   $b = Import-Csv "spec\price-matrix-$($Compare[1]).csv"
@@ -44,12 +28,10 @@ if ($Compare) {
   return
 }
 
-# ---- capture mode ----------------------------------------------------------
 $eucjp = [System.Text.Encoding]::GetEncoding(51932)
 $sample = Import-Csv inventory\pages-products-sample.csv
 $variants = Import-Csv inventory\product-variants.csv | Where-Object { [int]$_.option_count -gt 0 }
 
-# The reference product is not in the stratified sample - probe it explicitly.
 $targets = @([pscustomobject]@{
   url = 'https://www.isp-sp.com/shopdetail/000000025283/003/003/X/page1/order/'
   file = 'shopdetail_000000025283_003_003_X_page1_order.16957D17.html'
@@ -64,17 +46,12 @@ foreach ($t in $targets) {
   if (-not (Test-Path "snapshot\desktop\$($t.file)")) { continue }
   $h = $eucjp.GetString([System.IO.File]::ReadAllBytes("snapshot\desktop\$($t.file)"))
 
-  # uid is MakeShop's internal product id. It is NOT derivable from the URL:
-  # the 000000xxxxxx scheme happens to embed it, the older cccssxxxxxx scheme does
-  # not, and deriving it from the path returns price 0 for every old-scheme product.
-  # Read it from the page's own call site instead - which is what the rebuild must do too.
   if ($h -notmatch 'updateOptionPriceAjax\(\s*(\d+)') {
     Write-Output "  ! no updateOptionPriceAjax call site in $($t.url) - skipped"
     continue
   }
   $uid = $matches[1]
 
-  # Use the option pairs the page actually renders, not an assumed range.
   $pairs = [regex]::Matches($h,'name="brand_option"[^>]*value="(\d+)_(\d+)"') |
            ForEach-Object { "$($_.Groups[1].Value)_$($_.Groups[2].Value)" } | Sort-Object -Unique
   if (-not $pairs) { continue }
@@ -110,3 +87,4 @@ $rows | Export-Csv $out -NoTypeInformation -Encoding UTF8
 Write-Output ""
 Write-Output "captured $($rows.Count) combinations across $(($rows | Group-Object uid).Count) products -> $out"
 $rows | Group-Object status | Select-Object Name, Count
+

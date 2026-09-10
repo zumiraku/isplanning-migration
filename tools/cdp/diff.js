@@ -1,12 +1,4 @@
-/* ---------------------------------------------------------------------------
-   diff.js — 保存されている中身を取り出して、手元のファイルと突き合わせる
-
-     node tools/cdp/diff.js contract package/templates/contract.tpl
-
-   文字数が合わないときに「届いていない」と決めつけないための道具です。
-   サーバー側が保存時に書き換える文字（実体参照など）があるので、
-   **どこがどう違うか**を見ないと判断できません。
---------------------------------------------------------------------------- */
+/* diff.js — 保存されている中身を取り出して、手元のファイルと突き合わせる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -64,3 +56,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   if (shown === 0) { console.log("（行ごとの差はありません。改行コードだけの違いです）"); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

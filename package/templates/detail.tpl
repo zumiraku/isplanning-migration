@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     商品詳細 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_detailpage.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -55,7 +48,6 @@
 	</div>
 	
 	<h2 class="brandname"><p><{$item.name}></p><{if $item.base_category.code == "ct261"}>粗品におすすめタオル類<{/if}></h2>
-
 
 <!--<div id="NextPage"><span class="PageLeft"><a href=>< 前の商品</a></span><span class="PageRight"><a href=>次の商品 ></a></span></div>-->
 	<div class="O_itemDetailTop">	
@@ -109,9 +101,7 @@
 					       value="<{if $item.order_quantity_min}><{$item.order_quantity_min}><{else}>1<{/if}>"
 					       <{if $item.order_quantity_min}>min="<{$item.order_quantity_min}>"<{/if}>
 					       <{if $item.order_quantity_max}>max="<{$item.order_quantity_max}>"<{/if}>>
-					<{* ※ 元は [UPCOUNT] / [DOWNCOUNT] というURLの▲▼でした。
-					     クリエイターに同じURLはありません。数値入力欄にすると
-					     スマホでも数字キーが出て、押す回数も減ります。 *}></dd>
+					</dd>
 			</dl>
 		</div>
 <{if $item.is_sale}>
@@ -154,7 +144,6 @@
 
 <!-- O_itemDetailR -->
 <!-- 商品詳細説明 -->
-
 
 	
 	<div class="tab-area">
@@ -219,7 +208,6 @@ try{
 } catch(err) {}
 </script>
 
-
 <!--商品グループ--><div id="brandgroupsend"></div>
 <div class="M_section" id="middle_recent">
         <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index == 0}><{elseif $smarty.section.g.index % 4 == 0}></tr><tr><{else}><td class="line"><img height="100" width="4" border="0" src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a><{if $item.group.list[g].icon.has_item}><{section name=gi loop=$item.group.list[g].icon.list}> <img src="<{$item.group.list[g].icon.list[gi].image_url}>" align="absmiddle" border="0"><{/section}><{/if}></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
@@ -253,7 +241,6 @@ try{
   });
 } catch(err) {}
 </script>
-
 
 <{else}>
 
@@ -366,19 +353,6 @@ src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="t
 </div>
 </div><!-- /.tab-area -->
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

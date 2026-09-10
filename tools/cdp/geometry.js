@@ -1,18 +1,4 @@
-/* ---------------------------------------------------------------------------
-   geometry.js — 現行サイトと移植版で、同じ部品の位置と大きさを突き合わせます
-
-   ※ 「はみ出していない」だけを見ていたのが間違いでした
-
-      山口様のご指摘は**ズレ**です。画面からはみ出していなくても、
-      本文の左端が40pxずれていれば、全体がずれて見えます。
-      同じセレクタの要素を、現行と移植版で1つずつ測って引き算します。
-
-     node tools/cdp/geometry.js top 1280
-     node tools/cdp/geometry.js top 375
-
-   ※ 現行と移植版で中身（商品数など）は違うので、**縦位置は比べません。**
-      比べるのは左端・右端・幅です。
---------------------------------------------------------------------------- */
+/* geometry.js — 現行サイトと移植版で、同じ部品の位置と大きさを突き合わせます */
 const { page } = require("./cdp.js");
 
 const EDITOR = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -31,7 +17,6 @@ const PAGES = {
   contract:    { type: 13, live: "https://www.isp-sp.com/html/ordercontract.html" }
 };
 
-/* 見る部品。現行にも移植版にもあるはずのものだけ */
 const MARKS = [
   "#headerWrap", ".header-txt", ".h-txt-inner", "#header", ".head_contents",
   ".logo-box", ".contents_center", ".contents_right", "#gNav", ".head_nav_contents",
@@ -145,3 +130,4 @@ async function settle(p) {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

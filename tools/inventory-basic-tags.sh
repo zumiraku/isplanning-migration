@@ -1,25 +1,5 @@
 #!/bin/sh
 # inventory-basic-tags.sh — every Basic Mode variable tag the shop's templates use
-#
-# The design backup (templates/basic-export/design/) is the source as typed into
-# the admin, so it contains the platform's own variable tags - [BRANDNAME],
-# [BASKET_MAIL], [PAGER] and so on. Those tags ARE the functionality: the
-# migration succeeds exactly to the extent that each one has a Creator Mode
-# equivalent and that equivalent is wired up.
-#
-# So this counts them and records where each appears. A tag with no Creator Mode
-# counterpart is a functional gap, and this list is what makes those findable
-# instead of discovered by a customer.
-#
-# Control-flow tags ([IF...], [ELSE], [ENDIF], [END]) are marked as such: they
-# are template logic rather than output, and Creator Mode has its own syntax.
-#
-# NOTE: every grep here uses -F. A tag like [BRANDNAME] is a character class to
-# grep otherwise, matching any one of B,R,A,N,D,M,E - which reported 26,314 uses
-# of one tag and claimed every tag appeared in the stylesheet.
-#
-# Output: inventory/basic-mode-tags.csv
-# Needs Git Bash. Run from the repository root.
 
 dir="templates/basic-export/design"
 out="${1:-inventory/basic-mode-tags.csv}"
@@ -53,3 +33,4 @@ echo ""
 echo "most used output tags:"
 sed 's/"//g' "$out" | awk -F, 'NR>1 && $4=="output"{printf "%6d  %-22s %s\n", $2, $1, $5}' \
   | sort -rn | head -12
+

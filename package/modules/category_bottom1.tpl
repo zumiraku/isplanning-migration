@@ -1,12 +1,3 @@
-<{* ==========================================================================
-     カテゴリごとの独自内容 — ベーシックからの移植
-
-     ※ クリエイターモードにカテゴリ説明のタグはありません。
-        $category.* は31個ありますが、説明文を出すものがありません。
-        カテゴリ識別コードで振り分けます。
-
-     生成物です。直すときは tools/cdp/category-extra.js を直してください。
-   ========================================================================== *}>
 <{if $category.code == 'ct639' or $category.code == 'ct469' or $category.code == 'ct443' or $category.code == 'ct573' or $category.code == 'ct574' or $category.code == 'ct575' or $category.code == 'ct576' or $category.code == 'ct577' or $category.code == 'ct578' or $category.code == 'ct579' or $category.code == 'ct580' or $category.code == 'ct581' or $category.code == 'ct582' or $category.code == 'ct583' or $category.code == 'ct584' or $category.code == 'ct585' or $category.code == 'ct600' or $category.code == 'ct601' or $category.code == 'ct572' or $category.code == 'ct630' or $category.code == 'ct648' or $category.code == 'ct660' or $category.code == 'ct663' or $category.code == 'ct666' or $category.code == 'ct668'}>
 <h2 class="categorybottom">粗品選びは【発見マーケット】にお任せ！</h2>
   <p style="margin: 0 0 50px 0; padding: 1px 100px 30px 100px; line-height: 1.8; font-size:18px; text-align:left;">

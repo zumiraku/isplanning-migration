@@ -1,31 +1,4 @@
-/* ---------------------------------------------------------------------------
-   build-mirror.js — 移植版を、そのまま開ける静的な写しにします
-
-   ※ プレビューでは、移植版を見ていただけません
-
-      実測（2026-09-10）:
-
-        Cookie無しで /?ptk=…            → 200 だが EUC-JP。**現行サイト**です
-        Cookie無しで /view/cart?ptk=…   → 301 で /shop/basket.html へ
-        管理画面でプレビューを押した直後  → **押した種別の中身**がどのURLにも出ます
-
-      つまり、リンクをお渡ししても移植版は見えません。押した1種別だけが
-      正しく、そこから他のページへ移ると中身が入れ替わります。
-      タイトルだけはURLどおりなので、一見それらしく見えます。
-
-      さらに、こちらのCSSとJavaScriptは Cookie 無しだと空で返ります。
-
-        /view/asset/user-…css   19 バイト（本当は約190KB）
-        /view/asset/user-…js     1 バイト（本当は約8KB）
-
-   だから、**種別ごとに正しく結び直して取り込み、CSSとJavaScriptを中に
-   埋め込んだHTML**を書き出します。フォルダを開けば、そのままブラウザで
-   見られます。ページ間のリンクも写しの中でつながります。
-
-     node tools/cdp/build-mirror.js
-
-   書き出し先: mirror/
---------------------------------------------------------------------------- */
+/* build-mirror.js — 移植版を、そのまま開ける静的な写しにします */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");
@@ -37,7 +10,6 @@ const SITE = "https://www.isp-sp.com";
 const CSS = "package/paste/all-pages.css";
 const JS = "package/paste/all-pages.js";
 
-/* 写しの中のファイル名。pages.js の名前から作ります。 */
 const FILE = {
   "トップ": "top.html",
   "カテゴリ": "category.html",
@@ -51,7 +23,6 @@ const FILE = {
   "個人情報": "policy.html"
 };
 
-/* 移植版のURLの形 → 写しのファイル。順番に見て、最初に当たったものを使います。 */
 const LINKS = [
   [/^\/view\/category\/[^"'?#]*/, "category.html"],
   [/^\/view\/item\/[^"'?#]*/, "detail.html"],
@@ -78,31 +49,14 @@ function localFor(u) {
 }
 
 function rewrite(html, css, js) {
-  /* こちらのCSSとJavaScriptを埋め込みます（Cookie無しでは空で返るため）
-     ※ 資産のURLには問合せが付きます。
-
-          /view/asset/user-5-1-2-….css?ptk=…&6aa265d36467f
-
-        最初 `\.css"` で終わる形だけを見ていたので1つも置き換わらず、
-        **写しが丸ごと素のHTML**になっていました（CSSの規則0本）。 */
   html = html.replace(/<link[^>]+href="\/view\/asset\/user-[^"]*"[^>]*>/g,
     "<style>\n" + css + "\n</style>");
   html = html.replace(/<script[^>]+src="\/view\/asset\/user-[^"]*"[^>]*><\/script>/g,
     "<script>\n" + js + "\n</script>");
 
-  /* ※ document.write を呼ぶスクリプトを外します
-   *
-   *    イーレコメンド（rcmd.jp）の設置タグは document.write でスクリプトを
-   *    足します。読み込みが終わったあとの document.write は**ページを
-   *    まるごと消します。** 写しを開くと、商品詳細だけ本文が2,431文字・
-   *    画像13枚になっていました（本来は約8,000文字・116枚）。
-   *
-   *    出た中身は取り込んだ時点のDOMに入っているので、**もう一度
-   *    走らせる必要がありません。** 呼ぶ側だけ外します。 */
   html = html.replace(/<script\b[^>]*>[\s\S]*?document\.write[\s\S]*?<\/script>/gi, "");
   html = html.replace(/<script\b[^>]+src="[^"]*(rcmd|komi)[^"]*"[^>]*><\/script>/gi, "");
 
-  /* href / src の中を1つずつ見ます */
   html = html.replace(/\b(href|src)="(\/[^"]*)"/g, function (all, attr, u) {
     if (attr === "href") {
       const f = localFor(u);
@@ -111,7 +65,6 @@ function rewrite(html, css, js) {
     return attr + '="' + SITE + u + '"';
   });
 
-  /* 写しだと分かる印を、いちばん上に置きます */
   html = html.replace(/<body([^>]*)>/i, '<body$1>\n' +
     '<div style="background:#0b6;color:#fff;font:14px/1.6 sans-serif;padding:8px 12px;text-align:center">' +
     'これは移植版の写しです（' + new Date().toISOString().slice(0, 10) + ' 時点）。' +
@@ -143,7 +96,6 @@ function rewrite(html, css, js) {
     console.log("   " + name.padEnd(14) + file.padEnd(18) + Math.round(out.length / 1024) + " KB");
   }
 
-  /* 検索は pages.js に無いので、種別5を足します */
   const bound = await openAt(p, 5, "/view/search?search_keyword=ND-P3841", 9000);
   if (bound.ok) {
     const html = await p.evaluate("document.documentElement.outerHTML");
@@ -172,3 +124,4 @@ function rewrite(html, css, js) {
   console.log("");
   console.log("OK " + made.length + " 枚を " + OUT + "/ に書き出しました（index.html から開けます）");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

@@ -1,28 +1,4 @@
-/* ---------------------------------------------------------------------------
-   check-content-parity.js — 現行サイトにあって、移植版に無い文言を出す
-
-   ※ 差し戻しの原因はこれでした
-
-      山口様のご指摘21件は、ほぼ全部が「元にあったものを持ってこなかった」
-      でした。ヘッダーの文言、左メニュー、コラム、フッターの案内、
-      買い物かごの配達日と送料の説明。**どれも、こちらの検査は
-      1件も報告しませんでした。** 無いものは検査できないからです。
-
-      だから、現行サイトの文字を1つずつ持って、移植版に有るかを見ます。
-      「有るはずのものが有るか」ではなく「**現行に有るものが有るか**」です。
-
-   やりかた
-
-      1. 公開中のページ（ベーシック）から、表示される文字を取る
-      2. 移植版のプレビューから、同じく取る
-      3. 現行にあって移植版に無い塊を並べる
-
-   ※ 商品名・価格は当然ちがいます
-
-      プレビューは作り物のデータで描いているので、商品まわりは一致しません。
-      数字だけの塊と、商品データらしきものは除きます。**除いた数も出します** ──
-      黙って減らすと、本当の欠落が見えなくなります。
---------------------------------------------------------------------------- */
+/* check-content-parity.js — 現行サイトにあって、移植版に無い文言を出す */
 const fs = require("fs");
 
 function decode(buf) {
@@ -31,7 +7,6 @@ function decode(buf) {
   return s;
 }
 
-/* 表示される文字だけを、意味のある塊で取り出します。 */
 function chunks(html) {
   const body = html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -39,23 +14,16 @@ function chunks(html) {
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/<[^>]*>/g, "\n");
   return body.split("\n")
-    /* ※ 数値参照も戻します
-     *
-     *    現行のページは 〜 を `&#12316;`、© を `&#169;` と書いています。
-     *    プレビューはブラウザから取るので、そこは文字になっています。
-     *    戻さないと、**同じ文なのに「移植版に無い」**と出ます。
-     *    会社概要・特商法・ご利用案内で2件ずつ、これで出ていました。 */
     .map(s => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<")
                .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)))
                .replace(/\s+/g, " ").trim())
     .filter(s => s.length >= 8);
 }
 
-/* 商品データらしきもの。プレビューは作り物なので比べても意味がありません。 */
 function isProductish(s) {
-  if (/^[\d,.\s円個点%％]+$/.test(s)) { return true; }          // 数字と単位だけ
+  if (/^[\d,.\s円個点%％]+$/.test(s)) { return true; }
   if (/^品番[:：]/.test(s)) { return true; }
-  if (/^\d{4}\/\d{1,2}\/\d{1,2}/.test(s)) { return true; }      // 日付
+  if (/^\d{4}\/\d{1,2}\/\d{1,2}/.test(s)) { return true; }
   if (/^\[\d{4}\/\d{2}\/\d{2}\]$/.test(s)) { return true; }
   return false;
 }
@@ -73,7 +41,6 @@ for (const c of live) {
   seen.add(c);
   if (isProductish(c)) { skipped++; continue; }
   if (port.has(c)) { continue; }
-  /* 前後の空白や記号の差だけなら一致とみなします */
   if (portJoined.indexOf(c) >= 0) { continue; }
   missing.push(c);
 }
@@ -82,3 +49,4 @@ console.log("── " + (label || livePath));
 console.log("   現行の文言 " + seen.size + " 塊 / 商品データとして除外 " + skipped + " / ※ 移植版に無い " + missing.length);
 missing.slice(0, 40).forEach(m => console.log("     " + m.slice(0, 100)));
 if (missing.length > 40) { console.log("     … 他 " + (missing.length - 40) + " 件"); }
+

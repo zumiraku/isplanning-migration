@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   cdp.js — Chrome を操作するための最小限の道具
-
-   Node に WebSocket が入っていないので、必要なぶんだけ自分で書きます。
-   使うのは Runtime.evaluate と Page.navigate だけなので、これで足ります。
-
-   ※ ここで扱うのは、ログイン済みのブラウザそのものです
-
-      管理画面の「保存」が届いているかどうかは、**押したあとに読み直して
-      比べる**以外に確かめようがありません。人にやってもらうと、押した/
-      押していない、見た/見ていないの区別がつかず、実際に2巡むだにしました。
---------------------------------------------------------------------------- */
+/* cdp.js — Chrome を操作するための最小限の道具 */
 const http = require("http");
 const net = require("net");
 const crypto = require("crypto");
@@ -26,7 +15,6 @@ function getJson(path) {
   });
 }
 
-/* --- 最小の WebSocket ------------------------------------------------------ */
 class Ws {
   constructor(sock) {
     this.sock = sock;
@@ -49,7 +37,7 @@ class Ws {
       const payload = this.buf.slice(off, off + len);
       this.buf = this.buf.slice(off + len);
       if (op === 0x8) { this.sock.end(); return; }
-      if (op === 0x9) { this.sendFrame(payload, 0xa); continue; }   /* ping → pong */
+      if (op === 0x9) { this.sendFrame(payload, 0xa); continue; }
       if (op === 0x1 || op === 0x0) {
         this.frags.push(payload);
         if (fin) {
@@ -80,7 +68,7 @@ class Ws {
       this.sendFrame(Buffer.from(JSON.stringify({ id, method, params: params || {} })), 0x1);
     });
   }
-  close() { try { this.sock.end(); } catch (e) { /* 閉じられなくても止めない */ } }
+  close() { try { this.sock.end(); } catch (e) {  } }
 }
 
 function connect(wsUrl) {
@@ -115,7 +103,6 @@ function connect(wsUrl) {
   });
 }
 
-/* --- 使う側の入口 ---------------------------------------------------------- */
 let seq = 1;
 
 async function page(match) {
@@ -151,3 +138,4 @@ async function newTab(url) {
 }
 
 module.exports = { getJson, page, newTab };
+

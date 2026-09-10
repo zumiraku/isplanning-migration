@@ -1,18 +1,4 @@
-/* ---------------------------------------------------------------------------
-   assets-check.js — 画像・CSS・JSが本当に読めているかを、現行と比べます
-
-   ※ 「参照している」ことは数えていましたが、「出ている」かは見ていません
-
-      inventory/assets-referenced.txt はテンプレートに書いてあるURLの一覧です。
-      **書いてあるだけでは、出ているとは限りません。** 404でも、テンプレートは
-      無事で、未展開タグの検査も位置の検査も通ります。
-
-      実際にブラウザで描いて、img が読めなかったものだけを名指しします。
-      現行にも読めない画像はあるので、**現行で読めていて移植版で読めない
-      ものだけ**を欠けとして数えます。
-
-     node tools/cdp/assets-check.js
---------------------------------------------------------------------------- */
+/* assets-check.js — 画像・CSS・JSが本当に読めているかを、現行と比べます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { PAGES, landed } = require("./pages.js");
@@ -39,7 +25,6 @@ function key(s) { return String(s).split("  ⟨")[0]; }
       bad++; continue;
     }
     const live = await p.evaluate(EXPR);
-    /* ※ ptk のURLに直接行ってはいけません（bind.js の見出しに理由） */
     const bound = await openAt(p, type, portPath, 5000);
     if (!bound.ok) { console.log("※ " + name.padEnd(14) + bound.why); bad++; continue; }
     const nu = await p.evaluate(EXPR);
@@ -63,7 +48,6 @@ function key(s) { return String(s).split("  ⟨")[0]; }
     if (cssLost.length) {
       details.push(["※ " + name + " ── 移植版でだけ読めないCSS", ...cssLost.map(x => "     " + x)].join("\n"));
     }
-    /* JSの出所が増えたり減ったりしていないか */
     const liveJs = new Set((live.JS一覧 || []).map(u => u.replace(/\?.*$/, "")));
     const nuJs = new Set((nu.JS一覧 || []).map(u => u.replace(/\?.*$/, "")));
     const jsLost = [...liveJs].filter(u => !nuJs.has(u));
@@ -78,3 +62,4 @@ function key(s) { return String(s).split("  ⟨")[0]; }
   console.log(bad ? "※ 移植版でだけ読めないもの " + bad + " 件"
                   : "OK 現行で出ているものは、移植版でも全部出ています");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

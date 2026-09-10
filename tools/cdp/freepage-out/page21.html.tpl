@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     販売単位数量　ご相談可能のご説明 — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -48,7 +41,6 @@
 <div class="heading-041">
 商品詳細ページの画像の下部分をご確認ください。下記赤丸部分。</div>
 
-
 <ul class="txtList03">
 <li><p style="margin-left: 5%; line-height:25px;">●詳細ページに表示画像</p>
 <p><img alt="数量相談可能商品詳細ページに表示画像" src="https://gigaplus.makeshop.jp/isplanning/images/soudan01.jpg" ></p></li>
@@ -76,7 +68,6 @@
 
 <p><a href="https://www.isp-sp.com/shop/enq202208200" onclick="window.open(this.href, '', 'resizable=yes,status=no,location=no,toolbar=no,menubar=no,fullscreen=no,scrollbars=yes,dependent=no,width=600,height=600'); return false;"><img src="https://gigaplus.makeshop.jp/isplanning/images/estimation_cart2.png" alt="見積り依頼フォーム" /></a></p>
 
-
 <hr class="newshr">
 
 <p style="margin:30px 0 30px 0;">一部商品で「少量購入できる粗品・数量選択可能商品」もございますのでご確認ください。</p>
@@ -86,7 +77,6 @@
 <div class="normal-box2" style="width:420px; height: 42px; margin:0 0 20px 0;"><a href="/view/page/page81.html"><p>● 数量選択可能商品の説明</p></a></div>
 
 </div>
-
 
 <p class="btn_link"><a href="/view/page/page5.html" style="display: block; margin: auto;">季節で選ぶ粗品の一覧</a></p>
 <p class="btn_link"><a href="/view/page/page8.html" style="display: block; margin: auto;">シーンで選ぶ粗品一覧</a></p>
@@ -98,19 +88,6 @@
 ＜＜商品詳細画面のご説明＞＞
 <!--<img alt="画面説明" src="https://gigaplus.makeshop.jp/isplanning/images/isplanning_explanation2.jpg">-->
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

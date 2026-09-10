@@ -1,25 +1,5 @@
 #!/bin/sh
-# =============================================================================
-#  check-css-fresh.sh — 配信するCSSが、手元のCSSから作り直されているか
-#
-#  CSSは2箇所にあります。
-#
-#    templates/creator/css/tokens.css      ┐ 編集するのはこちら
-#    templates/creator/css/components.css  ┘
-#    templates/creator/mode/all-pages.css    ← 貼り付けるのはこちら（生成物）
-#
-#  ※ components.css を直してビルドを忘れると、こうなります。
-#
-#     - プレビューは tokens/components を直接読むので**直って見えます**
-#     - check-overflow.sh も同じものを読むので**通ります**
-#     - 実際に配信されるページは all-pages.css を読むので**古いまま**
-#
-#     つまり、直したつもりで、検査も全部通って、本番だけ崩れます。
-#     一度 .listbar__sort の折り返しでこの状態を作りかけました。
-#
-#  ここで作り直して、手元のものと1バイト単位で比べます。元ファイルは
-#  書き換えません。
-# =============================================================================
+# check-css-fresh.sh — 配信するCSSが、手元のCSSから作り直されているか
 set -e
 cd "$(dirname "$0")/.."
 
@@ -49,3 +29,4 @@ echo ""
 echo "    直し方:  sh tools/build-all-pages-css.sh"
 rm -f "$tmp"
 exit 1
+

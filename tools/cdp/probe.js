@@ -1,22 +1,4 @@
-/* ---------------------------------------------------------------------------
-   probe.js — 商品詳細のテンプレートに一時的な印を差し込み、実データを読む
-
-     node tools/cdp/probe.js tools/cdp/probes/<名前>.tpl [商品コード]
-
-   商品コードを付けると、プレビューではなく
-   /view/item/<コード>?ptk=… を開いて読みます。カテゴリ専用テンプレート
-   （ct646 / ct664）に当たる商品を名指しで見るために要ります。
-
-   ※ プレビューは「保存済みの内容」を描きます
-
-      formPreview に流し込んだHTMLは使われません（印が1つも出ませんでした）。
-      いったん保存 → プレビュー → 読む → **元に戻す**、の順でやります。
-      ショップには適用していないので、公開中のサイトには影響しません。
-
-   ※ 途中で落ちると、印が入ったまま残ります。そのときは
-      node tools/cdp/paste.js detail package/templates/detail.tpl
-      で戻せます。
---------------------------------------------------------------------------- */
+/* probe.js — 商品詳細のテンプレートに一時的な印を差し込み、実データを読む */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -77,7 +59,6 @@ async function save(p, body) {
     const html = await p.evaluate("document.documentElement.outerHTML");
     fs.writeFileSync("tools/cdp/preview-out/_probe.html", html);
 
-    /* ZQ<名前>START … ZQ<名前>END を取り出します */
     const found = [...html.matchAll(/ZQ([A-Za-z0-9_]+)START([\s\S]*?)ZQ\1END/g)];
     console.log("URL: " + url.slice(0, 70));
     console.log("");
@@ -92,3 +73,4 @@ async function save(p, body) {
     p.close();
   }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

@@ -1,24 +1,4 @@
-/* ---------------------------------------------------------------------------
-   preflight.js — 「ショップに適用」を押す前の、最後の確認
-
-     node tools/cdp/preflight.js
-
-   押してよいかどうかは、次の4つで決まります。ひとつでも欠けたら押しません。
-
-     ① 管理画面のセッションが生きているか
-        ※ 貼り付けが2度失敗した原因は、これでした。ログインが切れていても
-           画面は記憶から描き続けるので、見た目では分かりません。
-
-     ② 適用するデザインセットが「発見マーケット_移行版」か
-        名前と design_set_id の両方で確かめます。
-
-     ③ 切り戻し先があるか
-        いま出ているのはベーシックモードです。戻す先が無いまま押すと、
-        戻せません。
-
-     ④ 適用ボタンが、狙ったセットの行のものか
-        onclick の引数に入っている id を読みます。
---------------------------------------------------------------------------- */
+/* preflight.js — 「ショップに適用」を押す前の、最後の確認 */
 const { page } = require("./cdp.js");
 
 const LIST = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_top.html";
@@ -88,7 +68,6 @@ const READ = `(function () {
 
   let ng = 0;
 
-  /* ① セッション */
   if (r.loginLike || r.url.indexOf("login") >= 0) {
     console.log("① セッション        ※ 切れています。ここで止めます");
     ng++;
@@ -99,10 +78,8 @@ const READ = `(function () {
     console.log("① セッション        OK 生きています（一覧 " + r.sets.length + " 件）");
   }
 
-  /* ② いまのモード */
   console.log("② いまのモード      " + r.mode);
 
-  /* ③ セット一覧 */
   console.log("");
   console.log("③ デザインセット一覧");
   let found = null;
@@ -123,7 +100,6 @@ const READ = `(function () {
     ng++;
   }
 
-  /* ④ 適用ボタン */
   console.log("");
   console.log("④ 適用ボタン " + r.buttons.length + " 個");
   r.buttons.slice(0, 12).forEach(function (b) {
@@ -135,3 +111,4 @@ const READ = `(function () {
   console.log(ng ? "※ 押せません。" + ng + " 件" : "OK 前提は満たしています");
   if (ng) { process.exit(1); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

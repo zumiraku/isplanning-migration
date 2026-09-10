@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     粗品を配るターゲットを絞る — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -41,7 +34,6 @@
 
 <div class="M_mainContents">
 
-
 <!--　FANコンテンツここから　-->
 <div id="fan_contents">
 <h2>粗品を配るターゲットを絞る</h2>
@@ -52,8 +44,6 @@
 粗品を配るという機会は多いと思います。特に企業であれば、<strong style="color:#333;">粗品</strong>をノベルティとして配る事は少なくはありません。ノベルティとは、企業が商品の宣伝を目的として無料で配る品を意味しますが、配る際にはターゲットを絞る事が大切です。こちらでは、配る際のターゲットについてご紹介いたします。
         </p>
     </div>
-
-
 
     <h3>アウトドアが好きな方に向けて</h3>
     <div style="overflow: hidden;margin: 0 0 30px; text-align:left;">
@@ -76,8 +66,6 @@
 そこで、デスクワークをしている方には、ブランケットのノベルティがおすすめです。ブランケットであれば、仕事中にひざ掛けにできますし、羽織る事も可能です。そのため、多くの方に活用してもらえるノベルティとなるのではないでしょうか。
         </p>
     </div>
-
-
 
     <div style="overflow: hidden;margin: 0 0 45px;">
     <div style="overflow:hidden;margin: 15px 0;padding: 15px;background: #009A44; color:#fff; text-align:left;">
@@ -102,19 +90,6 @@
  
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

@@ -1,16 +1,5 @@
 #!/bin/sh
 # check-smarty.sh — do the Creator Mode templates parse?
-#
-# These files go into an admin console that has no version history and no dry
-# run. A mismatched <{if}> or a <{section}> that is never closed is not caught
-# until it is pasted into the live shop, and by then the page is already wrong.
-#
-# So: balance the block tags, and confirm every variable used appears in the
-# tag reference we read (docs/tag-mapping.md). The second check is the one that
-# matters - a template can be perfectly balanced and still address a tag that
-# does not exist, which renders as nothing at all.
-#
-# Needs Git Bash (perl). Run from the repository root.
 
 dir="templates/creator/mode"
 fail=0
@@ -19,7 +8,6 @@ for f in "$dir"/*.tpl; do
   [ -f "$f" ] || continue
   name=$(basename "$f")
 
-  # Block balance. Comments <{* … *}> are stripped first: they contain examples.
   r=$(perl -CSD -0777 -ne '
       my $h = $_;
       $h =~ s/<\{\*.*?\*\}>//gs;
@@ -34,7 +22,6 @@ for f in "$dir"/*.tpl; do
         } else { push @stack, $tag }
       }
       push @err, "never closed: " . join(",", @stack) if @stack;
-      # elseif / else outside an if
       my $depth = 0;
       while ($h =~ /<\{\s*(\/?)(if)\b[^}]*\}>|<\{\s*(elseif|else)\b[^}]*\}>/g) {
         if (defined $2) { $1 ? $depth-- : $depth++ }
@@ -49,15 +36,6 @@ for f in "$dir"/*.tpl; do
   fi
 done
 
-# Every variable used must be one we have actually seen, and the templates must
-# not pretend an assumption is a fact. inventory/creator-tags-known.tsv records
-# where each tag came from: "confirmed" means it was read off MakeShop's own tag
-# reference, "assumed" means it was inferred from a naming pattern.
-#
-# Assumptions are not errors - some of them are almost certainly right, and the
-# templates could not be written without them. What would be an error is
-# pasting them into a live shop believing they were checked. So they are counted
-# and listed, every time, rather than being allowed to fade into the background.
 known="inventory/creator-tags-known.tsv"
 used=$(for f in "$dir"/*.tpl; do
   [ -f "$f" ] || continue
@@ -103,3 +81,4 @@ fi
 echo ""
 if [ "$fail" -eq 0 ]; then echo "block structure : OK"; else echo "FAILED"; fi
 exit $fail
+

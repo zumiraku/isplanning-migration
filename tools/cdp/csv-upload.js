@@ -1,14 +1,4 @@
-/* ---------------------------------------------------------------------------
-   csv-upload.js — 商品CSVを流し込む
-
-     node tools/cdp/csv-upload.js tools/cdp/csv/test-one.csv
-
-   ※ 商品データを書き換えます。取り消しは、控えのCSVを流し直すことでしか
-      できません。**控え: tools/cdp/csv/20260909181742.csv**
-
-   ※ 「ショップに適用」より前に流すと、切り替えまでのあいだ
-      PC・スマホの商品ページに表が二重に出ます。
---------------------------------------------------------------------------- */
+/* csv-upload.js — 商品CSVを流し込む */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");
@@ -34,7 +24,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     console.log("※ ファイル欄が出ません"); p.close(); process.exit(1);
   }
 
-  /* ファイル欄に実ファイルを差し込みます（画面から選ぶのと同じことです） */
   await p.send("DOM.enable");
   const doc = await p.send("DOM.getDocument", { depth: 1 });
   const root = doc.result.root.nodeId;
@@ -72,3 +61,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

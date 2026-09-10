@@ -1,10 +1,4 @@
-/* ---------------------------------------------------------------------------
-   find-setting.js — 管理画面のメニューから、探している設定の入口を見つけます
-
-     node tools/cdp/find-setting.js 会員 年齢 認証
-
-   URLを当てずっぽうで叩いて 404 を5回並べたので、**メニューを読ませます。**
---------------------------------------------------------------------------- */
+/* find-setting.js — 管理画面のメニューから、探している設定の入口を見つけます */
 const { page } = require("./cdp.js");
 
 const WORDS = process.argv.slice(2);
@@ -45,3 +39,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

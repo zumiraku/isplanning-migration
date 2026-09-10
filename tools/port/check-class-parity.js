@@ -1,26 +1,4 @@
-/* ---------------------------------------------------------------------------
-   check-class-parity.js — 現行テンプレートの class と id が、移植版にもあるか
-
-   ※ 買い物かごの配送案内が、静かに消えていました
-
-      置換のコードは書いてありました。ところが**その行ごと作り直して
-      いた**ので、置換する相手がもう居ませんでした。`replace` は相手が
-      無くても何も言いません。未展開タグの検査も、リンクの検査も、
-      位置の検査も、**無いものは見つけられません。**
-
-      class と id を数えて突き合わせると出ます。
-
-        haisou_txt        現行1 / 移植0   ← 送料の案内
-        basket-del        現行1 / 移植0   ← かごを空にする
-        totalWrap         現行2 / 移植1
-
-      全部が欠陥ではありません。まとめ買い割引のように**機能が無効で
-      現行でも出ない**ものもあります。だから「消えた」と言い切らず、
-      並べて人が見るための道具です。理由の分かっているものは
-      inventory/class-parity-allow.tsv に書いて黙らせます。
-
-     node tools/port/check-class-parity.js
---------------------------------------------------------------------------- */
+/* check-class-parity.js — 現行テンプレートの class と id が、移植版にもあるか */
 const fs = require("fs");
 
 const D = "templates/basic-export/design/";
@@ -51,7 +29,6 @@ function decode(buf) {
   return s;
 }
 
-/* コメントの中は数えません。現行にも移植にも「使っていない印」があります。 */
 function names(file) {
   if (!fs.existsSync(file)) { return null; }
   let s = decode(fs.readFileSync(file));
@@ -94,3 +71,4 @@ console.log("理由を書いて除いたもの " + allowed + " 件（" + ALLOW +
 console.log(missing ? "※ 移植版に無い class / id が " + missing + " 件あります"
                     : "OK 現行の class と id は、移植版にすべてあります");
 if (missing) { process.exit(1); }
+

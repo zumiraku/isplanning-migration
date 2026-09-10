@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   freepages.js — 独自ページ82枚が、どちらの版で入っているかを調べる
-
-     node tools/cdp/freepages.js            全部（時間がかかります）
-     node tools/cdp/freepages.js 1 10       範囲を指定
-
-   ※ 独自ページはページ種別とは別物です
-
-      デザインセットの中に、82枚それぞれ丸ごとのHTMLが入っています。
-      **ページ種別を直しても、独自ページは直りません。**
-      作成日は 2026-09-05 ── 差し戻された版のときのものです。
---------------------------------------------------------------------------- */
+/* freepages.js — 独自ページ82枚が、どちらの版で入っているかを調べる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -56,3 +45,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("調べた " + rows.length + " 枚 / 旧骨格のまま " + old + " 枚 / 左メニュー無し " + rows.filter(r => !r.leftmenu).length + " 枚");
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

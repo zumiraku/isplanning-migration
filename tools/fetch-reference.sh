@@ -1,23 +1,5 @@
 #!/bin/sh
-# =============================================================================
-#  fetch-reference.sh — pull the official tag list into the repository
-#
-#  MakeShop publishes the Creator Mode tag reference at
-#  reference.makeshop.jp/creator-mode/contents/<section>/index.html. Nine
-#  sections exist; top, cart, freepage, member, review and order return 404,
-#  so those page types have no published tag list at all.
-#
-#  The scrape writes inventory/creator-tags-reference.tsv, which
-#  check-against-reference.sh reads. Re-run it when MakeShop updates the docs.
-#
-#  ※ The regex has to cross the [i]
-#
-#     The reference writes list members as $category.item.list[i].name. A
-#     pattern that stops at the bracket collects $category.item.list and
-#     nothing under it, so every list field looks undocumented and the report
-#     fills with forty false alarms - which is exactly how a real finding gets
-#     lost. The first version did this.
-# =============================================================================
+# fetch-reference.sh — pull the official tag list into the repository
 set -e
 cd "$(dirname "$0")/.."
 
@@ -40,7 +22,6 @@ perl -CS -e '
     next unless -f $f;
     open my $fh, "<:encoding(UTF-8)", $f or next;
     local $/; my $h = <$fh>; close $fh;
-    # $a.b[i].c  — the bracket has to be inside the pattern, not a boundary
     while ($h =~ /(\$[a-z_]+(?:(?:\[[a-z]\])?\.[A-Za-z0-9_]+)+(?:\[[a-z]\])?)/g) {
       my $t = $1;
       $t =~ s/\[[a-z]\]//g;
@@ -54,3 +35,4 @@ perl -CS -e '
   close $o;
   printf "\nタグ %d 件を %s に書き出しました\n", scalar keys %tag, $out;
 ' "$TMP" inventory/creator-tags-reference.tsv $SECTIONS
+

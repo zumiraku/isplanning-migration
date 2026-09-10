@@ -1,33 +1,16 @@
-/* ---------------------------------------------------------------------------
-   plain-markers.js — コメントと画面出力の記号を、普通の書き方にそろえます
-
-   絵文字で印を付けていましたが、テキストのログや差分では潰れて読めません。
-   端末によっては幅も揃いません。日本語の技術メモでは「※」が普通なので、
-   そちらに寄せます。
-
-     ※   注意・引っかかった点（もとの 赤丸 と 警告 の両方）
-     OK  通った
-     NG  通らなかった
-
-   置き換えるのは追跡しているテキストファイルだけです。取り込んだ
-   スナップショットや外部の資産（snapshot/ など）は触りません。
-
-     node tools/port/plain-markers.js --check    件数を見るだけ
-     node tools/port/plain-markers.js            書き換える
---------------------------------------------------------------------------- */
+/* plain-markers.js — コメントと画面出力の記号を、普通の書き方にそろえます */
 const fs = require("fs");
 const { execFileSync } = require("child_process");
 
 const MAP = [
-  ["🔴", "※"],   /* 赤丸  → ※ */
-  ["⚠️", "※"],   /* 警告  → ※ */
+  ["🔴", "※"],
+  ["⚠️", "※"],
   ["⚠", "※"],
-  ["✅", "OK"],             /* チェック → OK */
-  ["🟢", "OK"],       /* 緑丸   → OK */
-  ["❌", "NG"]              /* バツ   → NG */
+  ["✅", "OK"],
+  ["🟢", "OK"],
+  ["❌", "NG"]
 ];
 
-/* 取り込んだ外部ファイルは対象外です */
 const SKIP = [
   /^snapshot\//,
   /^tools\/cdp\/category-src\//,
@@ -60,7 +43,6 @@ for (const f of files) {
   touched++;
   perFile.push([f, n]);
   if (!check) {
-    /* 「※ 」の後ろが二重の空白になることがあるので詰めます */
     out = out.split("※  ").join("※ ");
     fs.writeFileSync(f, out);
   }
@@ -71,3 +53,4 @@ perFile.slice(0, 8).forEach(([f, n]) => console.log("  " + String(n).padStart(4)
 if (perFile.length > 8) { console.log("  … 他 " + (perFile.length - 8) + " ファイル"); }
 console.log("");
 console.log((check ? "見つけた記号 " : "置き換えた記号 ") + hits + " 個 / " + touched + " ファイル");
+

@@ -1,21 +1,7 @@
-/* ---------------------------------------------------------------------------
-   link-audit.js — 切り替え後に壊れるリンクが残っていないか
-
-   ベーシックのURL（/shopbrand/ /shopdetail/ /html/ /new/）が残っていると、
-   切り替え後は301で回るか、404になります。**配信されたHTMLと、
-   これから配信されるテンプレートの両方**を見ます。
-
-     node tools/cdp/link-audit.js
-
-   ※ 「テンプレートを直したから大丈夫」では足りません
-
-      モジュールにも独自ページにも、お店が書いたリンクが山ほど入っています。
-      1箇所ずつ数えます。
---------------------------------------------------------------------------- */
+/* link-audit.js — 切り替え後に壊れるリンクが残っていないか */
 const fs = require("fs");
 const path = require("path");
 
-/* ベーシック時代のURLの形 */
 const OLD = [
   ["/shopbrand/", "カテゴリ（旧）"],
   ["/shopdetail/", "商品詳細（旧）"],
@@ -25,17 +11,6 @@ const OLD = [
   ["/shop/shopbrand.html", "検索の送信先（旧）"]
 ];
 
-/* 見る場所
- *
- *   ※ 「出荷するもの」と「配信されたページ」を分けます（2026-09-09）
- *
- *      配信されたページに残る旧URLは、**店舗のデータ**から来ます。
- *      商品説明文だけで 9,635商品・65,854箇所あります（実測）。
- *      こちらのテンプレートでは直せませんし、直すものでもありません。
- *      プラットフォームが301で転送します（2026-09-08 実測、旧URL 8本すべて200）。
- *
- *      混ぜて数えていたので、出荷物が全部きれいでも赤で終わっていました。
- *      **止めるのは出荷物だけ**にして、配信ページは参考として出します。 */
 const PLACES = [
   ["ページ種別のテンプレート", "package/templates", ".tpl", true],
   ["モジュール", "package/modules", ".tpl", true],
@@ -44,11 +19,10 @@ const PLACES = [
   ["カテゴリの配信ページ（参考・同上）", "tools/cdp/category-out", ".html", false]
 ];
 
-/* probe.js が残す作業ファイルは配信物ではありません */
 const SKIP = ["_probe.html"];
 
-let total = 0;      /* 出荷物だけ。ここが0でなければ止めます */
-let info = 0;       /* 配信ページ側。参考値 */
+let total = 0;
+let info = 0;
 const detail = [];
 
 for (const [label, dir, ext, ship] of PLACES) {
@@ -58,7 +32,6 @@ for (const [label, dir, ext, ship] of PLACES) {
   for (const f of files) {
     const html = fs.readFileSync(path.join(dir, f), "utf8");
     for (const [needle, name] of OLD) {
-      /* 現行サイトを指す絶対URLも数えます */
       const n = (html.split('href="' + needle).length - 1) +
                 (html.split('href="https://www.isp-sp.com' + needle).length - 1) +
                 (html.split('href="http://www.isp-sp.com' + needle).length - 1) +
@@ -93,3 +66,4 @@ if (total) {
   process.exit(1);
 }
 console.log("OK 出荷するもの（テンプレート・モジュール・独自ページ）に旧URLはありません");
+

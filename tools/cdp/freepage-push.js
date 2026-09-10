@@ -1,15 +1,4 @@
-/* ---------------------------------------------------------------------------
-   freepage-push.js — 作り直した独自ページ82枚を流し込んで、読み直して確かめる
-
-     node tools/cdp/freepage-push.js            全部
-     node tools/cdp/freepage-push.js 1 10       範囲だけ
-
-   「保存を押した」では終わりにしません。**押したあとに読み直して
-   1文字ずつ突き合わせます。**
-
-   モジュールと同じで、独自ページの保存は updateFreepage 系です。
-   画面から読み取って合わせます。
---------------------------------------------------------------------------- */
+/* freepage-push.js — 作り直した独自ページ82枚を流し込んで、読み直して確かめる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -59,7 +48,6 @@ async function waitCm(p) {
       ng++; continue;
     }
 
-    /* 保存の入口は画面によって名前が違います。あるものを使います。 */
     const saved = await p.evaluate(`(function(){
       window.confirm = function(){ return true; };
       if (typeof updateFreepage === "function") { updateFreepage(); return "updateFreepage"; }
@@ -94,3 +82,4 @@ async function waitCm(p) {
   console.log("流し込み " + (ok + ng) + " 枚 / 一致 " + ok + " 枚 / 通らず " + ng + " 枚");
   if (ng) { process.exit(1); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

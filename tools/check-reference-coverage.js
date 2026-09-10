@@ -1,35 +1,6 @@
-/* ---------------------------------------------------------------------------
-   check-reference-coverage.js — 公式にあるのに書いていないタグを見つける
-
-   ※ なぜ要るのか
-
-      check-against-reference.sh は片方向しか見ていませんでした。
-      「使っているタグが実在するか」だけを問い、**「実在するのに一度も
-      書いていないタグ」は報告しません。** 山口様のご指摘21件は、
-      ほぼ全部がその「書いていない」類でした。
-
-      決定打がこれです。
-
-        $item.special_display    商品別特殊表示
-
-      山口様の言葉は「商品特殊表示がない（＠100円（税別）100個入）」で、
-      プラットフォームの正式名称そのもの。このタグは
-      **creator-tags-reference.tsv に最初から入っており**、cart-body.tpl では
-      使ってすらいました。詳細・カテゴリ・検索で書き忘れただけで、
-      検査25本は全部通りました。
-
-   照合のしかた
-
-      添字を落として比べます。テンプレートは list[i].name、リファレンスは
-      list[i].name と書式が違い、素朴に突き合わせると全部「未使用」になって
-      597件の誤報になりました（最初の版がそうでした）。
-
-   意図的に使わないものは EXPECTED に理由つきで書きます。**理由が書けない
-   ものは残します。** 数を減らすのが目的ではありません。
---------------------------------------------------------------------------- */
+/* check-reference-coverage.js — 公式にあるのに書いていないタグを見つける */
 const fs = require("fs");
 
-/* この店舗が契約していない・使わないと判断した機能。理由を必ず書くこと。 */
 const EXPECTED = [
   [/^\$item\.subscription|^\$cart\.list\.subscription|subscription_/, "定期購入。この店舗は扱っていません"],
   [/^\$item\.option_sku|is_option_sku|is_option_image/,               "SKU別表示はオプション契約が別途必要"],
@@ -91,3 +62,4 @@ for (const [sec, keep] of out) {
 fs.writeFileSync("inventory/creator-tags-unused.tsv",
   "tag\tsection\n" + out.flatMap(([s, k]) => k.map(t => t + "\t" + s)).join("\n") + "\n");
 console.log("\ninventory/creator-tags-unused.tsv に書き出しました");
+

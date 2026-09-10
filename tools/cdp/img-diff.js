@@ -1,13 +1,4 @@
-/* ---------------------------------------------------------------------------
-   img-diff.js — 現行と移植版で、どの画像が何枚出ているかを名前で突き合わせます
-
-   assets-check.js は「読めない画像」を見ますが、**枚数の差**は数字しか
-   出ません。トップ121→119、カテゴリ127→122 のような差が、
-   何の画像なのかを名指しします。
-
-     node tools/cdp/img-diff.js
-     node tools/cdp/img-diff.js カテゴリ
---------------------------------------------------------------------------- */
+/* img-diff.js — 現行と移植版で、どの画像が何枚出ているかを名前で突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { openAt, sleep } = require("./bind.js");
@@ -49,3 +40,4 @@ const only = process.argv[2];
   console.log("");
   console.log(bad ? "※ 現行より減っている画像 " + bad + " 種類" : "OK 減っている画像はありません");
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

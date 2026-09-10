@@ -1,10 +1,4 @@
-/* ---------------------------------------------------------------------------
-   eval-on-preview.js — 式のファイルを、配信されるページの上で走らせます
-
-     node tools/cdp/eval-on-preview.js tools/cdp/exprs/viewport.js [page_type] [width]
-
-   幅を指定するとスマートフォンの名乗りになります。省略すると等倍のPCです。
---------------------------------------------------------------------------- */
+/* eval-on-preview.js — 式のファイルを、配信されるページの上で走らせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -50,3 +44,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   }
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

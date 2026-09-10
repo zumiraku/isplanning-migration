@@ -1,16 +1,4 @@
-/* ---------------------------------------------------------------------------
-   local-overflow.js — 手元の静的プレビューを、実ブラウザで測ります
-
-   ※ 手元だけで落ちて、配信ページでは出ない差があります
-
-      `check-overflow.sh` が 320px の guide で `li →592` を出します。
-      ところが配信されるページを同じ320pxで測ると**はみ出し0**です。
-
-      どちらかが嘘です。手元のファイルを実ブラウザに読ませて、
-      どの要素が592pxなのかを名指しします。
-
-     node tools/cdp/local-overflow.js guide 320
---------------------------------------------------------------------------- */
+/* local-overflow.js — 手元の静的プレビューを、実ブラウザで測ります */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");
@@ -79,3 +67,4 @@ const LOOK = `(function () {
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   p.close();
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

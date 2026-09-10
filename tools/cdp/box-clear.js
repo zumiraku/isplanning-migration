@@ -1,29 +1,4 @@
-/* ---------------------------------------------------------------------------
-   box-clear.js — ページ種別ごとの CSS / JavaScript 欄を空にする
-
-     node tools/cdp/box-clear.js 2 3 6 18 19
-
-   ※ HTML欄しか書き換えていませんでした
-
-      ページ種別には HTML のほかに CSS と JavaScript の欄があります。
-      差し戻された版のコードが5種別に残っていました。
-
-        トップ            CSS  681
-        商品詳細          CSS 4310 ＋ JS 1090（jQuery呼び出し13回）
-        買い物カゴ         CSS  482
-        まとめ買い割引      CSS   38
-        会員制・年齢確認    CSS  443
-
-      商品詳細のJSは `$(function(){…}` で始まり、jQuery が読まれていないので
-      **1行目で落ちます**。配信ページのコンソールに
-      `Uncaught TypeError: $ is not a function` が出ていました。
-
-      CSSのほうは、もう存在しないクラス（.bulk / .item-image-small /
-      .contents-section）を狙っています。当たらないだけで、**残しておく
-      理由がありません。**
-
-   ※ 全ページ共通（page_type=1）は触りません。こちらのCSS・JSが入っています。
---------------------------------------------------------------------------- */
+/* box-clear.js — ページ種別ごとの CSS / JavaScript 欄を空にする */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
@@ -86,3 +61,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log(ng ? "※ " + ng + " 件が通っていません" : "OK 指定した欄はすべて空になりました");
   if (ng) { process.exit(1); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

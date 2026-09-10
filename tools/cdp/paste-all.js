@@ -1,20 +1,10 @@
-/* ---------------------------------------------------------------------------
-   paste-all.js — 11ページ種別と全ページ共通を、まとめて流し込んで確かめる
-
-     node tools/cdp/paste-all.js            全部
-     node tools/cdp/paste-all.js contract   1つだけ
-
-   1枚ごとに「流し込む → 保存 → 読み直す → 突き合わせる」をやります。
-   **押しただけでは保存できたことになりません。** 読み直して一致した
-   ものだけを OK と呼びます。
---------------------------------------------------------------------------- */
+/* paste-all.js — 11ページ種別と全ページ共通を、まとめて流し込んで確かめる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
 const SET = 5;
 
-/* 順番は貼り付け手順書と同じです。モジュールは別画面なので含みません。 */
 const JOBS = [
   ["common", 1, "css", "package/paste/all-pages.css"],
   ["common", 1, "javascript", "package/paste/all-pages.js"],
@@ -32,22 +22,9 @@ const JOBS = [
 ];
 
 const only = process.argv[2];
-/* ※ 改行コードをLFに揃えます
- *
- *    リポジトリの作業コピーは CRLF です（git の autocrlf）。CodeMirror は
- *    setValue のときに LF へ揃えるので、**渡した文字数と入った文字数が
- *    合わなくなり**、行数ぶんだけ短く見えます。freespace_calendar で
- *    234文字ずれました。先に揃えてから渡します。 */
 function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10)).join(String.fromCharCode(10)); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-/* ※ 数値参照は「両側とも」戻してから比べます
- *
- *    サーバーは保存のときに一部の文字を数値参照にします（— は &#8212;、
- *    ※ は &#128308;）。ところが**元のファイル自体が &#12316; や &#169;
- *    を持っています**（現行サイトから写した文面です）。片側だけ戻すと、
- *    こちらの &#12316; まで 〜 に変わって、一致しないと誤判定します。
- *    フッターで実際にそうなりました。両側に同じ処理をかけます。 */
 function unescapeNum(s) { return s.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n))); }
 
 async function ready(p, field) {
@@ -119,3 +96,4 @@ async function ready(p, field) {
     process.exit(1);
   }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+

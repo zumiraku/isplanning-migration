@@ -1,10 +1,3 @@
-<{* ==========================================================================
-     熱中症を予防しよう — ベーシックモードからの移植
-
-     生成物です。直すときは tools/port/build-pages.js を直してください。
-     マークアップは design_（独自ページ）.txt のままで、タグとURLだけ
-     置き換えています。class も id も並び順も変えていません。
-   ========================================================================== *}>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -49,7 +42,6 @@
 熱中症は最悪な場合、命に関わることもありますので、しっかりと熱中症対策を取りましょう。 </p>
 <p>そこで今回は、熱中症の知識をご紹介いたします。</p>
 
-
 	<h3>熱中症の原因</h3>
 	<p>熱中症とは簡単にいうと体温のコントロールがうまくできない機能障害のことをいいます。人は、皮膚の表面から熱を空気中に放出して体温調節を行っています。気温が体温よりも低いなら、空気中に熱が移りやすいですし、湿度が低ければ汗をかくことによって熱を空気中に放出することができます。 </p>
 <p>しかし、気温が体温よりも高いと熱を空気中に放出することが難しくなります。こういった原因で、人は熱中症になってしまいます。</p>
@@ -78,26 +70,12 @@
 <div class="normal-box3" style="width:330px; height: 42px; margin:0 0 20px 0;"><a href="/view/category/ct23"><p>● 熱中症対策粗品いろいろ揃えております</p></a></div>
 <div class="normal-box3" style="width:330px; height: 42px; margin:0 0 20px 0;"><a href="/view/item/003002000186"><p>● 熱中症予防カードの商品ページ</p></a></div>
 
-
 <a href="https://www.hitosuzumi.jp/" target="_blank"><img src="https://gigaplus.makeshop.jp/isplanning/images/hitosuzumi.jpg" alt="熱中症予防声かけプロジェクト" /><br>アイエスプランニング（株）は熱中症予防声かけプロジェクトを応援しています。</a>
 
 <div class="columnlink"><a href="#colum-wrap"><img alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a>
 </div>
 </div>
 
-<{* ※ フッターは .M_mainContents の**中**です
-
-     最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
-     float:left の左メニューと float:right の .M_mainContents のあいだに
-     割り込み、**本文がまるごと左メニューの下（top=5516px）に落ちました。**
-     ヘッダーも左メニューもコラムも正しく出ているのに本文だけ無い、という
-     見え方になります。
-
-     公開ページの骨格を取り直したら、#colum-wrap も #footer_guideWrap も
-     .M_mainContents の中にありました。元の入れ子に合わせます。
-
-     .M_mainContents / #O_container / #wrapper / #bgMain / #wrap を閉じるのは
-     フッターのモジュール側です。 *}>
 <{$module.footer}>
 <{$makeshop.body_bottom}>
 <script src="<{$page.javascript}>"></script>

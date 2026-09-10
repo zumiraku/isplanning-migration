@@ -1,17 +1,4 @@
-/* ---------------------------------------------------------------------------
-   freepage-geometry.js — 独自ページを、現行と同じ幅で並べて位置を突き合わせます
-
-   ページ種別は geometry.js で 10ページすべて一致を確認しました。
-   独自ページ82枚も**同じ骨格**（#O_container → .M_mainContents）なので、
-   30px・40px・10px の直しはそのまま効くはずです。**はずで済ませません。**
-
-     node tools/cdp/freepage-geometry.js 77 6 39      freepage_id を並べる
-     node tools/cdp/freepage-geometry.js              先頭から8枚
-
-   ※ プレビューは1枚ずつしか出せません。押した結果のURLから
-      `/view/page/pageNN.html` を読み取り、現行の `/html/pageNN.html` と
-      突き合わせます。
---------------------------------------------------------------------------- */
+/* freepage-geometry.js — 独自ページを、現行と同じ幅で並べて位置を突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 
@@ -19,7 +6,6 @@ const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_freepage
 const SET = 5;
 const WIDTH = 1280;
 
-/* geometry.js と同じ物差しを使います（枠まわりだけ） */
 const MARKS = [
   "#headerWrap", ".header-txt", ".h-txt-inner", "#header", ".head_contents",
   "#gNav", ".head_nav_contents", "#bgMain", "#wrapper",
@@ -67,9 +53,8 @@ async function settle(p) {
   let ng = 0;
   for (const line of want) {
     const id = Number(line.split(" ")[0]);
-    const file = line.split(" ")[1];          /* pageNN.html */
+    const file = line.split(" ")[1];
 
-    /* ── 移植版 ── */
     await p.navigate("about:blank");
     await sleep(300);
     await p.navigate(BASE + "?design_set_id=" + SET + "&freepage_id=" + id);
@@ -90,7 +75,6 @@ async function settle(p) {
     await settle(p);
     const nu = await p.evaluate(probe(MARKS));
 
-    /* ── 現行 ── */
     await p.navigate("about:blank");
     await sleep(300);
     await p.navigate("https://www.isp-sp.com/html/" + file);
@@ -121,3 +105,4 @@ async function settle(p) {
   console.log(ng ? "※ ずれているもの " + ng + " 枚" : "OK 見た " + want.length + " 枚すべて現行と一致");
   if (ng) { process.exit(1); }
 })().catch(e => { console.error("※ " + e.message); process.exit(1); });
+
