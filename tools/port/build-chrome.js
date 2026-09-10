@@ -67,13 +67,26 @@ const LOGIN_LOGIN  = `<{if $member.is_logged_in}><a href="<{$url.logout}>">ロ�
  *    ベーシックのプラットフォームが定義していた関数で、クリエイターに
  *    あるとは限りません。**無ければマウスを乗せるたびにJSエラー**です。
  *    開閉はCSSの :hover でやります（port-responsive.css）。動きは同じで、
- *    JSに依存しません。 */
+ *    JSに依存しません。
+ *
+ * 🔴 数の丸（バッジ）を、空のときに出していませんでした（2026-09-10）
+ *
+ *    `<{if $cart.has_item}>` で囲っていたので、カゴが空だと <em> ごと
+ *    消えていました。公開ページを取り直したら、こうでした。
+ *
+ *      <a href="/shop/basket.html" id="M_basket"><em>0</em>
+ *        <div class="M_basketMarginBox">買い物かご</div></a>
+ *
+ *    **空でも「0」を出しています。しかも <em> は div の前です。**
+ *    CSS（#M_basketClosedBox #M_basket em）は position:absolute の
+ *    20px の丸で、右上に重ねる作りです。囲みを外して常に出します。
+ *    初めて来た人はカゴが空なので、**大半の訪問で丸が消えていました。** */
 const CART = [
   '<div class="M_headBasket" id="M_basketTemp1">',
   '  <div id="M_headBasketSwitch">',
   '    <div id="M_basketClosedBox">',
-  '      <a href="<{$url.cart}>" id="M_basket">',
-  '        <div class="M_basketMarginBox">買い物かご<{if $cart.has_item}> <em><{$cart.total_quantity}></em><{/if}></div>',
+  '      <a href="<{$url.cart}>" id="M_basket"><em><{if $cart.has_item}><{$cart.total_quantity}><{else}>0<{/if}></em>',
+  '        <div class="M_basketMarginBox">買い物かご</div>',
   '      </a>',
   '    </div>',
   '    <div id="M_basketOpenedBox">',
@@ -109,8 +122,18 @@ const CART = [
  *
  *    プラットフォームが読むのは data-id と href なので、id は見た目のために
  *    使えます（system.js の getFormValue は [data-id=…] で引いています）。 */
+/* 🔴 中身を空にしたら、ボタンの高さが 0 になりました（実測・2026-09-10）
+ *
+ *      現行    30 x 32     <a … id="MakeShopTopSearchButton">検索</a>
+ *      移植版  30 x  0     <a … aria-label="検索"></a>
+ *
+ *    CSSは line-height:32px で高さを作っています。**行が無ければ
+ *    line-height は効きません。** 中身を空にした時点で高さが消え、
+ *    背景の虫めがね（h-search.png）ごと見えなくなっていました。
+ *    高さをCSSで足すのではなく、現行と同じく「検索」の2文字を戻します
+ *    （text-indent:20px で外に出るので、見えるのは虫めがねだけです）。 */
 const SEARCH = `<input type="text" id="MakeShopTopSearchInput" data-id="<{$search_form.keyword_id}>" placeholder="キーワードを入力して検索">
-<a id="MakeShopTopSearchButton" href="<{$search_form.search_url}>" role="button" aria-label="検索"></a>`;
+<a id="MakeShopTopSearchButton" href="<{$search_form.search_url}>" role="button">検索</a>`;
 
 function convert(html) {
   html = html.split("/shop/idinfo.html").join(IDINFO);

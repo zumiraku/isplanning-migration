@@ -150,7 +150,17 @@ write({ file: "contract", label: "特定商取引法" }, "（現行の文面）"
  *    tools/port/fix-mojibake.js が行単位で直しました。 */
 let privacy = fs.readFileSync("templates/creator/port-src/privacy-body.tpl", "utf8");
 privacy = privacy.replace(/^<\{\*[\s\S]*?\*\}>\s*/, "");
-write({ file: "policy", label: "プライバシー" }, "（現行の文面）", [
+/* 🔴 個人情報保護ポリシーだけ、タイトルが店名のままでした（実測・2026-09-10）
+ *
+ *      現行    個人情報保護ポリシー
+ *      移植版  粗品と景品の発見マーケット　ISPLANNING
+ *
+ *    現行は footer の JavaScript:bottom_privercy() で開く**別窓**で、
+ *    ヘッダーもCSSも無い素のページです（画像1枚・CSS0本）。移植版では
+ *    ページ種別14として普通のページにしています。中身は同じですが、
+ *    タイトルは $page.title に任せると店名しか返りません。お知らせ一覧と
+ *    同じく、こちらで入れます。 */
+write({ file: "policy", label: "プライバシー", title: "個人情報保護ポリシー" }, "（現行の文面）", [
   '<div id="O_adminPagearea" class="company">',
   '\t<h2>個人情報保護ポリシー</h2>',
   '\t<{* 🔴 このページ種別だけリファレンスにタグがありません。',

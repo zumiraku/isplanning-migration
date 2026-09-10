@@ -45,8 +45,8 @@
 									<li><div class="M_headBasket" id="M_basketTemp1">
   <div id="M_headBasketSwitch">
     <div id="M_basketClosedBox">
-      <a href="<{$url.cart}>" id="M_basket">
-        <div class="M_basketMarginBox">買い物かご<{if $cart.has_item}> <em><{$cart.total_quantity}></em><{/if}></div>
+      <a href="<{$url.cart}>" id="M_basket"><em><{if $cart.has_item}><{$cart.total_quantity}><{else}>0<{/if}></em>
+        <div class="M_basketMarginBox">買い物かご</div>
       </a>
     </div>
     <div id="M_basketOpenedBox">
@@ -77,7 +77,7 @@
                         <li id="gNav05"><a href="/view/category/ct667">少量購入OK</a></li>
                         <li id="gNav05"><a href="/view/category/ct4">予算で探す</a></li>
                         <li id="gNav06"><div class="search-box"><input type="text" id="MakeShopTopSearchInput" data-id="<{$search_form.keyword_id}>" placeholder="キーワードを入力して検索">
-<a id="MakeShopTopSearchButton" href="<{$search_form.search_url}>" role="button" aria-label="検索"></a></div></li>
+<a id="MakeShopTopSearchButton" href="<{$search_form.search_url}>" role="button">検索</a></div></li>
                     </ul>
                     </div>
                 <!--//header--></div>
@@ -106,5 +106,5 @@
 <div class="closed"><a href="/view/guide#about_receipt">発見マーケットは<b>インボイス制度</b>に対応しております</a></div>
 <button class="l-menu-toggle" type="button" aria-controls="M_leftContents" aria-expanded="false">
   <span class="l-menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
-  カテゴリーから探す
+  カテゴリー
 </button>
