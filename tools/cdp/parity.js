@@ -1,30 +1,69 @@
 /* ---------------------------------------------------------------------------
-   parity.js — 公開中のページの文言が、配信されたプレビューに出ているか
+   parity.js — 現行のページと移植版のページを取り込んで、文言の欠落を数えます
+
+   `tools/port/check-content-parity.js` はファイル2枚を比べる道具です。
+   その2枚を、**現行から**と**結び直したプレビューから**取ってきます。
+
+   🔴 プレビューは種別ごとに結び直さないと、別のページが返ります
+      （docs/console-map.md「三度目です」）。ここは bind.js を通します。
 
      node tools/cdp/parity.js
-
-   tools/port/check-content-parity.js を、実際に配信されたHTMLに対して回します。
-   **無いものは検査できない**というのが差し戻しの原因でした。現行の文言を
-   1つずつ持ってきて、出ているかどうかを数えます。
+     node tools/cdp/parity.js カテゴリ        （1ページだけ）
 --------------------------------------------------------------------------- */
-const { execFileSync } = require("child_process");
 const fs = require("fs");
+const path = require("path");
+const { execFileSync } = require("child_process");
+const { page } = require("./cdp.js");
+const { openAt, sleep } = require("./bind.js");
+const { PAGES, landed } = require("./pages.js");
 
-const LIVE = process.env.LIVE_DIR ||
-  (process.env.TEMP || "").split("\\").join("/") +
-  "/claude/c--Users-Administrator-Documents-my-work-isplanning-migration/526d844c-8f7e-4727-bda4-06d3cd51b38e/scratchpad/basic";
+const OUT = path.join(__dirname, "parity-out");
+const only = process.argv[2];
 
-const PAIRS = [
-  ["p-company.html", "company", "会社概要"],
-  ["p-contract.html", "contract", "特定商取引法"],
-  ["p-guide.html", "guide", "ご利用案内"]
-];
+(async () => {
+  fs.mkdirSync(OUT, { recursive: true });
+  const p = await page();
+  const jobs = [];
 
-for (const [live, mine, label] of PAIRS) {
-  const a = LIVE + "/" + live;
-  const b = "tools/cdp/preview-out/" + mine + ".html";
-  if (!fs.existsSync(a)) { console.log("🔴 現行ページがありません: " + a); continue; }
-  if (!fs.existsSync(b)) { console.log("🔴 プレビューがありません: " + b); continue; }
-  const out = execFileSync("node", ["tools/port/check-content-parity.js", a, b, label], { encoding: "utf8" });
-  console.log(out.split("\n").slice(0, 14).join("\n"));
-}
+  for (const [name, livePath, portPath, type] of PAGES) {
+    if (only && only !== name) { continue; }
+    await p.navigate("about:blank"); await sleep(250);
+    await p.navigate("https://www.isp-sp.com" + livePath); await sleep(5000);
+    const at = await p.evaluate("location.href");
+    if (!landed(livePath, at)) {
+      console.log("🔴 " + name + " ── 現行 " + livePath + " は飛ばされました。飛ばします");
+      continue;
+    }
+    const liveHtml = await p.evaluate("document.documentElement.outerHTML");
+
+    const bound = await openAt(p, type, portPath, 5000);
+    if (!bound.ok) { console.log("🔴 " + name + " ── " + bound.why); continue; }
+    const portHtml = await p.evaluate("document.documentElement.outerHTML");
+
+    const a = path.join(OUT, name + "-live.html");
+    const b = path.join(OUT, name + "-port.html");
+    fs.writeFileSync(a, liveHtml);
+    fs.writeFileSync(b, portHtml);
+    jobs.push([name, a, b]);
+  }
+  p.close();
+
+  console.log("");
+  let bad = 0;
+  for (const [name, a, b] of jobs) {
+    let out = "";
+    try {
+      out = execFileSync(process.execPath,
+        ["tools/port/check-content-parity.js", a, b, name], { encoding: "utf8" });
+    } catch (e) { out = String(e.stdout || "") + String(e.stderr || ""); }
+    const line = out.split("\n").filter(Boolean);
+    const head = line.find(l => l.indexOf("移植版に無い") >= 0) || line[line.length - 1] || "(出力なし)";
+    const n = Number((head.match(/移植版に無い (\d+)/) || [])[1] || 0);
+    if (n) { bad += n; }
+    console.log((n ? "🔴 " : "   ") + name.padEnd(14) + head.trim());
+    if (n) { line.slice(line.indexOf(head) + 1, line.indexOf(head) + 9).forEach(l => console.log("       " + l)); }
+  }
+  console.log("");
+  console.log(bad ? "🔴 現行にあって移植版に無い塊 " + bad + " 件"
+                  : "✅ 現行の文言は、移植版に全部あります");
+})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
