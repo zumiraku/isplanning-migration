@@ -40,16 +40,16 @@
     <{$module.leftmenu}>
     <div class="M_mainContents">
 
-<div id="O_adminPagearea" class="company">
-	<p class="M_topicPath"><a href="<{$url.top}>">ホーム</a> &nbsp;&gt; <a href="<{$url.news}>">お知らせ</a></p>
-	<h2><{$news.title}></h2>
-	<p class="infodate"><{$news.date.year}>年<{$news.date.month}>月<{$news.date.day}>日</p>
-	<div><{$news.content}></div>
-	<p class="M_pager">
-		<{if $news.prev_url}><a href="<{$news.prev_url}>" rel="prev">前のお知らせ</a><{/if}>
-		<a href="<{$url.news}>">お知らせ一覧</a>
-		<{if $news.next_url}><a href="<{$news.next_url}>" rel="next">次のお知らせ</a><{/if}>
-	</p>
+<div class="rightContents" id="news">
+	<h2 class="middle-ttl">お知らせ</h2>
+	<div class="section" id="r_news">
+		<div id="newsHead"><span class="date"><{$news.date.year}>/<{$news.date.month}>/<{$news.date.day}></span><{$news.title}></div>
+		<div id="newsContents"><{$news.content}></div>
+		<hr>
+		<{if $news.prev_url}><p id="newsPrev"><a href="<{$news.prev_url}>" rel="prev">前のお知らせ</a></p><{/if}>
+		<{if $news.next_url}><p id="newsNext"><a href="<{$news.next_url}>" rel="next">次のお知らせ</a></p><{/if}>
+		<div id="newsListBtn"><a class="link_green-bg linkbar" href="<{$url.news}>">お知らせ一覧へ</a></div>
+	</div>
 </div>
 
 <{* 🔴 フッターは .M_mainContents の**中**です

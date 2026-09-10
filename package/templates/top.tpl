@@ -114,7 +114,7 @@
             <div class="rankImg"><a href="<{$ranking_item.list[r].url}>"><img src="<{$ranking_item.list[r].image_M}>" alt="<{$ranking_item.list[r].name}>" width="100" border="0"></a></div>
             <div class="rankDetail">
             	<p class="rankName"><a href="<{$ranking_item.list[r].url}>"><{$ranking_item.list[r].name}></a></p>
-            	<p class="rankPrice"><{$ranking_item.list[r].price}>円（税込）</p>
+            	<p class="rankPrice"><{$ranking_item.list[r].price|number_format}>円（税込）</p>
             </div>
         </li>
 <{/section}>
@@ -141,6 +141,22 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$new_item.list[nw2].price|number_format}>円（税込）</td></tr>
+      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
+
+           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
+           リンク**で、角かっこ付きの太字です。
+
+             <tr height="20" class="woong"><td valign="top" align="center">
+               <a href="/view/category/ct6"><b>[50円～99円]</b></a>
+             </td></tr>
+
+           現行と移植版の文言を突き合わせて出ました。
+           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
+           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
+           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
+      <tr height="20" class="woong"><td valign="top" align="center">
+        <a href="<{$new_item.list[nw2].base_category.url}>"><b>[<{$new_item.list[nw2].base_category.name}>]</b></a>
+      </td></tr>
     </table>
   </td>
 <{/section}>
@@ -164,6 +180,22 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$recommend_item.list[rc].price|number_format}>円（税込）</td></tr>
+      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
+
+           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
+           リンク**で、角かっこ付きの太字です。
+
+             <tr height="20" class="woong"><td valign="top" align="center">
+               <a href="/view/category/ct6"><b>[50円～99円]</b></a>
+             </td></tr>
+
+           現行と移植版の文言を突き合わせて出ました。
+           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
+           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
+           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
+      <tr height="20" class="woong"><td valign="top" align="center">
+        <a href="<{$recommend_item.list[rc].base_category.url}>"><b>[<{$recommend_item.list[rc].base_category.name}>]</b></a>
+      </td></tr>
     </table>
   </td>
 <{/section}>
@@ -251,6 +283,22 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$recently_item.list[rcn].price|number_format}>円（税込）</td></tr>
+      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
+
+           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
+           リンク**で、角かっこ付きの太字です。
+
+             <tr height="20" class="woong"><td valign="top" align="center">
+               <a href="/view/category/ct6"><b>[50円～99円]</b></a>
+             </td></tr>
+
+           現行と移植版の文言を突き合わせて出ました。
+           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
+           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
+           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
+      <tr height="20" class="woong"><td valign="top" align="center">
+        <a href="<{$recently_item.list[rcn].base_category.url}>"><b>[<{$recently_item.list[rcn].base_category.name}>]</b></a>
+      </td></tr>
     </table>
   </td>
 <{/section}>

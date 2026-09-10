@@ -40,34 +40,39 @@
     <{$module.leftmenu}>
     <div class="M_mainContents">
 
-<div id="O_adminPagearea" class="company">
-	<h2>お知らせ一覧</h2>
+<div class="rightContents" id="news">
+	<h2 class="middle-ttl">お知らせ一覧</h2>
+	<div class="section" id="r_news">
 	<{if $news.has_item}>
-	<ul class="infoList">
+	<div id="newsList">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr><td class="line" height="1" bgcolor="#dadada" colspan="2">&nbsp;</td></tr>
 	<{section name=n loop=$news.list}>
-		<li>
-			<span class="infodate">[<{$news.list[n].date.year}>/<{$news.list[n].date.month}>/<{$news.list[n].date.day}>]</span>
-			<a class="infoa" href="<{$news.list[n].url}>"><{$news.list[n].title}></a>
-		</li>
+	<tr bgcolor="#ffffff" height="25">
+		<td class="lims" width="80%">&nbsp;<a href="<{$news.list[n].url}>"><{$news.list[n].title}></a></td>
+		<td class="lims" align="center" width="20%"><{$news.list[n].date.year}>/<{$news.list[n].date.month}>/<{$news.list[n].date.day}></td>
+	</tr>
 	<{/section}>
-	</ul>
+	</table>
+	</div>
 
-	<div class="M_pager">
-	<{* 🔴 $news.pager.has_item はリファレンスにありません。
-	     カテゴリと検索には $…pager.has_item があるのに、news-list だけ
-	     載っていません。無いタグを条件にすると Smarty は黙って偽にするので、
-	     **ページ送りが一度も出なくなります。** section は空配列なら何も
-	     出さないので、囲む必要がありません。 *}>
-	  <{if not $news.pager.is_first}><a href="<{$news.pager.first_url}>">最初へ</a> <a href="<{$news.pager.prev_url}>" rel="prev">前へ</a><{/if}>
-	  <{section name=p loop=$news.pager.list}>
-	    <{if $news.pager.list[p].is_current_page}><span><{$news.pager.list[p].number}></span>
-	    <{else}><a href="<{$news.pager.list[p].url}>"><{$news.pager.list[p].number}></a><{/if}>
-	  <{/section}>
-	  <{if not $news.pager.is_last}><a href="<{$news.pager.next_url}>" rel="next">次へ</a> <a href="<{$news.pager.last_url}>">最後へ</a><{/if}>
+	<div id="pager">
+	<table border="0" cellpadding="0" cellspacing="0" width="368">
+	<tr><td class="line" height="10">&nbsp;</td></tr>
+	<tr><td align="center">
+	<{if not $news.pager.is_first}><a href="<{$news.pager.first_url}>"><font class="woong" color="#0000FF">[最初]</font></a>&nbsp;&nbsp;<{/if}>
+	<{section name=p loop=$news.pager.list}>
+	<{if $news.pager.list[p].is_current_page}><font class="woong">[<{$news.pager.list[p].number}>]</font>&nbsp;&nbsp;
+	<{else}><a href="<{$news.pager.list[p].url}>"><font class="woong" color="#0000FF">[<{$news.pager.list[p].number}>]</font></a>&nbsp;&nbsp;<{/if}>
+	<{/section}>
+	<{if not $news.pager.is_last}><a href="<{$news.pager.last_url}>"><font class="woong" color="#0000FF">[最後]</font></a>&nbsp;&nbsp;<{/if}>
+	</td></tr>
+	</table>
 	</div>
 	<{else}>
 	<p>お知らせはまだありません。</p>
 	<{/if}>
+	</div>
 </div>
 
 <{* 🔴 フッターは .M_mainContents の**中**です

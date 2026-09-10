@@ -23,3 +23,4 @@
 買い物かご	basket-del	「かごの中身を空にする」。クリエイターに該当タグがありません（リファレンス全件を見て確認）。1件ずつの削除（remove_url）は残っています
 ヘッダー	slider	現行は共通ヘッダーに [TOPIMAGE] を置いていますが、実際に描かれるのはトップだけです（カテゴリの公開ページに #M_slider はありません）。移植版は top.tpl に置いています
 ヘッダー	wrapper	#wrapper は各ページテンプレートの側にあります。ヘッダーは中に入る側です
+お知らせ詳細	newsNextの題名	現行の #newsNext は次のお知らせの**題名**を出しますが、クリエイターに題名を返すタグがありません（$news.next_title / $news.next.title / $news.next_name / $news.next_news.title / $news.prev_title を実データで試して全部空・2026-09-10）。リンクは同じ場所に「次のお知らせ」の文字で出しています

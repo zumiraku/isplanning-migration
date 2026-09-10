@@ -1,14 +1,3 @@
-/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
- *
- *      現行    販売価格39,600円（税込）
- *      移植版  販売価格39600円（税込）
- *
- *    商品詳細には $item.price_html（55,000）がありますが、**一覧の
- *    タグには price_html がありません。** 試しに書くと空になり、
- *    価格そのものが消えました。
- *
- *    Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
- *    number_format を通すと現行と1文字も違わなくなりました。 */
 /* ---------------------------------------------------------------------------
    items.js — 商品一覧のマークアップ
 
@@ -50,6 +39,18 @@
 
       公開ページの #r_new を見ると、画像・商品名＋アイコン・価格の3行だけで、
       特殊表示の行がありません。**元に無いものを足さない**のが移植です。
+
+   🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+   
+        現行    販売価格39,600円（税込）
+        移植版  販売価格39600円（税込）
+   
+      商品詳細には $item.price_html（55,000）がありますが、**一覧の
+      タグには price_html がありません。** 試しに書くと空になり、
+      価格そのものが消えました。
+   
+      Smarty の修飾子は使えます（$item.group.list|@count で確認済み）。
+      number_format を通すと現行と1文字も違わなくなりました。
 --------------------------------------------------------------------------- */
 
 /* 4列の表。Smarty の section で4件ごとに行を折り返します。 */
@@ -85,6 +86,22 @@ function grid(listVar, name, max) {
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$${it}.price|number_format}>円（税込）</td></tr>
+      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
+
+           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
+           リンク**で、角かっこ付きの太字です。
+
+             <tr height="20" class="woong"><td valign="top" align="center">
+               <a href="/shopbrand/003/002/X/"><b>[50円～99円]</b></a>
+             </td></tr>
+
+           現行と移植版の文言を突き合わせて出ました。
+           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
+           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
+           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
+      <tr height="20" class="woong"><td valign="top" align="center">
+        <a href="<{$${it}.base_category.url}>"><b>[<{$${it}.base_category.name}>]</b></a>
+      </td></tr>
     </table>
   </td>
 <{/section}>
@@ -101,7 +118,7 @@ function ranking() {
             <div class="rankImg"><a href="<{${it}.url}>"><img src="<{${it}.image_M}>" alt="<{${it}.name}>" width="100" border="0"></a></div>
             <div class="rankDetail">
             	<p class="rankName"><a href="<{${it}.url}>"><{${it}.name}></a></p>
-            	<p class="rankPrice"><{${it}.price}>円（税込）</p>
+            	<p class="rankPrice"><{${it}.price|number_format}>円（税込）</p>
             </div>
         </li>
 <{/section}>`;

@@ -169,54 +169,16 @@ write({ file: "policy", label: "プライバシー", title: "個人情報保護�
   '</div>'
 ].join("\n"));
 
-/* --- お知らせ一覧 ---------------------------------------------------------- */
-/* 🔴 現行のタイトルは「お知らせ一覧ページ」です。$page.title は店名しか返しません */
-write({ file: "news-list", label: "お知らせ一覧", title: "お知らせ一覧ページ" }, "（タグのみ）", [
-  '<div id="O_adminPagearea" class="company">',
-  '\t<h2>お知らせ一覧</h2>',
-  '\t<{if $news.has_item}>',
-  '\t<ul class="infoList">',
-  '\t<{section name=n loop=$news.list}>',
-  '\t\t<li>',
-  '\t\t\t<span class="infodate">[<{$news.list[n].date.year}>/<{$news.list[n].date.month}>/<{$news.list[n].date.day}>]</span>',
-  '\t\t\t<a class="infoa" href="<{$news.list[n].url}>"><{$news.list[n].title}></a>',
-  '\t\t</li>',
-  '\t<{/section}>',
-  '\t</ul>',
-  '',
-  '\t<div class="M_pager">',
-  '\t<{* 🔴 $news.pager.has_item はリファレンスにありません。',
-  '\t     カテゴリと検索には $…pager.has_item があるのに、news-list だけ',
-  '\t     載っていません。無いタグを条件にすると Smarty は黙って偽にするので、',
-  '\t     **ページ送りが一度も出なくなります。** section は空配列なら何も',
-  '\t     出さないので、囲む必要がありません。 *}>',
-  '\t  <{if not $news.pager.is_first}><a href="<{$news.pager.first_url}>">最初へ</a> <a href="<{$news.pager.prev_url}>" rel="prev">前へ</a><{/if}>',
-  '\t  <{section name=p loop=$news.pager.list}>',
-  '\t    <{if $news.pager.list[p].is_current_page}><span><{$news.pager.list[p].number}></span>',
-  '\t    <{else}><a href="<{$news.pager.list[p].url}>"><{$news.pager.list[p].number}></a><{/if}>',
-  '\t  <{/section}>',
-  '\t  <{if not $news.pager.is_last}><a href="<{$news.pager.next_url}>" rel="next">次へ</a> <a href="<{$news.pager.last_url}>">最後へ</a><{/if}>',
-  '\t</div>',
-  '\t<{else}>',
-  '\t<p>お知らせはまだありません。</p>',
-  '\t<{/if}>',
-  '</div>'
-].join("\n"));
+/* --- お知らせ（一覧・詳細） ------------------------------------------------
+   マークアップは tools/port/_news-blocks.js に出してあります。
+   現行の骨格（#r_news / #newsList / #newsHead / #newsListBtn）に合わせた
+   理由は、そのファイルの見出しに書いてあります。 */
+const { newsList, newsDetail } = require("./_news-blocks.js");
 
-/* --- お知らせ詳細 ---------------------------------------------------------- */
-write({ file: "news-detail", label: "お知らせ詳細" }, "（タグのみ）", [
-  '<div id="O_adminPagearea" class="company">',
-  '\t<p class="M_topicPath"><a href="<{$url.top}>">ホーム</a> &nbsp;&gt; <a href="<{$url.news}>">お知らせ</a></p>',
-  '\t<h2><{$news.title}></h2>',
-  '\t<p class="infodate"><{$news.date.year}>年<{$news.date.month}>月<{$news.date.day}>日</p>',
-  '\t<div><{$news.content}></div>',
-  '\t<p class="M_pager">',
-  '\t\t<{if $news.prev_url}><a href="<{$news.prev_url}>" rel="prev">前のお知らせ</a><{/if}>',
-  '\t\t<a href="<{$url.news}>">お知らせ一覧</a>',
-  '\t\t<{if $news.next_url}><a href="<{$news.next_url}>" rel="next">次のお知らせ</a><{/if}>',
-  '\t</p>',
-  '</div>'
-].join("\n"));
+/* 🔴 現行のタイトルは「お知らせ一覧ページ」です。$page.title は店名しか返しません */
+write({ file: "news-list", label: "お知らせ一覧", title: "お知らせ一覧ページ" }, "（タグのみ）", newsList);
+
+write({ file: "news-detail", label: "お知らせ詳細" }, "（タグのみ）", newsDetail);
 
 console.log("");
 console.log("会社概要・お知らせはタグから、ご利用案内・特商法・プライバシーは現行の文面から。");

@@ -413,3 +413,9 @@ $item.group.list.image_S	confirmed	probed 2026-09-10
 $item.group.list.special_display	confirmed	same family as $item.special_display
 $item.group.list	confirmed	probed 2026-09-10 — count 40 on 003001000005 (tools/cdp/probes/item-group.tpl)
 $category.item.list.category_description	confirmed	reference category/index.html — 一覧の [DETAIL]。実測 2026-09-10（/view/category/ct5 が現行と同じ「名入れ可能 …」を出す）
+$new_item.list.base_category.name	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
+$new_item.list.base_category.url	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
+$recommend_item.list.base_category.name	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
+$recommend_item.list.base_category.url	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
+$recently_item.list.base_category.name	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
+$recently_item.list.base_category.url	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
