@@ -89,17 +89,17 @@
 
 | ページ種別 | ファイル | 行数 |
 |---|---|---:|
-| トップ | `package/templates/top.tpl` | 277 |
-| 商品カテゴリー | `package/templates/category.tpl` | 162 |
-| 商品詳細 | `package/templates/detail.tpl` | 344 |
-| 商品検索結果 | `package/templates/search.tpl` | 140 |
-| 買い物カゴ | `package/templates/cart.tpl` | 181 |
-| お知らせ一覧 | `package/templates/news-list.tpl` | 89 |
-| お知らせ詳細 | `package/templates/news-detail.tpl` | 71 |
-| 利用案内 | `package/templates/guide.tpl` | 378 |
-| 会社概要 | `package/templates/company.tpl` | 64 |
-| 特定商取引法 | `package/templates/contract.tpl` | 174 |
-| プライバシーポリシー | `package/templates/policy.tpl` | 129 |
+| トップ | `package/templates/top.tpl` | 278 |
+| 商品カテゴリー | `package/templates/category.tpl` | 163 |
+| 商品詳細 | `package/templates/detail.tpl` | 346 |
+| 商品検索結果 | `package/templates/search.tpl` | 141 |
+| 買い物カゴ | `package/templates/cart.tpl` | 182 |
+| お知らせ一覧 | `package/templates/news-list.tpl` | 90 |
+| お知らせ詳細 | `package/templates/news-detail.tpl` | 72 |
+| 利用案内 | `package/templates/guide.tpl` | 379 |
+| 会社概要 | `package/templates/company.tpl` | 65 |
+| 特定商取引法 | `package/templates/contract.tpl` | 175 |
+| プライバシーポリシー | `package/templates/policy.tpl` | 130 |
 
 **触らないページ種別が4つあります。** 商品レビュー一覧・商品レビュー投稿・
 まとめ買い割引・会員制/年齢確認。この店舗では使っていないので、素の
