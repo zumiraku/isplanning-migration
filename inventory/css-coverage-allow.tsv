@@ -20,3 +20,4 @@ section	トップの区切り。元サイトでも指定なし（.M_section 側�
 section-inner	同上
 heading	ご利用案内の見出し。公開中のページから写した書き方で、m_sys_common・gigaplus・プラットフォームの10本（import.css の中身）を全部見ても定義がありません。現行サイトでも当たっていません
 cartHeading	同上。「ショッピングガイド」の見出しに付いていますが、どのCSSにも定義がありません
+date	お知らせ詳細の日付。現行も class="date" ですが .date への指定はありません（#r_news #newsHead span で当たります）

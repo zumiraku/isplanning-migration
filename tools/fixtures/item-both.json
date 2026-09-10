@@ -66,7 +66,8 @@
     "original_code": "NT1201",
     "description2": "<table><tr><th>販売単位</th><th>見積依頼</th><th>名入れ</th></tr><tr><td><div class=\"box20\"><p>ご相談<br>可能</p></div></td><td><div class=\"box22\"><p>ＦＡＸ<br>用紙</p></div></td><td><div class=\"box23\"><p>の し<br>不可</p></div></td></tr></table>",
     "description3": "<p class=\"nameprice\">名入れ料金・範囲等<b>（税別）</b></p><table class=\"name2022\"><tr><th>名入れ範囲</th><th>最低数量</th></tr><tr><td>15×160mm</td><td>100個</td></tr></table>",
-    "description4": ""
+    "description4": "",
+    "image_M": "/img/main_L2.jpg"
   },
   "url": {
     "top": "/"

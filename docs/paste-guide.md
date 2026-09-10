@@ -54,7 +54,7 @@
 
 | 箱 | ファイル | 行数 | 大きさ |
 |---|---|---:|---:|
-| CSS | `package/paste/all-pages.css` | 9,380 | 199KB |
+| CSS | `package/paste/all-pages.css` | 9,530 | 205KB |
 | JavaScript | `package/paste/all-pages.js` | 258 | 11KB |
 
 どちらも **箱の中で Ctrl+A → Ctrl+V** で丸ごと置き換えます。
@@ -89,15 +89,15 @@
 
 | ページ種別 | ファイル | 行数 |
 |---|---|---:|
-| トップ | `package/templates/top.tpl` | 278 |
-| 商品カテゴリー | `package/templates/category.tpl` | 170 |
+| トップ | `package/templates/top.tpl` | 310 |
+| 商品カテゴリー | `package/templates/category.tpl` | 177 |
 | 商品詳細 | `package/templates/detail.tpl` | 386 |
 | 商品検索結果 | `package/templates/search.tpl` | 141 |
-| 買い物カゴ | `package/templates/cart.tpl` | 183 |
-| お知らせ一覧 | `package/templates/news-list.tpl` | 90 |
+| 買い物カゴ | `package/templates/cart.tpl` | 174 |
+| お知らせ一覧 | `package/templates/news-list.tpl` | 95 |
 | お知らせ詳細 | `package/templates/news-detail.tpl` | 72 |
 | 利用案内 | `package/templates/guide.tpl` | 379 |
-| 会社概要 | `package/templates/company.tpl` | 65 |
+| 会社概要 | `package/templates/company.tpl` | 66 |
 | 特定商取引法 | `package/templates/contract.tpl` | 175 |
 | プライバシーポリシー | `package/templates/policy.tpl` | 130 |
 

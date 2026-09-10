@@ -150,16 +150,7 @@
 	<{if $recently_item.has_item}>
 	<div id="M_recent">
 	<h3>最近チェックした商品</h3>
-	<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-<{section name=rc loop=$recently_item.list}>
-  <{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>
-  <td align="center" class="lims" width="25%" valign="top">
-    <a href="<{$recently_item.list[rc].url}>"><img src="<{$recently_item.list[rc].image_M}>" alt="<{$recently_item.list[rc].name}>" width="220" height="220" border="0"></a>
-    <p class="woong"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>
-    <p class="woong"><{$recently_item.list[rc].price|number_format}>円（税込）</p>
-  </td>
-<{/section}>
-</tr></table>
+	<table id="recent"><tr><{section name=rc loop=$recently_item.list}><{if $smarty.section.rc.index == 0}><{elseif $smarty.section.rc.index % 4 == 0}></tr><tr><{else}><td class="line"><img height="100" width="4" border="0" src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$recently_item.list[rc].url}>"><img alt="<{$recently_item.list[rc].name}>" src="<{$recently_item.list[rc].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p><p class="price"><{$recently_item.list[rc].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table>
 	</div>
 	<{/if}>
 

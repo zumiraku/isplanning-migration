@@ -65,6 +65,24 @@
   <td class="woong" valign="top"><a href="<{$latest_news.list[nw].url}>"><{$latest_news.list[nw].title}></a></td>
 </tr></table>
 <{/section}>
+<{* 🔴 お知らせの枠の「底」を落としていました（2026-09-10 実測）
+
+     現行はお知らせの一覧のあとに、角丸の下辺が入ります。
+
+       <td class="line" width="5" height="5"><img src="/images/left_edge.gif"></td>
+       <td class="line" height="5">&nbsp;</td>
+       <td class="line" width="5" height="5"><img src="/images/right_edge.gif"></td>
+
+     画像名の突き合わせで left_edge.gif と right_edge.gif が
+     **1枚 → 0枚** と出ました。枠の下だけが開いて見えます。 *}>
+<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td class="line" width="5" height="5"><img src="/images/left_edge.gif"></td>
+  <td class="line" height="5">&nbsp;</td>
+  <td class="line" width="5" height="5"><img src="/images/right_edge.gif"></td>
+</tr></table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td class="line" height="7" bgcolor="#ffffff">&nbsp;</td>
+</tr></table>
 			</div>
 		</div>
 	</div>	
@@ -132,7 +150,7 @@
   <td align="center" class="lims" width="25%" valign="top">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
       <tr><td align="center" class="M_displayImg">
-        <a href="<{$new_item.list[nw2].url}>"><img src="<{$new_item.list[nw2].image_M}>" border="0" alt="<{$new_item.list[nw2].name}>" width="220" height="220"></a>
+        <a href="<{$new_item.list[nw2].url}>"><img src="<{$new_item.list[nw2].image_S}>" border="0" alt="<{$new_item.list[nw2].name}>" width="220" height="220"></a>
       </td></tr>
       <tr class="woong"><td valign="top" align="center">
         <a href="<{$new_item.list[nw2].url}>"><{$new_item.list[nw2].name}></a>
@@ -171,7 +189,7 @@
   <td align="center" class="lims" width="25%" valign="top">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
       <tr><td align="center" class="M_displayImg">
-        <a href="<{$recommend_item.list[rc].url}>"><img src="<{$recommend_item.list[rc].image_M}>" border="0" alt="<{$recommend_item.list[rc].name}>" width="220" height="220"></a>
+        <a href="<{$recommend_item.list[rc].url}>"><img src="<{$recommend_item.list[rc].image_S}>" border="0" alt="<{$recommend_item.list[rc].name}>" width="220" height="220"></a>
       </td></tr>
       <tr class="woong"><td valign="top" align="center">
         <a href="<{$recommend_item.list[rc].url}>"><{$recommend_item.list[rc].name}></a>
@@ -268,41 +286,7 @@
 	<{if $recently_item.has_item}>
     <div class="M_section" id="r_recent">
 		<h2 class="main-ttl">最近チェックした商品</h2>
-        <table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-<{section name=rcn loop=$recently_item.list}>
-  <{if $smarty.section.rcn.index > 0 and $smarty.section.rcn.index % 4 == 0}></tr><tr><{/if}>
-  <td align="center" class="lims" width="25%" valign="top">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
-      <tr><td align="center" class="M_displayImg">
-        <a href="<{$recently_item.list[rcn].url}>"><img src="<{$recently_item.list[rcn].image_M}>" border="0" alt="<{$recently_item.list[rcn].name}>" width="220" height="220"></a>
-      </td></tr>
-      <tr class="woong"><td valign="top" align="center">
-        <a href="<{$recently_item.list[rcn].url}>"><{$recently_item.list[rcn].name}></a>
-        <{if $recently_item.list[rcn].icon.has_item}>
-          <{section name=rcni loop=$recently_item.list[rcn].icon.list}><img src="<{$recently_item.list[rcn].icon.list[rcni].image_url}>" align="absmiddle" border="0"><{/section}>
-        <{/if}>
-      </td></tr>
-      <tr class="woong"><td valign="top" align="center"><{$recently_item.list[rcn].price|number_format}>円（税込）</td></tr>
-      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
-
-           現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
-           リンク**で、角かっこ付きの太字です。
-
-             <tr height="20" class="woong"><td valign="top" align="center">
-               <a href="/view/category/ct6"><b>[50円～99円]</b></a>
-             </td></tr>
-
-           現行と移植版の文言を突き合わせて出ました。
-           [50円～99円] [100円～199円] [200円～299円] [300円～399円]
-           [1000円～1499円] の5種類が、移植版に1つもありませんでした。
-           トップの新着16件と定番12件、全部のタイルに付いています。 *}>
-      <tr height="20" class="woong"><td valign="top" align="center">
-        <a href="<{$recently_item.list[rcn].base_category.url}>"><b>[<{$recently_item.list[rcn].base_category.name}>]</b></a>
-      </td></tr>
-    </table>
-  </td>
-<{/section}>
-</tr></table>
+        <table id="recent"><tr><{section name=rcn loop=$recently_item.list}><{if $smarty.section.rcn.index == 0}><{elseif $smarty.section.rcn.index % 4 == 0}></tr><tr><{else}><td class="line"><img height="100" width="4" border="0" src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$recently_item.list[rcn].url}>"><img alt="<{$recently_item.list[rcn].name}>" src="<{$recently_item.list[rcn].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$recently_item.list[rcn].url}>"><{$recently_item.list[rcn].name}></a></p><p class="price"><{$recently_item.list[rcn].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table>
 	</div>
     <{/if}>
 

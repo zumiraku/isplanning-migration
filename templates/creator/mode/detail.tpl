@@ -61,7 +61,7 @@
 	<div class="O_itemDetailTop">	
 		<div id="O_itemDetailL">
 		<div id="<{if $item.base_category.code == "ct646" or $item.base_category.code == "ct664"}>Item_detail_Image<{else}>itemImg<{/if}>">
-            <a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>
+            <a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_M}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>
 			<{if $item.multi_image.has_item}>
 			<div class="M_imageThumbnail">
 			  <{section name=m loop=$item.multi_image.list}>
@@ -192,7 +192,7 @@
     -->
 	
 <{if $item.base_category.code == "ct646"}>
-<div class="M_section border" id="middle_recent"><h2 class="main-ttl">最近チェックした商品</h2><{if $recently_item.has_item}><table id="recent"><tr><{section name=rc loop=$recently_item.list}><{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$recently_item.list[rc].url}>"><img alt="<{$recently_item.list[rc].name}>" src="<{$recently_item.list[rc].image_M}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p><p class="price"><{$recently_item.list[rc].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}></div>
+<div class="M_section border" id="middle_recent"><h2 class="main-ttl">最近チェックした商品</h2><{if $recently_item.has_item}><table id="recent"><tr><{section name=rc loop=$recently_item.list}><{if $smarty.section.rc.index == 0}><{elseif $smarty.section.rc.index % 4 == 0}></tr><tr><{else}><td class="line"><img height="100" width="4" border="0" src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$recently_item.list[rc].url}>"><img alt="<{$recently_item.list[rc].name}>" src="<{$recently_item.list[rc].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p><p class="price"><{$recently_item.list[rc].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}></div>
 <{else}>
 <!-- イーレコメンド設置タグ -->
 <script type="text/javascript">
@@ -222,7 +222,7 @@ try{
 
 <!--商品グループ--><div id="brandgroupsend"></div>
 <div class="M_section" id="middle_recent">
-        <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
+        <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index == 0}><{elseif $smarty.section.g.index % 4 == 0}></tr><tr><{else}><td class="line"><img height="100" width="4" border="0" src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a><{if $item.group.list[g].icon.has_item}><{section name=gi loop=$item.group.list[g].icon.list}> <img src="<{$item.group.list[g].icon.list[gi].image_url}>" align="absmiddle" border="0"><{/section}><{/if}></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
 </div>
 <{/if}>
 </div>
@@ -338,7 +338,7 @@ src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="t
 <{if $item.base_category.code == "ct646"}>
 <!--商品グループ--><div id="brandgroupsend"></div>
 <div class="M_section" id="middle_recent">
-        <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
+        <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index == 0}><{elseif $smarty.section.g.index % 4 == 0}></tr><tr><{else}><td class="line"><img height="100" width="4" border="0" src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a><{if $item.group.list[g].icon.has_item}><{section name=gi loop=$item.group.list[g].icon.list}> <img src="<{$item.group.list[g].icon.list[gi].image_url}>" align="absmiddle" border="0"><{/section}><{/if}></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
 </div>
 <{/if}>
 

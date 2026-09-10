@@ -77,7 +77,7 @@ function grid(listVar, name, max) {
   <td align="center" class="lims" width="25%" valign="top">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" height="80">
       <tr><td align="center" class="M_displayImg">
-        <a href="<{$${it}.url}>"><img src="<{${it}.image_M}>" border="0" alt="<{${it}.name}>" width="220" height="220"></a>
+        <a href="<{$${it}.url}>"><img src="<{${it}.image_S}>" border="0" alt="<{${it}.name}>" width="220" height="220"></a>
       </td></tr>
       <tr class="woong"><td valign="top" align="center">
         <a href="<{$${it}.url}>"><{$${it}.name}></a>
@@ -132,7 +132,25 @@ function news() {
   <td width="80" class="woong" height="22" valign="top">[<{${it}.date.year}>/<{${it}.date.month}>/<{${it}.date.day}>]</td>
   <td class="woong" valign="top"><a href="<{${it}.url}>"><{${it}.title}></a></td>
 </tr></table>
-<{/section}>`;
+<{/section}>
+<{* 🔴 お知らせの枠の「底」を落としていました（2026-09-10 実測）
+
+     現行はお知らせの一覧のあとに、角丸の下辺が入ります。
+
+       <td class="line" width="5" height="5"><img src="/images/left_edge.gif"></td>
+       <td class="line" height="5">&nbsp;</td>
+       <td class="line" width="5" height="5"><img src="/images/right_edge.gif"></td>
+
+     画像名の突き合わせで left_edge.gif と right_edge.gif が
+     **1枚 → 0枚** と出ました。枠の下だけが開いて見えます。 *}>
+<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td class="line" width="5" height="5"><img src="/images/left_edge.gif"></td>
+  <td class="line" height="5">&nbsp;</td>
+  <td class="line" width="5" height="5"><img src="/images/right_edge.gif"></td>
+</tr></table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td class="line" height="7" bgcolor="#ffffff">&nbsp;</td>
+</tr></table>`;
 }
 
 module.exports = { grid, ranking, news };

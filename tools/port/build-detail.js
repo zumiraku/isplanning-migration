@@ -66,9 +66,18 @@ body = body.replace('<a href="/">ホーム</a> &nbsp;&gt;[LIST_NO_ICON]', CRUMB)
 
 body = body.replace("[BRANDNAME]", "<{$item.name}>");
 
-/* --- 画像 ------------------------------------------------------------------ */
+/* --- 画像 ------------------------------------------------------------------
+ *
+ * 🔴 主画像に image_L を出していました（2026-09-10 実測）
+ *
+ *      現行    itemimages/0030010000052_OGXU9iM.jpg   ← 末尾2（image_M）
+ *      移植版  itemimages/003001000005_8o4gXeB.jpg    ← 末尾なし（image_L）
+ *
+ *    描かれる大きさは同じですが、**元の画像が大きいものを縮めて**
+ *    出していました。山口様のご指摘「商品画像がすべてLサイズになって
+ *    いる」はこれです。拡大表示のリンク先だけ image_L のままにします。 */
 const MAIN_IMG = [
-  '<a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>',
+  '<a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_M}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>',
   '\t\t\t<{if $item.multi_image.has_item}>',
   '\t\t\t<div class="M_imageThumbnail">',
   '\t\t\t  <{section name=m loop=$item.multi_image.list}>',
@@ -205,28 +214,10 @@ body = body.replace("[ENDFORM]<!-- 商品詳細フォームの終わりに必ず
  *    実データで確かめたら、中身はちゃんと来ていました（40件・名前・
  *    価格・URL・画像すべて）。回して出すだけです。
  *    現行は table#M_group に4列で並べています。同じ形にします。 */
-const GROUP = [
-  '<{if $item.group.has_item}>',
-  '<h3><{$item.group.name}></h3>',
-  '<table id="M_group"><tr>',
-  '<{section name=g loop=$item.group.list}>',
-  '<{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}>',
-  '<td class="itemBox">',
-  '<table width="100%">',
-  '<tr><td height="100" class="itemImg">',
-  '<a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a>',
-  '</td></tr>',
-  '<tr><td>',
-  '<p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p>',
-  '<{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}>',
-  '<p class="price"><{$item.group.list[g].price|number_format}>円（税込）</p>',
-  '</td></tr>',
-  '</table>',
-  '</td>',
-  '<{/section}>',
-  '</tr></table>',
-  '<{/if}>'
-].join("");
+const { tiles } = require("./_tiles.js");
+const GROUP = "<{if $item.group.has_item}><h3><{$item.group.name}></h3>" +
+  tiles({ list: "$item.group.list", name: "g", tableId: "M_group", spe: true, icons: true, perRow: 4 }) +
+  "<{/if}>";
 body = body.replace("[BRANDGROUP]", GROUP);
 
 /* --- レビュー（u-komi） ---------------------------------------------------- */
@@ -317,29 +308,10 @@ const IS_SOLO_IMAGE = '$item.base_category.code == "ct646" or $item.base_categor
 body = body.replace('<div id="itemImg">',
   '<div id="<{if ' + IS_SOLO_IMAGE + '}>Item_detail_Image<{else}>itemImg<{/if}>">');
 
-const RECENT = [
-  '<div class="M_section border" id="middle_recent">',
-  '<h2 class="main-ttl">最近チェックした商品</h2>',
-  '<{if $recently_item.has_item}>',
-  '<table id="recent"><tr>',
-  '<{section name=rc loop=$recently_item.list}>',
-  '<{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>',
-  '<td class="itemBox">',
-  '<table width="100%">',
-  '<tr><td height="100" class="itemImg">',
-  '<a href="<{$recently_item.list[rc].url}>"><img alt="<{$recently_item.list[rc].name}>" src="<{$recently_item.list[rc].image_M}>" border="0" width="220"></a>',
-  '</td></tr>',
-  '<tr><td>',
-  '<p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>',
-  '<p class="price"><{$recently_item.list[rc].price|number_format}>円（税込）</p>',
-  '</td></tr>',
-  '</table>',
-  '</td>',
-  '<{/section}>',
-  '</tr></table>',
-  '<{/if}>',
-  '</div>'
-].join("");
+const RECENT = '<div class="M_section border" id="middle_recent"><h2 class="main-ttl">最近チェックした商品</h2>' +
+  "<{if $recently_item.has_item}>" +
+  tiles({ list: "$recently_item.list", name: "rc", tableId: "recent", perRow: 4 }) +
+  "<{/if}></div>";
 
 const RC_MARK = "<!-- イーレコメンド設置タグ -->";
 const GRP_MARK = "<!--商品グループ-->";

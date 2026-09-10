@@ -25,3 +25,6 @@
 ヘッダー	wrapper	#wrapper は各ページテンプレートの側にあります。ヘッダーは中に入る側です
 お知らせ詳細	newsNextの題名	現行の #newsNext は次のお知らせの**題名**を出しますが、クリエイターに題名を返すタグがありません（$news.next_title / $news.next.title / $news.next_name / $news.next_news.title / $news.prev_title を実データで試して全部空・2026-09-10）。リンクは同じ場所に「次のお知らせ」の文字で出しています
 商品詳細	商品グループの件数	現行50点・移植版40点。$item.group.list が40件しか返しません（実測）。total_count / display_count / url / has_next / pager / code はどれも空でした。93点のグループで現行50・移植40。41点以上のグループは23個、そこに属する商品は2,114件です
+商品詳細	item-up.png / item-down.png	数量の▲▼の画像。数値入力欄（input type=number）に替えたので出ません。押すたびの再読み込みが無くなり、スマホで数字キーが出ます
+買い物かご	basket-del.png	「かごの中身を空にする」の背景画像。リンク自体がクリエイターに無いので出ません
+個人情報	画像21種類	現行は footer の JavaScript:bottom_privercy() で開く別窓で、ヘッダーもCSSも無い素のページです（画像1枚・CSS0本）。移植版は普通のページなので、ヘッダーとフッターのぶん画像が増えます

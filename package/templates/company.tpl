@@ -41,6 +41,7 @@
     <div class="M_mainContents">
 
 <div class="company">
+	<p><img src="/design/isplanning/companytitle.gif" border="0" alt="会社紹介"></p>
 	<{if $company.image_url}><p><img src="<{$company.image_url}>" alt="会社概要"></p><{/if}>
 	<{$company.content}>
 </div>

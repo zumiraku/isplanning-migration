@@ -9481,3 +9481,50 @@ a[data-zoom] { cursor: zoom-in; }
     overflow-wrap: anywhere;
   }
 }
+
+/* 🔴 「かごの中身を空にする」を外した副作用（2026-09-10 実測）
+
+     現行の .btnBack にはリンクが2本あります。
+
+       <a>買い物を続ける</a><a class="basket-del">かごの中身を空にする</a>
+
+     クリエイターに「かごを空にする」URLが無いので2本目を外したところ、
+     `.btnWrap a:last-child { background: … }` が**1本目に当たるように
+     なり**、買い物を続けるの背景（basket-home.png）が塗りつぶされて
+     いました。画像名の突き合わせで 1枚 → 0枚 と出ました。
+     元の見た目に戻します。 */
+.btnWrap .btnBack a:last-child {
+  background: #007c5a url(https://gigaplus.makeshop.jp/isplanning/images/basket-home.png) no-repeat 23% 50%;
+}
+
+/* 🔴 「こちらの商品もおすすめです。」が、320pxで画面外へ出ます
+      （2026-09-10 実測。写し mirror/category.html を320pxで測定）
+
+      現行と同じ形にしたところ（130px幅の小さな表を5つ横に並べる）、
+      画面305pxに対して310pxになりました。現行のPCサイトは横幅が固定
+      なので、狭い画面での正解がありません。商品グループと同じ扱いで、
+      767px以下は2列に折り返します。 */
+@media screen and (max-width: 767px) {
+  #r_recommend_ct > table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  #r_recommend_ct > table > tbody { display: block; width: 100%; }
+  #r_recommend_ct > table > tbody > tr {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+  #r_recommend_ct > table > tbody > tr > td {
+    display: block;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  /* 区切りの細い列は、折り返すと意味がないので隠します */
+  #r_recommend_ct > table > tbody > tr > td.line { display: none; }
+  #r_recommend_ct > table > tbody > tr > td > table {
+    width: 100% !important;
+    max-width: 130px;
+  }
+}

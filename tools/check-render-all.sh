@@ -96,8 +96,8 @@ check search.tpl            search-keyword.json  'class="M_innerBox"'      3
 check search.tpl            search-empty.json    'id="r_searchInput"'      1
 check cart.tpl              cart-two-items.json  'class="basketName"'      2
 check cart.tpl              cart-empty.json      'class="basketEmpty"'     1
-check news-list.tpl         news-list.json       'class="infoList"'        1
-check news-detail.tpl       news-detail.json     'class="infodate"'        1
+check news-list.tpl         news-list.json       'id="newsList"'        1
+check news-detail.tpl       news-detail.json     'id="newsHead"'        1
 check guide.tpl             news-detail.json     'id="about_payment"'      1
 # 🔴 会社概要だけ id を外しました（2026-09-09）
 #

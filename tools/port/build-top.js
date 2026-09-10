@@ -11,6 +11,7 @@
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { grid, ranking, news } = require("./items.js");
+const { tiles } = require("./_tiles.js");
 const { rewrite } = require("./url-map.js");
 
 let body = fs.readFileSync("templates/basic-utf8/design_mainpage.html", "utf8");
@@ -60,7 +61,11 @@ body = body.slice(0, revStart) + body.slice(revEnd);
 /* --- 最近チェックした商品 ------------------------------------------------- */
 body = body.replace("[IF_RECENT]", "<{if $recently_item.has_item}>")
            .replace("[ENDIF_RECENT]", "<{/if}>");
-body = body.replace("[RECENT2]", grid("$recently_item", "rcn"));
+/* 🔴 最近チェックした商品は、新着や定番とは別のマークアップです
+ *    （公開ページ実測。td.itemBox と区切りの mk_main_p_line.gif）。
+ *    grid() で出していたので、区切りとアイコンが落ちていました。 */
+body = body.replace("[RECENT2]",
+  tiles({ list: "$recently_item.list", name: "rcn", tableId: "recent", perRow: 4 }));
 
 /* 🔴 末尾の <!--.mainContents--></div> は外します。
      .M_mainContents は shell が開いて閉じます。残すと1つ閉じすぎになり、

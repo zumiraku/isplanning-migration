@@ -419,3 +419,13 @@ $recommend_item.list.base_category.name	confirmed	実測 2026-09-10。トップ�
 $recommend_item.list.base_category.url	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
 $recently_item.list.base_category.name	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
 $recently_item.list.base_category.url	confirmed	実測 2026-09-10。トップのタイル4行目（[50円～99円] などの角かっこ）が出ることを確認
+$item.group.list.icon.has_item	confirmed	実測 2026-09-10 tools/cdp/probes/tiles.tpl（iconAN が出ました）
+$item.group.list.icon.list	confirmed	同上
+$item.group.list.icon.list.image_url	confirmed	同上
+$recently_item.list.image_S	confirmed	実測 2026-09-10。末尾3の画像が返り、現行と同じになりました
+$recently_item.list.icon.has_item	confirmed	実測 2026-09-10
+$recently_item.list.icon.list	confirmed	実測 2026-09-10
+$recently_item.list.icon.list.image_url	confirmed	実測 2026-09-10
+$new_item.list.image_S	confirmed	実測 2026-09-10。現行と同じ末尾3の画像になりました
+$recommend_item.list.image_S	confirmed	実測 2026-09-10
+$ranking_item.list.image_S	confirmed	実測 2026-09-10

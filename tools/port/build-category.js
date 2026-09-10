@@ -237,11 +237,11 @@ body = body.replace("[SUISEN4_2]",
 `<{if $category.recommend_item.has_item}>
 	<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
 	<{section name=rc loop=$category.recommend_item.list}>
-	  <{if $smarty.section.rc.index > 0}><td class="line" width="4" align="center"><img src="/images/common/sero.gif"></td><{/if}>
+	  <{if $smarty.section.rc.index == 0}><{elseif $smarty.section.rc.index % 5 == 0}></tr><tr><{else}><td class="line" width="4" align="center"><img src="/images/common/sero.gif"></td><{/if}>
 	  <td align="center">
 	    <table border="0" cellpadding="0" cellspacing="0" width="130">
 	      <tr><td align="center" height="100">
-	        <a href="<{${RC}.url}>"><img src="<{${RC}.image_S}>" border="0" width="100" align="center" alt="<{${RC}.name}>"></a>
+	        <a href="<{${RC}.url}>"><img src="<{${RC}.image_S}>" border="0" width="100" align="center" alt="<{${RC}.name}>"></a><img src="https://shop1-makeshop.akamaized.net/images/white.gif" width="5" height="10">
 	      </td></tr>
 	      <tr><td class="line" height="3">&nbsp;</td></tr>
 	      <tr><td align="center" height="30" valign="top">

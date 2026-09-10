@@ -71,6 +71,16 @@ function write(name, from, body) {
  *    （実測: policy 1 / guide 1 / news-list 1 / news-detail 1 / contract 0）。 */
 write({ file: "company", label: "会社概要" }, "（タグのみ）", [
   '<div class="company">',
+  /* 🔴 見出しの画像が落ちていました（2026-09-10 実測）
+   *
+   *    現行の会社概要には、本文の前にこれが入っています。
+   *
+   *      <img src="/design/isplanning/companytitle.gif" alt="会社紹介">
+   *
+   *    ベーシックのページ枠が出していたもので、テンプレートには
+   *    書かれていません。画像名の突き合わせで 1枚 → 0枚 と出ました。
+   *    画像は今のURLのまま生きています（200・936バイトを確認）。 */
+  '\t<p><img src="/design/isplanning/companytitle.gif" border="0" alt="会社紹介"></p>',
   '\t<{if $company.image_url}><p><img src="<{$company.image_url}>" alt="会社概要"></p><{/if}>',
   '\t<{$company.content}>',
   '</div>'

@@ -45,6 +45,7 @@
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");
+const { tiles } = require("./_tiles.js");
 
 let body = fs.readFileSync("templates/basic-utf8/design_basketpage.html", "utf8");
 
@@ -159,19 +160,15 @@ body = body.replace("[CARRIAGE_MSG2]", "");
 
 /* --- 最近チェックした商品 -------------------------------------------------- */
 body = body.replace("[IF_RECENT]", "<{if $recently_item.has_item}>").replace("[ENDIF_RECENT]", "<{/if}>");
+/* 🔴 現行の「最近チェックした商品」は table#recent です（2026-09-10 実測）
+ *
+ *    こちらは td.lims の4列で出していました。現行は商品グループと同じ
+ *    td.itemBox の形で、**あいだに区切りの画像**（mk_main_p_line.gif）が
+ *    入り、名前のうしろにアイコンが付き、画像は image_S です。
+ *    画像名の突き合わせで mk_main_p_line.gif が 3枚 → 0枚 と出ました。
+ *    形は tools/port/_tiles.js に1つにまとめてあります。 */
 body = body.replace("[RECENT]",
-[
-'<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr>',
-'<{section name=rc loop=$recently_item.list}>',
-'  <{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>',
-'  <td align="center" class="lims" width="25%" valign="top">',
-'    <a href="<{$recently_item.list[rc].url}>"><img src="<{$recently_item.list[rc].image_M}>" alt="<{$recently_item.list[rc].name}>" width="220" height="220" border="0"></a>',
-'    <p class="woong"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>',
-'    <p class="woong"><{$recently_item.list[rc].price|number_format}>円（税込）</p>',
-'  </td>',
-'<{/section}>',
-'</tr></table>'
-].join("\n"));
+  tiles({ list: "$recently_item.list", name: "rc", tableId: "recent", perRow: 4 }));
 
 /* --- 残りの制御タグを掃除 -------------------------------------------------- */
 body = body.replace(/\[IF_MATOMEGAI\][\s\S]*?\[IFEND_MATOMEGAI\]/g, "");
