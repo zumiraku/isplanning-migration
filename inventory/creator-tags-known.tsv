@@ -406,3 +406,9 @@ $module.category_title	confirmed	当方が追加。カテゴリ独自タイト�
 $item.base_category.code	confirmed	probed against live data 2026-09-10 (003001000005 returned ct5) — tools/cdp/probes/base-category.tpl
 $item.base_category.name	confirmed	probed 2026-09-10 (returned ～49円)
 $item.base_category.url	confirmed	probed 2026-09-10 (returned /view/category/ct5)
+$item.group.list.name	confirmed	probed 2026-09-10 (40 items on 003001000005)
+$item.group.list.price	confirmed	probed 2026-09-10
+$item.group.list.url	confirmed	probed 2026-09-10
+$item.group.list.image_S	confirmed	probed 2026-09-10
+$item.group.list.special_display	confirmed	same family as $item.special_display
+$item.group.list	confirmed	probed 2026-09-10 — count 40 on 003001000005 (tools/cdp/probes/item-group.tpl)

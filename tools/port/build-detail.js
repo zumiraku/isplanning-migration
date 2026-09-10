@@ -180,7 +180,43 @@ body = body.replace("[ZAIKO]", ZAIKO);
 body = body.replace("[ENDFORM]<!-- 商品詳細フォームの終わりに必ず入力するタグ -->", "");
 
 /* --- 商品グループ ---------------------------------------------------------- */
-body = body.replace("[BRANDGROUP]", '<{if $item.group.has_item}><h3><{$item.group.name}></h3><{$item.group}><{/if}>');
+/* 🔴 商品グループが丸ごと出ていませんでした（2026-09-10 実測）
+ *
+ *    `<{$item.group}>` と書いていました。これは配列なので、そのまま
+ *    出そうとすると **画面に "Array" という文字だけ**が出ます。
+ *    実際そうなっていて、「人気ボールペン、名入れ可能です」の枠に
+ *    **商品50点が1件も出ていませんでした。**
+ *
+ *    見出しは出るので、検査も目視も通り抜けました。数えて初めて分かります
+ *      現行  この枠に 税込50件・画像141件
+ *      移植  この枠に 税込 0件・画像  0件
+ *
+ *    実データで確かめたら、中身はちゃんと来ていました（40件・名前・
+ *    価格・URL・画像すべて）。回して出すだけです。
+ *    現行は table#M_group に4列で並べています。同じ形にします。 */
+const GROUP = [
+  '<{if $item.group.has_item}>',
+  '<h3><{$item.group.name}></h3>',
+  '<table id="M_group"><tr>',
+  '<{section name=g loop=$item.group.list}>',
+  '<{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}>',
+  '<td class="itemBox">',
+  '<table width="100%">',
+  '<tr><td height="100" class="itemImg">',
+  '<a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a>',
+  '</td></tr>',
+  '<tr><td>',
+  '<p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p>',
+  '<{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}>',
+  '<p class="price"><{$item.group.list[g].price}>円（税込）</p>',
+  '</td></tr>',
+  '</table>',
+  '</td>',
+  '<{/section}>',
+  '</tr></table>',
+  '<{/if}>'
+].join("");
+body = body.replace("[BRANDGROUP]", GROUP);
 
 /* --- レビュー（u-komi） ---------------------------------------------------- */
 body = body.replace(/\[REVIEW_BUTTON\]|\[REVIEW_WRITE\]/g, "");

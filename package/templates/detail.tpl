@@ -219,7 +219,7 @@ try{
 
 <!--商品グループ--><div id="brandgroupsend"></div>
 <div class="M_section" id="middle_recent">
-        <{if $item.group.has_item}><h3><{$item.group.name}></h3><{$item.group}><{/if}>
+        <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
 </div>
 </div>
 
