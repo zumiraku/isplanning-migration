@@ -37,7 +37,7 @@
 <div id="wrapper">
   <div id="O_container">
     <{$module.leftmenu}>
-    <div class="M_mainContents">
+    <div class="M_mainContents" id="M_basket">
 
 <h2>買い物かご</h2>
 <!--<a href="/view/news/20260728033258"><div class="closed">休業日のお知らせ：8月8日（土）～8月16日（日）まで休業となります。</a></div>-->

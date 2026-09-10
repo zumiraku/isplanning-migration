@@ -198,7 +198,9 @@ if (wishAt >= 0) {
 const r = rewrite(body);
 body = r.html;
 
-const out = shell({ name: "買い物カゴ", from: "basketpage", slider: false, body: body.trim() });
+/* 🔴 id="M_basket" を落としていました。#M_basket を前提にしたCSSが効かず、
+   「ご購入手続きへ進む」が親から227pxはみ出していました（2026-09-10 実測）。 */
+const out = shell({ name: "買い物カゴ", from: "basketpage", slider: false, mainId: "M_basket", body: body.trim() });
 fs.writeFileSync("templates/creator/mode/cart.tpl", out);
 
 console.log("買い物かご: " + out.split("\n").length + " 行");

@@ -206,7 +206,8 @@ body = body.trimEnd() + "\n</div><!-- /.tab-area -->";
 const r = rewrite(body);
 body = r.html;
 
-const out = shell({ name: "商品詳細", from: "detailpage", slider: false, body: body.trim() });
+/* 🔴 id="O_itemDetail" も同じく落としていました。現行の骨格に戻します。 */
+const out = shell({ name: "商品詳細", from: "detailpage", slider: false, mainId: "O_itemDetail", body: body.trim() });
 fs.writeFileSync("templates/creator/mode/detail.tpl", out);
 
 console.log("商品詳細: " + out.split("\n").length + " 行");

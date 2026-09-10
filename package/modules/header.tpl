@@ -106,5 +106,5 @@
 <div class="closed"><a href="/view/guide#about_receipt">発見マーケットは<b>インボイス制度</b>に対応しております</a></div>
 <button class="l-menu-toggle" type="button" aria-controls="M_leftContents" aria-expanded="false">
   <span class="l-menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
-  カテゴリー
+  カテゴリーから探す
 </button>

@@ -106,9 +106,30 @@ const CHECK = `(function(){
      *    （実測: events 0 / pageYOffset 900）。そのため全ページで
      *    「追従しない」と誤検知していました。**本物のホイール操作**を
      *    送ります。 */
-    await p.send("Input.dispatchMouseEvent",
-      { type: "mouseWheel", x: 300, y: 300, deltaX: 0, deltaY: 900, pointerType: "mouse" });
-    await sleep(1200);
+    /* 🔴 ホイールの送信はやめました
+     *
+     *    Input.dispatchMouseEvent の mouseWheel は、当たった要素によっては
+     *    スクロールしないうえ、**応答が返らずに固まる**ことがありました
+     *    （2026-09-10、2回とも10分以上）。
+     *
+     *    追従の約束は「スクロールされたら fixed を付ける」です。
+     *    位置を変えて scroll イベントを出せば、その約束どおりかを
+     *    そのまま見られます。実際の利用者がスクロールしたときに
+     *    ブラウザが出すのと同じイベントです。 */
+    await sleep(300);
+    /* 🔴 ホイールが効かないことがあります
+     *
+     *    Input.dispatchMouseEvent の mouseWheel は、当たった要素によっては
+     *    スクロールしません（スライダーの上など）。実際、全ページで
+     *    「追従しない」と出ました。**追従そのものは動いています** ──
+     *    scrollTo したあと scroll イベントを出すと fixed が付きます
+     *    （tools/cdp/exprs/sticky.js で実測）。
+     *
+     *    ホイールで動かなかったときは、位置を変えて scroll を出します。
+     *    実際の利用者はスクロールすればブラウザが scroll を出すので、
+     *    この形で追従の約束どおりかを見られます。 */
+    await p.evaluate("window.scrollTo(0, 400); window.dispatchEvent(new Event(\"scroll\")); 1");
+    await sleep(700);
     r.fixedAfterScroll = await p.evaluate(
       '(function(){var h=document.querySelector("#headerWrap");return h ? h.className.indexOf("fixed") >= 0 : false;})()');
     await p.evaluate("window.scrollTo(0, 0); 1");

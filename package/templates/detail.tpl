@@ -37,7 +37,7 @@
 <div id="wrapper">
   <div id="O_container">
     <{$module.leftmenu}>
-    <div class="M_mainContents">
+    <div class="M_mainContents" id="O_itemDetail">
 
 <div class="M_topicPath">
 	<a href="<{$url.top}>">ホーム</a> &nbsp;&gt;

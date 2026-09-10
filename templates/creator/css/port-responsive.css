@@ -430,6 +430,19 @@ a[data-zoom] { cursor: zoom-in; }
     display: flex;
     align-items: flex-start;
     box-sizing: border-box;
+    /* 🔴 左メニューと本文のあいだの30pxが抜けていました（2026-09-10 実測）
+     *
+     *    現行と並べて測ったら、本文の列がまるごと30px左にずれていました。
+     *
+     *      現行    #M_leftContents 40..240 / .M_mainContents 270..1240（970）
+     *      移植版  #M_leftContents 40..240 / .M_mainContents 240..1240（1000）
+     *
+     *    ベーシックでは、プラットフォームが挿入する <td> のすき間が
+     *    ここに 30px 入っていました。flex に組み替えたときに、その分を
+     *    引き継いでいませんでした。**本文に乗っている新着・おすすめ・
+     *    ランキングが全部30pxずれます。** 山口様の言う「細かなズレ」は
+     *    これです。 */
+    gap: 30px;
   }
   #M_leftContents {
     float: none !important;
@@ -745,5 +758,129 @@ a[data-zoom] { cursor: zoom-in; }
   .rcmdjp-carousel {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 🔴 メインビジュアルが中央に寄っていませんでした（2026-09-10 実測）
+ *
+ *    現行と並べて測ると、スライダーだけ40px左にずれていました。
+ *
+ *      現行    .bx-wrapper  40..1250
+ *      移植版  .bx-wrapper   0..1210
+ *
+ *    元CSSの `.slider` は `max-width: 1200px` だけで、中央寄せの指定が
+ *    ありません。ベーシックでは外側の入れ物が中央に寄せていましたが、
+ *    クリエイターでは `.slider` が body の直下に来るので、左端に貼り付き
+ *    ます。**幅は合っているのに位置だけずれる**ので、ヘッダーとの縦線が
+ *    揃わず、いちばん目につくズレになっていました。 */
+.slider {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 🔴 本文の箱が二重で、余白が2回効いていました（2026-09-10 実測）
+ *
+ *    ご利用案内と会社概要だけ、中身が10px右にずれていました。
+ *
+ *      現行    #O_adminPagearea 270..1240 (970) / table.tbl01 280..1240
+ *      移植版  #O_adminPagearea 280..1240 (960) / table.tbl01 290..1240
+ *
+ *    現行は `<div id="O_adminPagearea" class="M_mainContents company">` の
+ *    **1枚だけ**です。移植版は外側に `.M_mainContents` を置いたうえに、
+ *    ご利用案内は自前で、会社概要は `<{$company.content}>` が持ってくる
+ *    ぶんで、`.M_mainContents` が入れ子になっています。
+ *    元CSSの `.M_mainContents { padding-left: 10px }` が2回効いて、
+ *    ちょうど10pxずれていました。
+ *
+ *    入れ子になったほうだけ、親の余白を打ち消します。
+ *    自分の余白は残すので、中の表の位置は現行と同じになります。
+ *
+ *    🔴 最初に書いたルールは効きませんでした
+ *
+ *       `.M_mainContents .M_mainContents`（0,2,0）では届きません。
+ *       元CSSに **`#O_adminPagearea { margin: -10px 0 0 0 }`**（1,0,0）が
+ *       あって、左余白を0に戻していました。実測しても margin-left が
+ *       0px のままで、その場で直接指定したら 10px 動いたので分かりました。
+ *       id を含めた形（1,2,0）にします。上の -10px は残します。 */
+.M_mainContents .M_mainContents,
+.M_mainContents #O_adminPagearea.M_mainContents {
+  margin-left: -10px;
+  padding-left: 10px;
+  float: none;
+  width: auto;
+}
+
+/* 🔴 左メニューのボタンが見つけられませんでした（山口様のご指摘・2026-09-10）
+ *
+ *    「左メニューもSPに行く段階で消えてなくなります」
+ *
+ *    消してはいません。960px 未満で引き出しに畳んで、☰ ボタンで開く形に
+ *    していました。ところがそのボタンが
+ *
+ *      position: fixed; top: 8px; left: 8px
+ *
+ *    で画面の左上に浮いていました。**上の緑の帯に重なる**うえ、
+ *    ヘッダーの文字に紛れて、押せるものだと分かりません。
+ *    ご指摘のとおり「無い」のと同じです。
+ *
+ *    流れの中に戻して、横いっぱいの帯にします。文言も
+ *    「カテゴリーから探す」に変えて、何が開くのか分かるようにします。
+ *    重なりも無くなります。 */
+@media screen and (max-width: 960px) {
+  .l-menu-toggle {
+    display: flex;
+    position: static;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    padding: 14px 12px;
+    border-radius: 0;
+    font-size: 16px;
+    letter-spacing: .04em;
+  }
+  .l-menu-toggle__bars { width: 20px; }
+  .l-menu-toggle__bars span { height: 3px; margin: 4px 0; }
+}
+
+/* 🔴 トレンドキーワードの帯が、下の内容に重なっていました（2026-09-10 実測）
+ *
+ *    元CSSはこうです。
+ *
+ *      .header_keyword { height: 46px; line-height: 46px }
+ *
+ *    高さが固定です。狭い画面でキーワードを折り返すようにしたので、
+ *    中身は4段になるのに**箱は46pxのまま**。あふれた3段ぶんが
+ *    そのまま下の内容の上に乗っていました。
+ *    実測で、親から下へ 204px 突き抜けています。
+ *
+ *    山口様の「細かなズレ、重なりが多くみられます」は、
+ *    スマホではこれがいちばん大きく出ます。
+ *
+ *    ⚠️ `.fixed .header_keyword { height: 0 }` は触りません。
+ *       追従したときに帯を畳む指定で、そちらのほうが強く効きます。 */
+@media screen and (max-width: 960px) {
+  .header_keyword {
+    height: auto;
+    line-height: 1.7;
+    padding: 8px 0;
+  }
+  .header_keyword .key-inner {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    row-gap: 6px;
+  }
+  .key-inner h3 {
+    padding-right: 12px;
+    white-space: normal;
+  }
+  .key-inner .torend-key {
+    width: auto;
+    flex: 1 1 100%;
+  }
+  .key-inner .torend-key a {
+    margin-right: 0;
   }
 }

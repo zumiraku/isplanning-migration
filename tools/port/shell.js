@@ -25,6 +25,22 @@ const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
 /* トップだけスライダーが入ります。旧テンプレートでは 上段メニュー の中に
    [TOPIMAGE] がありましたが、モジュールは全ページ共通なので、ここで
    ページ側に持たせています。 */
+/* 🔴 本文の入れ物の id を落としていました（2026-09-10 実測）
+ *
+ *    現行のかごページは <div class="M_mainContents" id="M_basket"> です。
+ *    移植では先頭のこの行を捨てて、シェルの <div class="M_mainContents"> に
+ *    任せていました。**id が消えます。**
+ *
+ *    元CSSには id を前提にしたルールがあります。
+ *
+ *      #M_basket .btnWrap.clear { width: 100% }
+ *      #r_basket .btnWrap .btnOrder { float: right }
+ *
+ *    width が効かないので、右に流したボタンが親からはみ出していました
+ *    （実測 右227px）。「ご購入手続きへ進む」がずれて見えます。
+ *    商品詳細も同じで、id="O_itemDetail" を落としていました。
+ *
+ *    シェルに id を渡せるようにします。 */
 function shell(opts) {
   const slider = opts.slider
     ? '\n<div class="slider">\n<{$shop.mainvisual}>\n</div>\n'
@@ -60,7 +76,7 @@ ${slider}
 <div id="wrapper">
   <div id="O_container">
     <{$module.leftmenu}>
-    <div class="M_mainContents">
+    <div class="M_mainContents"${opts.mainId ? ` id="${opts.mainId}"` : ""}>
 
 ${opts.body}
 
