@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    geometry.js — 現行サイトと移植版で、同じ部品の位置と大きさを突き合わせます
 
-   🔴 「はみ出していない」だけを見ていたのが間違いでした
+   ※ 「はみ出していない」だけを見ていたのが間違いでした
 
       山口様のご指摘は**ズレ**です。画面からはみ出していなくても、
       本文の左端が40pxずれていれば、全体がずれて見えます。
@@ -10,7 +10,7 @@
      node tools/cdp/geometry.js top 1280
      node tools/cdp/geometry.js top 375
 
-   ⚠️ 現行と移植版で中身（商品数など）は違うので、**縦位置は比べません。**
+   ※ 現行と移植版で中身（商品数など）は違うので、**縦位置は比べません。**
       比べるのは左端・右端・幅です。
 --------------------------------------------------------------------------- */
 const { page } = require("./cdp.js");
@@ -109,7 +109,7 @@ async function settle(p) {
     await sleep(500);
     ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
   }
-  if (!ready) { console.log("🔴 編集画面が開けません"); p.close(); return; }
+  if (!ready) { console.log("※ 編集画面が開けません"); p.close(); return; }
   const wasAt = await p.evaluate("location.href");
   await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
   for (let i = 0; i < 40; i++) {
@@ -128,10 +128,10 @@ async function settle(p) {
   MARKS.forEach(function (sel) {
     const a = live.items[sel], b = nu.items[sel];
     if (!a && !b) { return; }
-    if (a && !b) { console.log(sel.padEnd(22) + "  あり                  🔴 移植版に無い"); bad++; return; }
+    if (a && !b) { console.log(sel.padEnd(22) + "  あり                  ※ 移植版に無い"); bad++; return; }
     if (!a && b) { console.log(sel.padEnd(22) + "  －                    移植版のみ " + b.l + ".." + b.rt); return; }
     const dl = b.l - a.l, dw = b.w - a.w;
-    const mark = (Math.abs(dl) > 4 || Math.abs(dw) > 8) ? "  🔴" : "";
+    const mark = (Math.abs(dl) > 4 || Math.abs(dw) > 8) ? "  ※" : "";
     if (mark) { bad++; }
     console.log(sel.padEnd(22) +
       ("  " + a.l + ".." + a.rt + " (" + a.w + ")").padEnd(24) +
@@ -139,9 +139,9 @@ async function settle(p) {
       "左" + (dl >= 0 ? "+" : "") + dl + " 幅" + (dw >= 0 ? "+" : "") + dw + mark);
   });
   console.log("");
-  console.log(bad ? "🔴 気になるもの " + bad + " 件" : "✅ 位置と幅は現行と揃っています");
+  console.log(bad ? "※ 気になるもの " + bad + " 件" : "OK 位置と幅は現行と揃っています");
 
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

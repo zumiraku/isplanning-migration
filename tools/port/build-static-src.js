@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    build-static-src.js — ご利用案内・特商法の本文を、公開ページから写す
 
-   🔴 タグが読んでいるのは、公開中のページとは別の記録でした
+   ※ タグが読んでいるのは、公開中のページとは別の記録でした
 
       プレビューで実物を見て分かりました。
 
@@ -16,7 +16,7 @@
       出す**ことを優先して、公開ページの本文をそのまま持ってきます。
       プライバシーポリシーで先にやっているのと同じやり方です。
 
-      ⚠️ こうすると管理画面から直せなくなります。その代わり、**今日の
+      ※ こうすると管理画面から直せなくなります。その代わり、**今日の
          見え方が1文字も変わらない**ことは保証できます。管理画面の値を
          現行に合わせて入れ直せば、いつでもタグに戻せます。
 
@@ -38,7 +38,7 @@ function read(name) {
 
 /* 開始の div から、対応する閉じまでを切り出します。
 
-   🔴 位置で切ると、必ず途中で切れます。build-static-fixtures.js で
+   ※ 位置で切ると、必ず途中で切れます。build-static-fixtures.js で
       アンカー位置に切って、閉じタグを足し引きするたびに悪化しました
       （68開き66閉じ → 68開き64閉じ → 68開き60閉じ）。入れ子を追います。 */
 function block(html, opener) {
@@ -56,7 +56,7 @@ function block(html, opener) {
   return null;
 }
 
-/* 🔴 引用符の無い href が1本あります
+/* ※ 引用符の無い href が1本あります
 
      <A class="infoa" href=http://www.isp-sp.com/html/company.html?code=isplanning>
 
@@ -75,7 +75,7 @@ function normaliseHref(html) {
   });
 }
 
-/* 🔴 ご利用案内の本文は、ベーシックの枠を当てにして書かれています
+/* ※ ご利用案内の本文は、ベーシックの枠を当てにして書かれています
 
      終わりの3行は、こうなっていました。
 
@@ -113,7 +113,7 @@ function cutAtAdminPagearea(html) {
      末尾に「対応する閉じが無い開き」が残る */
 const PAIRED = ["div", "table", "tbody", "thead", "tr", "td", "th", "ul", "ol", "li", "p", "span", "a", "dl", "dt", "dd", "form"];
 
-/* 🔴 閉じ忘れは「黙って捨てる」のではなく「閉じる」
+/* ※ 閉じ忘れは「黙って捨てる」のではなく「閉じる」
 
      現行の特商法には、閉じていない <td> が1つあります（お支払い方法の行）。
 
@@ -175,16 +175,16 @@ function save(file, body, label) {
               " / 相手のいない閉じを外した " + b.dropped +
               " / 閉じ忘れを閉じた " + b.filled + " / 末尾に足した " + b.closed);
   if (r.missing.length) {
-    console.log("     🔴 対応表に無いURL " + r.missing.length + " 件: " + r.missing.join("  "));
+    console.log("     ※ 対応表に無いURL " + r.missing.length + " 件: " + r.missing.join("  "));
   }
 }
 
 /* --- ご利用案内 ------------------------------------------------------------ */
 const g = block(read("p-guide.html"), '<div id="O_adminPagearea" class="M_mainContents shop-guide">');
-if (!g) { console.error("🔴 ご利用案内の本文が見つかりません"); process.exit(1); }
+if (!g) { console.error("※ ご利用案内の本文が見つかりません"); process.exit(1); }
 save("guide-body.tpl", cutAtAdminPagearea(g), "ご利用案内");
 
 /* --- 特定商取引法 ---------------------------------------------------------- */
 const c = block(read("p-contract.html"), '<div class="M_mainContents company transaction">');
-if (!c) { console.error("🔴 特商法の本文が見つかりません"); process.exit(1); }
+if (!c) { console.error("※ 特商法の本文が見つかりません"); process.exit(1); }
 save("contract-body.tpl", c, "特商法");

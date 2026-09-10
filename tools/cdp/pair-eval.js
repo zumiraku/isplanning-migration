@@ -55,4 +55,4 @@ function show(label, r) {
   show("現行  " + liveUrl, live);
   console.log("");
   show("移植版 " + portUrl, nu);
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

@@ -19,7 +19,7 @@ const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
 const SET = 5;
-/* 🔴 4種別しか見ていませんでした。実機幅でしか出ない崩れがあるので、
+/* ※ 4種別しか見ていませんでした。実機幅でしか出ない崩れがあるので、
  *    ページ種別は全部まわします（2026-09-09）。 */
 const PAGES = [
   ["トップ", 2], ["商品詳細", 3], ["商品カテゴリー", 4], ["商品検索結果", 5],
@@ -29,7 +29,7 @@ const PAGES = [
   ["まとめ買い割引", 18]
 ];
 
-/* 🔴 会員制・年齢確認（19）は、ここでは出しません
+/* ※ 会員制・年齢確認（19）は、ここでは出しません
  *
  *    トップと会員制は**同じパス「/」**をプレビューに使います。19を出すと、
  *    ルートの描画が19の保存内容に置き換わり、**プレビューを押し直しても
@@ -55,7 +55,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 const LOOK = `(function () {
   var b = document.body;
   var doc = document.documentElement;
-  /* 🔴 祖先が overflow で切っているものは、はみ出しではありません。
+  /* ※ 祖先が overflow で切っているものは、はみ出しではありません。
    *    数えていたせいでスライダーの中身を51件も挙げていました。 */
   function clipped(e) {
     var n = e.parentElement;
@@ -98,7 +98,7 @@ const LOOK = `(function () {
     { userAgent: IPHONE, platform: "iPhone" });
 
   for (const [name, type] of PAGES) {
-    /* 🔴 トップのプレビューURLは、サイトのルートそのものです
+    /* ※ トップのプレビューURLは、サイトのルートそのものです
      *
      *      トップ            https://www.isp-sp.com/?ptk=…
      *      会員制・年齢確認   https://www.isp-sp.com/?ptk=…   ← 同じ
@@ -116,9 +116,9 @@ const LOOK = `(function () {
       await sleep(500);
       ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
     }
-    if (!ready) { console.log(name.padEnd(12) + "🔴 編集画面が開けません"); ng++; continue; }
+    if (!ready) { console.log(name.padEnd(12) + "※ 編集画面が開けません"); ng++; continue; }
 
-    /* 🔴 前の実行のプレビューURLが残っていると、それを測ってしまいます
+    /* ※ 前の実行のプレビューURLが残っていると、それを測ってしまいます
      *
      *    押したあと「URLに isp-sp.com が入るまで」待っていました。タブが
      *    **前回のプレビューのまま**だと、その条件は最初から満たされていて、
@@ -136,7 +136,7 @@ const LOOK = `(function () {
     await sleep(3500);
     const r = await p.evaluate(LOOK);
 
-    /* 🔴 まとめ買い割引（18）のプレビューURLは 404 です
+    /* ※ まとめ買い割引（18）のプレビューURLは 404 です
      *
      *    機能が有効になっていないページ種別なので、プレビューが
      *    `/error/404.html` を返し、その404ページが3秒でトップへ飛ばします。
@@ -150,7 +150,7 @@ const LOOK = `(function () {
         "保存済み。sp-redirect.js で確認済み");
       continue;
     }
-    /* 🔴 会員制・年齢確認（19）は、著作権表示だけ返すのが正しい動作です
+    /* ※ 会員制・年齢確認（19）は、著作権表示だけ返すのが正しい動作です
      *
      *    中身は Basics 標準のゲートページで、こう書かれています。
      *
@@ -167,14 +167,14 @@ const LOOK = `(function () {
         r.text + "字）。Basics標準のゲートページで、正しい挙動です");
       continue;
     }
-    marks.push(toSp ? "🔴 /smartphone/ へ転送" : "PCページ○");
-    marks.push("本文 " + r.text + "字" + (r.text > 800 ? "○" : " 🔴"));
-    marks.push("ヘッダー" + (r.header ? "○" : "🔴"));
-    marks.push("ドロワー" + (r.drawer ? "○" : "🔴"));
+    marks.push(toSp ? "※ /smartphone/ へ転送" : "PCページ○");
+    marks.push("本文 " + r.text + "字" + (r.text > 800 ? "○" : " ※"));
+    marks.push("ヘッダー" + (r.header ? "○" : "※"));
+    marks.push("ドロワー" + (r.drawer ? "○" : "※"));
     marks.push("左メニュー" + (r.leftmenu ? "○" : "－"));
-    marks.push("フッター" + (r.footer ? "○" : "🔴"));
-    marks.push("未展開タグ" + (r.unexpanded ? "🔴あり" : "0"));
-    marks.push("横幅 " + r.scrollWidth + "/" + r.docWidth + (r.scrollWidth <= r.docWidth + 2 ? "○" : " 🔴"));
+    marks.push("フッター" + (r.footer ? "○" : "※"));
+    marks.push("未展開タグ" + (r.unexpanded ? "※あり" : "0"));
+    marks.push("横幅 " + r.scrollWidth + "/" + r.docWidth + (r.scrollWidth <= r.docWidth + 2 ? "○" : " ※"));
 
     if (toSp || r.text < 800 || !r.header || !r.drawer || !r.footer ||
         r.unexpanded || r.scrollWidth > r.docWidth + 2) { ng++; }
@@ -187,6 +187,6 @@ const LOOK = `(function () {
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
   console.log("");
-  console.log(ng ? "🔴 スマホで気になるもの " + ng + " 件" : "✅ スマホ（iPhoneの名乗り・375px）でも同じページが正しく出ます");
+  console.log(ng ? "※ スマホで気になるもの " + ng + " 件" : "OK スマホ（iPhoneの名乗り・375px）でも同じページが正しく出ます");
   if (ng) { process.exit(1); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    scan-product-html.js — 商品説明文9,643件の中身を調べます
 
-   🔴 ここを一度も見ていませんでした
+   ※ ここを一度も見ていませんでした
 
       テンプレート・モジュール・独自ページは1文字ずつ突き合わせました。
       ところが**商品説明文は商品データ**なので、こちらのファイルには
@@ -16,14 +16,14 @@
 
      node tools/port/scan-product-html.js
 
-   ⚠️ 読むだけです。CSVは書き換えません。
+   ※ 読むだけです。CSVは書き換えません。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
 
 const FILE = "tools/cdp/csv/20260909181742.csv";   /* 書き換え前の控え */
 
 if (!fs.existsSync(FILE)) {
-  console.error("🔴 商品CSVがありません: " + FILE);
+  console.error("※ 商品CSVがありません: " + FILE);
   process.exit(1);
 }
 
@@ -31,7 +31,7 @@ if (!fs.existsSync(FILE)) {
 const buf = fs.readFileSync(FILE);
 let text;
 try { text = new TextDecoder("shift_jis").decode(buf); }
-catch (e) { console.error("🔴 Shift_JIS を読めません: " + e.message); process.exit(1); }
+catch (e) { console.error("※ Shift_JIS を読めません: " + e.message); process.exit(1); }
 
 const PATTERNS = [
   ["jQuery を使う", /jQuery\s*\(|\$\s*\(\s*function|\$\s*\(\s*document|\$\s*\(\s*['"]/g],
@@ -79,7 +79,7 @@ console.log("見つかったもの（CSV全体での出現数）");
 console.log("");
 for (const [label] of PATTERNS) {
   const n = tally[label];
-  console.log((n ? "🔴 " : "   ") + label.padEnd(26) + String(n).padStart(7));
+  console.log((n ? "※ " : "   ") + label.padEnd(26) + String(n).padStart(7));
   if (n && sample[label].length) {
     console.log("      例: " + sample[label].map(s => s.slice(0, 34)).join(" / "));
   }

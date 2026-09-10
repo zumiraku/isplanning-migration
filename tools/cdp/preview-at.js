@@ -12,7 +12,7 @@
    カテゴリ専用テンプレート（ct646 は14件、ct664 は2件）のように、
    特定の商品でしか通らない道を見に行くのに要ります。
 
-   🔴 ただし「開ける」だけで、「いま貼ったものが出る」とは限りません
+   ※ ただし「開ける」だけで、「いま貼ったものが出る」とは限りません
 
       貼り直した直後に /view/item/051000000001 を開いても、**前の内容**が
       返りました。同じ保存内容で、既定の 003001000005 には印が出るのに、
@@ -55,13 +55,13 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   let ok = false;
   for (let i = 0; i < 40; i++) {
     await sleep(500);
-    /* 🔴 previewContent があるだけでは足りません
+    /* ※ previewContent があるだけでは足りません
      *    CodeMirror に中身が入る前に押すと、空のHTMLを送ってしまい、
      *    **枠だけのページ**が返ります。中身の長さで待ちます。 */
     const n = await p.evaluate("(typeof g_editor_object !== 'undefined' && g_editor_object.html_pc) ? g_editor_object.html_pc.getValue().length : 0");
     if (n > 200 && await p.evaluate("(typeof previewContent === 'function') ? 1 : 0")) { ok = true; break; }
   }
-  if (!ok) { console.error("🔴 エディタが出ません"); p.close(); process.exit(1); }
+  if (!ok) { console.error("※ エディタが出ません"); p.close(); process.exit(1); }
 
   /* action のパスだけ差し替えます */
   const set =
@@ -86,4 +86,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("  着いた先 " + url.slice(0, 80));
   console.log("");
   console.log(JSON.stringify(r, null, 2));
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

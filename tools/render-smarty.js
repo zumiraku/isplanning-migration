@@ -106,7 +106,7 @@ function evalExpr(expr, data, sections) {
     return undefined;
   }
 
-  /* 🔴 掛け算・割り算・剰余
+  /* ※ 掛け算・割り算・剰余
    *
    *    移植した一覧は「4件ごとに <tr> を入れる」書き方をしています。
    *

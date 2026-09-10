@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    diff-csv-columns.js — 流すCSVが、狙った列以外を触っていないか
 
-   🔴 85列あります
+   ※ 85列あります
 
       移したいのは 画像説明文2/3 → PC用追加商品説明文・スマホ商品説明2 の
       2組だけです。
@@ -13,7 +13,7 @@
 
      node tools/port/diff-csv-columns.js
 
-   ⚠️ 読むだけです。CSVは書き換えません。
+   ※ 読むだけです。CSVは書き換えません。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
 
@@ -23,7 +23,7 @@ const CODE = "システム商品コード";
 
 /* 変わってよい列。ここ以外が変わっていたら止めます
  *
- * 🔴 最初この表を間違えて書き、正しいCSVを「流してはいけない」と判定しました。
+ * ※ 最初この表を間違えて書き、正しいCSVを「流してはいけない」と判定しました。
  *    実際の対応はこうです（tools/port/build-detail.js の調査結果）。
  *
  *      画像説明文2  →  PC用追加商品説明文   ＝ $item.description2
@@ -36,7 +36,7 @@ const ALLOWED = ["PC用追加商品説明文", "スマホ商品説明2",
                  "商品特定コード指定", "更新時間フラグ"];
 
 function readSjis(f) {
-  if (!fs.existsSync(f)) { console.error("🔴 ありません: " + f); process.exit(1); }
+  if (!fs.existsSync(f)) { console.error("※ ありません: " + f); process.exit(1); }
   return new TextDecoder("shift_jis").decode(fs.readFileSync(f));
 }
 
@@ -69,7 +69,7 @@ const bh = back[0], mh = move[0];
 
 /* 見出しがずれていたら、その時点でおしまいです */
 if (bh.length !== mh.length) {
-  console.log("🔴 列数が違います: 控え " + bh.length + " / 流す分 " + mh.length);
+  console.log("※ 列数が違います: 控え " + bh.length + " / 流す分 " + mh.length);
   process.exit(1);
 }
 const headBad = [];
@@ -77,7 +77,7 @@ for (let i = 0; i < bh.length; i++) {
   if (bh[i].trim() !== mh[i].trim()) { headBad.push(i + ": " + bh[i] + " → " + mh[i]); }
 }
 if (headBad.length) {
-  console.log("🔴 見出しが違う列 " + headBad.length + " 個");
+  console.log("※ 見出しが違う列 " + headBad.length + " 個");
   headBad.slice(0, 10).forEach(s => console.log("   " + s));
   process.exit(1);
 }
@@ -124,7 +124,7 @@ for (let i = 0; i < bh.length; i++) {
   const name = bh[i].trim();
   const ok = ALLOWED.indexOf(name) >= 0;
   if (!ok) { bad++; }
-  console.log((ok ? "   " : "🔴 ") + String(i).padStart(3) + "  " + name.padEnd(24) +
+  console.log((ok ? "   " : "※ ") + String(i).padStart(3) + "  " + name.padEnd(24) +
     String(changed[i]).padStart(6) + " 件");
   if (!ok && sample[i]) {
     console.log("        " + sample[i].code + "  「" + sample[i].a + "」→「" + sample[i].b + "」");
@@ -132,7 +132,7 @@ for (let i = 0; i < bh.length; i++) {
 }
 console.log("");
 if (bad) {
-  console.log("🔴 狙っていない列が " + bad + " 個変わっています。流してはいけません");
+  console.log("※ 狙っていない列が " + bad + " 個変わっています。流してはいけません");
   process.exit(1);
 }
-console.log("✅ 変わっているのは狙った列だけです");
+console.log("OK 変わっているのは狙った列だけです");

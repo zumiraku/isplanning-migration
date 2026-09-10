@@ -2,7 +2,7 @@
 # =============================================================================
 #  fetch-external-css.sh — 店舗が外部に置いているCSSの控えを取る
 #
-#  🔴 店舗のスタイルシートは2本あります
+#  ※ 店舗のスタイルシートは2本あります
 #
 #     共通head管理にこう書かれています。
 #
@@ -34,7 +34,7 @@ dst="$out/gigaplus-default.css"
 code=$(curl -sS -m 30 -A "Mozilla/5.0" -o "$dst.new" -w "%{http_code}" "$url" || echo 000)
 if [ "$code" != "200" ]; then
   rm -f "$dst.new"
-  echo "🔴 取得できません（HTTP $code）。控えはそのままにします。" >&2
+  echo "※ 取得できません（HTTP $code）。控えはそのままにします。" >&2
   exit 1
 fi
 
@@ -42,7 +42,7 @@ fi
 # してしまうと、検査が静かに嘘をつきます。
 if ! grep -q '^\.' "$dst.new"; then
   rm -f "$dst.new"
-  echo "🔴 CSSに見えません。控えはそのままにします。" >&2
+  echo "※ CSSに見えません。控えはそのままにします。" >&2
   exit 1
 fi
 

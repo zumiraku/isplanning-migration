@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    build-previews.js — 移植版のプレビューHTMLを作る
 
-   🔴 なぜ要るのか
+   ※ なぜ要るのか
 
       移植のあと、check-browser と check-overflow を退役させました。
       あの2本が読んでいた templates/creator/preview/*.html は、**差し戻された
@@ -11,7 +11,7 @@
       ご依頼の1番目が「HTML・CSSの作り込みが崩れないこと（レスポンシブ）」
       でした。測らないまま出すわけにはいきません。
 
-   🔴 モックを手書きしません
+   ※ モックを手書きしません
 
       前の preview/*.html は手で書いたHTMLで、**出荷するテンプレートとは
       別物**でした。並び替えバーを <select> で書いてあって、実際に出荷して
@@ -61,7 +61,7 @@ function render(tpl, fixture) {
 
 const common = readJson(FIX + "/_common.json");
 
-/* 🔴 静的3ページの中身を実データにします
+/* ※ 静的3ページの中身を実データにします
  *
  *    会社概要・特商法・ご利用案内の中身は $company.content / $contract.* /
  *    $guide.* から来ます。作り物のデータだと見出しだけの空ページになり、
@@ -84,7 +84,7 @@ const modules = ["header", "leftmenu", "footer", "calendar1", "calendar2", "free
 const rendered = {};
 for (const m of modules) {
   const p = "package/modules/" + m + ".tpl";
-  if (!fs.existsSync(p)) { console.error("🔴 モジュールがありません: " + p); process.exit(1); }
+  if (!fs.existsSync(p)) { console.error("※ モジュールがありません: " + p); process.exit(1); }
   rendered[m] = render(p, common);
 }
 /* カレンダーは左メニューの中から呼ばれるので、先に入れてから左メニューを
@@ -110,7 +110,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
 /* 古いモックが残っていると、検査がそちらを測り続けます。消してから作ります。
  *
- * 🔴 verify-*.html は消しません
+ * ※ verify-*.html は消しません
  *
  *    JSの検証台で、ここで生成するものではありません。最初は .html を
  *    全部消していて、**verify-chrome.html を毎回巻き添えにしていました**
@@ -128,7 +128,7 @@ for (const [name, tpl, fx] of PAGES) {
   const left = (html.match(/<\{/g) || []).length;
   fs.writeFileSync(path.join(OUT, name + ".html"), html);
   console.log("  " + name.padEnd(14) + String(html.split("\n").length).padStart(4) + " 行" +
-              (left ? "   🔴 未展開 " + left : ""));
+              (left ? "   ※ 未展開 " + left : ""));
   n++;
 }
 console.log("");

@@ -3,7 +3,7 @@
 
      node tools/cdp/open.js <URL> [待ち秒]
 
-   🔴 編集画面は console.makeshop.jp ではありません
+   ※ 編集画面は console.makeshop.jp ではありません
 
       新しい管理画面は入れ物だけで、中身は
       shop1.makeshop.jp/makeshop/newmanager/ の iframe です。
@@ -52,4 +52,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("");
   console.log("リンク:"); info.links.forEach(b => console.log("  " + b));
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

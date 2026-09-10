@@ -62,13 +62,13 @@ const ROWS = `(function(){
           p.close(); return;
         }
       }
-      console.log("🔴 押しましたが落ちてきません");
+      console.log("※ 押しましたが落ちてきません");
       p.close(); return;
     }
     await sleep(6000);
     await p.navigate(URL);
     await sleep(4000);
   }
-  console.log("🔴 出来上がりません");
+  console.log("※ 出来上がりません");
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

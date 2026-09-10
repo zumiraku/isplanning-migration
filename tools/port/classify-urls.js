@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    classify-urls.js — サイトマップの全URLを形ごとに分けて、実測済みかを見ます
 
-   🔴 「旧URLは転送されます」を、8本で確かめて全体の結論にしていました
+   ※ 「旧URLは転送されます」を、8本で確かめて全体の結論にしていました
 
       2026-09-08 の切替後に旧URL8本を測って、すべて200でした。
       それは事実ですが、**サイトマップには10,307本**あります。
@@ -16,7 +16,7 @@
 const fs = require("fs");
 
 const FILE = "inventory/urls-sitemap.csv";
-if (!fs.existsSync(FILE)) { console.error("🔴 ありません: " + FILE); process.exit(1); }
+if (!fs.existsSync(FILE)) { console.error("※ ありません: " + FILE); process.exit(1); }
 
 /* 2026-09-08 に実際に開いて200を確認した8本 */
 const TESTED = [
@@ -88,7 +88,7 @@ let unchecked = 0;
 Object.entries(tally).sort((a, b) => b[1] - a[1]).forEach(function ([s, c]) {
   const done = testedShapes.has(s);
   if (!done) { unchecked += c; }
-  console.log((done ? "  ✅ " : "  🔴 ") + s.padEnd(26) + String(c).padStart(6) +
+  console.log((done ? "  OK " : "  ※ ") + s.padEnd(26) + String(c).padStart(6) +
     "   " + (done ? "済" : "未") + "   " + (sample[s] || "").slice(0, 40));
 });
 
@@ -96,7 +96,7 @@ console.log("");
 console.log("実測した形: " + [...testedShapes].join(" / "));
 console.log("");
 if (unchecked) {
-  console.log("🔴 実測していない形に " + unchecked + " 本あります");
+  console.log("※ 実測していない形に " + unchecked + " 本あります");
 } else {
-  console.log("✅ すべての形が、実測済みの形に収まっています");
+  console.log("OK すべての形が、実測済みの形に収まっています");
 }

@@ -24,7 +24,7 @@ const TAGS = ["description", "description2", "description3", "description4", "sp
     await sleep(500);
     ok = !!(await p.evaluate("(typeof previewContent === 'function' && typeof g_editor_object !== 'undefined' && !!g_editor_object.html_pc) ? 1 : 0"));
   }
-  if (!ok) { console.log("🔴 エディタが出ません"); p.close(); process.exit(1); }
+  if (!ok) { console.log("※ エディタが出ません"); p.close(); process.exit(1); }
 
   const probe = TAGS.map((t, i) =>
     '<div class="ZQPROBE">ZQ' + i + 'START<{$item.' + t + '}>ZQ' + i + 'END</div>').join("\n");
@@ -39,7 +39,7 @@ const TAGS = ["description", "description2", "description3", "description4", "sp
   })()`);
   console.log("印を入れた: " + set);
 
-  /* 🔴 プレビューは、**保存済みの内容**を描きます
+  /* ※ プレビューは、**保存済みの内容**を描きます
    *
    *    formPreview に流し込んだHTMLは使われませんでした（印が1つも
    *    出ません）。いったん保存してからプレビューし、読み終えたら
@@ -77,9 +77,9 @@ const TAGS = ["description", "description2", "description3", "description4", "sp
   TAGS.forEach((t, i) => {
     const a = html.indexOf("ZQ" + i + "START");
     const b = html.indexOf("ZQ" + i + "END");
-    if (a < 0 || b < 0) { console.log("$item." + t.padEnd(18) + "🔴 印が出ません"); return; }
+    if (a < 0 || b < 0) { console.log("$item." + t.padEnd(18) + "※ 印が出ません"); return; }
     const seg = html.slice(a + ("ZQ" + i + "START").length, b);
     const text = seg.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
     console.log("$item." + t.padEnd(18) + String(seg.length).padStart(6) + " 文字  " + text.slice(0, 90));
   });
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

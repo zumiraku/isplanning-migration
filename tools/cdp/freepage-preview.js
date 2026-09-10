@@ -33,7 +33,7 @@ const MEASURE = `(function(){
       await sleep(500);
       ok = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
     }
-    if (!ok) { console.log(String(id).padStart(3) + " 🔴 プレビューの入口がありません"); continue; }
+    if (!ok) { console.log(String(id).padStart(3) + " ※ プレビューの入口がありません"); continue; }
     await p.evaluate("if (document.formPreview) { document.formPreview.target = '_self'; } previewContent(); 1");
     let url = "";
     for (let i = 0; i < 30; i++) {
@@ -41,7 +41,7 @@ const MEASURE = `(function(){
       url = await p.evaluate("location.href");
       if (url.indexOf("isp-sp.com") >= 0) { break; }
     }
-    if (url.indexOf("isp-sp.com") < 0) { console.log(String(id).padStart(3) + " 🔴 ショップに飛びません"); continue; }
+    if (url.indexOf("isp-sp.com") < 0) { console.log(String(id).padStart(3) + " ※ ショップに飛びません"); continue; }
     await sleep(1800);
     const html = await p.evaluate("document.documentElement.outerHTML");
     fs.writeFileSync(OUT + "/" + id + ".html", html);
@@ -52,7 +52,7 @@ const MEASURE = `(function(){
       await p.send("Emulation.setDeviceMetricsOverride", { width: w, height: 900, deviceScaleFactor: 1, mobile: false });
       await sleep(800);
       const r = await p.evaluate(MEASURE);
-      widths.push(w + (r.scroll > r.view + 1 ? "🔴" + r.scroll : "○"));
+      widths.push(w + (r.scroll > r.view + 1 ? "※" + r.scroll : "○"));
     }
     await p.send("Emulation.clearDeviceMetricsOverride");
 
@@ -64,4 +64,4 @@ const MEASURE = `(function(){
       " 未展開" + has("<{") + "  " + widths.join(" ") + "  " + url.slice(0, 44));
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

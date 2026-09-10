@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    url-probe.js — URLの形ごとに、いまの本番で何が返るかを測ります
 
-   🔴 8本で確かめて、10,305本の結論にしていました
+   ※ 8本で確かめて、10,305本の結論にしていました
 
       2026-09-08 の切替後に旧URL8本を測って全部200。事実ですが、
       サイトマップの形を数えたら**172本が、その8本と違う形**でした
@@ -73,14 +73,14 @@ const PROBE = `(function (u) {
 
     function mark(r) {
       if (!r) { return "（無し）"; }
-      if (r.err) { return "🔴 " + r.err; }
-      if (r.isError) { return "🔴 404"; }
-      if (r.status !== 200) { return "🔴 " + r.status; }
+      if (r.err) { return "※ " + r.err; }
+      if (r.isError) { return "※ 404"; }
+      if (r.status !== 200) { return "※ " + r.status; }
       return "200" + (r.redirected ? "→転送" : "");
     }
     const am = mark(a), bm = mark(b);
-    if (am.indexOf("🔴") >= 0) { bad++; }
-    if (newU && bm.indexOf("🔴") >= 0) { bad++; }
+    if (am.indexOf("※") >= 0) { bad++; }
+    if (newU && bm.indexOf("※") >= 0) { bad++; }
 
     console.log(label.padEnd(20) + am.padEnd(22) + bm);
     if (b && b.finalUrl && b.redirected) {
@@ -91,5 +91,5 @@ const PROBE = `(function (u) {
 
   p.close();
   console.log("");
-  console.log(bad ? "🔴 気になるもの " + bad + " 件" : "✅ どの形も、旧・新の両方が生きています");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(bad ? "※ 気になるもの " + bad + " 件" : "OK どの形も、旧・新の両方が生きています");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

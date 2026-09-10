@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    build-category.js — 商品カテゴリーページを移植する
 
-   🔴 実物で確かめたタグの対応
+   ※ 実物で確かめたタグの対応
 
       元テンプレートには [ADDCODE] としか書かれていません。公開ページを見ると
       ここに出ていたのは **<p class="red">単価 462円（税別） 40個入</p>**
@@ -11,17 +11,17 @@
       [DETAIL] は description ではなく **商品カテゴリー用商品説明文**でした
       （$category.item.list[i].category_description）。下に詳しく書いてあります。
 
-   🔴 「カートに入れる」「お気に入り」は元からコメントアウトされています
+   ※ 「カートに入れる」「お気に入り」は元からコメントアウトされています
 
       山口様の「不要」はご要望ではなく**元に戻せ**という意味でした。
       こちらが良かれと思って足したものです。コメントのまま持ってきます。
 
-   🔴 画像は image_S
+   ※ 画像は image_S
 
       実物: itemimages/0000000247463_….jpg（末尾3）。こちらは image_M
       （末尾2）を出していました。
 --------------------------------------------------------------------------- */
-/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+/* ※ 一覧の価格に桁区切りがありません（実測・2026-09-10）
  *
  *      現行    販売価格39,600円（税込）
  *      移植版  販売価格39600円（税込）
@@ -51,7 +51,7 @@ body = body.replace('<a href="/index.html">ホーム</a>&nbsp;&gt;[LIST]',
 	<{/section}>`);
 
 /* --- カテゴリ名・サブカテゴリ・カテゴリ画像 -------------------------------- */
-/* 🔴 $category.name は登録名しか返しません
+/* ※ $category.name は登録名しか返しません
  *
  *    現行 「～49円（予算別粗品　税別単価）」 / $category.name 「～49円」
  *    現行 「夏向け粗品（夏の粗品）」        / $category.name 「夏向け粗品」
@@ -64,21 +64,21 @@ body = body.replace("[GROUP4_0]",
 `<{if $category.child_category.has_item}>
 	<ul class="subcats">
 	<{section name=c loop=$category.child_category.list}>
-	  <{* 🔴 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
+	  <{* ※ 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
 	       $category.child_category.list[c].item_count というタグがあるのに、
 	       名前だけを出していました。 *}>
 	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}>(<{$category.child_category.list[c].item_count}>)</a></li>
 	<{/section}>
 	</ul>
 	<{/if}>`);
-/* 🔴 カテゴリのバナーは1枚ではありません
+/* ※ カテゴリのバナーは1枚ではありません
  *
  *    `$category.image_url` は1枚しか返しません。現行の #O_categotyBnr には
  *    カテゴリによって2枚3枚入っています（ct667 は包装のし名入れ＋季節で選ぶ）。
  *    バナーは下のモジュールが現行のまま持っているので、ここでは出しません。 */
 body = body.replace('\t<div id="O_categotyBnr">[CATEGORY_IMAGE]</div>\n', "");
 
-/* 🔴 書き出したテンプレートは53枚のうちの1枚でした
+/* ※ 書き出したテンプレートは53枚のうちの1枚でした
  *
  *    design_brandpage.txt には、3枚のバナー（数量選択可能・季節で選ぶ・
  *    包装のし名入れ）が直接書かれています。ベーシックは**カテゴリごとに
@@ -91,7 +91,7 @@ body = body.replace('\t<div id="O_categotyBnr">[CATEGORY_IMAGE]</div>\n', "");
 body = body.replace(/<!-- 管理画面「カテゴリー別イメージの登録」画像 -->[\s\S]*?<\/div>\n/, "");
 
 /* --- カテゴリー別の独自内容 -------------------------------------------------
-   🔴 「中身が入っているのは ct646 だけ」は誤りでした
+   ※ 「中身が入っているのは ct646 だけ」は誤りでした
 
       ここには「確認できたのは ct646（卓上カレンダー）だけなので、そこだけ
       補います。他のカテゴリでは何も出ません」と書いてありました。
@@ -135,7 +135,7 @@ const rows = `<{section name=i loop=$category.item.list}>
 					</td>
 					<td class="itemtext">
 						<div style="padding-left:10px;">
-							<{* 🔴 ここは description ではありません（実測・2026-09-10）
+							<{* ※ ここは description ではありません（実測・2026-09-10）
 							     一覧の ［DETAIL］ は「商品カテゴリー用商品説明文」です（角かっこは全角にしてあります。半角だと未変換タグの検査が拾います）。
 							     商品CSVに専用の列（商品カテゴリー用商品説明文／
 							     同 表示可否）があります。description を出していたので、
@@ -156,7 +156,7 @@ const rows = `<{section name=i loop=$category.item.list}>
 							<p class="red"><{${IT}.special_display}></p>
 							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{${IT}.price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 						</div>
-						<{* 🔴 「カートに入れる」「お気に入り」は元テンプレートでも
+						<{* ※ 「カートに入れる」「お気に入り」は元テンプレートでも
 						     コメントアウトされています。山口様の「不要」は、
 						     こちらが足したものを外せという意味でした。 *}>
 					</td>
@@ -176,7 +176,7 @@ body = body.replace("[PAGER]",
 	    <{if $category.pager.list[p].is_current_page}><span><{$category.pager.list[p].number}></span>
 	    <{else}><a href="<{$category.pager.list[p].url}>"><{$category.pager.list[p].number}></a><{/if}>
 	  <{/section}>
-	  <{* 🔴 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
+	  <{* ※ 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
 	       「次へ」だと、何件ずつ進むのかが読めません。 *}>
 	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次の<{$category.display_count}>件 &raquo;</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
 	<{/if}>`);
@@ -186,7 +186,7 @@ body = body.replace("<a href=\"<{$category.pager.prev_url}>\" rel=\"prev\">前�
 /* --- 商品一覧の下のカテゴリ別内容 ------------------------------------------
    606カテゴリ中598に <h2 class="categorybottom"> の塊があります。
    ページ送りのあとに置きます。49種類・63KBの1モジュールです。 */
-/* 🔴 既定の文章とモジュールの文章が、両方出ていました（実測・2026-09-10）
+/* ※ 既定の文章とモジュールの文章が、両方出ていました（実測・2026-09-10）
  *
  *    現行は、カテゴリ専用テンプレートがあると既定の
  *    <h2 class="categorybottom">…</h2> ＋ 説明文を**丸ごと差し替え**ます。
@@ -204,7 +204,7 @@ const H3_RECOMMEND = "<h3>こちらの商品もおすすめです。</h3>";
 const dbs = body.indexOf(H2_BOTTOM);
 const dbe = body.indexOf(H3_RECOMMEND);
 if (dbs < 0 || dbe < 0 || dbs > dbe) {
-  console.log("  🔴 既定の下部ブロックが見つかりません（そのままにします）");
+  console.log("  ※ 既定の下部ブロックが見つかりません（そのままにします）");
 } else {
   body = body.slice(0, dbs) + "<{$module.category_bottom1}>" +
     String.fromCharCode(10) + String.fromCharCode(10) + body.slice(dbe);
@@ -212,7 +212,7 @@ if (dbs < 0 || dbe < 0 || dbs > dbe) {
 
 /* --- おすすめ商品 ----------------------------------------------------------
  *
- * 🔴 [SUISEN4_2] は、こちらの商品一覧とは別のマークアップでした
+ * ※ [SUISEN4_2] は、こちらの商品一覧とは別のマークアップでした
  *    （公開ページから写した実物・2026-09-10）
  *
  *      130px幅の小さな表が横に並びます。画像は width="100"。
@@ -228,7 +228,7 @@ if (dbs < 0 || dbe < 0 || dbs > dbe) {
  *
  *    606カテゴリすべての下端です。現行の形に戻します。
  *
- *    ⚠️ 現行は商品によって「16,500円～」と出ます（オプションで価格が
+ *    ※ 現行は商品によって「16,500円～」と出ます（オプションで価格が
  *       変わるもの）。クリエイターにその判定を返すタグがありません。
  *       has_option で当ててみたら6件中1件外れたので、当て推量はやめ、
  *       全部「（税込）」で出します。inventory/class-parity-allow.tsv 参照。 */
@@ -258,7 +258,7 @@ body = body.replace("[SUISEN4_2]",
 const r = rewrite(body);
 body = r.html;
 
-/* 🔴 id="M_category" を落としていました
+/* ※ id="M_category" を落としていました
  *
  *    現行は <div class="M_mainContents" id="M_category"> です。商品詳細の
  *    O_itemDetail、かごの M_basket と同じ形で、**カテゴリだけ抜けて

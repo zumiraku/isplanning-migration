@@ -15,7 +15,7 @@
 #  **逆方向に2つ**です。片方はバンドルだけを直し、もう片方はソースだけを
 #  直したためで、どちらも「直した」と記録されていました。
 #
-#  🔴 しかも検証ページは js/*.js を直接読みます。
+#  ※ しかも検証ページは js/*.js を直接読みます。
 #
 #     つまり verify-gallery.html は**不具合の残ったほう**を検査していて、
 #     しかも通っていました。スワイプ追随の判定が
@@ -35,7 +35,7 @@ tmp="${TMPDIR:-.}/all-pages-fresh.js"
 sh tools/build-all-pages-js.sh "$tmp" > /dev/null 2>&1
 
 if [ ! -f "$live" ]; then
-  echo "🔴 $live がありません"
+  echo "※ $live がありません"
   rm -f "$tmp"; exit 1
 fi
 
@@ -45,7 +45,7 @@ if cmp -s "$live" "$tmp"; then
   exit 0
 fi
 
-echo "🔴 all-pages.js が js/*.js と食い違っています。"
+echo "※ all-pages.js が js/*.js と食い違っています。"
 printf "    手元 %s バイト / 作り直すと %s バイト\n" \
   "$(wc -c < "$live" | tr -d ' ')" "$(wc -c < "$tmp" | tr -d ' ')"
 echo ""

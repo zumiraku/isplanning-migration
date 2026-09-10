@@ -5,7 +5,7 @@
      商品特殊表示がない / 説明文が2重 / 画像が拡大できない /
      上部固定・左メニュー・フッター（これらは共通側で対応済み）
 
-   🔴 [ITEMCAPTION_1] は $item.special_display です
+   ※ [ITEMCAPTION_1] は $item.special_display です
 
       元テンプレート:  <dd class="itemCount">[ITEMCAPTION_1] X [QUANTITY]
       公開ページ:      数量： ※オンデマンドフルカラー…単価＠238円（税別）100個入り X …
@@ -14,20 +14,20 @@
       「未確認だから」と外したまま公開しました。正解はリファレンスに
       「商品別特殊表示」として載っていました。
 
-   🔴 説明文は description だけ
+   ※ 説明文は description だけ
 
       $item.description2 は $item.description と**完全一致**します（6商品で
       byte比較）。両方出したのが「説明文が2重」です。description3 / 4 は
       別内容（追加説明文）なので、元テンプレートの caption2 / caption3 の
       位置に置きます。
 
-   🔴 画像の拡大
+   ※ 画像の拡大
 
       ベーシックには「商品画像拡大画面」というページ種別があり、[VIEWBUTTON]
       がそこへのリンクでした。**クリエイターにはこのページ種別がありません**
       （16種の一覧に無い）。同じ画面に重ねて表示する形にします。
 --------------------------------------------------------------------------- */
-/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+/* ※ 一覧の価格に桁区切りがありません（実測・2026-09-10）
  *
  *      現行    販売価格39,600円（税込）
  *      移植版  販売価格39600円（税込）
@@ -68,7 +68,7 @@ body = body.replace("[BRANDNAME]", "<{$item.name}>");
 
 /* --- 画像 ------------------------------------------------------------------
  *
- * 🔴 主画像に image_L を出していました（2026-09-10 実測）
+ * ※ 主画像に image_L を出していました（2026-09-10 実測）
  *
  *      現行    itemimages/0030010000052_OGXU9iM.jpg   ← 末尾2（image_M）
  *      移植版  itemimages/003001000005_8o4gXeB.jpg    ← 末尾なし（image_L）
@@ -106,8 +106,8 @@ body = body.slice(0, addStart) + ADD_IMG + body.slice(addEnd);
 /* --- 説明文 ---------------------------------------------------------------- */
 body = body.replace("[DETAIL_EXT]", "");
 body = body.replace("[DETAIL]<!-- 商品詳細説明 -->", "<{$item.description}>");
-/* 🔴 description2 は description と完全一致するので出しません。 */
-/* 🔴 [ITEMCAPTION_2] / [ITEMCAPTION_3] は「追加商品画像の説明文」でした
+/* ※ description2 は description と完全一致するので出しません。 */
+/* ※ [ITEMCAPTION_2] / [ITEMCAPTION_3] は「追加商品画像の説明文」でした
  *
  *    元テンプレートのコメントのとおりです（追加画像説明文2／3）。
  *    クリエイターモードでは `$item.add_image.list[i].description` に
@@ -133,7 +133,7 @@ body = body.replace("[DETAIL]<!-- 商品詳細説明 -->", "<{$item.description}
  *    「追加画像説明文2/3 → 商品説明2/4」を移していただければ、
  *    テンプレートを触らずにそのまま出るようになります。
  *
- *    ⚠️ 現行サイトでは、この2枠に販売単位の表と名入れ料金の表が出ています。
+ *    ※ 現行サイトでは、この2枠に販売単位の表と名入れ料金の表が出ています。
  *       保存した8商品すべてに中身がありました。**移行後は空になります。**
  *       docs/client-defects-2026-09-08.md に書いてあります。 */
 body = body.replace("[ITEMCAPTION_2]<!-- 追加画像説明文2 -->", "<{$item.description2}>");
@@ -143,7 +143,7 @@ body = body.replace("[ITEMCAPTION_3]<!-- 追加画像説明文3 -->", "<{$item.d
 body = body.replace("<span>[TAXPRICE]</span>円（税込）", "<span><{$item.price_html}></span>円（税込）");
 
 const QTY = [
-  /* 🔴 「X」は特殊表示があるときだけ出します
+  /* ※ 「X」は特殊表示があるときだけ出します
    *
    *    元テンプレートは [ITEMCAPTION_1] X [QUANTITY] と決め打ちで、
    *    特殊表示が空の商品では「数量： X 1」と X だけが残ります。
@@ -157,7 +157,7 @@ const QTY = [
   '\t\t\t\t\t       value="<{if $item.order_quantity_min}><{$item.order_quantity_min}><{else}>1<{/if}>"',
   '\t\t\t\t\t       <{if $item.order_quantity_min}>min="<{$item.order_quantity_min}>"<{/if}>',
   '\t\t\t\t\t       <{if $item.order_quantity_max}>max="<{$item.order_quantity_max}>"<{/if}>>',
-  '\t\t\t\t\t<{* 🔴 元は [UPCOUNT] / [DOWNCOUNT] というURLの▲▼でした。',
+  '\t\t\t\t\t<{* ※ 元は [UPCOUNT] / [DOWNCOUNT] というURLの▲▼でした。',
   '\t\t\t\t\t     クリエイターに同じURLはありません。数値入力欄にすると',
   '\t\t\t\t\t     スマホでも数字キーが出て、押す回数も減ります。 *}>'
 ].join("\n");
@@ -200,7 +200,7 @@ body = body.replace("[ZAIKO]", ZAIKO);
 body = body.replace("[ENDFORM]<!-- 商品詳細フォームの終わりに必ず入力するタグ -->", "");
 
 /* --- 商品グループ ---------------------------------------------------------- */
-/* 🔴 商品グループが丸ごと出ていませんでした（2026-09-10 実測）
+/* ※ 商品グループが丸ごと出ていませんでした（2026-09-10 実測）
  *
  *    `<{$item.group}>` と書いていました。これは配列なので、そのまま
  *    出そうとすると **画面に "Array" という文字だけ**が出ます。
@@ -222,7 +222,7 @@ body = body.replace("[BRANDGROUP]", GROUP);
 
 /* --- レビュー（u-komi） ---------------------------------------------------- */
 body = body.replace(/\[REVIEW_BUTTON\]|\[REVIEW_WRITE\]/g, "");
-/* 🔴 u-komi の枠は、元テンプレートに**すでにあります**（コメントの外）。
+/* ※ u-komi の枠は、元テンプレートに**すでにあります**（コメントの外）。
  *
  *      <!--<div class="Review"> … [REVIEW_VIEW_ALL] … </div>-->   ← 旧レビュー、無効
  *      <div class="review-container" data-gname="[SYSTEM_CODE]" …>  ← これが本体
@@ -237,11 +237,11 @@ body = body.replace(/\[SYSTEM_CODE\]/g, "<{$item.system_code}>");
 /* 残った制御タグ（コメントアウト部分の中身など）を掃除 */
 body = body.replace(/\[(IF|END|ELSE|ENDIF|IF_PREV|ENDIF_PREV|IF_NEXT|ENDIF_NEXT|PREV|NEXT|RESERVE|IF_RECENT|ENDIF_RECENT|RECENT)\]/g, "");
 
-/* 🔴 .tab-area が閉じられていません。ベーシックは自動挿入のテーブルで
+/* ※ .tab-area が閉じられていません。ベーシックは自動挿入のテーブルで
      帳尻が合っていました。ここで閉じます。 */
 body = body.trimEnd() + "\n</div><!-- /.tab-area -->";
 
-/* 🔴 カテゴリ別の商品詳細テンプレートが3件ありました（C28・2026-09-10）
+/* ※ カテゴリ別の商品詳細テンプレートが3件ありました（C28・2026-09-10）
  *
  *    ベーシックには標準のほかに ct261 / ct646 / ct664 専用の商品詳細
  *    テンプレートがあります。移植では標準の1枚しか見ていませんでした。
@@ -255,7 +255,7 @@ body = body.trimEnd() + "\n</div><!-- /.tab-area -->";
  *    が実データで効くことを確かめました（003001000005 → ct5、
  *    051000000001 → ct646 でタブ名が切り替わるのを実測）。
  *
- *    🔴 最初は「実質の違いは文言だけ」と書いていました。**間違いです。**
+ *    ※ 最初は「実質の違いは文言だけ」と書いていました。**間違いです。**
  *       行の差だけを見て、行がどのタブに入っているかを見ていませんでした。
  *       実測（tools/cdp/pair-eval.js）で分かった ct646 の中身:
  *
@@ -284,7 +284,7 @@ for (const [btn, std, ct646] of TABS) {
   const from = 'for="' + btn + '">' + std + '</label>';
   const to = 'for="' + btn + '"><{if $item.base_category.code == "ct646"}>' + ct646 +
              '<{else}>' + std + '<{/if}></label>';
-  if (body.indexOf(from) < 0) { console.log('  🔴 タブが見つかりません: ' + btn); }
+  if (body.indexOf(from) < 0) { console.log('  ※ タブが見つかりません: ' + btn); }
   body = body.split(from).join(to);
 }
 
@@ -296,7 +296,7 @@ for (const [btn, std, ct646] of TABS) {
 const IS646 = '$item.base_category.code == "ct646"';
 const IS_SOLO_IMAGE = '$item.base_category.code == "ct646" or $item.base_category.code == "ct664"';
 
-/* 🔴 ct646 / ct664 は画像の枠のidが違います（現行を実測）
+/* ※ ct646 / ct664 は画像の枠のidが違います（現行を実測）
  *
  *      既定    <div id="itemImg">      … [MAIN_IMAGE] + [THUMBNAIL]
  *      この2つ <div id="Item_detail_Image"> … [RESIZE_IMAGE_500] 1枚
@@ -321,7 +321,7 @@ const TAB3 = '<div id="tab-content3" class="tab-content">';
 const iRc = body.indexOf(RC_MARK), iGrp = body.indexOf(GRP_MARK);
 const iTab2 = body.indexOf(TAB2), iTab3 = body.indexOf(TAB3);
 if (iRc < 0 || iGrp < 0 || iTab2 < 0 || iTab3 < 0 || !(iRc < iGrp && iGrp < iTab2 && iTab2 < iTab3)) {
-  console.log("  🔴 タブの目印が見つからないので、ct646 の入れ替えを飛ばしました");
+  console.log("  ※ タブの目印が見つからないので、ct646 の入れ替えを飛ばしました");
 } else {
   /* tab1 の中の「イーレコメンド」と「商品グループ」を切り出します。
      iRc〜iTab2 は  イーレコメンド + 商品グループ + tab1の閉じ</div>  です。 */
@@ -359,8 +359,8 @@ if (iRc < 0 || iGrp < 0 || iTab2 < 0 || iTab3 < 0 || !(iRc < iGrp && iGrp < iTab
 const r = rewrite(body);
 body = r.html;
 
-/* 🔴 id="O_itemDetail" も同じく落としていました。現行の骨格に戻します。 */
-/* 🔴 og:image を戻します。現行はプラットフォームが商品画像を入れています */
+/* ※ id="O_itemDetail" も同じく落としていました。現行の骨格に戻します。 */
+/* ※ og:image を戻します。現行はプラットフォームが商品画像を入れています */
 const out = shell({ name: "商品詳細", from: "detailpage", slider: false, mainId: "O_itemDetail",
                     ogImage: "<{$item.image_L}>", ogType: "product", body: body.trim() });
 fs.writeFileSync("templates/creator/mode/detail.tpl", out);

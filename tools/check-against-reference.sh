@@ -2,7 +2,7 @@
 # =============================================================================
 #  check-against-reference.sh — compare every tag we use to the official list
 #
-#  🔴 Why this had to exist
+#  ※ Why this had to exist
 #
 #     `<{$category.pager}>` shipped to 607 live category pages and rendered the
 #     word **Array**. Not blank - the literal text "Array", where the page
@@ -107,13 +107,13 @@ perl -CS -e '
   print "\n";
 
   if (@array_bug) {
-    print "🔴 値として出しているが、中身を持つ入れ物のタグ（Array と表示されます）\n";
+    print "※ 値として出しているが、中身を持つ入れ物のタグ（Array と表示されます）\n";
     for (@array_bug) { my ($t,$f)=split /\t/; printf "   %-42s %s\n", $t, $f }
     print "\n";
   } else { print "OK  入れ物のタグを値として出している箇所なし\n" }
 
   if (@unknown) {
-    print "⚠️  リファレンスに無いタグ（黙って消えます。ページ種別にリファレンスが\n";
+    print "※ リファレンスに無いタグ（黙って消えます。ページ種別にリファレンスが\n";
     print "    無いものも混ざるので、1件ずつ確認してください）\n";
     for (@unknown) { my ($t,$f)=split /\t/; printf "   %-42s %s\n", $t, $f }
     print "\n";

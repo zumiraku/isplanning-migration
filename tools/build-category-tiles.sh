@@ -6,7 +6,7 @@
 # rebuild had none of them until the template itself was read
 # (docs/product-tabs.md).
 #
-# 🔴 The hrefs are left as /shopbrand/... deliberately. Creator Mode serves
+# ※ The hrefs are left as /shopbrand/... deliberately. Creator Mode serves
 # categories at /view/category/... (C33), so every one of these will need
 # rewriting - unless URL一括設定 can re-create the current URLs, in which case
 # none of them will. That test has not been run, and guessing wrong in either
@@ -50,7 +50,7 @@ echo "template      : $out"
 [ "$n" -eq 46 ] || { echo "  MISMATCH - the extraction missed some"; exit 1; }
 
 # --- リンクを新URLに書き換える -----------------------------------------------
-# 🔴 以前はここを /shopbrand/... のまま残していました。「URL一括設定で旧URLを
+# ※ 以前はここを /shopbrand/... のまま残していました。「URL一括設定で旧URLを
 #    再現できるか未検証だから」という理由でしたが、検証は済んでいます。
 #    切替後にしか投入できず、投入するまで404。フリーページの内部リンク379本は
 #    その結論を受けて /view/page/... に書き換えてあります。ここだけ残っていました。

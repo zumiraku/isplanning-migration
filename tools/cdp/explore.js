@@ -40,4 +40,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("リンク:");
   info.links.forEach(b => console.log("  " + b));
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

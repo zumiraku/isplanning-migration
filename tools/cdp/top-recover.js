@@ -6,7 +6,7 @@
      初回の sp-preview（種別 2/3/4/6 のみ・19を出していない）  トップ 7,789字 ○
      preview.js（11枚）                                     top.html 90,565字 ○
      sp-preview を15種別に拡張 → **19を初めてプレビュー**
-     以後 トップは 52字（会員制ページ）                        🔴
+     以後 トップは 52字（会員制ページ）                        ※
 
    トップと会員制は**プレビューURLが同じ**です。
 
@@ -78,4 +78,4 @@ async function preview(p, type) {
   console.log("   " + JSON.stringify(await preview(p, 2)));
 
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

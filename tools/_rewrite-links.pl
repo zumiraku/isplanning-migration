@@ -74,7 +74,7 @@ for my $f (@files) {
     close $i;
     my $before = $src;
 
-    # 🔴 引用符なしの href も拾います。
+    # ※ 引用符なしの href も拾います。
     #    会社概要に <A href=https://www.isp-sp.com/html/ordercontract.html> と
     #    書かれた行があり、`href="…"` だけを見ていた最初の版はこれを素通り
     #    しました。お店が10年以上前に手で書いたHTMLなので、引用符の有無は
@@ -122,7 +122,7 @@ printf "  書き換えたファイル %d 件\n", scalar keys %files_changed;
 if (@unmapped) {
     my %u;
     for (@unmapped) { my (undef, $p) = split /\t/; $u{$p}++ }
-    printf "\n  🔴 対応の取れないカテゴリURL %d 種 / %d 本\n", scalar keys %u, scalar @unmapped;
+    printf "\n  ※ 対応の取れないカテゴリURL %d 種 / %d 本\n", scalar keys %u, scalar @unmapped;
     printf "     %-34s %d 本\n", $_, $u{$_} for sort keys %u;
     print  "     推測で当てると別のカテゴリへ誘導することになるので、そのままにしています。\n";
     exit 1;

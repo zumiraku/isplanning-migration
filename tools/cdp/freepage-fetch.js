@@ -38,15 +38,15 @@ function get(path) {
     try {
       const r = await get("/html/" + pageId);
       if (r.status !== 200 || r.body.length < 1000) {
-        console.log("🔴 " + pageId + "  " + r.status + " / " + r.body.length + " バイト");
+        console.log("※ " + pageId + "  " + r.status + " / " + r.body.length + " バイト");
         ng++; continue;
       }
       fs.writeFileSync(at, r.body);
       ok++;
     } catch (e) {
-      console.log("🔴 " + pageId + "  " + e.message);
+      console.log("※ " + pageId + "  " + e.message);
       ng++;
     }
   }
   console.log("取れた " + ok + " 枚 / 取れない " + ng + " 枚  → " + OUT);
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

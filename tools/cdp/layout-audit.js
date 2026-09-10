@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    layout-audit.js — 重なり・親からのはみ出し・文字切れ・つぶれ を全ページで拾う
 
-   🔴 「横にはみ出していない」だけを測っていました
+   ※ 「横にはみ出していない」だけを測っていました
 
       山口様のご指摘は**ズレと重なり**です。画面の外に出ていなくても、
       文字が文字に重なっていれば読めません。これまでの検査は
@@ -54,7 +54,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
         await sleep(500);
         ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
       }
-      if (!ready) { console.log(name + " " + w + "  🔴 編集画面が開けません"); continue; }
+      if (!ready) { console.log(name + " " + w + "  ※ 編集画面が開けません"); continue; }
       const wasAt = await p.evaluate("location.href");
       await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
       for (let i = 0; i < 40; i++) {
@@ -73,7 +73,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       const sum = c.重なり + c.親からはみ出し + c.文字切れ + c.つぶれ;
       total += sum;
       console.log((name + " " + w + "px").padEnd(22) +
-        (sum ? "🔴 " : "✅ ") +
+        (sum ? "※ " : "OK ") +
         "重なり " + String(c.重なり).padStart(3) +
         " / 親からはみ出し " + String(c.親からはみ出し).padStart(3) +
         " / 文字切れ " + String(c.文字切れ).padStart(2) +
@@ -93,5 +93,5 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
   console.log("");
-  console.log(total ? "🔴 気になるもの 合計 " + total + " 件" : "✅ 重なりもズレもありません");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(total ? "※ 気になるもの 合計 " + total + " 件" : "OK 重なりもズレもありません");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

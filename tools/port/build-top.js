@@ -40,7 +40,7 @@ body = body.replace("[SUISEN1NN]", grid("$recommend_item", "rc", 12));
 body = body.replace('href="/shop/shopbrand.html?search="', 'href="<{$url.top}>"');
 
 /* --- 商品レビュー --------------------------------------------------------- */
-/* 🔴 旧レビューは使いません
+/* ※ 旧レビューは使いません
  *
  *    最初は $review_item.* で作りました。リファレンスに載っていて動くので、
  *    「今の見た目に近い」と考えたためです。**方針と食い違っていました。**
@@ -61,13 +61,13 @@ body = body.slice(0, revStart) + body.slice(revEnd);
 /* --- 最近チェックした商品 ------------------------------------------------- */
 body = body.replace("[IF_RECENT]", "<{if $recently_item.has_item}>")
            .replace("[ENDIF_RECENT]", "<{/if}>");
-/* 🔴 最近チェックした商品は、新着や定番とは別のマークアップです
+/* ※ 最近チェックした商品は、新着や定番とは別のマークアップです
  *    （公開ページ実測。td.itemBox と区切りの mk_main_p_line.gif）。
  *    grid() で出していたので、区切りとアイコンが落ちていました。 */
 body = body.replace("[RECENT2]",
   tiles({ list: "$recently_item.list", name: "rcn", tableId: "recent", perRow: 4 }));
 
-/* 🔴 末尾の <!--.mainContents--></div> は外します。
+/* ※ 末尾の <!--.mainContents--></div> は外します。
      .M_mainContents は shell が開いて閉じます。残すと1つ閉じすぎになり、
      フッターが本文の外に飛び出します。 */
 body = body.split("<!--.mainContents--></div>").join("");

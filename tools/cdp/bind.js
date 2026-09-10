@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    bind.js — 測りたいページを、そのページ種別の設計で描かせます
 
-   🔴 /view/…?ptk=… に直接行くと、**別のページの設計**で描かれます
+   ※ /view/…?ptk=… に直接行くと、**別のページの設計**で描かれます
 
       プレビューは「最後に保存またはプレビューしたページ種別の中身」を
       使い、ページの中身（タイトルや商品名）だけをURLから取ります。
@@ -25,7 +25,7 @@ async function openAt(p, type, path, waitMs) {
   let ready = false;
   for (let i = 0; i < 40; i++) {
     await sleep(500);
-    /* 🔴 previewContent があるだけでは足りません。CodeMirror に中身が
+    /* ※ previewContent があるだけでは足りません。CodeMirror に中身が
        入る前に押すと、空のHTMLを送って**枠だけのページ**が返ります。 */
     const n = await p.evaluate(
       "(typeof g_editor_object !== 'undefined' && g_editor_object.html_pc)" +

@@ -280,7 +280,7 @@ $search.pager.is_first	confirmed	reference search/index.html（tools/fetch-refer
 $search.pager.is_last	confirmed	reference search/index.html（tools/fetch-reference.sh で取得）
 $module.category_calendar	confirmed	当方が追加するモジュール。ct646 の営業日カレンダー専用
 $category.sort_manufacturer_url	confirmed	reference category.html — 製造元順。この店舗は製造元に単価を入れているので、画面では「単価順」
-$category.sort_manufacturer_selected	confirmed	reference category.html — 🔴 カテゴリだけ is_ が付かない。他の5つは is_sort_*_selected。リファレンスの表記どおり
+$category.sort_manufacturer_selected	confirmed	reference category.html — ※ カテゴリだけ is_ が付かない。他の5つは is_sort_*_selected。リファレンスの表記どおり
 $search.sort_manufacturer_url	confirmed	reference search.html
 $search.is_sort_manufacturer_selected	confirmed	reference search.html — こちらは is_ が付く
 $item.contact_url	confirmed	reference detail.html

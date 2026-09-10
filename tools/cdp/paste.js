@@ -4,7 +4,7 @@
      node tools/cdp/paste.js contract package/templates/contract.tpl
      node tools/cdp/paste.js contract            （読むだけ。今の中身を報告）
 
-   🔴 「保存を押した」は、保存できたことの証拠になりません
+   ※ 「保存を押した」は、保存できたことの証拠になりません
 
       管理画面はセッションが切れても編集画面のまま動きます。貼れるし、
       保存も押せる。ただサーバーには届きません。**エラーも出ません。**
@@ -45,7 +45,7 @@ if (!name || !(name in TYPE)) {
 }
 const pageType = TYPE[name];
 
-/* 🔴 改行コードをLFに揃えます
+/* ※ 改行コードをLFに揃えます
  *
  *    リポジトリの作業コピーは CRLF です（git の autocrlf）。CodeMirror は
  *    setValue のときに LF へ揃えるので、**渡した文字数と入った文字数が
@@ -86,7 +86,7 @@ async function state(p) {
   await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + pageType);
   if (!await waitEditor(p)) {
     const s = await state(p);
-    console.log("🔴 エディタが出ません。" + (s.login ? "ログインが切れています。" : "URL: " + s.url));
+    console.log("※ エディタが出ません。" + (s.login ? "ログインが切れています。" : "URL: " + s.url));
     p.close(); process.exit(1);
   }
 
@@ -104,7 +104,7 @@ async function state(p) {
   await p.evaluate("g_editor_object['" + field + "_pc'].setValue(" + JSON.stringify(body) + ")");
   const set = await state(p);
   if (set.edLen !== body.length) {
-    console.log("🔴 入りきっていません: エディタ " + set.edLen + " 文字 / 渡した " + body.length + " 文字");
+    console.log("※ 入りきっていません: エディタ " + set.edLen + " 文字 / 渡した " + body.length + " 文字");
     p.close(); process.exit(1);
   }
   console.log("  エディタに入りました: " + set.edLen + " 文字");
@@ -113,26 +113,26 @@ async function state(p) {
   await p.evaluate("window.confirm = function(){ return true; }; saveContent(); 1");
   await sleep(4000);
 
-  /* 🔴 ここからが本題。**押したあとに読み直します。** */
+  /* ※ ここからが本題。**押したあとに読み直します。** */
   await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + pageType);
   if (!await waitEditor(p)) {
     const s = await state(p);
-    console.log("🔴 読み直せません。" + (s.login ? "ログインが切れています。" : "URL: " + s.url));
+    console.log("※ 読み直せません。" + (s.login ? "ログインが切れています。" : "URL: " + s.url));
     p.close(); process.exit(1);
   }
   const after = await state(p);
 
-  /* 🔴 文字数だけで判定できません
+  /* ※ 文字数だけで判定できません
    *
    *    サーバーは保存のときに、BMP外の文字や記号を数値参照に置き換えます。
    *
    *      —   → &#8212;      （+6文字）
-   *      🔴  → &#128308;    （+7文字）
+   *      ※ → &#128308;    （+7文字）
    *
    *    どちらも <{* … *}> のコメントの中なので表示には出ませんが、
    *    文字数は増えます。**戻してから比べます。** */
   const live = await p.evaluate("g_editor_object['" + field + "_pc'].getValue()");
-  /* 🔴 数値参照は「両側とも」戻してから比べます
+  /* ※ 数値参照は「両側とも」戻してから比べます
    *
    *    元のファイル自体が &#12316; や &#169; を持っています（現行サイトから
    *    写した文面）。片側だけ戻すと、こちらの &#12316; まで 〜 に変わって
@@ -147,14 +147,14 @@ async function state(p) {
   console.log("  渡した : " + body.length + " 文字");
   console.log("  保存後 : " + after.edLen + " 文字（数値参照を戻すと " + back.length + "）");
   if (back === want) {
-    console.log("  ✅ サーバーに届いています（1文字も違いません）");
+    console.log("  OK サーバーに届いています（1文字も違いません）");
   } else if (after.edLen === before.edLen) {
-    console.log("  🔴 届いていません（中身が変わっていません）");
+    console.log("  ※ 届いていません（中身が変わっていません）");
     p.close(); process.exit(1);
   } else {
-    console.log("  ⚠️ 変わりましたが、渡したものと一致しません");
+    console.log("  ※ 変わりましたが、渡したものと一致しません");
     console.log("     node tools/cdp/diff.js " + name + " " + file + " で中身を見てください");
     p.close(); process.exit(1);
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

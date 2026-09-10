@@ -186,7 +186,7 @@ e-mail =<br>
 <p class="btn_link"><a href="/view/page/page8.html" style="display: block; margin: auto;">シーンで選ぶ粗品一覧</a></p>
 <p class="btn_link"><a href="/view/page/page9.html" style="display: block; margin: auto;">商品別カテゴリー一覧</a></p>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

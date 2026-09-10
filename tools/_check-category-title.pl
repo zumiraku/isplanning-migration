@@ -3,7 +3,7 @@
 #  _check-category-title.pl — does the generated template actually produce the
 #  titles the shop had before the migration?
 #
-#  🔴 This has to ask a DIFFERENT question from the generator, or it proves
+#  ※ This has to ask a DIFFERENT question from the generator, or it proves
 #     nothing. The earlier caption check compared an extraction against the
 #     same extraction and reported 34/34 identical while 10 were truncated.
 #

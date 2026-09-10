@@ -38,7 +38,7 @@ title_images/*.gif          2 files
 
 ---
 
-## The tracking tags are not in the design — and that turned out to be good news ✅
+## The tracking tags are not in the design — and that turned out to be good news OK
 
 Searched every template for `gtag(`, `googletagmanager`, `G-…`, `AW-…`, Yahoo,
 Criteo, Meta, Clarity, `conversion`. **The only third-party tag in the design is
@@ -66,7 +66,7 @@ completed order. If a Google Ads or Yahoo conversion tag was pasted into a
 Basic-Mode-only slot, that is where it is — and さぶみっと！レコメンド's PV-CV
 tag would be on the same page.
 
-⚠️ **One place where a surviving platform tag is a hazard rather than a
+※ **One place where a surviving platform tag is a hazard rather than a
 relief.** u-komi's loader keeps running after the switch, but its mount div is
 design markup and binds reviews with `[SYSTEM_CODE]`. Carry the mount across
 with that placeholder unresolved and the widget loads on all 9,514 products with
@@ -105,7 +105,7 @@ to — now confirmed from the source rather than inferred from the rendered page
 > matching any one of B, R, A, N, D, M, E — the first run reported 26,314 uses of
 > one tag and claimed every tag appeared in the stylesheet.
 
-## 53 category pages have their own template 🔴
+## 53 category pages have their own template ※
 
 `design_categorypages/` holds **53 files, all different from each other**, each
 built as the standard category page plus per-category conditional blocks:
@@ -143,7 +143,7 @@ The backup screen lists five saved sets:
 A shop that has taken a backup before each past change. **One should be saved
 before this migration too**, named for it.
 
-## ⚠️ The 適用 button on that screen overwrites the live design
+## ※ The 適用 button on that screen overwrites the live design
 
 The screen says so in red: 「「適用」ボタンをクリックすると、現在のデザインを上書き
 します」. The five rows each have one, next to a delete cross. Nobody should be
@@ -152,7 +152,7 @@ button at the bottom is read-only, the ones in the table are not.
 
 ---
 
-## 🔴 The backup slots are full, verified 2026-09-04
+## ※ The backup slots are full, verified 2026-09-04
 
 The デザイン一括バックアップ screen, seen for the first time:
 
@@ -247,7 +247,7 @@ because it was taken minutes after it. Nothing mysterious happened, and nobody
 edited the shop behind our backs — the two artefacts simply sit either side of a
 change the client told us about himself.
 
-### 🔴 Confirmed against the *current* design: three templates were missed
+### ※ Confirmed against the *current* design: three templates were missed
 
 Not a stale export any more. As of the 2026-09-05 download:
 

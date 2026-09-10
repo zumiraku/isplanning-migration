@@ -3,7 +3,7 @@
 
      node tools/cdp/module-add.js category_extra1 "カテゴリ別内容1" package/modules/category_extra1.tpl
 
-   🔴 モジュールIDは、テンプレートが呼ぶ名前です
+   ※ モジュールIDは、テンプレートが呼ぶ名前です
 
       `<{$module.category_extra1}>` の `category_extra1` を「モジュールID」に
       入れます。「管理用名称」は一覧に出る見出しで、自由に付けられます。
@@ -35,7 +35,7 @@ function un(s) { return s.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Nu
   await p.navigate(BASE + "?design_set_id=" + SET);
   let ok = false;
   for (let i = 0; i < 26 && !ok; i++) { await sleep(400); ok = !!(await p.evaluate(HAS)); }
-  if (!ok) { console.log("🔴 追加の画面が出ません"); p.close(); process.exit(1); }
+  if (!ok) { console.log("※ 追加の画面が出ません"); p.close(); process.exit(1); }
 
   const set = await p.evaluate(`(function(){
     var f = document.forms.formMain;
@@ -52,7 +52,7 @@ function un(s) { return s.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Nu
   await p.evaluate(CM + ".setValue(" + JSON.stringify(body) + ")");
   const inEditor = await p.evaluate(CM + ".getValue().length");
   if (inEditor !== body.length) {
-    console.log("🔴 入りきりません " + inEditor + "/" + body.length); p.close(); process.exit(1);
+    console.log("※ 入りきりません " + inEditor + "/" + body.length); p.close(); process.exit(1);
   }
 
   const saved = await p.evaluate(`(function(){
@@ -72,4 +72,4 @@ function un(s) { return s.replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Nu
   const found = await p.evaluate(`location.href`);
   console.log("いまの画面: " + String(found).slice(0, 90));
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

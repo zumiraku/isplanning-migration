@@ -46,7 +46,7 @@ const CHECK = `(function(){
   out.cartHook    = document.querySelectorAll('a[href^="#makeshop-item-cart-entry-url"]').length;
 
   /* ヘッダー追従は、スクロールしてクラスが付くかで見ます */
-  /* 🔴 スクロール直後に読んではいけません
+  /* ※ スクロール直後に読んではいけません
    *
    *    scrollTo の直後に className を見ていたので、scroll の処理が走る前に
    *    読んでいました。**全ページで「追従しない」と誤検知**していました。
@@ -65,7 +65,7 @@ const CHECK = `(function(){
   let bad = 0;
 
   for (const [name, type] of PAGES) {
-    /* 🔴 トップのプレビューURLは、サイトのルートそのものです
+    /* ※ トップのプレビューURLは、サイトのルートそのものです
      *
      *      トップ            https://www.isp-sp.com/?ptk=…
      *      会員制・年齢確認   https://www.isp-sp.com/?ptk=…   ← 同じ
@@ -82,7 +82,7 @@ const CHECK = `(function(){
       await sleep(500);
       if (await p.evaluate("(typeof previewContent === 'function') ? 1 : 0")) { break; }
     }
-    /* 🔴 前の実行のプレビューURLが残っていると、それを測ってしまいます
+    /* ※ 前の実行のプレビューURLが残っていると、それを測ってしまいます
      *
      *    押したあと「URLに isp-sp.com が入るまで」待っていました。タブが
      *    **前回のプレビューのまま**だと、その条件は最初から満たされていて、
@@ -100,13 +100,13 @@ const CHECK = `(function(){
     await p.evaluate(CATCH);
     await sleep(3000);
     const r = await p.evaluate(CHECK);
-    /* 🔴 window.scrollTo では scroll イベントが出ません
+    /* ※ window.scrollTo では scroll イベントが出ません
      *
      *    自動操作の scrollTo は位置だけ変えて、**イベントを出しません**
      *    （実測: events 0 / pageYOffset 900）。そのため全ページで
      *    「追従しない」と誤検知していました。**本物のホイール操作**を
      *    送ります。 */
-    /* 🔴 ホイールの送信はやめました
+    /* ※ ホイールの送信はやめました
      *
      *    Input.dispatchMouseEvent の mouseWheel は、当たった要素によっては
      *    スクロールしないうえ、**応答が返らずに固まる**ことがありました
@@ -117,7 +117,7 @@ const CHECK = `(function(){
      *    そのまま見られます。実際の利用者がスクロールしたときに
      *    ブラウザが出すのと同じイベントです。 */
     await sleep(300);
-    /* 🔴 ホイールが効かないことがあります
+    /* ※ ホイールが効かないことがあります
      *
      *    Input.dispatchMouseEvent の mouseWheel は、当たった要素によっては
      *    スクロールしません（スライダーの上など）。実際、全ページで
@@ -135,23 +135,23 @@ const CHECK = `(function(){
     await p.evaluate("window.scrollTo(0, 0); 1");
 
     const marks = [];
-    marks.push("ヘッダー" + (r.hasHeader ? "○" : "🔴"));
-    marks.push("追従" + (r.fixedAfterScroll ? "○" : "🔴"));
+    marks.push("ヘッダー" + (r.hasHeader ? "○" : "※"));
+    marks.push("追従" + (r.fixedAfterScroll ? "○" : "※"));
     marks.push("ページトップ" + (r.pageTop ? "○" : "－"));
-    marks.push("ドロワー" + (r.drawerBtn ? "○" : "🔴"));
-    marks.push("検索窓" + (r.searchInput ? "○" : "🔴"));
-    marks.push("検索の印" + (r.searchHook ? "○" : "🔴"));
-    if (type === 3) { marks.push("拡大" + (r.zoom ? "○" : "🔴") + " カート" + (r.cartHook ? "○" : "🔴")); }
+    marks.push("ドロワー" + (r.drawerBtn ? "○" : "※"));
+    marks.push("検索窓" + (r.searchInput ? "○" : "※"));
+    marks.push("検索の印" + (r.searchHook ? "○" : "※"));
+    if (type === 3) { marks.push("拡大" + (r.zoom ? "○" : "※") + " カート" + (r.cartHook ? "○" : "※")); }
     marks.push("jQuery " + r.jquery);
 
     const err = r.errors.length;
     if (err) { bad += err; }
-    console.log(name.padEnd(14) + (err ? "🔴 JSエラー " + err + " 件" : "エラー0") + "  " + marks.join(" "));
+    console.log(name.padEnd(14) + (err ? "※ JSエラー " + err + " 件" : "エラー0") + "  " + marks.join(" "));
     r.errors.forEach(e => console.log("      " + e.slice(0, 110)));
     if (!r.hasHeader || !r.searchHook || !r.searchInput) { bad++; }
   }
 
   p.close();
   console.log("");
-  console.log(bad ? "🔴 気になるもの " + bad + " 件" : "✅ JSエラーなし。仕掛けもすべて入っています");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(bad ? "※ 気になるもの " + bad + " 件" : "OK JSエラーなし。仕掛けもすべて入っています");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

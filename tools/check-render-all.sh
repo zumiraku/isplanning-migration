@@ -20,7 +20,7 @@
 #    3. 中身のあるフィクスチャで、中身が出ているか
 #       商品を2点入れたカゴに <tr> が出ない、といった取りこぼしを拾います。
 #
-#  🔴 これは実機の代わりにはなりません。
+#  ※ これは実機の代わりにはなりません。
 #     タグ名が実在するかは判定できません（リファレンスとの突合は
 #     check-against-reference.sh、実表示は実機のプレビューです）。
 #     ここで見ているのは「与えたデータをテンプレートがどう扱うか」です。
@@ -35,7 +35,7 @@ fail=0
 check() {
   tpl="$1"; fx="$2"; want_marker="$3"; want_min="$4"
   o="$OUT/$(basename "$tpl").html"
-  # 🔴 共通部品の値を足してから描画します
+  # ※ 共通部品の値を足してから描画します
   #
   #    ページごとの fixture には $url.* も $shop.* も入っていません。
   #    そのまま描くと、どのページでも 空href 3件・空src 1件 が出ます
@@ -76,7 +76,7 @@ check() {
 
 echo "ページ種別ごとに描画して検査"
 echo ""
-# 🔴 2026-09-09、期待値をぜんぶ書き換えました
+# ※ 2026-09-09、期待値をぜんぶ書き換えました
 #
 #    ここに並んでいた class は gallery__slide / card / carttable__name /
 #    newslist / h-section / table-scroll ── **どれもこちらが設計した名前**で、
@@ -89,7 +89,7 @@ check detail.tpl            item-noimage.json    'itemCount'               1
 check category.tpl          cat-ct5-full.json    'class="categorylist"'    3
 check category.tpl          cat-ct646.json       'class="categorylist"'    3
 
-# 🔴 search.tpl は一度も描画されていませんでした。クロールが検索URLに当たらず
+# ※ search.tpl は一度も描画されていませんでした。クロールが検索URLに当たらず
 #    実物のHTMLが無いので、リファレンスとソースだけで書いたテンプレートです。
 #    **手元に見本が無いものほど、検査していないと壊れます。**
 check search.tpl            search-keyword.json  'class="M_innerBox"'      3
@@ -99,7 +99,7 @@ check cart.tpl              cart-empty.json      'class="basketEmpty"'     1
 check news-list.tpl         news-list.json       'id="newsList"'        1
 check news-detail.tpl       news-detail.json     'id="newsHead"'        1
 check guide.tpl             news-detail.json     'id="about_payment"'      1
-# 🔴 会社概要だけ id を外しました（2026-09-09）
+# ※ 会社概要だけ id を外しました（2026-09-09）
 #
 #    <{$company.content}> が返すHTMLは、プラットフォーム側で
 #    <div id="O_adminPagearea" class="M_mainContents"> に入っています。

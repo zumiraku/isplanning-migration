@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    sync-paste-guide.js — 貼り付け手順書の「行数」を、実物に合わせる
 
-   🔴 手順書の数字がずれていました
+   ※ 手順書の数字がずれていました
 
       docs/paste-guide.md は、貼ったあとに「行数が合っているか」を
       見てもらうための表です。ところが移植をやり直すたびに実物だけが
@@ -20,7 +20,7 @@
      node tools/port/sync-paste-guide.js          数字を書き直す
      node tools/port/sync-paste-guide.js --check  ずれていたら失敗する
 
-   ⚠️ 正規表現を使いません。このリポジトリでは、シェル経由で書いた
+   ※ 正規表現を使いません。このリポジトリでは、シェル経由で書いた
       バックスラッシュが何度も落ちました。表の行は「|」で割れば足ります。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
@@ -100,7 +100,7 @@ if (!diffs.length) {
   process.exit(0);
 }
 if (CHECK) {
-  console.log("🔴 手順書の数字が実物とずれています");
+  console.log("※ 手順書の数字が実物とずれています");
   diffs.forEach(d => console.log("   " + d));
   console.log("");
   console.log("   node tools/port/sync-paste-guide.js で直せます");

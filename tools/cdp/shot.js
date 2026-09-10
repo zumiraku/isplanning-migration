@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    shot.js — 山口様が見たのと同じ画面を、そのまま画像で取ります
 
-   🔴 これまで「はみ出し」しか測っていませんでした
+   ※ これまで「はみ出し」しか測っていませんでした
 
       横にはみ出していなければ通す検査ばかりで、**ズレ（位置の食い違い）と
       重なり（要素が重なって読めない）は一度も測っていません。**
@@ -55,7 +55,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
         await sleep(500);
         ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
       }
-      if (!ready) { console.log(name + " " + w + "  🔴 編集画面が開けません"); continue; }
+      if (!ready) { console.log(name + " " + w + "  ※ 編集画面が開けません"); continue; }
 
       const wasAt = await p.evaluate("location.href");
       await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
@@ -95,4 +95,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

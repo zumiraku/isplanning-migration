@@ -10,7 +10,7 @@
 #  The scrape writes inventory/creator-tags-reference.tsv, which
 #  check-against-reference.sh reads. Re-run it when MakeShop updates the docs.
 #
-#  🔴 The regex has to cross the [i]
+#  ※ The regex has to cross the [i]
 #
 #     The reference writes list members as $category.item.list[i].name. A
 #     pattern that stops at the bracket collects $category.item.list and

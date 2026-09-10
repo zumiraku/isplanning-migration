@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    category-extra.js — カテゴリごとの独自内容を、モジュールに集める
 
-   🔴 クリエイターモードにカテゴリ説明のタグはありません
+   ※ クリエイターモードにカテゴリ説明のタグはありません
 
       リファレンスの $category.* は 31個ありますが、**説明文を出すものが
       ありません**（$category.description は存在しません）。ところが現行は
@@ -65,18 +65,18 @@ function pairs() {
 }
 
 /* 子カテゴリの一覧が終わったところから、商品一覧の手前まで */
-/* 🔴 独自内容は商品一覧の「下」にもあります
+/* ※ 独自内容は商品一覧の「下」にもあります
  *
  *    606カテゴリ中602に <h2 class="categorybottom"> の塊があります。
  *    「粗品選びは【発見マーケット】にお任せ！」＋ カテゴリごとの説明文で、
  *    上の領域だけ見ていたときは、ここが丸ごと落ちていました。 */
-/* 🔴 「ページの下まで」で切ると、商品一覧をもう1つ飲み込みます
+/* ※ 「ページの下まで」で切ると、商品一覧をもう1つ飲み込みます
  *
  *    最初は pageTop / colum-wrap まで取っていました。カテゴリによっては
  *    その間に**2つ目の商品一覧とページ送り**があり、1塊が49KB（うち文字は
  *    5KB）になりました。**商品データをテンプレートに焼き付けるところ**でした。
  *    商品一覧・ページ送り・レコメンドの手前で止めます。 */
-/* 🔴 「こちらの商品もおすすめです。」まで飲み込んでいました
+/* ※ 「こちらの商品もおすすめです。」まで飲み込んでいました
  *
  *    この見出しは全カテゴリ共通で、テンプレート側（build-category.js）が
  *    出します。切り出しに含めると、**カテゴリページに見出しが2回**出ます。
@@ -142,14 +142,14 @@ function extra(body) {
       html = decode(fs.readFileSync(at));
     } else {
       const r = await get(live);
-      if (r.status !== 200 || r.body.length < 2000) { console.log("🔴 取れない " + code + " " + live + " " + r.status); failed++; continue; }
+      if (r.status !== 200 || r.body.length < 2000) { console.log("※ 取れない " + code + " " + live + " " + r.status); failed++; continue; }
       fs.writeFileSync(at, r.body);
       html = decode(r.body);
       await sleep(120);
     }
     const body = html.slice(html.search(/<body\b/i));
     const seg = extra(body);
-    if (seg === null) { console.log("🔴 切り出せない " + code); failed++; continue; }
+    if (seg === null) { console.log("※ 切り出せない " + code); failed++; continue; }
     const text = seg.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
     if (text.length < 10 && seg.indexOf("<img") < 0) { empty++; continue; }
     blocks.push({ code, html: rewrite(seg.split("〜").join("～")).html.trim() });
@@ -163,7 +163,7 @@ function extra(body) {
     "<{* ==========================================================================",
     "     カテゴリごとの独自内容 — ベーシックからの移植",
     "",
-    "     🔴 クリエイターモードにカテゴリ説明のタグはありません。",
+    "     ※ クリエイターモードにカテゴリ説明のタグはありません。",
     "        $category.* は31個ありますが、説明文を出すものがありません。",
     "        カテゴリ識別コードで振り分けます。",
     "",
@@ -171,7 +171,7 @@ function extra(body) {
     "   ========================================================================== *}>"
   ].join("\n");
 
-  /* 🔴 601個ぶん並べると678KBになります
+  /* ※ 601個ぶん並べると678KBになります
    *
    *    カテゴリは606件ありますが、**中身は112種類しかありません。**
    *    同じ文面を601回書くことになっていました。まとめると122KBです。
@@ -219,4 +219,4 @@ function extra(body) {
   console.log("テンプレートから呼ぶ順:");
   console.log("  商品一覧の上: " + top.map(n => "<{$module." + n.name + "}>").join(""));
   console.log("  商品一覧の下: " + low.map(n => "<{$module." + n.name + "}>").join(""));
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

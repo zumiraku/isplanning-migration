@@ -8,7 +8,7 @@ Reference product: `000000025283` — マックス ハンコ 角型 Ω型 ポン
 
 ---
 
-## 1. Headline finding — Q1 is answered 🔴
+## 1. Headline finding — Q1 is answered ※
 
 **`updateOptionPrice()` and `updateOptionPriceAjax()` are MakeShop platform
 JavaScript, not shop-authored code.**
@@ -80,13 +80,13 @@ price table. All seven reconcile exactly.
 
 | option2_id | Qty | Unit price | endpoint ex-tax | check |
 |---:|---:|---:|---:|---|
-| 1 | 10 | ¥338 | ¥3,380 | 10 × 338 ✅ |
-| 2 | 15 | ¥292 | ¥4,380 | 15 × 292 ✅ |
-| 3 | 20 | ¥268 | ¥5,360 | 20 × 268 ✅ |
-| 4 | 30 | ¥245 | ¥7,350 | 30 × 245 ✅ |
-| 5 | 40 | ¥233 | ¥9,320 | 40 × 233 ✅ |
-| 6 | 50 | ¥226 | ¥11,300 | 50 × 226 ✅ |
-| 7 | 84 | ¥198 | ¥16,632 | 84 × 198 ✅ |
+| 1 | 10 | ¥338 | ¥3,380 | 10 × 338 OK |
+| 2 | 15 | ¥292 | ¥4,380 | 15 × 292 OK |
+| 3 | 20 | ¥268 | ¥5,360 | 20 × 268 OK |
+| 4 | 30 | ¥245 | ¥7,350 | 30 × 245 OK |
+| 5 | 40 | ¥233 | ¥9,320 | 40 × 233 OK |
+| 6 | 50 | ¥226 | ¥11,300 | 50 × 226 OK |
+| 7 | 84 | ¥198 | ¥16,632 | 84 × 198 OK |
 
 Tier 7 matches the page's rendered default (`price1='16632'`, `price2="18,295"`),
 so the page renders pre-selected on the largest tier.
@@ -94,7 +94,7 @@ so the page renders pre-selected on the largest tier.
 The pricing rule is therefore **total = tier_quantity × tier_unit_price**, with
 colour price-neutral. `amount` multiplies on top of this at the cart.
 
-### `uid` is not derivable from the URL 🔴
+### `uid` is not derivable from the URL ※
 
 `uid` is MakeShop's **internal** product id, and only the `000000xxxxxx` scheme
 happens to embed it (`000000025283` → `25283`). The older `cccssxxxxxx` scheme does

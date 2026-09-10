@@ -44,7 +44,7 @@ its natural user, and it has no Creator Mode equivalent.
 **It is ニュース, which Creator Mode keeps.** Answered from the archive, no
 crawling and no console needed — see [`docs/news-plan.md`](news-plan.md).
 
-🔴 **Correction 2026-09-04: the URLs do NOT stay put.** This entry, the redirect
+※ **Correction 2026-09-04: the URLs do NOT stay put.** This entry, the redirect
 map and `news-plan.md` all assumed that because the feature survives, the
 addresses survive. They do not: Creator Mode serves news at `/view/news/list`
 and `/view/news/yymmddhhmmss`. Worse, the new form is a timestamp, so the

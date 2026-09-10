@@ -50,7 +50,7 @@ what it does not recognise is how a page loses a phone number.
 
 ## Four things the survey had not seen
 
-### 1. Chrome survived the extraction on 24 pages 🔴
+### 1. Chrome survived the extraction on 24 pages ※
 
 The Stage 0 extraction derived chrome from what all 83 bodies share, so it left
 chrome behind wherever a page's chrome differs from the corpus.
@@ -175,7 +175,7 @@ were dropped: the token scale owns both now.
   code points, and the first fallback is the first heading in the page itself.
 
 
-## Four free pages are missing from the inventory 🔴 *found 2026-09-03*
+## Four free pages are missing from the inventory ※ *found 2026-09-03*
 
 Diffing every `/html/*.html` link in the corpus against the 83 we hold turns up
 four pages the live site links to and we have never seen:
@@ -302,7 +302,7 @@ Now a pattern, not a list.
 templates all pass at 375 / 768 / 1440.
 
 
-## The smartphone pages carry content the desktop pages do not 🔴 *2026-09-03*
+## The smartphone pages carry content the desktop pages do not ※ *2026-09-03*
 
 Every free page was converted from its **desktop** capture. The separate
 `/smartphone/` URL space disappears at the switch (C18). So anything that exists
@@ -347,7 +347,7 @@ A diff between two templates of the same content is mostly noise. The number
 only became trustworthy once each source of noise was named and removed.
 
 
-## ~~The admin lists 120 free pages, not 83~~ — WRONG, superseded ⚠️
+## ~~The admin lists 120 free pages, not 83~~ — WRONG, superseded ※
 
 Written on 2026-09-03 and wrong the same day. I asked the client how many pages
 the 独自ページ list showed, he answered **120**, and I rewrote the README, C15, Q7,
@@ -370,7 +370,7 @@ Two lessons, both mine:
 
 Superseded by the section below.
 
-## The admin list settles the free-page question — 82, not 120 🟢 *2026-09-03*
+## The admin list settles the free-page question — 82, not 120 OK *2026-09-03*
 
 The client pasted the whole 独自ページURL一覧. It is authoritative and it corrects
 the previous entry in this document, which assumed 120 from a miscommunication.
@@ -417,7 +417,7 @@ single addition.
 
 **Stage 5 is complete: 82 of 82.**
 
-### 🔴 page82 must not be retired
+### ※ page82 must not be retired
 
 The admin's own name for it is **「スマホ用カレンダー（削除しないでください）」**.
 
@@ -437,7 +437,7 @@ the pairs have drifted — including the 特定商取引法 delivery period. It 
 looked at at all.
 
 
-## Nothing in the text was damaged — 85 of 85 🟢 *2026-09-03*
+## Nothing in the text was damaged — 85 of 85 OK *2026-09-03*
 
 Each fragment goes through roughly fifteen regex passes: chrome windowing, style
 and script extraction, attribute stripping, class mapping, inline-style mapping,

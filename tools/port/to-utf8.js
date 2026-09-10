@@ -4,13 +4,13 @@
    templates/basic-export/design/*.txt を templates/basic-utf8/*.html に
    写します。やることは2つだけで、中身は1文字も変えません。
 
-   🔴 1. 文字コード
+   ※ 1. 文字コード
 
       書き出しは**すでにUTF-8**です。最初これをEUC-JPだと思い込んで二重に
       デコードし、上段メニューが「膕����������ｃ��ャ」になりました。
       壊れ文字（U+FFFD）が出るかどうかで判定します。
 
-   🔴 2. 改行
+   ※ 2. 改行
 
       CRLF です。**そのまま置換の照合に使うと、\n を含む文字列が一つも
       当たりません。** build-detail.js が「メイン画像の並びが一致しません」で
@@ -33,7 +33,7 @@ for (const f of fs.readdirSync(SRC)) {
   if (s.indexOf("�") >= 0) { s = new TextDecoder("euc-jp").decode(b); euc++; }
   s = s.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 
-  /* 🔴 3. 波ダッシュ 〜(U+301C) を 全角チルダ ～(U+FF5E) に
+  /* ※ 3. 波ダッシュ 〜(U+301C) を 全角チルダ ～(U+FF5E) に
    *
    *    EUC-JP と Unicode のあいだで写像が2通りある、有名な文字です。
    *    書き出しファイルは U+301C 側、**公開中のサイトは U+FF5E 側**でした。

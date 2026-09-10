@@ -2,7 +2,7 @@
 /* ---------------------------------------------------------------------------
  *  make-paste-file.js — コンソールの箱に貼る「1枚のファイル」を作る
  *
- *  🔴 CSS と JavaScript で、こちらのブロックの位置が逆です。
+ *  ※ CSS と JavaScript で、こちらのブロックの位置が逆です。
  *
  *      CSS          Basics標準 2,326行  →  こちら          （こちらが後ろ）
  *      JavaScript   こちら              →  Basics標準 67行 （こちらが前）
@@ -44,10 +44,10 @@ const out = outArg || `package/paste/all-pages.${kind}`;
 
 const norm = (s) => s.replace(/\r\n/g, '\n').replace(/\uFEFF/g, '');
 
-/* 🔴 コンソールは一部の文字を HTML の実体参照に変えて返します。
+/* ※ コンソールは一部の文字を HTML の実体参照に変えて返します。
  *
  *    実測（2026-09-07、JavaScript の箱 447行）で変わっていたのは5箇所だけ:
- *      🔴 → &#128308;      › → &#8250;（2）      — → &#8212;（2）
+ *      ※ → &#128308;      › → &#8250;（2）      — → &#8212;（2）
  *
  *    5文字ですが、そのままでは1バイトも一致しません。**照合のときだけ**戻します。
  *    書き出す中身には手を加えません。 */
@@ -96,7 +96,7 @@ for (const c of candidates) {
 }
 
 if (!found) {
-  console.error('🔴 箱の中に、こちらのブロックが見つかりません。');
+  console.error('※ 箱の中に、こちらのブロックが見つかりません。');
   console.error('   前に貼った版のどれとも一致しませんでした。箱を直接手で直した');
   console.error('   可能性があります。差し替える範囲が決められないので**何も');
   console.error('   書き出しません。**');
@@ -109,7 +109,7 @@ const before = boxLines.slice(0, found.start);
 const after = boxLines.slice(found.start + found.len);
 const result = before.concat(fresh.split('\n'), after).join('\n');
 
-/* 🔴 CSS の @import は、他の規則より前になければ効きません。
+/* ※ CSS の @import は、他の規則より前になければ効きません。
  *
  *      @import url(//use.fontawesome.com/releases/v5.0.11/css/all.css);
  *
@@ -143,7 +143,7 @@ if (kind === 'css') {
     seenRule = true;
   }
   if (bad) {
-    console.error(`🔴 @import が ${bad} 件、他の規則より後ろにあります。`);
+    console.error(`※ @import が ${bad} 件、他の規則より後ろにあります。`);
     console.error('   ブラウザは黙って無視します。このまま貼ると Font Awesome の');
     console.error('   アイコンが消えます。**書き出しません。**');
     process.exit(1);

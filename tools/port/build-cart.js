@@ -5,7 +5,7 @@
      商品特殊表示がない / 商品画像がすべてLサイズ / 説明文がない /
      上部固定・フッター（共通側で対応済み）
 
-   🔴 「説明文がない」の中身
+   ※ 「説明文がない」の中身
 
       元テンプレートの下半分は、まるごと案内文です。
 
@@ -19,19 +19,19 @@
       **注文直前にいちばん読まれる場所**です。こちらの版はカゴの表と
       合計金額しか出しておらず、丸ごと落ちていました。
 
-   🔴 [BASKET_ADDCODE2] は $cart.list[i].special_display です
+   ※ [BASKET_ADDCODE2] は $cart.list[i].special_display です
 
       商品詳細の [ITEMCAPTION_1]、カテゴリの [ADDCODE] と同じ「商品別特殊表示」。
       **カートの分だけは以前から使えていました**（cart-body.tpl に1箇所）。
       詳細・カテゴリ・検索で書き忘れていたのが今回の指摘です。
 
-   🔴 数量の ▲▼ は数値入力欄にします
+   ※ 数量の ▲▼ は数値入力欄にします
 
       元は [BASKET_UPCOUNT] / [BASKET_DOWNCOUNT] というURLで、押すたびに
       ページが再読み込みされていました。クリエイターに同じURLはありません。
       修正ボタン（$cart.list[i].quantity_url）は元どおり残します。
 --------------------------------------------------------------------------- */
-/* 🔴 一覧の価格に桁区切りがありません（実測・2026-09-10）
+/* ※ 一覧の価格に桁区切りがありません（実測・2026-09-10）
  *
  *      現行    販売価格39,600円（税込）
  *      移植版  販売価格39600円（税込）
@@ -98,7 +98,7 @@ const rows = [
 '<{/section}>',
 '        <tr>',
 '            <td colspan="6" class="basketTotal">',
-/* 🔴 配送の案内を落としていました（2026-09-10）
+/* ※ 配送の案内を落としていました（2026-09-10）
  *
  *    元テンプレートの合計行の頭に、こう入っています。
  *
@@ -113,7 +113,7 @@ const rows = [
 '                <p class="haisou_txt"><{$cart.free_shipping_message}></p>',
 '                <dl class="totalWrap">',
 '                    <dt class="totalItem">合計金額：</dt>',
-/* 🔴 合計金額に「円」を足しません
+/* ※ 合計金額に「円」を足しません
  *
  *    元テンプレートはこう書いています。
  *
@@ -160,7 +160,7 @@ body = body.replace("[CARRIAGE_MSG2]", "");
 
 /* --- 最近チェックした商品 -------------------------------------------------- */
 body = body.replace("[IF_RECENT]", "<{if $recently_item.has_item}>").replace("[ENDIF_RECENT]", "<{/if}>");
-/* 🔴 現行の「最近チェックした商品」は table#recent です（2026-09-10 実測）
+/* ※ 現行の「最近チェックした商品」は table#recent です（2026-09-10 実測）
  *
  *    こちらは td.lims の4列で出していました。現行は商品グループと同じ
  *    td.itemBox の形で、**あいだに区切りの画像**（mk_main_p_line.gif）が
@@ -178,17 +178,17 @@ body = body.replace(/\[[A-Z_0-9]{2,}\]/g, "");
 /* コメントアウトされたお気に入り表の残骸で </table> が余っています */
 body = body.replace(/\s*<\/table>\s*<!--\s*-->\s*$/, "\n");
 
-/* 🔴 末尾の <!--.mainContents--></div> と、コメントアウトされたお気に入り表の
+/* ※ 末尾の <!--.mainContents--></div> と、コメントアウトされたお気に入り表の
      </table> が残ります。どちらもベーシックが自動で面倒を見ていた部分です。
      .M_mainContents は shell が開いて閉じるので、ここで閉じると1つ余ります。
 
-     🔴 ここは正規表現を使いません。/ を含む文字列を正規表現リテラルに
+     ※ ここは正規表現を使いません。/ を含む文字列を正規表現リテラルに
         書くとスラッシュで閉じてしまい、しかもシェル経由で書き込むと
         バックスラッシュが落ちます。実際に2回そうなりました。 */
 body = body.split("<!--.mainContents--></div>").join("");
 body = body.trimEnd();
 
-/* 🔴 コメントアウトされた「お気に入り」表は、丸ごと落とします
+/* ※ コメントアウトされた「お気に入り」表は、丸ごと落とします
  *
  *    元テンプレートの末尾には、使っていないお気に入り一覧が
  *    1行ずつコメントアウトされて残っています。厄介なのは、
@@ -212,14 +212,14 @@ const wishAt = body.indexOf("<!--▼お気に入り商品-->");
 if (wishAt >= 0) {
   body = body.slice(0, wishAt).trimEnd();
 } else {
-  console.error("🔴 お気に入り表の目印が見つかりません。末尾を確認してください。");
+  console.error("※ お気に入り表の目印が見つかりません。末尾を確認してください。");
   process.exit(1);
 }
 
 const r = rewrite(body);
 body = r.html;
 
-/* 🔴 id="M_basket" を落としていました。#M_basket を前提にしたCSSが効かず、
+/* ※ id="M_basket" を落としていました。#M_basket を前提にしたCSSが効かず、
    「ご購入手続きへ進む」が親から227pxはみ出していました（2026-09-10 実測）。 */
 const out = shell({ name: "買い物カゴ", from: "basketpage", slider: false, mainId: "M_basket", body: body.trim() });
 fs.writeFileSync("templates/creator/mode/cart.tpl", out);

@@ -2,7 +2,7 @@
 # =============================================================================
 #  fetch-sitemap.sh — サイトマップを取り直す
 #
-#  🔴 21商品が対応表から漏れていました
+#  ※ 21商品が対応表から漏れていました
 #
 #     `/view/category/all_items` が「全 9,535 件」と返すのに、
 #     products-url.csv は 9,513 行しかありませんでした。**22件足りません。**
@@ -65,6 +65,6 @@ prod=$(grep -oh 'shopdetail/[0-9]*' snapshot/sitemap_brand*.xml 2>/dev/null | so
 echo ""
 printf "  商品（重複除く）: %s\n" "$prod"
 echo ""
-echo "  🔴 実際の商品数と突き合わせてください。"
+echo "  ※ 実際の商品数と突き合わせてください。"
 echo "     /view/category/all_items の「全 N 件」が正解です。"
 echo "     食い違っていたら、サイトマップに載っていない商品があります。"

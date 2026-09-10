@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    build-chrome.js — 上段メニュー・左メニュー・下段メニューを移植する
 
-   🔴 方針は「移植」です。「作り直し」ではありません。
+   ※ 方針は「移植」です。「作り直し」ではありません。
 
       最初の版は、タグの対応表からデザインを設計し直しました。その結果
       山口様に21件のご指摘をいただきました ── ヘッダーの文言が無い、
@@ -49,7 +49,7 @@ const LOGIN_LOGIN  = `<{if $member.is_logged_in}><a href="<{$url.logout}>">ロ�
 
 /* かご。ベーシックの [CART_INSIDE1] 相当。
  *
- * 🔴 最初は「買い物かご 0」と数を出すだけにしていました
+ * ※ 最初は「買い物かご 0」と数を出すだけにしていました
  *
  *    公開ページを見たら、**ホバーで中身が開く箱**でした。
  *
@@ -62,14 +62,14 @@ const LOGIN_LOGIN  = `<{if $member.is_logged_in}><a href="<{$url.logout}>">ロ�
  *    .M_basketMarginBox / #M_basketOpenedBox）。**自前の名前で書いていた
  *    ので、CSSが1つも当たっていませんでした。**
  *
- * 🔴 MakeShop_toggleBasketBox は呼びません
+ * ※ MakeShop_toggleBasketBox は呼びません
  *
  *    ベーシックのプラットフォームが定義していた関数で、クリエイターに
  *    あるとは限りません。**無ければマウスを乗せるたびにJSエラー**です。
  *    開閉はCSSの :hover でやります（port-responsive.css）。動きは同じで、
  *    JSに依存しません。
  *
- * 🔴 数の丸（バッジ）を、空のときに出していませんでした（2026-09-10）
+ * ※ 数の丸（バッジ）を、空のときに出していませんでした（2026-09-10）
  *
  *    `<{if $cart.has_item}>` で囲っていたので、カゴが空だと <em> ごと
  *    消えていました。公開ページを取り直したら、こうでした。
@@ -107,9 +107,9 @@ const CART = [
   '</div>'
 ].join(String.fromCharCode(10));
 
-/* 検索。🔴 <form> にしないこと（C44）。system.js は href のクリックだけを
+/* 検索。※ <form> にしないこと（C44）。system.js は href のクリックだけを
    見ていて、action も submit も参照しません。 */
-/* 🔴 id は元のまま、プラットフォーム用は data-id に
+/* ※ id は元のまま、プラットフォーム用は data-id に
  *
  *    m_sys_common.css は**プラットフォームが出していたid**で当てています。
  *
@@ -122,7 +122,7 @@ const CART = [
  *
  *    プラットフォームが読むのは data-id と href なので、id は見た目のために
  *    使えます（system.js の getFormValue は [data-id=…] で引いています）。 */
-/* 🔴 中身を空にしたら、ボタンの高さが 0 になりました（実測・2026-09-10）
+/* ※ 中身を空にしたら、ボタンの高さが 0 になりました（実測・2026-09-10）
  *
  *      現行    30 x 32     <a … id="MakeShopTopSearchButton">検索</a>
  *      移植版  30 x  0     <a … aria-label="検索"></a>
@@ -174,7 +174,7 @@ header = r1.html;
 let left = read("design_leftmenu.html");
 left = left.replace(/<!--[\s\S]*?-->/g, "");        // ベーシック特有の注意書きを除去
 left = convert(left);
-/* 🔴 モジュールの中からモジュールは呼べません
+/* ※ モジュールの中からモジュールは呼べません
  *
  *    営業日カレンダーにはタグが無いので、最初は左メニューの中で
  *    `<{$module.calendar1}>` と書いていました。**展開されません。**
@@ -210,7 +210,7 @@ bottom = bottom.replace(/^<!--[\s\S]*?-->/, "");    // 先頭の </td></tr></tab
 bottom = bottom.replace(/<\/td>\s*<\/tr>\s*<\/table>/g, "");  // 自動挿入テーブルの残骸
 bottom = convert(bottom);
 
-/* 🔴 フッターの帯は、本文の外です
+/* ※ フッターの帯は、本文の外です
  *
  *    以前ここに「#colum-wrap も #footer_guideWrap も .M_mainContents の
  *    中にありました」と書いていました。**誤りでした。**
@@ -249,7 +249,7 @@ bottom = r3.html;
 const banner = name => `<{* ==========================================================================
      ${name} — ベーシックモードからの移植
 
-     🔴 これは作り直しではありません。design_${name === "header" ? "topmenu" : name === "leftmenu" ? "leftmenu" : "bottom"}.txt の
+     ※ これは作り直しではありません。design_${name === "header" ? "topmenu" : name === "leftmenu" ? "leftmenu" : "bottom"}.txt の
         マークアップをそのまま持ってきて、タグとURLだけ置き換えたものです。
         class も id も並び順も変えていません。m_sys_common.css がそれらに
         当たっているためです。
@@ -270,8 +270,8 @@ stat("leftmenu.tpl", left, r2);
 stat("footer.tpl", bottom, r3);
 const allMissing = [...new Set([...r1.missing, ...r2.missing, ...r3.missing])];
 if (allMissing.length) {
-  console.log("\n🔴 対応表に無いURL（そのまま残しました。301で飛びます）:");
+  console.log("\n※ 対応表に無いURL（そのまま残しました。301で飛びます）:");
   allMissing.forEach(u => console.log("    " + u));
 }
 const left0 = (header + left + bottom).match(/\[[A-Z_0-9]{3,}\]/g);
-if (left0) console.log("\n🔴 未変換のベーシックタグ: " + [...new Set(left0)].join(" "));
+if (left0) console.log("\n※ 未変換のベーシックタグ: " + [...new Set(left0)].join(" "));

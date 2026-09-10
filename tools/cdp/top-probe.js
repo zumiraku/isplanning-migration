@@ -31,7 +31,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     await sleep(500);
     ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
   }
-  if (!ready) { console.log("🔴 編集画面が開けません"); p.close(); return; }
+  if (!ready) { console.log("※ 編集画面が開けません"); p.close(); return; }
 
   /* 押す前 — 何を送ろうとしているか */
   const before = await p.evaluate(`(function () {
@@ -80,8 +80,8 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("押した後のURL : " + after.url);
   console.log("タイトル      : " + after.title);
   console.log("HTML全体      : " + after.len + " 文字 / 本文 " + after.text + " 文字");
-  console.log("ヘッダー      : " + (after.header ? "あり" : "🔴 無し"));
-  console.log("会員制の枠    : " + (after.verify ? "🔴 あり（会員制ページが出ています）" : "無し"));
+  console.log("ヘッダー      : " + (after.header ? "あり" : "※ 無し"));
+  console.log("会員制の枠    : " + (after.verify ? "※ あり（会員制ページが出ています）" : "無し"));
   console.log("本文の先頭    : " + after.head);
 
   /* もう一度、同じURLを取り直したらどうなるか */
@@ -100,4 +100,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   fs.writeFileSync("tools/cdp/box-out/preview-type" + TYPE + ".html", html);
   console.log("保存          : tools/cdp/box-out/preview-type" + TYPE + ".html");
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

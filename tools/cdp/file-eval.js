@@ -18,7 +18,7 @@ if (!file || !exprFile) {
   process.exit(1);
 }
 const FULL = path.resolve(file);
-if (!fs.existsSync(FULL)) { console.error("🔴 ありません: " + FULL); process.exit(1); }
+if (!fs.existsSync(FULL)) { console.error("※ ありません: " + FULL); process.exit(1); }
 const EXPR = fs.readFileSync(exprFile, "utf8");
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -34,4 +34,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   p.close();
   console.log(file + "  " + width + "px");
   console.log(JSON.stringify(r, null, 2));
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

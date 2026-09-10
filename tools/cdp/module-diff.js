@@ -18,7 +18,7 @@ function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10
   await p.navigate(BASE + "?design_set_id=" + SET + "&module_id=" + id);
   let ok = false;
   for (let i = 0; i < 24 && !ok; i++) { await sleep(400); ok = !!(await p.evaluate(HAS)); }
-  if (!ok) { console.log("🔴 開けません"); p.close(); process.exit(1); }
+  if (!ok) { console.log("※ 開けません"); p.close(); process.exit(1); }
   const live = await p.evaluate(CM + ".getValue()");
   p.close();
 
@@ -26,7 +26,7 @@ function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10
   const mine = lf(fs.readFileSync(file, "utf8"));
   console.log("手元       : " + mine.length + " 文字");
   console.log("サーバー側 : " + live.length + " 文字（数値参照を戻すと " + theirs.length + "）");
-  if (mine === theirs) { console.log("✅ 一致"); return; }
+  if (mine === theirs) { console.log("OK 一致"); return; }
 
   const a = mine.split("\n"), b = theirs.split("\n");
   console.log("行数: 手元 " + a.length + " / 向こう " + b.length);
@@ -39,4 +39,4 @@ function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10
     console.log("    向こう: " + JSON.stringify(String(b[i]).slice(0, 110)));
     shown++;
   }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

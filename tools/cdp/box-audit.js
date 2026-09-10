@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    box-audit.js — ページ種別ごとの CSS / JavaScript 欄に何が残っているか
 
-   🔴 ページ種別には HTML のほかに CSS と JavaScript の欄があります
+   ※ ページ種別には HTML のほかに CSS と JavaScript の欄があります
 
       こちらは HTML 欄しか書き換えていませんでした。**差し戻された版の
       CSS と JavaScript が、ページごとの欄に残っている**可能性があります。
@@ -58,7 +58,7 @@ const READ = `(function(){
       await sleep(400);
       ok = !!(await p.evaluate("(typeof g_editor_object !== 'undefined' && Object.keys(g_editor_object).length > 0) ? 1 : 0"));
     }
-    if (!ok) { console.log(name.padEnd(16) + "🔴 開けません"); continue; }
+    if (!ok) { console.log(name.padEnd(16) + "※ 開けません"); continue; }
     const r = await p.evaluate(READ);
     const warn = (r.javascript > 0 && r.jq > 0) || r.css > 0;
     if (warn) { flagged++; }
@@ -66,11 +66,11 @@ const READ = `(function(){
       String(r.html).padStart(6) + String(r.css).padStart(7) + String(r.javascript).padStart(7) +
       String(r.jq).padStart(10) + "        " +
       [r.sp_html, r.sp_css, r.sp_javascript].join("/") +
-      (warn ? "  🔴" : ""));
+      (warn ? "  ※" : ""));
     if (r.css > 0) { console.log("      CSS : " + r.css_head); }
     if (r.javascript > 0) { console.log("      JS  : " + r.javascript_head); }
   }
   p.close();
   console.log("");
-  console.log(flagged ? "🔴 中身の残っている欄が " + flagged + " 種別" : "✅ ページ種別ごとの CSS / JS 欄は空です");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(flagged ? "※ 中身の残っている欄が " + flagged + " 種別" : "OK ページ種別ごとの CSS / JS 欄は空です");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

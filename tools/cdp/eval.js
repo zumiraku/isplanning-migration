@@ -22,4 +22,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   const out = await p.evaluate(expr);
   console.log(typeof out === "string" ? out : JSON.stringify(out, null, 2));
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

@@ -3,7 +3,7 @@
 
      node tools/cdp/freepage-build.js
 
-   🔴 デザインセットの82枚は、差し戻された版のままでした
+   ※ デザインセットの82枚は、差し戻された版のままでした
 
         <body>
           <{$module.header}>
@@ -80,12 +80,12 @@ function normaliseHref(html) {
   });
 }
 
-/* 🔴 終わりの目印は当てになりません
+/* ※ 終わりの目印は当てになりません
  *
  *    最初は `<!-- PageArea -->` というコメントで切っていました。**82枚中
  *    76枚にそのコメントがありません。** 6枚しか作れませんでした。
  *    div の入れ子を数えて、対応する閉じで切ります。 */
-/* 🔴 入れ物は1種類ではありません
+/* ※ 入れ物は1種類ではありません
  *
  *      <div class="PageArea">        22枚
  *      <div class="M_mainContents">  残り
@@ -94,12 +94,12 @@ function normaliseHref(html) {
  *    お店が長年かけて増やしたページなので、書き方が揃っていません。 */
 const HOLDERS = ['<div class="PageArea"', '<div class="M_mainContents', '<div id="fan_contents"'];
 
-/* 🔴 文書の先頭から探してはいけません
+/* ※ 文書の先頭から探してはいけません
  *
  *    `M_mainContents` はヘッダーの中にも出てきます。先頭から探すと
  *    そちらに当たり、入れ子の数が合わずに「本文が無い」になりました。
  *    ベーシックが本文を入れるセル（valign=top width=640）から後ろだけを見ます。 */
-/* 🔴 入れ物のdivを信じてはいけません
+/* ※ 入れ物のdivを信じてはいけません
  *
  *    page81 はこうなっています。
  *
@@ -113,7 +113,7 @@ const HOLDERS = ['<div class="PageArea"', '<div class="M_mainContents', '<div id
  *    ベーシックが独自ページを入れているのは「セル」です。
  *    セルの中身をまるごと取ります。閉じる位置は、ページ共通の後始末
  *    （bottom_privercy のスクリプト、ページトップのリンク、コラム）の手前。 */
-/* 🔴 「最初の <script>」で切ってはいけません
+/* ※ 「最初の <script>」で切ってはいけません
  *
  *    本文の途中にスクリプトを置いているページがあります（page3 は
  *    39塊中37塊が消えました）。**ページ共通の後始末**だけを目印にします。 */
@@ -147,7 +147,7 @@ function pageArea(html) {
   const cell = html.indexOf("valign=top width=640");
   const from = cell >= 0 ? cell : 0;
 
-  /* 🔴 属性の順番も引用符も揃っていません
+  /* ※ 属性の順番も引用符も揃っていません
    *
    *      <div class="PageArea">
    *      <div class="M_mainContents">
@@ -162,7 +162,7 @@ function pageArea(html) {
   while ((m = finder.exec(html))) {
     if (/PageArea|M_mainContents|fan_contents/.test(m[0])) { open = m.index; break; }
   }
-  /* 🔴 入れ物が無いページが1枚あります
+  /* ※ 入れ物が無いページが1枚あります
    *
    *    page82「スマホ用カレンダー（削除しないでください）」は
    *    `spカレンダー用ダミーページ` という文字だけで、div が1つもありません。
@@ -203,11 +203,11 @@ for (const line of lines) {
   const name = sp2 < 0 ? "" : rest.slice(sp2 + 1);
 
   const at = SRC + "/" + pageId;
-  if (!fs.existsSync(at)) { console.log("🔴 元が無い: " + pageId); bad++; continue; }
+  if (!fs.existsSync(at)) { console.log("※ 元が無い: " + pageId); bad++; continue; }
   const live = read(at);
 
   const body = pageArea(live);
-  if (!body) { console.log("🔴 PageArea が無い: " + pageId); bad++; continue; }
+  if (!body) { console.log("※ PageArea が無い: " + pageId); bad++; continue; }
 
   const title = (live.match(/<title>([\s\S]*?)<\/title>/) || ["", name])[1].trim();
   const r = rewrite(normaliseHref(body.split("〜").join("～")));

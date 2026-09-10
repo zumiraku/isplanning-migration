@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    diff-detailpages.js — カテゴリ別の商品詳細テンプレート3件が、標準と何が違うか
 
-   🔴 制約台帳に `YES 🔴` のまま残っていました（C28）
+   ※ 制約台帳に `YES ※` のまま残っていました（C28）
 
       ベーシックには、カテゴリごとの商品詳細テンプレートが3件あります。
 
@@ -22,7 +22,7 @@ const path = require("path");
 const DIR = "templates/basic-export/design/design_detailpages";
 const BASE = "templates/basic-export/design/design_detailpage.txt";
 
-/* 🔴 このフォルダは UTF-8 です
+/* ※ このフォルダは UTF-8 です
  *    ベーシックは EUC-JP と聞いていたので euc-jp で読み、文字化けしました。
  *    実測: euc-jp 431 / shift_jis 1,274 / utf-8 1,136 文字。数だけでは決まらず、
  *    化け方（繝帙・繝ｼ繝＝UTF-8をShift_JISで読んだ形）を見て UTF-8 と判定しました。 */
@@ -37,7 +37,7 @@ function meaningful(text) {
     .filter(Boolean);
 }
 
-if (!fs.existsSync(BASE)) { console.error("🔴 標準がありません: " + BASE); process.exit(1); }
+if (!fs.existsSync(BASE)) { console.error("※ 標準がありません: " + BASE); process.exit(1); }
 const base = meaningful(readEuc(BASE));
 const baseSet = new Set(base);
 

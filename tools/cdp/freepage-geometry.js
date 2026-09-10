@@ -8,7 +8,7 @@
      node tools/cdp/freepage-geometry.js 77 6 39      freepage_id を並べる
      node tools/cdp/freepage-geometry.js              先頭から8枚
 
-   ⚠️ プレビューは1枚ずつしか出せません。押した結果のURLから
+   ※ プレビューは1枚ずつしか出せません。押した結果のURLから
       `/view/page/pageNN.html` を読み取り、現行の `/html/pageNN.html` と
       突き合わせます。
 --------------------------------------------------------------------------- */
@@ -78,7 +78,7 @@ async function settle(p) {
       await sleep(500);
       ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
     }
-    if (!ready) { console.log(String(id).padStart(3) + " " + file + "  🔴 編集画面が開けません"); ng++; continue; }
+    if (!ready) { console.log(String(id).padStart(3) + " " + file + "  ※ 編集画面が開けません"); ng++; continue; }
     const wasAt = await p.evaluate("location.href");
     await p.evaluate("if (document.formPreview) { document.formPreview.target = '_self'; } previewContent(); 1");
     for (let i = 0; i < 40; i++) {
@@ -112,12 +112,12 @@ async function settle(p) {
     });
     if (bad.length) { ng++; }
     console.log(String(id).padStart(3) + " " + file.padEnd(16) +
-      (bad.length ? "🔴 " + bad.join(" / ") : "✅ 現行と一致"));
+      (bad.length ? "※ " + bad.join(" / ") : "OK 現行と一致"));
   }
 
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   p.close();
   console.log("");
-  console.log(ng ? "🔴 ずれているもの " + ng + " 枚" : "✅ 見た " + want.length + " 枚すべて現行と一致");
+  console.log(ng ? "※ ずれているもの " + ng + " 枚" : "OK 見た " + want.length + " 枚すべて現行と一致");
   if (ng) { process.exit(1); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

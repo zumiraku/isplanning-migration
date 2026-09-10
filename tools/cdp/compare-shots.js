@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    compare-shots.js — 現行サイトと移植版を、同じ幅・同じ位置で撮って並べます
 
-   🔴 これが最初から必要でした
+   ※ これが最初から必要でした
 
       「はみ出していない」を測って合格にしていましたが、山口様のご指摘は
       **ズレと重なり**です。現行と並べないと判断できません。
@@ -14,7 +14,7 @@
      tools/cdp/shots/<ページ>-<幅>-<番号>-live.png    現行サイト
      tools/cdp/shots/<ページ>-<幅>-<番号>-new.png     移植版
 
-   ⚠️ 追従ヘッダーは撮影のあいだだけ止めます（毎タイルに写り込むため）。
+   ※ 追従ヘッダーは撮影のあいだだけ止めます（毎タイルに写り込むため）。
       止めているのは撮影用の一時指定で、保存内容は触りません。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
@@ -120,7 +120,7 @@ async function tile(p, y, h, file) {
     await sleep(500);
     ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
   }
-  if (!ready) { console.log("🔴 編集画面が開けません"); p.close(); return; }
+  if (!ready) { console.log("※ 編集画面が開けません"); p.close(); return; }
   const wasAt = await p.evaluate("location.href");
   await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
   for (let i = 0; i < 40; i++) {
@@ -142,4 +142,4 @@ async function tile(p, y, h, file) {
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

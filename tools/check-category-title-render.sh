@@ -8,7 +8,7 @@
 #  needed: the text check proves the 606 values are right, this one proves the
 #  Smarty around them behaves.
 #
-#  🔴 Why a rendering check exists at all
+#  ※ Why a rendering check exists at all
 #
 #     ct5 was used to confirm the table was live, and it confirmed nothing.
 #     ct5's stored title and the composed fallback are character-identical,

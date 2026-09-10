@@ -4,7 +4,7 @@
      node tools/cdp/preview.js              11ページぶん
      node tools/cdp/preview.js contract     1つだけ
 
-   🔴 プレビューのURLを開くだけでは、古いものが返ります
+   ※ プレビューのURLを開くだけでは、古いものが返ります
 
       HTMLは **`プレビュー` を押した瞬間に焼き付けられ**、URLはその焼き付けを
       見にいくだけです。押さずにURLを開いて「変わっていない」と判断し、
@@ -20,7 +20,7 @@
             document.formPreview.submit();     // target=_blank
         }
 
-   🔴 target=_blank は開きません
+   ※ target=_blank は開きません
 
       人が押していないフォーム送信なので、ポップアップとして止められます。
       **同じタブで開くように target を _self にしてから押します。**
@@ -51,7 +51,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   for (const [name, type] of PAGES) {
     if (only && only !== name) { continue; }
 
-    /* 🔴 直前のプレビューでショップ側に居ることがあります。
+    /* ※ 直前のプレビューでショップ側に居ることがあります。
      *    "makeshop" で探すと見つからず落ちました。最初のタブを取ります。 */
     const p = await page();
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
@@ -60,7 +60,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       await sleep(500);
       ok = !!(await p.evaluate("(typeof previewContent === 'function' && typeof g_editor_object !== 'undefined' && !!g_editor_object.html_pc) ? 1 : 0"));
     }
-    if (!ok) { console.log(name.padEnd(13) + "🔴 エディタが出ません"); p.close(); continue; }
+    if (!ok) { console.log(name.padEnd(13) + "※ エディタが出ません"); p.close(); continue; }
 
     await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
 
@@ -71,7 +71,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       if (url.indexOf("isp-sp.com") >= 0) { break; }
     }
     if (url.indexOf("isp-sp.com") < 0) {
-      console.log(name.padEnd(13) + "🔴 ショップに飛びません（" + url.slice(0, 70) + "）");
+      console.log(name.padEnd(13) + "※ ショップに飛びません（" + url.slice(0, 70) + "）");
       p.close(); continue;
     }
     await sleep(1500);
@@ -85,4 +85,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
   console.log("");
   console.log(done.length + " 枚を " + OUT + " に保存しました");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

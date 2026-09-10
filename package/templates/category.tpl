@@ -56,7 +56,7 @@
 	<{if $category.child_category.has_item}>
 	<ul class="subcats">
 	<{section name=c loop=$category.child_category.list}>
-	  <{* 🔴 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
+	  <{* ※ 件数を落としていました。現行は「熱中症対策(387)」のように出ます。
 	       $category.child_category.list[c].item_count というタグがあるのに、
 	       名前だけを出していました。 *}>
 	  <li><a href="<{$category.child_category.list[c].url}>"><{$category.child_category.list[c].name}>(<{$category.child_category.list[c].item_count}>)</a></li>
@@ -85,7 +85,7 @@
 					</td>
 					<td class="itemtext">
 						<div style="padding-left:10px;">
-							<{* 🔴 ここは description ではありません（実測・2026-09-10）
+							<{* ※ ここは description ではありません（実測・2026-09-10）
 							     一覧の ［DETAIL］ は「商品カテゴリー用商品説明文」です（角かっこは全角にしてあります。半角だと未変換タグの検査が拾います）。
 							     商品CSVに専用の列（商品カテゴリー用商品説明文／
 							     同 表示可否）があります。description を出していたので、
@@ -106,7 +106,7 @@
 							<p class="red"><{$category.item.list[i].special_display}></p>
 							<p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.item.list[i].price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
 						</div>
-						<{* 🔴 「カートに入れる」「お気に入り」は元テンプレートでも
+						<{* ※ 「カートに入れる」「お気に入り」は元テンプレートでも
 						     コメントアウトされています。山口様の「不要」は、
 						     こちらが足したものを外せという意味でした。 *}>
 					</td>
@@ -124,7 +124,7 @@
 	    <{if $category.pager.list[p].is_current_page}><span><{$category.pager.list[p].number}></span>
 	    <{else}><a href="<{$category.pager.list[p].url}>"><{$category.pager.list[p].number}></a><{/if}>
 	  <{/section}>
-	  <{* 🔴 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
+	  <{* ※ 文言を現行に合わせます。現行は「次の40件 »」「« 前の40件」です。
 	       「次へ」だと、何件ずつ進むのかが読めません。 *}>
 	  <{if not $category.pager.is_last}><a href="<{$category.pager.next_url}>" rel="next">次の<{$category.display_count}>件 &raquo;</a> <a href="<{$category.pager.last_url}>">最後へ</a><{/if}>
 	<{/if}>
@@ -157,7 +157,7 @@
 	<{/if}>
 </div>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

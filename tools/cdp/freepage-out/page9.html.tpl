@@ -127,7 +127,7 @@ src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="t
 <p class="btn_link"><a href="/view/page/page8.html" style="display: block; margin: auto;">シーンで選ぶ粗品一覧</a></p>
 <p class="btn_link"><a href="/view/page/page4.html" style="display: block; margin: auto;">SP SOURCE、名入れのご案内</a></p>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

@@ -64,4 +64,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     console.log("   件数 " + r.hits + " / 商品要素 " + r.items + " / 検索窓の中身 " + r.box);
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    item-compare.js — 商品ページを、型ごとに現行と突き合わせます
 
-   🔴 9,513商品のうち、1商品しか実測していませんでした
+   ※ 9,513商品のうち、1商品しか実測していませんでした
 
       商品詳細の検査は 003001000005（ノック式ボールペン）1件だけです。
       商品は型がいろいろあります。
@@ -19,7 +19,7 @@
      node tools/cdp/item-compare.js
      node tools/cdp/item-compare.js 000000020559
 
-   ⚠️ プレビューの鍵（ptk）で任意の商品を開けることを確かめてあります。
+   ※ プレビューの鍵（ptk）で任意の商品を開けることを確かめてあります。
 --------------------------------------------------------------------------- */
 const { page } = require("./cdp.js");
 
@@ -114,18 +114,18 @@ const LOOK = `(function () {
     cmp("quote", "見積・問合せ", "atLeast");
     cmp("soldout", "品切れ表示", "bool");
     cmp("sale", "セール表示", "bool");
-    if (nu.unexpanded) { notes.push("🔴 未展開タグあり"); }
+    if (nu.unexpanded) { notes.push("※ 未展開タグあり"); }
     if (nu.textLen < live.textLen * 0.5) {
       notes.push("本文が半分以下（" + live.textLen + "→" + nu.textLen + "）");
     }
 
     if (notes.length) { bad += notes.length; }
     console.log(code + "  " + why.padEnd(26) +
-      (notes.length ? "🔴 " + notes.join(" / ") : "✅ 揃っています") +
+      (notes.length ? "※ " + notes.join(" / ") : "OK 揃っています") +
       "   本文 " + live.textLen + "/" + nu.textLen);
   }
 
   p.close();
   console.log("");
-  console.log(bad ? "🔴 気になるもの " + bad + " 件" : "✅ どの型も、現行と同じものが出ています");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(bad ? "※ 気になるもの " + bad + " 件" : "OK どの型も、現行と同じものが出ています");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

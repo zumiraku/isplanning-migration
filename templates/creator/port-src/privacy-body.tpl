@@ -1,7 +1,7 @@
 <{* ==========================================================================
      プライバシーポリシー — Creator Mode（本文部分）
 
-     🔴 GENERATED — 直接編集しないでください。
+     ※ GENERATED — 直接編集しないでください。
         tools/build-privacy-body.sh が templates/basic-export/privacy.html
         から生成します。文言は現行サイトのままで、一字も変えていません。
 

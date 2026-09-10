@@ -6,7 +6,7 @@
 
      node tools/cdp/width-compare.js
 
-   ⚠️ 現行はスマホ幅だと /smartphone/ に飛ぶので、PCとして比べられるのは
+   ※ 現行はスマホ幅だと /smartphone/ に飛ぶので、PCとして比べられるのは
       768px 以上だけです。
 --------------------------------------------------------------------------- */
 const { page } = require("./cdp.js");
@@ -50,7 +50,7 @@ const MEASURE = `(function(){
       await sleep(900);
       const r = await p.evaluate(MEASURE);
       const bad = r.scroll > r.view + 1;
-      line.push(w + (bad ? "🔴" + r.scroll : "○"));
+      line.push(w + (bad ? "※" + r.scroll : "○"));
       if (bad) { notes.push("    " + w + "px: " + r.over.join(" / ")); }
     }
     console.log("現行 " + name.padEnd(14) + line.join("  "));
@@ -58,4 +58,4 @@ const MEASURE = `(function(){
   }
   await p.send("Emulation.clearDeviceMetricsOverride");
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

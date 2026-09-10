@@ -77,4 +77,4 @@ function probe(needle) {
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

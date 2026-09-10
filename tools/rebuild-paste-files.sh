@@ -2,7 +2,7 @@
 # =============================================================================
 #  rebuild-paste-files.sh — 全ページ共通の箱に貼るものを用意する
 #
-#  🔴 2026-09-09、中身が変わりました
+#  ※ 2026-09-09、中身が変わりました
 #
 #     以前はここで **Basics 標準のコード**を先頭（CSS）や末尾（JS）に
 #     継ぎ足していました。デザインセットを Basics から作った名残です。
@@ -18,7 +18,7 @@
 #     結果、この道具は**そのまま写すだけ**になりました。順番を間違えようが
 #     ありません。道具が単純になったのは、方針が単純になったからです。
 #
-#  🔴 Basics 標準を外すと影響するもの
+#  ※ Basics 標準を外すと影響するもの
 #
 #     こちらで作り直していない4つのページ種別が、素の見た目になります。
 #
@@ -28,7 +28,7 @@
 #     u-komi に移行済み）。**必要になったら templates/basics-stock/ に
 #     控えがあります。**
 #
-#  🔴 大きさについて
+#  ※ 大きさについて
 #
 #     CSS が 180KB を超えます。以前の箱は 110KB でした。**箱に入りきるかは
 #     貼ってみるまで分かりません。** 入らなければ、m_sys_common.css を
@@ -49,7 +49,7 @@ cp "$src_css" package/paste/all-pages.css
 cp "$src_js"  package/paste/all-pages.js
 
 # 事故の検査。@import はルールより後ろに置けません。
-awk '/^[[:space:]]*@import/ { if (seen) { print "🔴 @import がルールより後ろにあります: 行" NR; exit 1 } } /\{/ { seen = 1 }' package/paste/all-pages.css
+awk '/^[[:space:]]*@import/ { if (seen) { print "※ @import がルールより後ろにあります: 行" NR; exit 1 } } /\{/ { seen = 1 }' package/paste/all-pages.css
 
 node --check package/paste/all-pages.js
 

@@ -7,13 +7,13 @@
    /view/item/<コード>?ptk=… を開いて読みます。カテゴリ専用テンプレート
    （ct646 / ct664）に当たる商品を名指しで見るために要ります。
 
-   🔴 プレビューは「保存済みの内容」を描きます
+   ※ プレビューは「保存済みの内容」を描きます
 
       formPreview に流し込んだHTMLは使われません（印が1つも出ませんでした）。
       いったん保存 → プレビュー → 読む → **元に戻す**、の順でやります。
       ショップには適用していないので、公開中のサイトには影響しません。
 
-   ⚠️ 途中で落ちると、印が入ったまま残ります。そのときは
+   ※ 途中で落ちると、印が入ったまま残ります。そのときは
       node tools/cdp/paste.js detail package/templates/detail.tpl
       で戻せます。
 --------------------------------------------------------------------------- */
@@ -51,11 +51,11 @@ async function save(p, body) {
   const probe = lf(fs.readFileSync(probeFile, "utf8"));
   const orig = lf(fs.readFileSync(ORIG, "utf8"));
   const at = orig.lastIndexOf("<body>");
-  if (at < 0) { console.error("🔴 <body> が見つかりません"); process.exit(1); }
+  if (at < 0) { console.error("※ <body> が見つかりません"); process.exit(1); }
   const withProbe = orig.slice(0, at + 6) + "\n" + probe + "\n" + orig.slice(at + 6);
 
   const p = await page();
-  if (!await editor(p)) { console.log("🔴 エディタが出ません"); p.close(); process.exit(1); }
+  if (!await editor(p)) { console.log("※ エディタが出ません"); p.close(); process.exit(1); }
 
   try {
     await save(p, withProbe);
@@ -81,14 +81,14 @@ async function save(p, body) {
     const found = [...html.matchAll(/ZQ([A-Za-z0-9_]+)START([\s\S]*?)ZQ\1END/g)];
     console.log("URL: " + url.slice(0, 70));
     console.log("");
-    if (!found.length) { console.log("🔴 印が1つも出ませんでした"); }
+    if (!found.length) { console.log("※ 印が1つも出ませんでした"); }
     for (const m of found) {
       const text = m[2].replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
       console.log(m[1].padEnd(30) + String(m[2].length).padStart(6) + " 文字  " + text.slice(0, 100));
     }
   } finally {
     if (await editor(p)) { await save(p, orig); console.log(""); console.log("元に戻しました"); }
-    else { console.log("🔴 元に戻せません。node tools/cdp/paste.js detail " + ORIG + " を回してください"); }
+    else { console.log("※ 元に戻せません。node tools/cdp/paste.js detail " + ORIG + " を回してください"); }
     p.close();
   }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

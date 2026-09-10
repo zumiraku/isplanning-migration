@@ -103,7 +103,7 @@
 <a href="https://www.hitosuzumi.jp/" target="_blank"><img src="https://gigaplus.makeshop.jp/isplanning/images/hitosuzumi.jpg" alt="熱中症予防声かけプロジェクト" /><br>アイエスプランニング（株）は熱中症予防声かけプロジェクトを応援しています。</a>
 </div>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

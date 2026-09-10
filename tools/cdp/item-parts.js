@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    item-parts.js — 1商品を、部品ごとに現行と突き合わせます
 
-   🔴 商品詳細には「カテゴリ専用テンプレート」が3つありました
+   ※ 商品詳細には「カテゴリ専用テンプレート」が3つありました
 
       ct261 / ct646 / ct664 の3つだけ、現行は別のHTMLで出ています。
       違いは文言だけではありません。
@@ -86,5 +86,5 @@ const KEYS = [
   console.log("  移植版にあって現行に無い言葉 " + extra.length + " 件");
   extra.slice(0, 8).forEach(x => console.log("     + " + x.slice(0, 60)));
   console.log("");
-  console.log(diff ? "🔴 ちがう部品 " + diff + " 件" : "✅ 部品はすべて同じ数です");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(diff ? "※ ちがう部品 " + diff + " 件" : "OK 部品はすべて同じ数です");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

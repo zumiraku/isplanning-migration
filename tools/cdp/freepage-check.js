@@ -29,21 +29,21 @@ function chunks(html) {
   return body.split("\n")
     .map(s => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
                .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)))
-               /* 🔴 16進の実体参照（&#x1F449; など）も戻します。
+               /* ※ 16進の実体参照（&#x1F449; など）も戻します。
                 *    10進だけ見ていて、絵文字の行を丸ごと「欠落」と誤検知しました。 */
                .replace(/&#x([0-9a-f]+);/gi, (m, n) => String.fromCodePoint(parseInt(n, 16)))
-               /* 🔴 名前付きの実体参照も戻します。&raquo; を残していたので、
+               /* ※ 名前付きの実体参照も戻します。&raquo; を残していたので、
                 *    ページ送りの「次の40件 »」を毎回「欠落」と数えていました。 */
                .replace(/&raquo;/g, "»").replace(/&laquo;/g, "«")
                .replace(/&quot;/g, "\"").replace(/&#39;|&apos;/g, "'")
-               /* 🔴 波ダッシュは移植で ～(U+FF5E) に揃えています。
+               /* ※ 波ダッシュは移植で ～(U+FF5E) に揃えています。
                 *    現行は 〜(U+301C) なので、揃えないと同じ文が別物に見えます。 */
                .split("〜").join("～")
                .replace(/\s+/g, " ").trim())
     .filter(s => s.length >= 8);
 }
 
-/* 🔴 head は比べません
+/* ※ head は比べません
  *
  *    <title> は移植版も持っていますが、meta description は
  *    `$page.description` になります（管理画面の値が入ります）。
@@ -55,7 +55,7 @@ function bodyOnly(html) {
 
 const lines = fs.readFileSync("tools/cdp/freepage-ids.txt", "utf8").split("\n").filter(Boolean);
 
-/* 🔴 共通部分は「2枚の共通」では足りません
+/* ※ 共通部分は「2枚の共通」では足りません
  *
  *    ヘッダー・左メニュー・フッター・コラム一覧は全ページに出ます。
  *    最初は2枚の共通で判定していて、コラムの見出しを「本文の欠落」と
@@ -77,7 +77,7 @@ for (const line of lines) {
   const a = SRC + "/" + pageId, b = OUT + "/" + pageId + ".tpl";
   if (!fs.existsSync(a) || !fs.existsSync(b)) { continue; }
   const live = chunks(bodyOnly(read(a))).filter(c => !COMMON.has(c));
-  /* 🔴 両側を同じに整えてから比べます
+  /* ※ 両側を同じに整えてから比べます
    *
    *    現行側だけ空白を詰めて、移植側は**生のHTML**に対して探していました。
    *    `<br />` や全角空白をまたぐ文が、入っているのに「無い」と出ます。
@@ -96,4 +96,4 @@ worst.slice(0, 12).forEach(w => {
   console.log(w.pageId + "  現行 " + w.live + " 塊 / 欠落 " + w.missing);
   w.sample.forEach(s => console.log("    " + s.slice(0, 90)));
 });
-if (!worst.length) { console.log("✅ 82枚とも、現行の文言をすべて持っています"); }
+if (!worst.length) { console.log("OK 82枚とも、現行の文言をすべて持っています"); }

@@ -46,7 +46,6 @@ tools/cdp/preview-out/_probe.html
 node_modules/
 
 # 作業環境の許可設定（個人の設定なので追跡しません）
-.claude/settings.local.json
 tools/cdp/parity-out/
 tools/cdp/shots/
 mirror/

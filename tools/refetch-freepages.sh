@@ -7,7 +7,7 @@
 #    > page3・page72・page79　商品は完売でページ自体削除となっていますね・・。
 #    > 独自ページ内の商品も変更となりますので、自身で変更いたします。
 #
-#  🔴 これは「こちらの手元が古くなる」という話です。
+#  ※ これは「こちらの手元が古くなる」という話です。
 #
 #     山口様が直されるのはベーシックモードの独自ページです。こちらが配信用に
 #     持っている package/freepages/page3.html などは 9/6 時点の内容から作った
@@ -15,7 +15,7 @@
 #
 #     「クライアントが直す」と聞いて安心して終わると、直した内容が消えます。
 #
-#  🔴 取得したものを snapshot/desktop/ に置くまでが仕事です。
+#  ※ 取得したものを snapshot/desktop/ に置くまでが仕事です。
 #
 #     最初は snapshot/manual/ に保存して終わりにしていました。**変換の入口は
 #     そこではありません。** extract-freepages.ps1 が読むのは
@@ -75,7 +75,7 @@ for p in $PAGES; do
   # このページのスナップショット名を対応表から引きます。
   file=$(sed 's/^"//; s/"$//' "$MAP" | tail -n +2 | awk -F'","' -v u="https://www.isp-sp.com/html/$p.html" '$1==u {print $19}')
   if [ -z "$file" ]; then
-    printf "  🔴 %-10s %s に載っていません\n" "$p" "$MAP"
+    printf "  ※ %-10s %s に載っていません\n" "$p" "$MAP"
     differs=1
     continue
   fi
@@ -85,7 +85,7 @@ for p in $PAGES; do
   code=$(curl -s -A "$UA" --max-time 30 -o "$new" -w '%{http_code}' "$url" || echo 000)
 
   if [ "$code" != "200" ]; then
-    printf "  🔴 %-10s HTTP %s\n" "$p" "$code"
+    printf "  ※ %-10s HTTP %s\n" "$p" "$code"
     rm -f "$new"
     differs=1
     continue
@@ -94,7 +94,7 @@ for p in $PAGES; do
   size=$(wc -c < "$new")
   cur="$DESK/$file"
 
-  # 🔴 バイト比較では毎回「変わった」と出ます。
+  # ※ バイト比較では毎回「変わった」と出ます。
   #
   #    実際に比べたところ、差分の中身は2つとも**ページの中身ではありません**
   #    でした。
@@ -136,7 +136,7 @@ for p in $PAGES; do
   if [ -n "$left" ]; then
     printf "             販売終了リンクはまだ残っています:%s\n" "$left"
   else
-    printf "             ✅ 販売終了リンクは消えました\n"
+    printf "             OK 販売終了リンクは消えました\n"
   fi
 
   if [ "$INSTALL" -eq 1 ]; then
@@ -154,7 +154,7 @@ if [ "$differs" -eq 0 ]; then
 fi
 
 if [ "$INSTALL" -eq 1 ]; then
-  echo "🔴 変換に流し直してください。流さないと package/freepages/ は古いままです。"
+  echo "※ 変換に流し直してください。流さないと package/freepages/ は古いままです。"
   echo ""
   echo "    .\tools\extract-freepages.ps1"
   echo "    .\tools\convert-freepages.ps1"

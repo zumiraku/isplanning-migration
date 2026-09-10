@@ -13,7 +13,7 @@ const { page } = require("./cdp.js");
 const WIDTHS = [320, 375, 414, 768, 960, 1280];
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
 const SET = 5;
-/* 🔴 5種別しか測っていませんでした。全種別まわします（2026-09-09） */
+/* ※ 5種別しか測っていませんでした。全種別まわします（2026-09-09） */
 const PAGES = [
   ["トップ", 2], ["商品詳細", 3], ["商品カテゴリー", 4], ["商品検索結果", 5],
   ["買い物カゴ", 6], ["レビュー一覧", 7], ["レビュー投稿", 8],
@@ -21,7 +21,7 @@ const PAGES = [
   ["会社概要", 12], ["特定商取引法", 13], ["プライバシー", 14]
 ];
 
-/* 🔴 会員制・年齢確認（19）は測りません
+/* ※ 会員制・年齢確認（19）は測りません
  *
  *    トップと会員制はプレビューのパスが同じ「/」です。19を出すと、
  *    ルートの描画が19の保存内容に置き換わり、プレビューを押し直しても
@@ -38,7 +38,7 @@ const MEASURE = `(function(){
   var d = document.documentElement, b = document.body;
   var w = Math.max(d.scrollWidth, b ? b.scrollWidth : 0);
   var over = [];
-  /* 🔴 祖先が overflow で切っているものは、はみ出しではありません
+  /* ※ 祖先が overflow で切っているものは、はみ出しではありません
    *    （スライダーの中身を数えていました。2026-09-09） */
   function clipped(e) {
     var n = e.parentElement;
@@ -73,8 +73,8 @@ const MEASURE = `(function(){
       await sleep(500);
       ok = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
     }
-    if (!ok) { console.log(name + " 🔴 エディタが出ません"); continue; }
-    /* 🔴 前の実行のプレビューURLが残っていると、それを測ってしまいます
+    if (!ok) { console.log(name + " ※ エディタが出ません"); continue; }
+    /* ※ 前の実行のプレビューURLが残っていると、それを測ってしまいます
      *
      *    押したあと「URLに isp-sp.com が入るまで」待っていました。タブが
      *    **前回のプレビューのまま**だと、その条件は最初から満たされていて、
@@ -98,7 +98,7 @@ const MEASURE = `(function(){
       const r = await p.evaluate(MEASURE);
       const bad = r.scroll > r.view + 1;
       if (bad) { ng++; }
-      line.push(w + (bad ? "🔴" + r.scroll : "○"));
+      line.push(w + (bad ? "※" + r.scroll : "○"));
       if (bad) { console.log("    " + name + " " + w + "px はみ出し " + r.scroll + " : " + r.over.join(" / ")); }
     }
     console.log(name.padEnd(14) + line.join("  "));
@@ -107,5 +107,5 @@ const MEASURE = `(function(){
   await p.send("Emulation.clearDeviceMetricsOverride");
   p.close();
   console.log("");
-  console.log(ng ? "🔴 はみ出し " + ng + " 件" : "✅ どの幅でも横にはみ出していません");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(ng ? "※ はみ出し " + ng + " 件" : "OK どの幅でも横にはみ出していません");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

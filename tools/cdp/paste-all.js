@@ -6,7 +6,7 @@
 
    1枚ごとに「流し込む → 保存 → 読み直す → 突き合わせる」をやります。
    **押しただけでは保存できたことになりません。** 読み直して一致した
-   ものだけを ✅ と呼びます。
+   ものだけを OK と呼びます。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
 const { page } = require("./cdp.js");
@@ -32,7 +32,7 @@ const JOBS = [
 ];
 
 const only = process.argv[2];
-/* 🔴 改行コードをLFに揃えます
+/* ※ 改行コードをLFに揃えます
  *
  *    リポジトリの作業コピーは CRLF です（git の autocrlf）。CodeMirror は
  *    setValue のときに LF へ揃えるので、**渡した文字数と入った文字数が
@@ -41,10 +41,10 @@ const only = process.argv[2];
 function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10)).join(String.fromCharCode(10)); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-/* 🔴 数値参照は「両側とも」戻してから比べます
+/* ※ 数値参照は「両側とも」戻してから比べます
  *
  *    サーバーは保存のときに一部の文字を数値参照にします（— は &#8212;、
- *    🔴 は &#128308;）。ところが**元のファイル自体が &#12316; や &#169;
+ *    ※ は &#128308;）。ところが**元のファイル自体が &#12316; や &#169;
  *    を持っています**（現行サイトから写した文面です）。片側だけ戻すと、
  *    こちらの &#12316; まで 〜 に変わって、一致しないと誤判定します。
  *    フッターで実際にそうなりました。両側に同じ処理をかけます。 */
@@ -71,7 +71,7 @@ async function ready(p, field) {
 
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
     if (!await ready(p, field)) {
-      console.log(label + "🔴 エディタが出ません（ログイン切れの可能性）");
+      console.log(label + "※ エディタが出ません（ログイン切れの可能性）");
       results.push([name + "/" + field, "エディタ無し"]);
       continue;
     }
@@ -80,7 +80,7 @@ async function ready(p, field) {
     await p.evaluate("g_editor_object['" + field + "_pc'].setValue(" + JSON.stringify(body) + ")");
     const inEditor = await p.evaluate("g_editor_object['" + field + "_pc'].getValue().length");
     if (inEditor !== body.length) {
-      console.log(label + "🔴 エディタに入りきりません " + inEditor + "/" + body.length);
+      console.log(label + "※ エディタに入りきりません " + inEditor + "/" + body.length);
       results.push([name + "/" + field, "入りきらない"]);
       continue;
     }
@@ -90,7 +90,7 @@ async function ready(p, field) {
 
     await p.navigate(BASE + "?design_set_id=" + SET + "&page_type=" + type);
     if (!await ready(p, field)) {
-      console.log(label + "🔴 読み直せません");
+      console.log(label + "※ 読み直せません");
       results.push([name + "/" + field, "読み直せない"]);
       continue;
     }
@@ -98,13 +98,13 @@ async function ready(p, field) {
     const back = unescapeNum(live);
 
     if (back === unescapeNum(body)) {
-      console.log(label + "✅ " + before + " → " + body.length + " 文字");
+      console.log(label + "OK " + before + " → " + body.length + " 文字");
       results.push([name + "/" + field, "一致"]);
     } else if (live.length === before) {
-      console.log(label + "🔴 届いていません（" + before + " 文字のまま）");
+      console.log(label + "※ 届いていません（" + before + " 文字のまま）");
       results.push([name + "/" + field, "届かず"]);
     } else {
-      console.log(label + "⚠️ 変わったが一致しない " + before + " → " + live.length + "（渡した " + body.length + "）");
+      console.log(label + "※ 変わったが一致しない " + before + " → " + live.length + "（渡した " + body.length + "）");
       results.push([name + "/" + field, "不一致"]);
     }
   }
@@ -114,8 +114,8 @@ async function ready(p, field) {
   const ng = results.filter(r => r[1] !== "一致");
   console.log("合計 " + results.length + " 件 / 一致 " + (results.length - ng.length) + " 件");
   if (ng.length) {
-    console.log("🔴 通っていないもの:");
+    console.log("※ 通っていないもの:");
     ng.forEach(r => console.log("   " + r[0] + "  " + r[1]));
     process.exit(1);
   }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

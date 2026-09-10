@@ -8,8 +8,8 @@
 #    編集する    templates/creator/mode/*.tpl
 #    貼り付ける  package/templates/*.tpl        ← build-page-templates.sh の生成物
 #
-#  🔴 CSS のときは、直したのに配信物が古いままでした。
-#  🔴 JavaScript のときは、**逆方向**でした ── 生成物だけが直っていて、
+#  ※ CSS のときは、直したのに配信物が古いままでした。
+#  ※ JavaScript のときは、**逆方向**でした ── 生成物だけが直っていて、
 #     ソースが古いまま。しかも検証ページはソース側を読むので、
 #     **不具合の残ったほうを検査して合格していました。**
 #
@@ -32,7 +32,7 @@ if diff -rq "$tmp" "$live" > /dev/null 2>&1; then
   exit 0
 fi
 
-echo "🔴 package/templates が templates/creator/mode/ と食い違っています。"
+echo "※ package/templates が templates/creator/mode/ と食い違っています。"
 echo ""
 diff -rq "$tmp" "$live" | sed 's/^/    /'
 echo ""

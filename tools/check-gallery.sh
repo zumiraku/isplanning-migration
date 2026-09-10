@@ -5,7 +5,7 @@
 #  C22, in the client's words: 「サブ画像使用（スマホではスワイプできればと
 #  思います）」. One of the two features named in the brief.
 #
-#  🔴 It was absent for a week and nothing caught it.
+#  ※ It was absent for a week and nothing caught it.
 #
 #     MakeShop has two kinds of extra product image and the gallery read one:
 #

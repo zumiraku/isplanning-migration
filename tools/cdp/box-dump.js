@@ -26,7 +26,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       await sleep(500);
       ok = !!(await p.evaluate("(typeof g_editor_object !== 'undefined' && Object.keys(g_editor_object).length > 0) ? 1 : 0"));
     }
-    if (!ok) { console.log(t + "  🔴 開けません"); continue; }
+    if (!ok) { console.log(t + "  ※ 開けません"); continue; }
     const html = await p.evaluate("g_editor_object.html_pc ? g_editor_object.html_pc.getValue() : ''");
     const out = "tools/cdp/box-out/type" + t + ".tpl";
     fs.mkdirSync("tools/cdp/box-out", { recursive: true });
@@ -41,4 +41,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     console.log("      先頭: " + html.slice(0, 100).replace(/[\r\n\t ]+/g, " "));
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

@@ -9,4 +9,4 @@ const { page } = require("./cdp.js");
   all.forEach(c => { by[c.domain] = (by[c.domain] || 0) + 1; });
   Object.keys(by).sort().forEach(d => console.log("  " + d + "  " + by[d]));
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

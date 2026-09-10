@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    check-constraints.js — 制約台帳で `?` のまま残っている項目を、実データで答えます
 
-   🔴 8件が「使っているかどうか分からない」まま残っていました
+   ※ 8件が「使っているかどうか分からない」まま残っていました
 
       クリエイターモードで無くなる機能のうち、**使っているなら切替で消える**
       ものです。分からないまま切り替えるのは、消えるかどうか分からないまま
@@ -61,7 +61,7 @@ function countNonEmpty(i) {
   return n;
 }
 
-/* 🔴 商品カテゴリー用商品説明文は、一覧の [DETAIL] でした（2026-09-10）
+/* ※ 商品カテゴリー用商品説明文は、一覧の [DETAIL] でした（2026-09-10）
  *
  *    ここに「使用 4,730件」と出ていたのに、行き先を決めていませんでした。
  *    カテゴリ一覧は $category.item.list[i].description を出していたので、
@@ -87,7 +87,7 @@ for (const [label, name] of SPOTS) {
     continue;
   }
   const n = countNonEmpty(i);
-  console.log("  " + label.padEnd(28) + (n ? "🔴 使用 " + n + " 件" : "✅ 未使用"));
+  console.log("  " + label.padEnd(28) + (n ? "※ 使用 " + n + " 件" : "OK 未使用"));
 }
 
 /* 列名の一覧を出して、見落としを防ぎます */
@@ -116,6 +116,6 @@ if (fs.existsSync(DIR)) {
     .map(f => fs.readFileSync(path.join(DIR, f), "utf8")).join("\n");
   for (const [label, re] of MARKS) {
     const m = all.match(re);
-    console.log("  " + label.padEnd(28) + (m ? "🔴 あり（" + m[0].slice(0, 20) + "）" : "✅ 無し"));
+    console.log("  " + label.padEnd(28) + (m ? "※ あり（" + m[0].slice(0, 20) + "）" : "OK 無し"));
   }
 }

@@ -59,6 +59,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
   }
   const body = await p.evaluate(`(document.body.innerText||"").replace(/\\s+/g," ").slice(-600)`);
-  console.log("🔴 ファイルが落ちてきません。画面の末尾: " + body);
+  console.log("※ ファイルが落ちてきません。画面の末尾: " + body);
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

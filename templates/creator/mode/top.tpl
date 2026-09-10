@@ -65,7 +65,7 @@
   <td class="woong" valign="top"><a href="<{$latest_news.list[nw].url}>"><{$latest_news.list[nw].title}></a></td>
 </tr></table>
 <{/section}>
-<{* 🔴 お知らせの枠の「底」を落としていました（2026-09-10 実測）
+<{* ※ お知らせの枠の「底」を落としていました（2026-09-10 実測）
 
      現行はお知らせの一覧のあとに、角丸の下辺が入ります。
 
@@ -159,7 +159,7 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$new_item.list[nw2].price|number_format}>円（税込）</td></tr>
-      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
+      <{* ※ 4行目が丸ごと抜けていました（実測・2026-09-10）
 
            現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
            リンク**で、角かっこ付きの太字です。
@@ -198,7 +198,7 @@
         <{/if}>
       </td></tr>
       <tr class="woong"><td valign="top" align="center"><{$recommend_item.list[rc].price|number_format}>円（税込）</td></tr>
-      <{* 🔴 4行目が丸ごと抜けていました（実測・2026-09-10）
+      <{* ※ 4行目が丸ごと抜けていました（実測・2026-09-10）
 
            現行のタイルは4行です。最後の行は**その商品の基本カテゴリーへの
            リンク**で、角かっこ付きの太字です。
@@ -290,7 +290,7 @@
 	</div>
     <{/if}>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

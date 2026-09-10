@@ -31,7 +31,7 @@
 
     /* 検索欄の中で押されたときだけ。商品ページの数量欄などは対象外です。
      *
-     * 🔴 探すクラスは .search-box と #r_searchInput です
+     * ※ 探すクラスは .search-box と #r_searchInput です
      *
      *    最初は .searchbox と .refine__form を見ていました。**どちらも
      *    こちらが設計したときの名前**で、移植で無くなっています。

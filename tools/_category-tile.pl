@@ -7,7 +7,7 @@
 # 包装・のし・名入れ. 36 of the 40 templates carry the same one, so they are a
 # common block in the template rather than 36 rows of data.
 #
-# 🔴 The caption is read to </div>, not to the next '<'.
+# ※ The caption is read to </div>, not to the next '<'.
 #
 # The first version used class="caption">([^<]*) and stopped at the first tag.
 # The captions contain <br>, so ten of the thirty-four were cut off mid-sentence

@@ -34,7 +34,7 @@ rather than line level, most entries turn out to be re-wordings:
 to a name-printed order. It is the most-affected page (28 lines) and it carries
 two genuine conflicts.
 
-### 1. Lead time 🔴
+### 1. Lead time ※
 
 | | |
 |---|---|
@@ -71,7 +71,7 @@ items like pens. Worth carrying over; no conflict.
 ---
 
 
-## `ordercontract` — the 特定商取引法 page states two different delivery periods 🔴
+## `ordercontract` — the 特定商取引法 page states two different delivery periods ※
 
 This is the legally required disclosure, and the two templates do not agree.
 

@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    tiles.js — 1ページを、読める大きさに切って撮ります
 
-   🔴 縦12,000pxを1枚にすると、縮んで**ズレも重なりも見えません。**
+   ※ 縦12,000pxを1枚にすると、縮んで**ズレも重なりも見えません。**
       1枚に収めた画像で「大丈夫」と判断するのは、測っていないのと同じです。
 
      node tools/cdp/tiles.js top 1280        トップのPC
@@ -55,7 +55,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     await sleep(500);
     ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
   }
-  if (!ready) { console.log("🔴 編集画面が開けません"); p.close(); return; }
+  if (!ready) { console.log("※ 編集画面が開けません"); p.close(); return; }
 
   const wasAt = await p.evaluate("location.href");
   await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
@@ -102,4 +102,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

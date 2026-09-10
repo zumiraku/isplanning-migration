@@ -20,7 +20,7 @@
  * link; if the form page renders inside our Creator Mode template, this script
  * loads there too and writes the values into the form.
  *
- * 🔴 BOTH UNKNOWNS ARE NOW ANSWERED, and the answer is no. Measured on the
+ * ※ BOTH UNKNOWNS ARE NOW ANSWERED, and the answer is no. Measured on the
  *    live shop, 2026-09-08 JST, after cutover.
  *
  *    /shop/enq202208200 is not a page. It is a bounce - EUC-JP Basic-mode

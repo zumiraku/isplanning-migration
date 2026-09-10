@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    check-class-parity.js — 現行テンプレートの class と id が、移植版にもあるか
 
-   🔴 買い物かごの配送案内が、静かに消えていました
+   ※ 買い物かごの配送案内が、静かに消えていました
 
       置換のコードは書いてありました。ところが**その行ごと作り直して
       いた**ので、置換する相手がもう居ませんでした。`replace` は相手が
@@ -70,7 +70,7 @@ function names(file) {
 let missing = 0, allowed = 0;
 for (const [label, liveFile, portFile] of PAIRS) {
   const a = names(liveFile), b = names(portFile);
-  if (!a || !b) { console.log("🔴 " + label + " ── ファイルがありません"); continue; }
+  if (!a || !b) { console.log("※ " + label + " ── ファイルがありません"); continue; }
 
   const gone = [];
   for (const kind of ["class", "id"]) {
@@ -82,7 +82,7 @@ for (const [label, liveFile, portFile] of PAIRS) {
     }
   }
   missing += gone.length;
-  console.log((gone.length ? "🔴 " : "   ") + label.padEnd(12) +
+  console.log((gone.length ? "※ " : "   ") + label.padEnd(12) +
     "現行 class " + Object.keys(a.class).length + " / id " + Object.keys(a.id).length +
     "   移植に無い " + gone.length);
   gone.slice(0, 16).forEach(g => console.log("       " + g));
@@ -91,6 +91,6 @@ for (const [label, liveFile, portFile] of PAIRS) {
 
 console.log("");
 console.log("理由を書いて除いたもの " + allowed + " 件（" + ALLOW + "）");
-console.log(missing ? "🔴 移植版に無い class / id が " + missing + " 件あります"
-                    : "✅ 現行の class と id は、移植版にすべてあります");
+console.log(missing ? "※ 移植版に無い class / id が " + missing + " 件あります"
+                    : "OK 現行の class と id は、移植版にすべてあります");
 if (missing) { process.exit(1); }

@@ -3,7 +3,7 @@
 
      node tools/cdp/box-clear.js 2 3 6 18 19
 
-   🔴 HTML欄しか書き換えていませんでした
+   ※ HTML欄しか書き換えていませんでした
 
       ページ種別には HTML のほかに CSS と JavaScript の欄があります。
       差し戻された版のコードが5種別に残っていました。
@@ -22,7 +22,7 @@
       .contents-section）を狙っています。当たらないだけで、**残しておく
       理由がありません。**
 
-   ⚠️ 全ページ共通（page_type=1）は触りません。こちらのCSS・JSが入っています。
+   ※ 全ページ共通（page_type=1）は触りません。こちらのCSS・JSが入っています。
 --------------------------------------------------------------------------- */
 const { page } = require("./cdp.js");
 
@@ -31,7 +31,7 @@ const SET = 5;
 
 const types = process.argv.slice(2).map(Number).filter(Boolean);
 if (!types.length) { console.error("使い方: node tools/cdp/box-clear.js <page_type…>"); process.exit(1); }
-if (types.indexOf(1) >= 0) { console.error("🔴 全ページ共通（1）は空にできません。こちらのCSS・JSが入っています。"); process.exit(1); }
+if (types.indexOf(1) >= 0) { console.error("※ 全ページ共通（1）は空にできません。こちらのCSS・JSが入っています。"); process.exit(1); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
@@ -45,7 +45,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
       await sleep(400);
       ok = !!(await p.evaluate("(typeof g_editor_object !== 'undefined' && !!g_editor_object.html_pc) ? 1 : 0"));
     }
-    if (!ok) { console.log(String(t).padStart(3) + "  🔴 開けません"); ng++; continue; }
+    if (!ok) { console.log(String(t).padStart(3) + "  ※ 開けません"); ng++; continue; }
 
     const before = await p.evaluate(`(function(){
       return { css: g_editor_object.css_pc.getValue().length,
@@ -75,14 +75,14 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     })()`) : null;
 
     if (after && !after.css && !after.js) {
-      console.log(String(t).padStart(3) + "  ✅ CSS " + before.css + "→0 / JS " + before.js + "→0  （HTMLは " + after.html + " 文字のまま）");
+      console.log(String(t).padStart(3) + "  OK CSS " + before.css + "→0 / JS " + before.js + "→0  （HTMLは " + after.html + " 文字のまま）");
     } else {
-      console.log(String(t).padStart(3) + "  🔴 空になっていません " + JSON.stringify(after));
+      console.log(String(t).padStart(3) + "  ※ 空になっていません " + JSON.stringify(after));
       ng++;
     }
   }
   p.close();
   console.log("");
-  console.log(ng ? "🔴 " + ng + " 件が通っていません" : "✅ 指定した欄はすべて空になりました");
+  console.log(ng ? "※ " + ng + " 件が通っていません" : "OK 指定した欄はすべて空になりました");
   if (ng) { process.exit(1); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

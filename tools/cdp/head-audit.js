@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    head-audit.js — <head> の中身を、現行と1項目ずつ突き合わせます
 
-   🔴 見た目ばかり測って、<head> を一度も比べていませんでした
+   ※ 見た目ばかり測って、<head> を一度も比べていませんでした
 
       タイトル・説明文・canonical・OGP は**画面に出ません**。だから
       「167項目通過」「位置は1pxも違わない」と言えても、そこが空でも
@@ -11,7 +11,7 @@
      node tools/cdp/head-audit.js            ページ種別ぜんぶ
      node tools/cdp/head-audit.js top
 
-   ⚠️ 商品名・カテゴリ名は現行と移植版で中身が同じはずです。
+   ※ 商品名・カテゴリ名は現行と移植版で中身が同じはずです。
       **文字列としてそのまま比べます。**
 --------------------------------------------------------------------------- */
 const { page } = require("./cdp.js");
@@ -118,7 +118,7 @@ function norm(v) {
       await sleep(500);
       ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
     }
-    if (!ready) { console.log(name + "  🔴 編集画面が開けません"); bad++; continue; }
+    if (!ready) { console.log(name + "  ※ 編集画面が開けません"); bad++; continue; }
     const wasAt = await p.evaluate("location.href");
     await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
     for (let i = 0; i < 40; i++) {
@@ -136,21 +136,21 @@ function norm(v) {
       const a = norm(live[key]), b = norm(nu[key]);
       if (a === b) { continue; }
       ng++;
-      console.log("  🔴 " + label);
+      console.log("  ※ " + label);
       console.log("     現行  : " + a.slice(0, 110));
       console.log("     移植版: " + b.slice(0, 110));
     }
     /* 外部ホストの増減 */
     const gone = live.hosts.filter(h => nu.hosts.indexOf(h) < 0);
     const added = nu.hosts.filter(h => live.hosts.indexOf(h) < 0);
-    if (gone.length) { ng++; console.log("  🔴 読み込まれなくなった外部: " + gone.join(" ")); }
+    if (gone.length) { ng++; console.log("  ※ 読み込まれなくなった外部: " + gone.join(" ")); }
     if (added.length) { console.log("  ＋ 増えた外部: " + added.join(" ")); }
 
-    if (!ng) { console.log("  ✅ head は現行と揃っています"); }
+    if (!ng) { console.log("  OK head は現行と揃っています"); }
     bad += ng;
   }
 
   p.close();
   console.log("");
-  console.log(bad ? "🔴 違いが 合計 " + bad + " 件" : "✅ すべての head が現行と揃っています");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(bad ? "※ 違いが 合計 " + bad + " 件" : "OK すべての head が現行と揃っています");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

@@ -3,10 +3,10 @@
 
      node tools/cdp/csv-upload.js tools/cdp/csv/test-one.csv
 
-   ⚠️ 商品データを書き換えます。取り消しは、控えのCSVを流し直すことでしか
+   ※ 商品データを書き換えます。取り消しは、控えのCSVを流し直すことでしか
       できません。**控え: tools/cdp/csv/20260909181742.csv**
 
-   ⚠️ 「ショップに適用」より前に流すと、切り替えまでのあいだ
+   ※ 「ショップに適用」より前に流すと、切り替えまでのあいだ
       PC・スマホの商品ページに表が二重に出ます。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
@@ -31,7 +31,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     if (await p.evaluate('document.querySelector("input[type=file]") ? 1 : 0')) { break; }
   }
   if (!await p.evaluate('document.querySelector("input[type=file]") ? 1 : 0')) {
-    console.log("🔴 ファイル欄が出ません"); p.close(); process.exit(1);
+    console.log("※ ファイル欄が出ません"); p.close(); process.exit(1);
   }
 
   /* ファイル欄に実ファイルを差し込みます（画面から選ぶのと同じことです） */
@@ -39,7 +39,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   const doc = await p.send("DOM.getDocument", { depth: 1 });
   const root = doc.result.root.nodeId;
   const q = await p.send("DOM.querySelector", { nodeId: root, selector: 'input[type="file"]' });
-  if (!q.result || !q.result.nodeId) { console.log("🔴 ファイル欄が見つかりません"); p.close(); process.exit(1); }
+  if (!q.result || !q.result.nodeId) { console.log("※ ファイル欄が見つかりません"); p.close(); process.exit(1); }
   await p.send("DOM.setFileInputFiles", { nodeId: q.result.nodeId, files: [full] });
   await sleep(1500);
 
@@ -71,4 +71,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

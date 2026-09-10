@@ -2,12 +2,12 @@
 # =============================================================================
 #  check-browser.sh — JavaScript が本当に動くかを、ブラウザで数える
 #
-#  🔴 2026-09-09、見る対象を入れ替えました
+#  ※ 2026-09-09、見る対象を入れ替えました
 #
 #     ここで回していたのは verify-pricing / verify-gallery / verify-tabs /
 #     verify-quote-prefill / verify-price-format の5本でした。**どれも
 #     こちらが設計したJSの台**で、移植で全部無くなりました。ファイルごと
-#     消えているので、直前まで「5本とも 🔴 ファイルがありません」と出す
+#     消えているので、直前まで「5本とも ※ ファイルがありません」と出す
 #     だけの検査になっていました。
 #
 #     いま見るのは all-pages.js の中身です（port-chrome.js と
@@ -20,7 +20,7 @@
 #
 #     どれも新しく書いたコードで、他に試す場所がありません。
 #
-#  🔴 「開くこと」だけでなく「閉じること」も見ます
+#  ※ 「開くこと」だけでなく「閉じること」も見ます
 #
 #     閉じないライトボックスは、スマホでは戻れなくなります。開く側だけ
 #     試して満足すると、その手の壊れ方は最後まで見つかりません。
@@ -56,7 +56,7 @@ echo ""
 for name in verify-chrome; do
   page="templates/creator/preview/$name.html"
   if [ ! -f "$page" ]; then
-    echo "  🔴 $page がありません"
+    echo "  ※ $page がありません"
     fail=1
     continue
   fi
@@ -67,7 +67,7 @@ for name in verify-chrome; do
   summary=$(printf '%s' "$dom" | sed -n 's/.*<p id="summary">\([^<]*\)<\/p>.*/\1/p' | head -1)
 
   if [ -z "$summary" ]; then
-    printf "  🔴 %-16s 結果を読み取れませんでした\n" "$name"
+    printf "  ※ %-16s 結果を読み取れませんでした\n" "$name"
     fail=1
     continue
   fi
@@ -78,7 +78,7 @@ for name in verify-chrome; do
       printf "  OK %-16s %s\n" "$name" "$summary"
       ;;
     *)
-      printf "  🔴 %-16s %s\n" "$name" "$summary"
+      printf "  ※ %-16s %s\n" "$name" "$summary"
       # 落ちた項目を並べます。件数だけ見ても直せません。
       printf '%s' "$dom" | sed -n 's/.*<li class="ng">\([^<]*\)<\/li>.*/     NG: \1/p'
       printf '%s' "$dom" | tr '<' '\n' | sed -n 's/^li class="ng">\(.*\)/     NG: \1/p'

@@ -42,7 +42,7 @@
 
 <div id="O_adminPagearea" class="company">
 	<h2>個人情報保護ポリシー</h2>
-	<{* 🔴 このページ種別だけリファレンスにタグがありません。
+	<{* ※ このページ種別だけリファレンスにタグがありません。
 	     現行サイトの文面をそのまま使っています。 *}>
 <h2>プライバシーポリシー</h2>
 
@@ -110,7 +110,7 @@
 </div>
 </div>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

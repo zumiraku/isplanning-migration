@@ -102,7 +102,7 @@
 						<p class="M_cl_name"><a href="<{$search.item.list[i].url}>"><{$search.item.list[i].name}></a></p>
 						<p><span class="M_cl_taxadd"><{$search.item.list[i].special_display}></span></p>
 						<p class="M_cl_price"><span class="M_cl_taxPrice"><{$search.item.list[i].price|number_format}>円（税込）</span></p>
-						<{* 🔴 カートボタンは元テンプレートでもコメントアウトされています。 *}>
+						<{* ※ カートボタンは元テンプレートでもコメントアウトされています。 *}>
 					</div>
 					<br class="clear">
 				</div>
@@ -121,7 +121,7 @@
 	<{/if}>
 	</div>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

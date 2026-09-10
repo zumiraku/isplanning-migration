@@ -6,7 +6,7 @@ EUC-JP preserved. All 195 URLs returned **200**.
 
 ---
 
-## S0-1 — It is not "a PC site plus /smartphone/". Every URL is two documents. 🔴
+## S0-1 — It is not "a PC site plus /smartphone/". Every URL is two documents. ※
 
 The dossier understated this. UA detection is **site-wide**, not confined to
 `/smartphone/`. Every URL tested returns a completely different document to an
@@ -36,7 +36,7 @@ before any template work begins. Currently we hold the SP version of 11 URLs onl
 
 ---
 
-## S0-2 — The SP stylesheet 404s on every URL except `/smartphone/` 🔴 *live bug*
+## S0-2 — The SP stylesheet 404s on every URL except `/smartphone/` ※ *live bug*
 
 The mobile template links its reset stylesheet with a **relative** path:
 
@@ -64,7 +64,7 @@ free by the migration.
 
 ---
 
-## S0-3 — 191 of 192 pages depend on deliberately malformed HTML 🔴
+## S0-3 — 191 of 192 pages depend on deliberately malformed HTML ※
 
 Found in the shared template on **191 of 192** desktop pages, verbatim:
 
@@ -82,7 +82,7 @@ that ceases to exist.
 
 ---
 
-## S0-4 — レコメンド identified ⚠️ SUPERSEDED BY S0-20 — the product is イーレコメンド, not さぶみっと
+## S0-4 — レコメンド identified ※ SUPERSEDED BY S0-20 — the product is イーレコメンド, not さぶみっと
 
 ```
 //d.rcmd.jp/isplanning/item/recommend.js     (live, 200, 282,805 B)
@@ -205,7 +205,7 @@ point.
 
 ---
 
-## S0-9 — The pricing engine is MakeShop's, not the shop's 🔴 *closes Q1*
+## S0-9 — The pricing engine is MakeShop's, not the shop's ※ *closes Q1*
 
 Full detail in [`spec/option-engine.md`](../spec/option-engine.md). Summary:
 `updateOptionPrice` / `updateOptionPriceAjax` appear on **100/100** sampled product
@@ -220,7 +220,7 @@ Oracle captured while Basic Mode is live — 73 combinations across 16 products,
 (price-neutral), option2 = quantity tier; all seven tiers reconcile exactly against
 the on-page unit prices.
 
-## S0-10 — `uid` is not derivable from the URL 🔴
+## S0-10 — `uid` is not derivable from the URL ※
 
 MakeShop's internal product id. The `000000xxxxxx` scheme embeds it; the older
 `cccssxxxxxx` scheme does not — `003001000005` → uid **37**, `003003000674` → **1337**.
@@ -260,7 +260,7 @@ mobile : &lt;DIV class=infoh&gt;2013年8月 ホームページを…&lt;BR&gt;�
 The SP template builds the description from the article body without stripping tags.
 Free pages do not have this problem (0 of 83 differ).
 
-## S0-13 — The design lives in the stylesheet that dies 🔴 *corrects an earlier claim*
+## S0-13 — The design lives in the stylesheet that dies ※ *corrects an earlier claim*
 
 I previously recorded the shop's own stylesheet as "our bridge for salvaged rules".
 That was wrong, and the correction matters for Stage 2.
@@ -310,7 +310,7 @@ Three jQuery builds, two bxSlider builds, and Facebook, Twitter and LINE SDKs �
 of which were visible in the brief. Stage 7 target: one jQuery or none, one slider,
 social SDKs replaced with plain share links.
 
-## S0-15 — Free-page content extracted and bucketed; Stage 5 needs 3 templates, not 4 ✅
+## S0-15 — Free-page content extracted and bucketed; Stage 5 needs 3 templates, not 4 OK
 
 All 83 free-page bodies are extracted, de-chromed and converted to UTF-8 →
 `templates/basic-export/freepages/` (83 files, 1.0 MB). This is the raw material
@@ -389,7 +389,7 @@ for deletion.
 
 ---
 
-## S0-16 — Every page on the site shares one identical h1 🔴 *site-wide SEO defect*
+## S0-16 — Every page on the site shares one identical h1 ※ *site-wide SEO defect*
 
 Checked across every archived page type. The value is the same string on all of them:
 
@@ -427,7 +427,7 @@ gets from the migration rather than a cost of it.
 
 ---
 
-## S0-17 — The 607 category titles are a real, hand-built SEO asset 🔴 *raises C4*
+## S0-17 — The 607 category titles are a real, hand-built SEO asset ※ *raises C4*
 
 All 607 category pages crawled, all **200**. The metadata is not boilerplate:
 
@@ -478,7 +478,7 @@ from us with the mitigation already worked out rather than discover it later.
 
 ---
 
-## S0-18 — We are blocked from the live site (403) 🔴 *our doing, 2026-08-30*
+## S0-18 — We are blocked from the live site (403) ※ *our doing, 2026-08-30*
 
 Every request to www.isp-sp.com now returns **403 with an empty body**, including the
 top page. It is site-wide for this IP, not specific to the pages we were fetching.
@@ -528,7 +528,7 @@ that access. It is no longer needed and should not resume.
 
 ---
 
-## S0-19 — A parallel SP URL space of 912 URLs, none of it in the sitemap 🔴
+## S0-19 — A parallel SP URL space of 912 URLs, none of it in the sitemap ※
 
 Recovered offline from the archive, by mining every /smartphone/ reference out of the
 195 captured documents. No crawling was involved, which matters given S0-18.
@@ -598,7 +598,7 @@ than pointed at a guess.
 
 Tool: `tools\build-sp-redirects.ps1`.
 
-## S0-20 — Correction: the recommend engine is イーレコメンド, not さぶみっと ⚠️
+## S0-20 — Correction: the recommend engine is イーレコメンド, not さぶみっと ※
 
 In S0-4 I identified the recommend engine as **さぶみっと！レコメンド** from the
 d.rcmd.jp script. **That was wrong.** The client states it is **イーレコメンド**, and has
@@ -668,7 +668,7 @@ on every measure - they return the source rather than the rendered output, they 
 
 ---
 
-## S0-21 — The pricing rebuild was wrong for 14 of 16 sampled products 🔴 *found and fixed 2026-09-02*
+## S0-21 — The pricing rebuild was wrong for 14 of 16 sampled products ※ *found and fixed 2026-09-02*
 
 Built a harness that runs the rebuilt engine against the whole 73-response oracle
 (`templates/creator/preview/verify-pricing.html` — no network, no live site). First

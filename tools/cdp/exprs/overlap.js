@@ -39,7 +39,7 @@
     });
     for (var i = 0; i < kids.length; i++) {
       for (var j = i + 1; j < kids.length; j++) {
-        /* 🔴 インラインどうしは重なりません
+        /* ※ インラインどうしは重なりません
          *
          *    折り返したインライン要素の外接ボックスは、複数行をまとめた
          *    大きな箱になります。同じ段落の中の
@@ -75,7 +75,7 @@
     if (!par || par === document.body) { return; }
     var pcs = getComputedStyle(par);
     if (pcs.overflowX !== "visible" || pcs.overflowY !== "visible") { return; }
-    /* 🔴 祖先のどこかで切られていれば、はみ出しては見えません
+    /* ※ 祖先のどこかで切られていれば、はみ出しては見えません
      *
      *    親だけ見ていたので、スライダーの複製（UL#M_slider の中の LI）を
      *    毎ページ数十件ずつ挙げていました。UL 自体は overflow:visible ですが、
@@ -87,7 +87,7 @@
       if (acs.overflowX !== "visible" || acs.overflowY !== "visible") { return; }
       anc = anc.parentElement;
     }
-    /* 🔴 インラインの親は「箱」ではありません
+    /* ※ インラインの親は「箱」ではありません
      *
      *    <a><img></a> のような形だと、a の高さは行の高さしかないので、
      *    画像が必ず「下にはみ出して」見えます。実際には正しく表示されて

@@ -98,7 +98,7 @@
 ＜＜商品詳細画面のご説明＞＞
 <!--<img alt="画面説明" src="https://gigaplus.makeshop.jp/isplanning/images/isplanning_explanation2.jpg">-->
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

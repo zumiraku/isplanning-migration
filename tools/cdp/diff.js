@@ -33,7 +33,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     await sleep(500);
     ok = !!(await p.evaluate("(typeof g_editor_object !== 'undefined' && !!g_editor_object['" + field + "_pc']) ? 1 : 0"));
   }
-  if (!ok) { console.log("🔴 エディタが出ません"); p.close(); process.exit(1); }
+  if (!ok) { console.log("※ エディタが出ません"); p.close(); process.exit(1); }
 
   const live = await p.evaluate("g_editor_object['" + field + "_pc'].getValue()");
   p.close();
@@ -49,7 +49,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   console.log("手元       : " + mine.length + " 文字");
   console.log("サーバー側 : " + theirs.length + " 文字");
 
-  if (mine === theirs) { console.log("✅ 完全に一致しています"); return; }
+  if (mine === theirs) { console.log("OK 完全に一致しています"); return; }
 
   const a = mine.split("\n"), b = theirs.split("\n");
   console.log("行数: 手元 " + a.length + " / サーバー " + b.length);
@@ -63,4 +63,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     shown++;
   }
   if (shown === 0) { console.log("（行ごとの差はありません。改行コードだけの違いです）"); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

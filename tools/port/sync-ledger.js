@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    sync-ledger.js — タグ台帳を公式リファレンスに追いつかせる
 
-   🔴 台帳が古いままだと、正しいタグが「未登録」と怒られます
+   ※ 台帳が古いままだと、正しいタグが「未登録」と怒られます
 
       移植で $category.item.list[i].special_display などを使い始めたら、
       check-smarty が「NOT IN THE LEDGER」を15件出しました。**どれも
@@ -52,6 +52,6 @@ added.forEach(a => console.log("  " + a.split("\t")[0]));
 
 const still = [...used].filter(t => !have.has(t) && !ref.has(t));
 if (still.length) {
-  console.log("\n🔴 リファレンスにも無いので、手で理由を書いてください:");
+  console.log("\n※ リファレンスにも無いので、手で理由を書いてください:");
   still.forEach(t => console.log("  " + t));
 }

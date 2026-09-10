@@ -21,7 +21,7 @@ some genuinely different pages?**
 | **35** | same variable tags, extra markup — and 34 of those add exactly one thing: `categotybanner` / `caption` / `mask`, the banner block. Two add a button, one adds the seasonal tile block. **Data.** |
 | **11** | omit `[CATEGORY_IMAGE]` — no category header image. **A flag.** |
 | **3** | use `[GROUP3_7]` instead of `[GROUP4_0]` — sub-categories three across instead of four. **A number.** |
-| **3** | use `[PRICE]` where the standard uses `[TAXPRICE]` 🔴 **not data — see below** |
+| **3** | use `[PRICE]` where the standard uses `[TAXPRICE]` ※ **not data — see below** |
 | **1** | `ct646`, 16 KB, genuinely bespoke. It also has its own product template, and its tab labels differ from every other page's |
 
 So the rebuild needs **one category template, a per-category data table, and one
@@ -30,7 +30,7 @@ project needed, and it is measured rather than assumed.
 
 ---
 
-## 🔴 Three categories show prices without tax, labelled 「（税込）」
+## ※ Three categories show prices without tax, labelled 「（税込）」
 
 This is not a migration risk. **It is wrong on the live site right now.**
 

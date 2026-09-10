@@ -6,7 +6,7 @@
         "/shop/shopbrand.html?search=%A5%BF%A5%AA%A5%EB" \
         "/view/search?search_keyword=%E3%82%BF%E3%82%AA%E3%83%AB"
 
-   🔴 pair-eval.js は移植版側を結び直していません
+   ※ pair-eval.js は移植版側を結び直していません
 
       ptk のURLへ直接行くと、**最後に保存またはプレビューした種別の設計**で
       描かれます（bind.js の見出しに詳しく書いてあります）。結び直さずに
@@ -50,16 +50,16 @@ function show(label, r) {
   await p.navigate("https://www.isp-sp.com" + LIVE); await sleep(5000);
   const at = await p.evaluate("location.href");
   if (!landed(LIVE, at)) {
-    console.log("🔴 現行 " + LIVE + " は " + at.split("isp-sp.com").pop() + " に飛ばされました");
+    console.log("※ 現行 " + LIVE + " は " + at.split("isp-sp.com").pop() + " に飛ばされました");
   }
   const live = await p.evaluate(EXPR);
 
   const bound = await openAt(p, TYPE, PORT, 5000);
-  if (!bound.ok) { console.error("🔴 " + bound.why); p.close(); process.exit(1); }
+  if (!bound.ok) { console.error("※ " + bound.why); p.close(); process.exit(1); }
   const nu = await p.evaluate(EXPR);
   p.close();
 
   show("現行  " + LIVE, live);
   console.log("");
   show("移植版 種別" + TYPE + "  " + PORT, nu);
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

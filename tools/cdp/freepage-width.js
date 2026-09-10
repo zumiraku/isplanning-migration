@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    freepage-width.js — 独自ページ82枚に、はみ出しそうな固定幅がないか
 
-   🔴 プレビューでは1枚ずつ測れません
+   ※ プレビューでは1枚ずつ測れません
 
       独自ページのプレビューは、押しても**最後に焼き付けた1枚**を返します
       （4枚ぶん押して測ったつもりが、全部 page2 でした）。保存の中身は
@@ -44,4 +44,4 @@ console.log("調べた " + fs.readdirSync(DIR).filter(f => f.endsWith(".tpl")).l
   COLUMN + "px を超える固定幅がある " + rows.length + " 枚");
 console.log("");
 rows.slice(0, 12).forEach(r => console.log("  " + r.file.padEnd(16) + r.hits.slice(0, 6).join("  ")));
-if (!rows.length) { console.log("✅ 本文の列（" + COLUMN + "px）を超える固定幅はありません"); }
+if (!rows.length) { console.log("OK 本文の列（" + COLUMN + "px）を超える固定幅はありません"); }

@@ -11,7 +11,6 @@ Basic Mode to Creator Mode (responsive).
 | Admin access | 2026-08-27 (副管理者) |
 | Delivery | **2026-11-16 (Mon)** |
 | Platform deadline | Basic Mode abolished **2027-03-31 15:00** |
-| Plan dossier | https://claude.ai/code/artifact/26d0e5aa-3260-4527-92bb-65a2d1bfc713 |
 
 ## Why this repo exists
 

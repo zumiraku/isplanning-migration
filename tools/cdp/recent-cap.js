@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    recent-cap.js — 「最近チェックした商品」が何件まで出るかを確かめます
 
-   🔴 現行 [RECENT2] の件数は、テンプレートには書いてありません
+   ※ 現行 [RECENT2] の件数は、テンプレートには書いてありません
 
       管理画面の設定です。こちらの `$recently_item.list` に上限があるのか、
       あるとして何件なのかは、**履歴を上限より多く作らないと分かりません。**
@@ -43,13 +43,13 @@ const COUNT = `(function () {
   console.log("現行トップ      : " + JSON.stringify(live));
 
   const bound = await openAt(p, 2, "/", 5000);
-  if (!bound.ok) { console.error("🔴 " + bound.why); p.close(); process.exit(1); }
+  if (!bound.ok) { console.error("※ " + bound.why); p.close(); process.exit(1); }
   const nu = await p.evaluate(COUNT);
   console.log("移植版トップ    : " + JSON.stringify(nu));
   p.close();
 
   console.log("");
   console.log(live.件数 === nu.件数
-    ? "✅ 同じ件数です（上限は同じか、どちらも履歴の件数どおり）"
-    : "🔴 件数が違います。現行に合わせて max を入れてください");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+    ? "OK 同じ件数です（上限は同じか、どちらも履歴の件数どおり）"
+    : "※ 件数が違います。現行に合わせて max を入れてください");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

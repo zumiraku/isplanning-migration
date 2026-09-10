@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    build-mirror.js — 移植版を、そのまま開ける静的な写しにします
 
-   🔴 プレビューでは、移植版を見ていただけません
+   ※ プレビューでは、移植版を見ていただけません
 
       実測（2026-09-10）:
 
@@ -79,7 +79,7 @@ function localFor(u) {
 
 function rewrite(html, css, js) {
   /* こちらのCSSとJavaScriptを埋め込みます（Cookie無しでは空で返るため）
-     🔴 資産のURLには問合せが付きます。
+     ※ 資産のURLには問合せが付きます。
 
           /view/asset/user-5-1-2-….css?ptk=…&6aa265d36467f
 
@@ -90,7 +90,7 @@ function rewrite(html, css, js) {
   html = html.replace(/<script[^>]+src="\/view\/asset\/user-[^"]*"[^>]*><\/script>/g,
     "<script>\n" + js + "\n</script>");
 
-  /* 🔴 document.write を呼ぶスクリプトを外します
+  /* ※ document.write を呼ぶスクリプトを外します
    *
    *    イーレコメンド（rcmd.jp）の設置タグは document.write でスクリプトを
    *    足します。読み込みが終わったあとの document.write は**ページを
@@ -122,7 +122,7 @@ function rewrite(html, css, js) {
 
 (async () => {
   if (!fs.existsSync(CSS) || !fs.existsSync(JS)) {
-    console.error("🔴 " + CSS + " か " + JS + " がありません");
+    console.error("※ " + CSS + " か " + JS + " がありません");
     process.exit(1);
   }
   const css = fs.readFileSync(CSS, "utf8");
@@ -135,7 +135,7 @@ function rewrite(html, css, js) {
     const file = FILE[name];
     if (!file) { console.log("   " + name + " は写しに入れません（対応表に無い）"); continue; }
     const bound = await openAt(p, type, portPath, 9000);
-    if (!bound.ok) { console.log("🔴 " + name + " ── " + bound.why); continue; }
+    if (!bound.ok) { console.log("※ " + name + " ── " + bound.why); continue; }
     const html = await p.evaluate("document.documentElement.outerHTML");
     const out = rewrite(html, css, js);
     fs.writeFileSync(path.join(OUT, file), "<!doctype html>\n" + out);
@@ -170,5 +170,5 @@ function rewrite(html, css, js) {
   fs.writeFileSync(path.join(OUT, "index.html"), idx);
 
   console.log("");
-  console.log("✅ " + made.length + " 枚を " + OUT + "/ に書き出しました（index.html から開けます）");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log("OK " + made.length + " 枚を " + OUT + "/ に書き出しました（index.html から開けます）");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

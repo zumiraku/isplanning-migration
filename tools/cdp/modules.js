@@ -4,13 +4,13 @@
      node tools/cdp/modules.js              全部読むだけ
      node tools/cdp/modules.js write        必要なものを書き込んで確かめる
 
-   🔴 テンプレートが呼ぶのは「モジュールID」です
+   ※ テンプレートが呼ぶのは「モジュールID」です
 
       一覧に出ている「モジュール名」は見出しにすぎません。
       <{$module.leftmenu}> が探すのは ID のほう。違っていても
       **エラーは出ず、その部分だけ空**になります。
 
-   🔴 モジュール画面は、ページ種別の画面と別物です
+   ※ モジュール画面は、ページ種別の画面と別物です
 
         ページ種別  g_editor_object["html_pc"]  →  saveContent()
         モジュール  textarea[name=content] に付いた CodeMirror ひとつ
@@ -36,7 +36,7 @@ const WANT = {
   calendar1: "package/modules/calendar1.tpl",
   calendar2: "package/modules/calendar2.tpl",
   freespace_calendar: "package/modules/freespace_calendar.tpl",
-  /* 🔴 カテゴリごとの独自内容。606カテゴリ・112種類を3つに分けています。
+  /* ※ カテゴリごとの独自内容。606カテゴリ・112種類を3つに分けています。
    *    tools/cdp/category-extra.js が作ります。 */
   category_extra1: "package/modules/category_extra1.tpl",
   category_extra2: "package/modules/category_extra2.tpl",
@@ -46,7 +46,7 @@ const WANT = {
 };
 
 const doWrite = process.argv[2] === "write";
-/* 🔴 改行コードをLFに揃えます
+/* ※ 改行コードをLFに揃えます
  *
  *    リポジトリの作業コピーは CRLF です（git の autocrlf）。CodeMirror は
  *    setValue のときに LF へ揃えるので、**渡した文字数と入った文字数が
@@ -55,10 +55,10 @@ const doWrite = process.argv[2] === "write";
 function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10)).join(String.fromCharCode(10)); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-/* 🔴 数値参照は「両側とも」戻してから比べます
+/* ※ 数値参照は「両側とも」戻してから比べます
  *
  *    サーバーは保存のときに一部の文字を数値参照にします（— は &#8212;、
- *    🔴 は &#128308;）。ところが**元のファイル自体が &#12316; や &#169;
+ *    ※ は &#128308;）。ところが**元のファイル自体が &#12316; や &#169;
  *    を持っています**（現行サイトから写した文面です）。片側だけ戻すと、
  *    こちらの &#12316; まで 〜 に変わって、一致しないと誤判定します。
  *    フッターで実際にそうなりました。両側に同じ処理をかけます。 */
@@ -90,7 +90,7 @@ async function waitCm(p) {
 
   for (let id = 1; id <= LAST; id++) {
     await p.navigate(BASE + "?design_set_id=" + SET + "&module_id=" + id);
-    if (!await waitCm(p)) { console.log(String(id).padStart(2) + "  🔴 開けません"); continue; }
+    if (!await waitCm(p)) { console.log(String(id).padStart(2) + "  ※ 開けません"); continue; }
     const m = await p.evaluate(READ);
     console.log(String(id).padStart(2) + "  ID=" + String(m.id).padEnd(20) +
       " 名前=" + String(m.label).padEnd(22) + String(m.len).padStart(6) + " 文字");
@@ -101,7 +101,7 @@ async function waitCm(p) {
   console.log("テンプレートが必要とするID:");
   for (const key of Object.keys(WANT)) {
     console.log("  " + key.padEnd(20) +
-      (found[key] ? "あり（module_id=" + found[key].moduleId + " / " + found[key].len + " 文字）" : "🔴 ありません"));
+      (found[key] ? "あり（module_id=" + found[key].moduleId + " / " + found[key].len + " 文字）" : "※ ありません"));
   }
 
   if (!doWrite) { p.close(); return; }
@@ -110,33 +110,33 @@ async function waitCm(p) {
   console.log("書き込み:");
   let ng = 0;
   for (const key of Object.keys(WANT)) {
-    if (!found[key]) { console.log("  " + key.padEnd(20) + "🔴 IDが無いので書けません"); ng++; continue; }
+    if (!found[key]) { console.log("  " + key.padEnd(20) + "※ IDが無いので書けません"); ng++; continue; }
     const body = lf(fs.readFileSync(WANT[key], "utf8"));
     const at = BASE + "?design_set_id=" + SET + "&module_id=" + found[key].moduleId;
 
     await p.navigate(at);
-    if (!await waitCm(p)) { console.log("  " + key.padEnd(20) + "🔴 エディタが出ません"); ng++; continue; }
+    if (!await waitCm(p)) { console.log("  " + key.padEnd(20) + "※ エディタが出ません"); ng++; continue; }
 
     const before = await p.evaluate(CM + ".getValue().length");
     await p.evaluate(CM + ".setValue(" + JSON.stringify(body) + ")");
     const inEditor = await p.evaluate(CM + ".getValue().length");
     if (inEditor !== body.length) {
-      console.log("  " + key.padEnd(20) + "🔴 入りきりません " + inEditor + "/" + body.length); ng++; continue;
+      console.log("  " + key.padEnd(20) + "※ 入りきりません " + inEditor + "/" + body.length); ng++; continue;
     }
     await p.evaluate("window.confirm = function(){ return true; }; updateModule(); 1");
     await sleep(4000);
 
     await p.navigate(at);
-    if (!await waitCm(p)) { console.log("  " + key.padEnd(20) + "🔴 読み直せません"); ng++; continue; }
+    if (!await waitCm(p)) { console.log("  " + key.padEnd(20) + "※ 読み直せません"); ng++; continue; }
     const live = await p.evaluate(CM + ".getValue()");
     const back = unescapeNum(live);
     if (back === unescapeNum(body)) {
-      console.log("  " + key.padEnd(20) + "✅ " + before + " → " + live.length + " 文字");
+      console.log("  " + key.padEnd(20) + "OK " + before + " → " + live.length + " 文字");
     } else {
-      console.log("  " + key.padEnd(20) + "🔴 " + before + " → " + live.length + "（渡した " + body.length + "）");
+      console.log("  " + key.padEnd(20) + "※ " + before + " → " + live.length + "（渡した " + body.length + "）");
       ng++;
     }
   }
   p.close();
   if (ng) { process.exit(1); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

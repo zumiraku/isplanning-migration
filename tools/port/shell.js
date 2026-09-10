@@ -3,10 +3,10 @@
 
    各ページのHTML欄は「完全なHTML文書」です。本文の断片ではありません。
 
-   🔴 $makeshop.head / body_top / body_bottom は必須
+   ※ $makeshop.head / body_top / body_bottom は必須
       これが無いと GA4（G-BK1PPN5MEV）も u-komi もカゴ投入も動きません。
 
-   🔴 旧サイトの 共通head管理 にあったものを全部持ってきます
+   ※ 旧サイトの 共通head管理 にあったものを全部持ってきます
       Google の所有権確認3本、Noto Sans JP と Mochiy Pop One、そして
       **gigaplus の default.css**。default.css は22KBのユーティリティCSSで、
       m_sys_common.css とは別物です。**片方だけ移すと余白と文字サイズが
@@ -25,7 +25,7 @@ const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
 /* トップだけスライダーが入ります。旧テンプレートでは 上段メニュー の中に
    [TOPIMAGE] がありましたが、モジュールは全ページ共通なので、ここで
    ページ側に持たせています。 */
-/* 🔴 本文の入れ物の id を落としていました（2026-09-10 実測）
+/* ※ 本文の入れ物の id を落としていました（2026-09-10 実測）
  *
  *    現行のかごページは <div class="M_mainContents" id="M_basket"> です。
  *    移植では先頭のこの行を捨てて、シェルの <div class="M_mainContents"> に
@@ -41,7 +41,7 @@ const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
  *    商品詳細も同じで、id="O_itemDetail" を落としていました。
  *
  *    シェルに id を渡せるようにします。 */
-/* 🔴 お知らせ一覧のタイトルが、店名に化けていました（2026-09-10 実測）
+/* ※ お知らせ一覧のタイトルが、店名に化けていました（2026-09-10 実測）
  *
  *      現行    お知らせ一覧ページ
  *      移植版  粗品と景品の発見マーケット　ISPLANNING
@@ -50,13 +50,13 @@ const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
  *    「お知らせ一覧ページ」は管理画面の設定から来ていて、デザインの
  *    ファイルには入っていません。ページ種別ごとに持たせます。
  *
- * 🔴 空の meta description を出していました
+ * ※ 空の meta description を出していました
  *
  *    現行はカゴとお知らせ一覧に description がありません。こちらは
  *    `content=""` の空タグを出していました。中身が無いなら出しません。
  */
 
-/* 🔴 商品ページの og:image が消えていました（2026-09-10 実測）
+/* ※ 商品ページの og:image が消えていました（2026-09-10 実測）
  *
  *    現行の商品ページには、プラットフォームが og:image を入れています。
  *
@@ -110,7 +110,7 @@ ${slider}
 
 ${opts.body}
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

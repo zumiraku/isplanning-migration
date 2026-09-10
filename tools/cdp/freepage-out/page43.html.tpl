@@ -97,7 +97,7 @@
 <div class="columnlink"><a href="#colum-wrap"><img alt="コラム画像" src="https://gigaplus.makeshop.jp/isplanning/images/column-icon.png">コラム一覧</a></div>
 </div>
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

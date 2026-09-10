@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    sp-check.js — 全ページ共通の中身と、スマートフォンの扱い
 
-   🔴 box-audit で、スマホ側の欄が全ページ 0 文字でした。
+   ※ box-audit で、スマホ側の欄が全ページ 0 文字でした。
 
       クリエイターモードは PC とスマートフォンで別々のテンプレートを持てます。
       スマホ欄が空のまま適用して、**スマホで真っ白になる**ようなら、
@@ -40,7 +40,7 @@ const READ_ONE = `(function () {
       out[k + "_" + d] = (v === null) ? "(欄なし)" : v.length;
     });
   });
-  /* 🔴 全ページ共通には HTML 欄がありません。CSS と JavaScript だけです。
+  /* ※ 全ページ共通には HTML 欄がありません。CSS と JavaScript だけです。
    *    ここを無条件に読んでいたので「開けません」と誤検知していました。 */
   out.editors = Object.keys(g_editor_object).join(" ");
   var h = g_editor_object.html_pc ? g_editor_object.html_pc.getValue() : "";
@@ -65,7 +65,7 @@ const READ_ONE = `(function () {
   await p.navigate(BASE + "flex_design_page_editor.html?design_set_id=" + SET + "&page_type=1");
   const ok = await waitEditor(p, 60);
   if (!ok) {
-    console.log("① 全ページ共通  🔴 開けません（60秒待っても編集画面が出ません）");
+    console.log("① 全ページ共通  ※ 開けません（60秒待っても編集画面が出ません）");
   } else {
     const r = await p.evaluate(READ_ONE);
     console.log("① 全ページ共通（page_type=1）");
@@ -75,10 +75,10 @@ const READ_ONE = `(function () {
     console.log("   スマホ HTML " + String(r.html_smartphone).padStart(6) +
                 "  CSS " + String(r.css_smartphone).padStart(6) +
                 "  JS " + String(r.javascript_smartphone).padStart(6));
-    console.log("   必須タグ  head " + (r.head ? "○" : "🔴") +
-                " / body_top " + (r.bodyTop ? "○" : "🔴") +
-                " / body_bottom " + (r.bodyBottom ? "○" : "🔴") +
-                " / viewport " + (r.viewport ? "○" : "🔴"));
+    console.log("   必須タグ  head " + (r.head ? "○" : "※") +
+                " / body_top " + (r.bodyTop ? "○" : "※") +
+                " / body_bottom " + (r.bodyBottom ? "○" : "※") +
+                " / viewport " + (r.viewport ? "○" : "※"));
     console.log("   ある欄    " + r.editors);
     console.log("   先頭      " + r.firstLine);
     console.log("   画面の切替 " + (r.tabs.length ? r.tabs.join(" | ") : "(見当たりません)"));
@@ -116,4 +116,4 @@ const READ_ONE = `(function () {
   console.log("   " + JSON.stringify(sp));
 
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

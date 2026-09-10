@@ -6,13 +6,13 @@
    撮ったHTML（tools/cdp/preview-out/*.html）に対して、
    **無いと困るもの／あってはならないもの**を1つずつ数えます。
 
-   🔴 「出ているはず」は根拠になりません
+   ※ 「出ているはず」は根拠になりません
 
       左メニューのカレンダーは、モジュールに中身が4,502文字あるのに
       空で出ていました。**モジュールの中からモジュールは呼べません。**
       エラーも出ません。撮って中を数えるまで分かりませんでした。
 
-   🔴 点検表そのものが間違うことがあります
+   ※ 点検表そのものが間違うことがあります
 
       最初の版は4つ誤検知しました。**どれも「こちらが正しく作った
       ものを、間違いだと言う」形**です。
@@ -49,7 +49,7 @@ const CHECKS = [
   ["top", "商品リンク", "/view/item/", 10],
   ["detail", "数量欄", "quantityInput", 1],
   ["detail", "カートボタン", "goCart", 1],
-  /* 🔴 2件以上と書いていましたが、この商品の画像は1枚です。
+  /* ※ 2件以上と書いていましたが、この商品の画像は1枚です。
    *    追加画像の枚数は商品によります。**手元の検査用データの枚数を
    *    実物の閾値にしていました。** */
   ["detail", "拡大表示", "data-zoom", 1],
@@ -66,7 +66,7 @@ const CHECKS = [
   ["guide", "買い物方法", "about_flow", 1],
   ["guide", "納品書・領収書", "about_receipt", 1],
   ["company", "見出しは1つだけ", "<h2>会社概要</h2>", 1, 1],
-  /* 🔴 id が2つありました（2026-09-09）
+  /* ※ id が2つありました（2026-09-09）
    *
    *    <{$company.content}> が返すHTMLは、プラットフォーム側で
    *    <div id="O_adminPagearea" class="M_mainContents"> に入っています。
@@ -93,7 +93,7 @@ for (const [where, label, needle, min, max] of CHECKS) {
     total++;
     if (!ok) {
       ng++;
-      console.log("🔴 " + t.padEnd(13) + label.padEnd(30) + n + " 件（" +
+      console.log("※ " + t.padEnd(13) + label.padEnd(30) + n + " 件（" +
         (max === 0 ? "0件であるべき" : max !== undefined ? min + "〜" + max + "件" : min + "件以上") + "）");
     }
   }
@@ -102,4 +102,4 @@ for (const [where, label, needle, min, max] of CHECKS) {
 console.log("");
 console.log("点検 " + total + " 件 / 通らなかったもの " + ng + " 件");
 if (ng) { process.exit(1); }
-console.log("✅ 全部通りました");
+console.log("OK 全部通りました");

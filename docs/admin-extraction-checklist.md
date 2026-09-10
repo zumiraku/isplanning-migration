@@ -10,7 +10,7 @@ Save everything under the paths given. Commit after each section.
 
 ---
 
-## A. Basic Mode template source ✅ **CLOSED 2026-09-03**
+## A. Basic Mode template source OK **CLOSED 2026-09-03**
 
 The client ran デザイン一括バックアップ and sent the ZIP. Unpacked, converted to
 UTF-8 and committed to `templates/basic-export/design/` — 73 files including the
@@ -28,7 +28,7 @@ to satisfy.
 
 ---
 
-## B. Independent page source — **120 pages**, we hold 83 🔴
+## B. Independent page source — **120 pages**, we hold 83 ※
 
 **Console reality, confirmed from a screenshot 2026-09-03:** the menu is
 **ショップデザイン**, not デザイン管理, and the surest route to any screen is
@@ -54,7 +54,7 @@ and then went through the same converter as the rest:
 | `privacy.html` | **no ordinary link exists** — the footer opens it from JavaScript | recovered from the live page, 2,881 chars, built into `privacy-body.tpl` |
 | `email.html` | a system page, not a free page | `$url.support` — the platform owns the screen |
 
-🔴 The count of 120 came from the client and was never confirmed. **82 is what
+※ The count of 120 came from the client and was never confirmed. **82 is what
 the admin list itself holds**, and that is what we build against. If 120 is real,
 then 38 pages exist that the client's own 独自ページ list does not show — which
 would be a fact about the console, not a gap in our coverage.
@@ -83,7 +83,7 @@ gives us the same thing. See that folder's README.
 
 ---
 
-## C. All 607 category titles and descriptions 🔴 *unrecoverable after the switch*
+## C. All 607 category titles and descriptions ※ *unrecoverable after the switch*
 
 `商品管理 → カテゴリ管理`. Creator Mode disables per-category custom page titles.
 Export **every** category's: category id, name, custom page title, description,
@@ -97,7 +97,7 @@ once the switch happens the values are gone.
 
 ---
 
-## D. Product data export 🔴 *answers Q8*
+## D. Product data export ※ *answers Q8*
 
 `商品管理 → 商品データダウンロード` (CSV, all 9,514 products, all fields).
 
@@ -113,7 +113,7 @@ product count (Q11 — `brand0` holding exactly 5,000 smells like a cap).
 
 ---
 
-## E. Tag inventory 🔴 *answers Q5*
+## E. Tag inventory ※ *answers Q5*
 
 `ショップ設定 → SEO・SNS・マーケティング` (or wherever tags are injected), **and the
 order-completion page specifically**.
@@ -132,7 +132,7 @@ Capture verbatim, into `inventory/tags.md`:
 
 ---
 
-## F. Which discontinued features are actually in use 🔴 *answers Q3, Q4, Q10 — drives Gate A*
+## F. Which discontinued features are actually in use ※ *answers Q3, Q4, Q10 — drives Gate A*
 
 Walk the admin menu and record used / not used for each:
 

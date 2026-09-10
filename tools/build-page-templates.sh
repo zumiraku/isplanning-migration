@@ -2,7 +2,7 @@
 # =============================================================================
 #  build-page-templates.sh — 貼り付け用のページを package/templates に配る
 #
-#  🔴 2026-09-09、組み立てをやめました
+#  ※ 2026-09-09、組み立てをやめました
 #
 #     以前はページごとに部品を継ぎ合わせていました。
 #
@@ -17,7 +17,7 @@
 #     いまは tools/port/*.js が完成品を作るので、ここは配るだけです。
 #     継ぎ合わせの部品（_shell-*.tpl と *-body.tpl）はもう使いません。
 #
-#  🔴 header / leftmenu / footer は上書きしません
+#  ※ header / leftmenu / footer は上書きしません
 #
 #     以前ここに `cp _module-header.tpl package/modules/header.tpl` が
 #     ありました。移植後に回すと、**山口様が「文言がない」と指摘された
@@ -40,13 +40,13 @@ for pair in $PAGES; do
   page=${pair%%:*}
   file=${pair##*:}
   s="$src/$file.tpl"
-  [ -f "$s" ] || { echo "  🔴 生成元がありません: $s" >&2; exit 1; }
+  [ -f "$s" ] || { echo "  ※ 生成元がありません: $s" >&2; exit 1; }
 
   # 完全な文書であることを確かめてから配ります。継ぎ合わせの残骸や、
   # 本文だけのファイルを黙って配らないためです。
   n=$(grep -c '<!doctype html>' "$s" || true)
   if [ "$n" != "1" ]; then
-    echo "  🔴 $file.tpl の <!doctype html> が $n 個です（1個であるべき）" >&2
+    echo "  ※ $file.tpl の <!doctype html> が $n 個です（1個であるべき）" >&2
     exit 1
   fi
 
@@ -54,7 +54,7 @@ for pair in $PAGES; do
   printf "  %-22s %6s 行  %7s バイト\n" "$page.tpl" "$(wc -l < "$out/$page.tpl")" "$(wc -c < "$out/$page.tpl")"
 done
 
-# 🔴 category_tiles / category_captions は退役しました。
+# ※ category_tiles / category_captions は退役しました。
 #
 #    こちらが設計した「カテゴリタイル」で、移植後はどのページからも
 #    呼ばれていません（$module.* の参照は header / leftmenu / footer /

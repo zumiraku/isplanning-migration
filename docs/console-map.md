@@ -101,7 +101,7 @@ That list is the answer to §A: **共通head管理** is where the tags in Q5 wil
 `お知らせ・インフォ管理` names both features in one screen, so Q4 will be settled
 by opening it — whichever one produces `/new/…` entries is visible there.
 
-### 🔴 The bulk backup does not include 独自ページ
+### ※ The bulk backup does not include 独自ページ
 
 The page says so directly:
 
@@ -137,7 +137,7 @@ Plus an HTML editor with a preview, and バックアップを読み込む /
 バックアップを取る **per page** — which is the only backup 独自ページ get, since
 the bulk design backup excludes them.
 
-### 🟢 「フリーページへ転送」 exists
+### OK 「フリーページへ転送」 exists
 
 The form has that field, and the URL list has a column legend reading
 **「クリエイターモードのフリーページへ転送設定済み」**.
@@ -193,7 +193,7 @@ bodyタグ直下メッセージ   HTML可 / 最大50000文字            (collap
 利用可能な変数
 ```
 
-### 🔴 The body-tag message is empty — the tags are still not found
+### ※ The body-tag message is empty — the tags are still not found
 
 Opened for 商品詳細ページ: **残り50,000文字**, nothing entered. So GA4
 `G-BK1PPN5MEV` is not injected from here either, at least not for this page type.
@@ -207,7 +207,7 @@ Worth stating plainly: the design backup did not contain the tags, and neither
 does this. Whatever is emitting GA4 on every page has not been found yet, and
 "we looked in the obvious places" is not the same as having it.
 
-### 🟢 利用可能な変数 — this decides the 607 category titles
+### OK 利用可能な変数 — this decides the 607 category titles
 
 | 項目 | 変数 |
 |---|---|
@@ -257,7 +257,7 @@ and a large piece of Gate A's decision (A) dissolves. That is worth confirming
 before the client is asked to choose between reproduction strategies for
 something that might not need reproducing.
 
-### ⚠️ 更新 saves shop-wide
+### ※ 更新 saves shop-wide
 
 The blue 更新 button at the bottom writes the setting for every page of the
 chosen type. Changing 対象設定 or expanding a section is safe; pressing 更新 is
@@ -275,7 +275,7 @@ The 対象設定 dropdown holds exactly three entries:
 
 **No site-wide option.** So the body-tag message exists in three slots, not one.
 
-#### カテゴリページ: 個別設定を適用する 🔴
+#### カテゴリページ: 個別設定を適用する ※
 
 The radio is set to **個別設定を適用する**, and the screen states plainly:
 
@@ -339,7 +339,7 @@ This form is per-URL, so it is very likely where the free pages' titles live too
 Worth confirming when the free-page titles are finalised, since
 `inventory/freepage-seo-plan.csv` assumes we set them somewhere.
 
-### 🔴 GA4 is not in the SEO screen at all
+### ※ GA4 is not in the SEO screen at all
 
 All three body-tag message slots are empty:
 
@@ -464,7 +464,7 @@ Basics — none customised for this shop. `Basics` was last updated **2026/08/19
 which is before our engagement began but recent enough to be worth asking about;
 the other two are from 2022.
 
-### ⚠️ 「ショップに適用」 is the switch
+### ※ 「ショップに適用」 is the switch
 
 The blue button on each card is what changes the live shop over to Creator Mode
 with that design. It is not a preview and not a save. **Nothing in the build
@@ -537,7 +537,7 @@ Basics（2）            2026/09/05 03:13:10     <- stray, created 22s before ou
 発見マーケット_移行版   2026/09/05 03:13:32     <- ours
 ```
 
-⚠️ **`Basics（2）` is a stray.** It was created 22 seconds before ours and never
+※ **`Basics（2）` is a stray.** It was created 22 seconds before ours and never
 named, so the add flow evidently creates the set first and asks for a name
 second — back out of the naming dialog and the set stays. It is harmless in
 itself and it is exactly the hazard the naming step exists to prevent: five
@@ -955,7 +955,7 @@ flex_design_page_editor.html?design_set_id=5&page_type=3
 | テンプレートを直した | **保存 → プレビューを押し直す** → 取得 |
 | 別の種別を見たい | **その種別の画面でプレビューを押す** → 取得 |
 
-### 🔴 これで取り消しになった確認が1つあります
+### ※ これで取り消しになった確認が1つあります
 
 `ct573` が独自タイトルを返したので「カテゴリタイトル606件は実サイトで生きて
 いる」と報告しましたが、**そのページは商品詳細テンプレートで描かれていました。**
@@ -1017,7 +1017,7 @@ flex_design_page_editor.html?design_set_id=5&page_type=3
 **種別ごとに、その画面でプレビューを押し直してから取得する。** それ以外の
 確認方法はありません。
 
-## 🔴 三度目です — 2026-09-10
+## ※ 三度目です — 2026-09-10
 
 上に二度書いてあるのに、また同じことをしました。今度は**道具のほうに**
 書き込みました。
@@ -1069,14 +1069,14 @@ design_preview.html?page_type=flex-preview&page_path=/view/item/003001000005
 `compare.js` は現行を測ったあと**その場で結び直してから**移植版を測ります。
 `pair-eval.js` は結び直しません。**現行側だけに使ってください。**
 
-⚠️ 日本語をURLに載せると、管理画面側の文字コードで壊れます。
+※ 日本語をURLに載せると、管理画面側の文字コードで壊れます。
 プレビュー経由の `/view/search?search_keyword=タオル` は「??帥????」に
 なりました。**配信側の不具合ではありません。** 英数字の語（商品コードなど）で
 確かめてください。
 
 ---
 
-## 🔴 モードの戻し方 — 2026-09-08、実機で確定
+## ※ モードの戻し方 — 2026-09-08、実機で確定
 
 切替後、山口様から「一旦ベーシックモードに戻してほしい」と言われて分かった
 ことです。**この操作の場所は、それまでどの資料にも書いていませんでした。**
@@ -1186,7 +1186,7 @@ cookie comes across, or the page is saved from the browser that can see it
 
 ---
 
-## 🔴 console.makeshop.jp を開かないでください — 2026-09-10
+## ※ console.makeshop.jp を開かないでください — 2026-09-10
 
 `find-setting.js` が `https://console.makeshop.jp/dashboard?shopId=isplanning`
 を開いたところ、**レンダラーが固まりました。**
@@ -1220,7 +1220,7 @@ node "$TEMP/newtab2.js"     新しいタブを開いてから、固まったタ�
 **設定を探すときは、旧管理画面（shop1.makeshop.jp/makeshop/newmanager/）の
 中だけで探してください。**
 
-## 🔴 独自ページのタイトルは、HTMLに書いても出ません — 2026-09-10
+## ※ 独自ページのタイトルは、HTMLに書いても出ません — 2026-09-10
 
 82枚の独自ページは、こちらのテンプレートに `<title>` を literal で
 書いてあります。**保存もされています**（82枚を貼り直して1文字ずつ一致）。

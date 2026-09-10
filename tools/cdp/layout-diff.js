@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    layout-diff.js — 重なり・ズレを、現行サイトと突き合わせて「増えたぶんだけ」出す
 
-   🔴 そのまま数えると使えません
+   ※ そのまま数えると使えません
 
       移植版のトップで重なり37件・はみ出し122件。ところが中身を見ると、
       インラインの `<a>` に入った画像や、スライダーの複製など、
@@ -27,7 +27,7 @@ const PAGES = {
   cart:     { type: 6,  live: "https://www.isp-sp.com/shop/basket.html" },
   search:   { type: 5,  live: "https://www.isp-sp.com/shop/shopbrand.html?search=%A5%BF%A5%AA%A5%EB" },
   "news-list":   { type: 9,  live: "https://www.isp-sp.com/new/index.html" },
-  /* 🔴 プライバシーは比べられません
+  /* ※ プライバシーは比べられません
    *
    *    現行の /html/privacy.html は、フッターのJavaScriptから開く
    *    **ポップアップ専用のページ**です。実測でヘッダーも左メニューも
@@ -86,7 +86,7 @@ function keyOut(o) { return o.what.replace(/\[.*?\]/g, "[]") + " ← " + o.paren
     await sleep(500);
     ready = !!(await p.evaluate("(typeof previewContent === 'function') ? 1 : 0"));
   }
-  if (!ready) { console.log("🔴 編集画面が開けません"); p.close(); return; }
+  if (!ready) { console.log("※ 編集画面が開けません"); p.close(); return; }
   const wasAt = await p.evaluate("location.href");
   await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
   for (let i = 0; i < 40; i++) {
@@ -112,20 +112,20 @@ function keyOut(o) { return o.what.replace(/\[.*?\]/g, "[]") + " ← " + o.paren
   const newOut = nu.outOfParent.filter(function (o) { return !liveOut.has(keyOut(o)); });
 
   if (newOv.length) {
-    console.log("🔴 移植版にだけ出る重なり " + newOv.length + " 件");
+    console.log("※ 移植版にだけ出る重なり " + newOv.length + " 件");
     newOv.forEach(function (o) { console.log("   " + o.pct + "%  " + o.a + "  ×  " + o.b); });
   }
   if (newOut.length) {
-    console.log("🔴 移植版にだけ出るはみ出し " + newOut.length + " 件");
+    console.log("※ 移植版にだけ出るはみ出し " + newOut.length + " 件");
     newOut.forEach(function (o) {
       console.log("   " + o.what + "  （" + o.parent + " から 右" + o.右 + " 左" + o.左 + " 下" + o.下 + "）");
     });
   }
   if (!newOv.length && !newOut.length) {
-    console.log("✅ 移植版で新しく増えた重なり・はみ出しはありません");
+    console.log("OK 移植版で新しく増えた重なり・はみ出しはありません");
   }
 
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

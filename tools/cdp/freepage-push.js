@@ -44,18 +44,18 @@ async function waitCm(p) {
     if (id < from || id > to) { continue; }
 
     const file = OUT + "/" + pageId + ".tpl";
-    if (!fs.existsSync(file)) { console.log(String(id).padStart(3) + "  🔴 作ったものが無い " + pageId); ng++; continue; }
+    if (!fs.existsSync(file)) { console.log(String(id).padStart(3) + "  ※ 作ったものが無い " + pageId); ng++; continue; }
     const body = lf(fs.readFileSync(file, "utf8"));
     const at = BASE + "?design_set_id=" + SET + "&freepage_id=" + id;
 
     await p.navigate(at);
-    if (!await waitCm(p)) { console.log(String(id).padStart(3) + "  🔴 開けません " + pageId); ng++; continue; }
+    if (!await waitCm(p)) { console.log(String(id).padStart(3) + "  ※ 開けません " + pageId); ng++; continue; }
 
     const before = await p.evaluate(CM + ".getValue().length");
     await p.evaluate(CM + ".setValue(" + JSON.stringify(body) + ")");
     const inEditor = await p.evaluate(CM + ".getValue().length");
     if (inEditor !== body.length) {
-      console.log(String(id).padStart(3) + "  🔴 入りきりません " + inEditor + "/" + body.length + " " + pageId);
+      console.log(String(id).padStart(3) + "  ※ 入りきりません " + inEditor + "/" + body.length + " " + pageId);
       ng++; continue;
     }
 
@@ -72,18 +72,18 @@ async function waitCm(p) {
       return "(保存の入口が見つかりません)";
     })()`);
     if (String(saved).indexOf("見つかりません") >= 0) {
-      console.log(String(id).padStart(3) + "  🔴 " + saved + " " + pageId); ng++; continue;
+      console.log(String(id).padStart(3) + "  ※ " + saved + " " + pageId); ng++; continue;
     }
     await sleep(4000);
 
     await p.navigate(at);
-    if (!await waitCm(p)) { console.log(String(id).padStart(3) + "  🔴 読み直せません " + pageId); ng++; continue; }
+    if (!await waitCm(p)) { console.log(String(id).padStart(3) + "  ※ 読み直せません " + pageId); ng++; continue; }
     const live = await p.evaluate(CM + ".getValue()");
     if (un(live) === un(body)) {
-      console.log(String(id).padStart(3) + "  ✅ " + before + " → " + live.length + "  " + pageId);
+      console.log(String(id).padStart(3) + "  OK " + before + " → " + live.length + "  " + pageId);
       ok++;
     } else {
-      console.log(String(id).padStart(3) + "  🔴 一致しません " + before + " → " + live.length +
+      console.log(String(id).padStart(3) + "  ※ 一致しません " + before + " → " + live.length +
         "（渡した " + body.length + "） " + pageId);
       ng++;
     }
@@ -93,4 +93,4 @@ async function waitCm(p) {
   console.log("");
   console.log("流し込み " + (ok + ng) + " 枚 / 一致 " + ok + " 枚 / 通らず " + ng + " 枚");
   if (ng) { process.exit(1); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

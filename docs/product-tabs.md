@@ -58,7 +58,7 @@ boundary in an awkward way:
   Basic Mode template unless we carry it across — and its two data attributes
   are `[SYSTEM_CODE]`, a Basic Mode tag.
 
-🔴 **Q13: what is the Creator Mode product-code tag?** Ship the mount with the
+※ **Q13: what is the Creator Mode product-code tag?** Ship the mount with the
 placeholder unresolved and `data-pid` becomes a literal string that is the same
 on all 9,514 products — so either every product shows one product's reviews, or
 none of them show any. A loader that still runs makes this worse, not better:
@@ -126,7 +126,7 @@ nothing there changes.
 > drew a bordered box around every thumbnail and squeezed the captions to one
 > character per line. It is a caption strip, not a notice box.
 
-## The shop is running two review systems at once 🔴
+## The shop is running two review systems at once ※
 
 The three per-category product templates were checked against the main one, and
 they do not agree:
@@ -201,7 +201,7 @@ directory so the two can be diffed before anything is pasted into the console.
 
 The diff is eleven lines per file, and it is the review block and nothing else.
 
-### 🔴 The part worth telling the client
+### ※ The part worth telling the client
 
 He said he commented the tags out **PC・スマホ共** — and for the main product
 template he did. **The three per-category product templates still had the tags

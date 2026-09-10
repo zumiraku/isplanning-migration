@@ -67,7 +67,7 @@ function probe(sel) {
   await sleep(4000);
   const r = await p.evaluate(probe(SEL));
 
-  if (r.err) { console.log("🔴 " + r.err); }
+  if (r.err) { console.log("※ " + r.err); }
   else {
     console.log("画面幅 " + r.view + " / " + SEL + " の親を根まで");
     console.log("");
@@ -83,4 +83,4 @@ function probe(sel) {
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

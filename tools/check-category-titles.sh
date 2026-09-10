@@ -2,7 +2,7 @@
 # =============================================================================
 #  check-category-titles.sh — do the restored titles actually come out right?
 #
-#  🔴 This asks a DIFFERENT question from the generator, deliberately.
+#  ※ This asks a DIFFERENT question from the generator, deliberately.
 #
 #     The category caption check once reported 34/34 identical while 10 of the
 #     34 were truncated at a <br>. It compared an extraction against the same

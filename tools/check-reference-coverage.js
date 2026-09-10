@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    check-reference-coverage.js — 公式にあるのに書いていないタグを見つける
 
-   🔴 なぜ要るのか
+   ※ なぜ要るのか
 
       check-against-reference.sh は片方向しか見ていませんでした。
       「使っているタグが実在するか」だけを問い、**「実在するのに一度も
@@ -81,7 +81,7 @@ for (const sec of Object.keys(bySec).sort()) {
 console.log("公式リファレンス : " + new Set(rows.map(r => norm(r[0]))).size + " 種");
 console.log("使っているタグ   : " + used.size + " 種");
 console.log("使わない理由あり : " + explained + " 種");
-console.log("🔴 説明がつかない : " + unexplained + " 種\n");
+console.log("※ 説明がつかない : " + unexplained + " 種\n");
 
 for (const [sec, keep] of out) {
   console.log("=== " + sec + "  " + keep.length + " 件 ===");

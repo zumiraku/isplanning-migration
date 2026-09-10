@@ -46,7 +46,7 @@ catalogue posts each superseded by the next.
 
 ---
 
-## Q4 — these URLs are very probably safe 🟢
+## Q4 — these URLs are very probably safe OK
 
 Open question Q4 asks whether `/new/` comes from **ニュース** (Creator Mode has
 editable ニュース一覧 / ニュース詳細 templates → safe) or **インフォメーション**

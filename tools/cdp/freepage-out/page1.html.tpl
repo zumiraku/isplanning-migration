@@ -73,7 +73,7 @@
 	<p class="nameall" style="font-size:16px;">お客様からいただいた個人情報は商品の発送とご連絡以外には、一切使用致しません。当社が責任をもって安全に蓄積・保管し、第三者に譲渡・提供することはございません。（メーカー直送の場合はメーカーにて管理又は出荷後速やかに破棄いたします。）</p>
 </div><!-- PageArea -->
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

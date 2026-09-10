@@ -4,7 +4,7 @@
    `tools/port/check-content-parity.js` はファイル2枚を比べる道具です。
    その2枚を、**現行から**と**結び直したプレビューから**取ってきます。
 
-   🔴 プレビューは種別ごとに結び直さないと、別のページが返ります
+   ※ プレビューは種別ごとに結び直さないと、別のページが返ります
       （docs/console-map.md「三度目です」）。ここは bind.js を通します。
 
      node tools/cdp/parity.js
@@ -31,13 +31,13 @@ const only = process.argv[2];
     await p.navigate("https://www.isp-sp.com" + livePath); await sleep(5000);
     const at = await p.evaluate("location.href");
     if (!landed(livePath, at)) {
-      console.log("🔴 " + name + " ── 現行 " + livePath + " は飛ばされました。飛ばします");
+      console.log("※ " + name + " ── 現行 " + livePath + " は飛ばされました。飛ばします");
       continue;
     }
     const liveHtml = await p.evaluate("document.documentElement.outerHTML");
 
     const bound = await openAt(p, type, portPath, 5000);
-    if (!bound.ok) { console.log("🔴 " + name + " ── " + bound.why); continue; }
+    if (!bound.ok) { console.log("※ " + name + " ── " + bound.why); continue; }
     const portHtml = await p.evaluate("document.documentElement.outerHTML");
 
     const a = path.join(OUT, name + "-live.html");
@@ -60,10 +60,10 @@ const only = process.argv[2];
     const head = line.find(l => l.indexOf("移植版に無い") >= 0) || line[line.length - 1] || "(出力なし)";
     const n = Number((head.match(/移植版に無い (\d+)/) || [])[1] || 0);
     if (n) { bad += n; }
-    console.log((n ? "🔴 " : "   ") + name.padEnd(14) + head.trim());
+    console.log((n ? "※ " : "   ") + name.padEnd(14) + head.trim());
     if (n) { line.slice(line.indexOf(head) + 1, line.indexOf(head) + 9).forEach(l => console.log("       " + l)); }
   }
   console.log("");
-  console.log(bad ? "🔴 現行にあって移植版に無い塊 " + bad + " 件"
-                  : "✅ 現行の文言は、移植版に全部あります");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(bad ? "※ 現行にあって移植版に無い塊 " + bad + " 件"
+                  : "OK 現行の文言は、移植版に全部あります");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

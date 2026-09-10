@@ -1,7 +1,7 @@
 #!/bin/sh
 # build-freepage-package.sh — the 86 free pages, ready for フリーページ管理
 #
-# 🔴 2026-09-05: rebuilt. The first version produced body fragments, because
+# ※ 2026-09-05: rebuilt. The first version produced body fragments, because
 # フリーページ管理 looked like a content box. It is not - it is a whole
 # document, the same as the eleven page templates. Saving page82 with one line
 # of text produced exactly that on screen: one line of text, no header, no
@@ -84,7 +84,7 @@ echo "被リンクの多い順:"
 sed 's/"//g' "$out/MANIFEST.csv" | awk -F, 'NR>1 && NR<=6{printf "  %2s 本  %-10s %s\n", $1, $3, substr($4,1,36)}'
 
 # --- 付属文書 -----------------------------------------------------------------
-# 🔴 このスクリプトは冒頭で out ディレクトリを rm -rf します。手で置いた
+# ※ このスクリプトは冒頭で out ディレクトリを rm -rf します。手で置いた
 #    ファイルは消えます。実際に PAGE-NAMES.md と REDO.txt を消しました。
 #    以後はここで作り直します。
 

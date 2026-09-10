@@ -44,4 +44,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     if (!r.links.length) { console.log("    （該当なし）"); }
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

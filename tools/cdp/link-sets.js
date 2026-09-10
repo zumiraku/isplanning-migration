@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    link-sets.js — ヘッダー・左メニュー・フッターのリンクを、丸ごと突き合わせます
 
-   🔴 ここは「形が合っているか」しか見ていませんでした
+   ※ ここは「形が合っているか」しか見ていませんでした
 
       位置（geometry.js）と、はみ出し（layout-diff.js）と、見出しは見ました。
       **リンクが1本消えていても、どれも気づきません。** 左メニューは
@@ -83,14 +83,14 @@ function split(entry) {
     const at = await p.evaluate("location.href");
     if (!landed(livePath, at)) {
       console.log("");
-      console.log("🔴 " + name + " ── 現行 " + livePath + " は " + at + " に飛ばされました。測りません");
+      console.log("※ " + name + " ── 現行 " + livePath + " は " + at + " に飛ばされました。測りません");
       bad++; continue;
     }
     const live = await p.evaluate(EXPR);
-    /* 🔴 ptk のURLに直接行ってはいけません。最後に保存した種別の設計で
+    /* ※ ptk のURLに直接行ってはいけません。最後に保存した種別の設計で
        描かれます。種別を指定して結び直してから測ります。 */
     const bound = await openAt(p, type, portPath, 4200);
-    if (!bound.ok) { console.log(""); console.log("🔴 " + name + " ── " + bound.why); bad++; continue; }
+    if (!bound.ok) { console.log(""); console.log("※ " + name + " ── " + bound.why); bad++; continue; }
     const nu = await p.evaluate(EXPR);
 
     console.log("");
@@ -98,8 +98,8 @@ function split(entry) {
     for (const region of ["ヘッダー", "左メニュー", "フッター"]) {
       const a = live[region], b = nu[region];
       if (!a && !b) { console.log("  " + region.padEnd(8) + "どちらにもありません"); continue; }
-      if (!a) { console.log("  " + region.padEnd(8) + "🔴 現行に枠がありません"); continue; }
-      if (!b) { console.log("  " + region.padEnd(8) + "🔴 移植版に枠がありません"); bad++; continue; }
+      if (!a) { console.log("  " + region.padEnd(8) + "※ 現行に枠がありません"); continue; }
+      if (!b) { console.log("  " + region.padEnd(8) + "※ 移植版に枠がありません"); bad++; continue; }
 
       /* 行き先だけの集合と、行き先＋文字の集合の両方で比べます */
       const A = a.map(split), B = b.map(split);
@@ -113,7 +113,7 @@ function split(entry) {
       B.forEach(x => byHref.set(canon(x.href), x.text));
       const renamed = A.filter(x => bHref.has(canon(x.href)) && byHref.get(canon(x.href)) !== x.text);
 
-      const mark = (lost.length || extra.length) ? "🔴" : "  ";
+      const mark = (lost.length || extra.length) ? "※" : "  ";
       console.log("  " + mark + region.padEnd(8) + "現行 " + String(a.length).padStart(4) +
         " / 移植版 " + String(b.length).padStart(4) +
         "   消えた " + lost.length + " / 増えた " + extra.length + " / 名前が変わった " + renamed.length);
@@ -127,5 +127,5 @@ function split(entry) {
 
   p.close();
   console.log("");
-  console.log(bad ? "🔴 消えたリンク・枠 " + bad + " 件" : "✅ どのページも、リンクは現行と同じ集合です");
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+  console.log(bad ? "※ 消えたリンク・枠 " + bad + " 件" : "OK どのページも、リンクは現行と同じ集合です");
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

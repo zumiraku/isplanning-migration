@@ -6,7 +6,7 @@
    押してよいかどうかは、次の4つで決まります。ひとつでも欠けたら押しません。
 
      ① 管理画面のセッションが生きているか
-        🔴 貼り付けが2度失敗した原因は、これでした。ログインが切れていても
+        ※ 貼り付けが2度失敗した原因は、これでした。ログインが切れていても
            画面は記憶から描き続けるので、見た目では分かりません。
 
      ② 適用するデザインセットが「発見マーケット_移行版」か
@@ -90,13 +90,13 @@ const READ = `(function () {
 
   /* ① セッション */
   if (r.loginLike || r.url.indexOf("login") >= 0) {
-    console.log("① セッション        🔴 切れています。ここで止めます");
+    console.log("① セッション        ※ 切れています。ここで止めます");
     ng++;
   } else if (!r.sets.length) {
-    console.log("① セッション        🔴 一覧が読めません（切れている可能性）");
+    console.log("① セッション        ※ 一覧が読めません（切れている可能性）");
     ng++;
   } else {
-    console.log("① セッション        ✅ 生きています（一覧 " + r.sets.length + " 件）");
+    console.log("① セッション        OK 生きています（一覧 " + r.sets.length + " 件）");
   }
 
   /* ② いまのモード */
@@ -113,13 +113,13 @@ const READ = `(function () {
   });
   console.log("");
   if (found) {
-    console.log("   " + WANT_NAME + " ✅ あります（id " + found.ids + "）");
+    console.log("   " + WANT_NAME + " OK あります（id " + found.ids + "）");
     if (found.ids.split(",").indexOf(String(WANT_ID)) < 0) {
-      console.log("   🔴 期待した design_set_id=" + WANT_ID + " が行に見当たりません");
+      console.log("   ※ 期待した design_set_id=" + WANT_ID + " が行に見当たりません");
       ng++;
     }
   } else {
-    console.log("   🔴 " + WANT_NAME + " が一覧にありません");
+    console.log("   ※ " + WANT_NAME + " が一覧にありません");
     ng++;
   }
 
@@ -132,6 +132,6 @@ const READ = `(function () {
 
   p.close();
   console.log("");
-  console.log(ng ? "🔴 押せません。" + ng + " 件" : "✅ 前提は満たしています");
+  console.log(ng ? "※ 押せません。" + ng + " 件" : "OK 前提は満たしています");
   if (ng) { process.exit(1); }
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

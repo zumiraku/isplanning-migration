@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    verify-caption-move.js — 流す予定のCSVが、既存の中身を消さないか
 
-   🔴 ここは取り返しがつきません
+   ※ ここは取り返しがつきません
 
       切替後に `move-captions.csv` を流して、画像説明文2/3 を
       スマホ商品説明1・2 へ移す計画です。9,635商品。
@@ -16,7 +16,7 @@
      node tools/port/verify-caption-move.js                 スマホ商品説明2
      node tools/port/verify-caption-move.js スマホ商品説明1   もう一方
 
-   ⚠️ 読むだけです。CSVは書き換えません。
+   ※ 読むだけです。CSVは書き換えません。
 --------------------------------------------------------------------------- */
 const fs = require("fs");
 
@@ -26,7 +26,7 @@ const CODE = "システム商品コード";
 const TARGET = process.argv[2] || "スマホ商品説明2";
 
 function readSjis(f) {
-  if (!fs.existsSync(f)) { console.error("🔴 ありません: " + f); process.exit(1); }
+  if (!fs.existsSync(f)) { console.error("※ ありません: " + f); process.exit(1); }
   return new TextDecoder("shift_jis").decode(fs.readFileSync(f));
 }
 
@@ -68,7 +68,7 @@ console.log("  流す分 " + move.length + " 行 × " + (move[0] ? move[0].lengt
 const bCode = colIndex(back[0], CODE), mCode = colIndex(move[0], CODE);
 const bVal = colIndex(back[0], TARGET), mVal = colIndex(move[0], TARGET);
 if (bCode < 0 || mCode < 0 || bVal < 0 || mVal < 0) {
-  console.error("🔴 列が見つかりません（" + CODE + " / " + TARGET + "）");
+  console.error("※ 列が見つかりません（" + CODE + " / " + TARGET + "）");
   process.exit(1);
 }
 
@@ -109,14 +109,14 @@ console.log("  流す分に入っておらず、触られない       : " + abse
 console.log("  流す分に入っていて、元の文が消える     : " + lost);
 console.log("");
 if (lost) {
-  console.log("🔴 消える例");
+  console.log("※ 消える例");
   lostSample.forEach(function (x) {
     console.log("   " + x.code);
     console.log("     いま : " + x.was);
     console.log("     流すと: " + x.now);
   });
   console.log("");
-  console.log("🔴 このまま流してはいけません。");
+  console.log("※ このまま流してはいけません。");
   process.exit(1);
 }
-console.log("✅ 元の文はすべて残ります");
+console.log("OK 元の文はすべて残ります");

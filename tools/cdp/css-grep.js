@@ -69,4 +69,4 @@ function probe(needle) {
     s.found.forEach(function (f) { console.log("    " + f); });
   });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

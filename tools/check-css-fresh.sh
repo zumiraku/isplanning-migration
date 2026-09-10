@@ -8,7 +8,7 @@
 #    templates/creator/css/components.css  ┘
 #    templates/creator/mode/all-pages.css    ← 貼り付けるのはこちら（生成物）
 #
-#  🔴 components.css を直してビルドを忘れると、こうなります。
+#  ※ components.css を直してビルドを忘れると、こうなります。
 #
 #     - プレビューは tokens/components を直接読むので**直って見えます**
 #     - check-overflow.sh も同じものを読むので**通ります**
@@ -29,7 +29,7 @@ tmp="${TMPDIR:-.}/all-pages-fresh.css"
 sh tools/build-all-pages-css.sh "$tmp" > /dev/null 2>&1
 
 if [ ! -f "$live" ]; then
-  echo "🔴 $live がありません"
+  echo "※ $live がありません"
   rm -f "$tmp"; exit 1
 fi
 
@@ -39,7 +39,7 @@ if cmp -s "$live" "$tmp"; then
   exit 0
 fi
 
-echo "🔴 all-pages.css が古いです。tokens.css / components.css の変更が入っていません。"
+echo "※ all-pages.css が古いです。tokens.css / components.css の変更が入っていません。"
 printf "    手元 %s バイト / 作り直すと %s バイト\n" \
   "$(wc -c < "$live" | tr -d ' ')" "$(wc -c < "$tmp" | tr -d ' ')"
 echo ""

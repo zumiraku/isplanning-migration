@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    sp-redirect.js — スマホの名乗りで /smartphone/ へ飛ぶページ種別を洗います
 
-   🔴 まとめ買い割引（page_type=18）だけ、iPhoneの名乗りで
+   ※ まとめ買い割引（page_type=18）だけ、iPhoneの名乗りで
       `/smartphone/` に飛びました。他の14種別は飛びません。
 
       これがプレビュー特有なのか、切替後も起きるのかで意味が変わります。
@@ -57,12 +57,12 @@ async function run(p, type, mobile) {
     const pc = await run(p, t, false);
     const sp = await run(p, t, true);
     console.log("page_type " + t);
-    console.log("  PC  : " + (pc.url.indexOf("/smartphone/") >= 0 ? "🔴 /smartphone/ " : "") + pc.url.slice(0, 100));
-    console.log("        ヘッダー " + (pc.creator ? "○" : "🔴") + " / " + pc.text);
-    console.log("  スマホ: " + (sp.url.indexOf("/smartphone/") >= 0 ? "🔴 /smartphone/ " : "") + sp.url.slice(0, 100));
-    console.log("        ヘッダー " + (sp.creator ? "○" : "🔴") + " / " + sp.text);
+    console.log("  PC  : " + (pc.url.indexOf("/smartphone/") >= 0 ? "※ /smartphone/ " : "") + pc.url.slice(0, 100));
+    console.log("        ヘッダー " + (pc.creator ? "○" : "※") + " / " + pc.text);
+    console.log("  スマホ: " + (sp.url.indexOf("/smartphone/") >= 0 ? "※ /smartphone/ " : "") + sp.url.slice(0, 100));
+    console.log("        ヘッダー " + (sp.creator ? "○" : "※") + " / " + sp.text);
   }
   await p.send("Emulation.clearDeviceMetricsOverride", {});
   await p.send("Network.setUserAgentOverride", { userAgent: "" });
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

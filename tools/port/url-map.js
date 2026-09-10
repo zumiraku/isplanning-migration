@@ -6,12 +6,12 @@
    **左メニューだけで94本、全体で166本が毎回リダイレクトを1回挟む**ことに
    なります。package/url-bulk/*.csv に対応表があるので変換します。
 
-   🔴 #アンカー付きが8本あります
+   ※ #アンカー付きが8本あります
 
       /html/info.html#about_receipt のように、フラグメント込みで照合すると
       1本も当たりません。切り離して引き、見つかったら付け直します。
 
-   🔴 正規表現にバックスラッシュを使いません
+   ※ 正規表現にバックスラッシュを使いません
 
       new RegExp('…\s…\2…') と書いたら、JSの文字列側で \s が s に、\2 が
       制御文字になり、**1本も置換されないのに「未対応0件」と報告**しました。
@@ -34,7 +34,7 @@ function readCsv(p) {
   });
 }
 
-/* 🔴 shopdetail（商品）が抜けていました
+/* ※ shopdetail（商品）が抜けていました
  *
  *    対応表に商品9,535件を入れていなかったので、`/shopdetail/…` のリンクが
  *    1本も書き換わっていませんでした。モジュールと独自ページに403箇所
@@ -55,7 +55,7 @@ for (const f of ["categories-url.csv", "freepages-url.csv", "news-url.csv", "pag
   }
 }
 
-/* 🔴 /html/email.html は独自ページではありません
+/* ※ /html/email.html は独自ページではありません
  *
  *    449バイトの中継ページで、開くと自動でお問い合わせフォーム
  *    （/ssl/contact/）へ送信します。デザインセットの82枚には入っておらず、
@@ -69,7 +69,7 @@ for (const f of ["categories-url.csv", "freepages-url.csv", "news-url.csv", "pag
  *    実データで確認したうえで、こちらに向けます。 */
 map.set("/html/email.html", "<{$url.support}>");
 
-/* 🔴 検索結果へのリンクだけは、対応表では引けません（2026-09-09）
+/* ※ 検索結果へのリンクだけは、対応表では引けません（2026-09-09）
  *
  *    独自ページに、ベーシックの検索URLが直に書かれています。
  *
@@ -120,7 +120,7 @@ function rewrite(html) {
       const to = searchLink(url);
       if (to) { n++; return pre + to + post; }
     }
-    /* 🔴 ドメイン付きのリンクも引けるようにします
+    /* ※ ドメイン付きのリンクも引けるようにします
      *
      *    お店の書いたリンクには `https://www.isp-sp.com/html/page68.html` の
      *    ような絶対URLが混ざっています。対応表の鍵は `/html/page68.html`
@@ -132,7 +132,7 @@ function rewrite(html) {
     const bare = base.endsWith("/") ? base.slice(0, -1) : base;
     let to = map.get(bare) || map.get(base);
 
-    /* 🔴 末尾に並び替えが付いたリンクがあります
+    /* ※ 末尾に並び替えが付いたリンクがあります
      *
      *      /shopdetail/051000000007/order
      *

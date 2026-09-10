@@ -2,7 +2,7 @@
 # =============================================================================
 #  check-platform-hooks.sh — プラットフォームのフックに正しくつないでいるか
 #
-#  🔴 これを書いた理由
+#  ※ これを書いた理由
 #
 #     公開直後、**検索がまったく動いていませんでした。** 見た目は完璧で、
 #     プレビューでも実ページでも「検索窓」と「絞り込み」はきれいに出ており、
@@ -49,7 +49,7 @@ for f in templates/creator/mode/*.tpl package/templates/*.tpl package/modules/*.
     case "$attr" in
       href) ;;
       data-*) ;;
-      *) printf '  🔴 %s\n     %s\n     → プラットフォームは href のクリックしか見ません\n' "$f" "$hit"; echo x >> .hookfail ;;
+      *) printf '  ※ %s\n     %s\n     → プラットフォームは href のクリックしか見ません\n' "$f" "$hit"; echo x >> .hookfail ;;
     esac
   done
   found=1
@@ -62,9 +62,9 @@ fi
 
 echo
 echo "テンプレートに <form> と type=\"submit\" が残っていないかを見ます"
-hits=$(grep -n '<form\|type="submit"' templates/creator/mode/*.tpl package/templates/*.tpl package/modules/*.tpl 2>/dev/null | grep -v '^\S*:[0-9]*: *<{\*' | grep -v '🔴\|ではありません\|で書いていました' || true)
+hits=$(grep -n '<form\|type="submit"' templates/creator/mode/*.tpl package/templates/*.tpl package/modules/*.tpl 2>/dev/null | grep -v '^\S*:[0-9]*: *<{\*' | grep -v '※\|ではありません\|で書いていました' || true)
 if [ -n "$hits" ]; then
-  echo "$hits" | sed 's/^/  🔴 /'
+  echo "$hits" | sed 's/^/  ※ /'
   echo "     → submit はプラットフォームに届きません。<a href> にしてください"
   fail=1
 else
@@ -72,5 +72,5 @@ else
 fi
 
 echo
-if [ "$fail" = 1 ]; then echo "  -> 🔴 NG"; exit 1; fi
+if [ "$fail" = 1 ]; then echo "  -> ※ NG"; exit 1; fi
 echo "  -> OK"

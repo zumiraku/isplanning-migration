@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    check-array-output.js — 配列をそのまま出している箇所を探します
 
-   🔴 商品グループ50点が、画面に "Array" とだけ出ていました
+   ※ 商品グループ50点が、画面に "Array" とだけ出ていました
 
       `<{$item.group}>` と書いていました。`$item.group` は配列なので、
       そのまま出すと **"Array" という文字**になります。中身は1件も出ません。
@@ -62,7 +62,7 @@ for (const dir of DIRS) {
     }
     if (hits.length) {
       flagged += hits.length;
-      console.log("🔴 " + path.join(dir, f));
+      console.log("※ " + path.join(dir, f));
       hits.slice(0, 6).forEach(h => console.log("     " + h.line + " 行目  " + h.tag));
     }
   }
@@ -70,6 +70,6 @@ for (const dir of DIRS) {
 
 console.log("");
 console.log("出力タグ " + checked + " 箇所を見ました");
-console.log(flagged ? "🔴 配列をそのまま出している疑い " + flagged + " 箇所"
-                    : "✅ 配列をそのまま出している箇所はありません");
+console.log(flagged ? "※ 配列をそのまま出している疑い " + flagged + " 箇所"
+                    : "OK 配列をそのまま出している箇所はありません");
 if (flagged) { process.exit(1); }

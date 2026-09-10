@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    gate-check.js — 会員制・年齢確認が本当に入っているのか
 
-   🔴 トップのプレビューが、会員制ページを返します。
+   ※ トップのプレビューが、会員制ページを返します。
 
         <head>  トップのもの（title / description / canonical = /）
         <body>  会員制ページのもの（.verify と著作権表示だけ）
@@ -74,4 +74,4 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     if (r.checked.length) { console.log("     選択: " + r.checked.join(" , ")); }
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

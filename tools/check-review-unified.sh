@@ -18,7 +18,7 @@
 #  この分裂は無くなります。ただし「無くなる」のは**こちらが純正レビューの
 #  タグを1つも書いていない場合**に限ります。
 #
-#  🔴 純正レビューのタグはクリエイターモードにも全部あります。
+#  ※ 純正レビューのタグはクリエイターモードにも全部あります。
 #
 #     $item.review.star_html / .total_count / .list_url / .post_url …
 #     $category.item.list[i].has_review / .review.star_html …
@@ -42,7 +42,7 @@ hits=$(grep -n -E '\$(item|category\.item\.list\[[a-z]\]|search\.item\.list\[[a-
 hits="$hits$(grep -n '\$review_item\.' templates/creator/mode/*.tpl package/templates/*.tpl package/modules/*.tpl 2>/dev/null | grep -v '<{\*' || true)"
 
 if [ -n "$(printf '%s' "$hits" | tr -d '[:space:]')" ]; then
-  echo "🔴 メイクショップ純正のレビュータグが残っています"
+  echo "※ メイクショップ純正のレビュータグが残っています"
   echo "   u-komi と二重に出ます。ct261/ct646/ct664 と同じ分裂の再発です。"
   printf '%s\n' "$hits" | sed 's/^/   /'
   echo ""
@@ -61,24 +61,24 @@ if [ "$n" -eq 1 ]; then
      grep -q 'data-pid="<{$item.system_code}>"' "$det"; then
     echo "OK  u-komi のマウントは1つ、id は \$item.system_code"
   else
-    echo "🔴 u-komi の data-gname / data-pid が \$item.system_code ではありません"
+    echo "※ u-komi の data-gname / data-pid が \$item.system_code ではありません"
     grep -n 'data-gname\|data-pid' "$det" | sed 's/^/   /'
     fail=1
   fi
 else
-  echo "🔴 商品詳細の u-komi マウントが $n 個です（1個であるべき）"
+  echo "※ 商品詳細の u-komi マウントが $n 個です（1個であるべき）"
   fail=1
 fi
 
 # --- 3. 条件分岐で出し分けていないこと ----------------------------------------
 # カテゴリごとに出し分けたら、それは分裂そのものです。
 if grep -n 'review-container' "$det" | grep -q 'if '; then
-  echo "🔴 u-komi のマウントが条件分岐の中にあります"
+  echo "※ u-komi のマウントが条件分岐の中にあります"
   fail=1
 fi
 blk=$(grep -n -B4 'class="review-container"' "$det" | grep -E '<\{if .*(category|ct261|ct646|ct664)' || true)
 if [ -n "$blk" ]; then
-  echo "🔴 u-komi のマウントがカテゴリで出し分けられています"
+  echo "※ u-komi のマウントがカテゴリで出し分けられています"
   printf '%s\n' "$blk" | sed 's/^/   /'
   fail=1
 else

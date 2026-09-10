@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    csv-modify-download.js — 「商品一括修正」用のCSVを落とす
 
-   🔴 全85列を往復させません
+   ※ 全85列を往復させません
 
       「商品情報一括アップロード」は出力した85列をそのまま戻す作り方です。
       9,643商品の**全項目を書き戻す**ことになり、1列でも取り違えれば
@@ -52,6 +52,6 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     }
   }
   const body = await p.evaluate(`(document.body.innerText||"").replace(/\\s+/g," ").slice(0,400)`);
-  console.log("🔴 落ちてきません。画面: " + body);
+  console.log("※ 落ちてきません。画面: " + body);
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

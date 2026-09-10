@@ -48,14 +48,14 @@ function decode(buf) {
   return s;
 }
 
-/* 🔴 head は本文ではありません
+/* ※ head は本文ではありません
  *
  *    「夏は熱中症対策が…」は meta description でした。head を混ぜたので、
  *    出るはずのないものを「欠落」と数えていました。 */
 function bodyOnly(html) {
   const at = html.search(/<body/i);
   if (at >= 0) { return html.slice(at); }
-  /* 🔴 <body> が無いページがあります（ベーシックの出力）。
+  /* ※ <body> が無いページがあります（ベーシックの出力）。
    *    そのとき全文を返していたので、head の <title> を「本文の欠落」と
    *    数えていました。</head> で切ります。 */
   const h = html.toLowerCase().indexOf("</head>");
@@ -72,7 +72,7 @@ function chunks(html) {
     .map(s => s.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
                .replace(/&#(\d+);/g, (m, n) => String.fromCodePoint(Number(n)))
                .replace(/&#x([0-9a-f]+);/gi, (m, n) => String.fromCodePoint(parseInt(n, 16)))
-               /* 🔴 名前付きの実体参照も戻します。&raquo; を残していたので、
+               /* ※ 名前付きの実体参照も戻します。&raquo; を残していたので、
                 *    ページ送りの「次の40件 »」を毎回「欠落」と数えていました。 */
                .replace(/&raquo;/g, "»").replace(/&laquo;/g, "«")
                .replace(/&quot;/g, "\"").replace(/&#39;|&apos;/g, "'")
@@ -105,7 +105,7 @@ function isProductish(s) {
     const m = u.match(/ptk=([0-9a-f]+)/);
     if (m) { ptk = m[1]; break; }
   }
-  if (!ptk) { console.log("🔴 プレビューのトークンが取れません"); p.close(); return; }
+  if (!ptk) { console.log("※ プレビューのトークンが取れません"); p.close(); return; }
 
   for (const [name, livePath, viewPath] of CATS) {
     const live = decode(await fetchLive(livePath));
@@ -122,4 +122,4 @@ function isProductish(s) {
     missing.slice(0, 4).forEach(s => console.log("      " + s.slice(0, 84)));
   }
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

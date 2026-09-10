@@ -7,7 +7,7 @@
 
      node tools/cdp/link-audit.js
 
-   🔴 「テンプレートを直したから大丈夫」では足りません
+   ※ 「テンプレートを直したから大丈夫」では足りません
 
       モジュールにも独自ページにも、お店が書いたリンクが山ほど入っています。
       1箇所ずつ数えます。
@@ -27,7 +27,7 @@ const OLD = [
 
 /* 見る場所
  *
- *   🔴 「出荷するもの」と「配信されたページ」を分けます（2026-09-09）
+ *   ※ 「出荷するもの」と「配信されたページ」を分けます（2026-09-09）
  *
  *      配信されたページに残る旧URLは、**店舗のデータ**から来ます。
  *      商品説明文だけで 9,635商品・65,854箇所あります（実測）。
@@ -85,11 +85,11 @@ if (info) {
   console.log("");
 }
 if (total) {
-  console.log("🔴 出荷するものに旧URLが " + total + " 箇所残っています");
+  console.log("※ 出荷するものに旧URLが " + total + " 箇所残っています");
   const by = {};
   detail.filter(d => d.ship).forEach(d => { const k = d.label + " " + d.file; by[k] = (by[k] || 0) + d.n; });
   Object.entries(by).sort((a, b) => b[1] - a[1]).slice(0, 12)
     .forEach(([k, v]) => console.log("   " + String(v).padStart(4) + "  " + k));
   process.exit(1);
 }
-console.log("✅ 出荷するもの（テンプレート・モジュール・独自ページ）に旧URLはありません");
+console.log("OK 出荷するもの（テンプレート・モジュール・独自ページ）に旧URLはありません");

@@ -109,7 +109,7 @@
 					       value="<{if $item.order_quantity_min}><{$item.order_quantity_min}><{else}>1<{/if}>"
 					       <{if $item.order_quantity_min}>min="<{$item.order_quantity_min}>"<{/if}>
 					       <{if $item.order_quantity_max}>max="<{$item.order_quantity_max}>"<{/if}>>
-					<{* 🔴 元は [UPCOUNT] / [DOWNCOUNT] というURLの▲▼でした。
+					<{* ※ 元は [UPCOUNT] / [DOWNCOUNT] というURLの▲▼でした。
 					     クリエイターに同じURLはありません。数値入力欄にすると
 					     スマホでも数字キーが出て、押す回数も減ります。 *}></dd>
 			</dl>
@@ -366,7 +366,7 @@ src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="t
 </div>
 </div><!-- /.tab-area -->
 
-<{* 🔴 フッターは .M_mainContents の**中**です
+<{* ※ フッターは .M_mainContents の**中**です
 
      最初は外に出していました。#colum-wrap は幅指定の無いブロックなので、
      float:left の左メニューと float:right の .M_mainContents のあいだに

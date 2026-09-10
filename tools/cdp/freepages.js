@@ -4,7 +4,7 @@
      node tools/cdp/freepages.js            全部（時間がかかります）
      node tools/cdp/freepages.js 1 10       範囲を指定
 
-   🔴 独自ページはページ種別とは別物です
+   ※ 独自ページはページ種別とは別物です
 
       デザインセットの中に、82枚それぞれ丸ごとのHTMLが入っています。
       **ページ種別を直しても、独自ページは直りません。**
@@ -29,7 +29,7 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     await p.navigate(BASE + "?design_set_id=" + SET + "&freepage_id=" + id);
     let ok = false;
     for (let i = 0; i < 24 && !ok; i++) { await sleep(400); ok = !!(await p.evaluate(HAS)); }
-    if (!ok) { console.log(String(id).padStart(3) + "  🔴 開けません"); continue; }
+    if (!ok) { console.log(String(id).padStart(3) + "  ※ 開けません"); continue; }
     const r = await p.evaluate(`(function(){
       var f = document.forms.formMain;
       var g = function (n) { var e = f && f.elements[n]; return e ? e.value : ""; };
@@ -48,11 +48,11 @@ function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     rows.push(Object.assign({ id: id }, r));
     console.log(String(id).padStart(3) + "  " + String(r.pageId).padEnd(10) +
       String(r.len).padStart(7) + " 文字  " +
-      (r.newShell ? "✅ 新しい骨格" : "🔴 旧骨格") + " 左メニュー" + (r.leftmenu ? "有" : "🔴無") + "  " + r.name);
+      (r.newShell ? "OK 新しい骨格" : "※ 旧骨格") + " 左メニュー" + (r.leftmenu ? "有" : "※無") + "  " + r.name);
   }
   fs.writeFileSync("tools/cdp/freepage-scan.json", JSON.stringify(rows, null, 1));
   const old = rows.filter(r => !r.newShell).length;
   console.log("");
   console.log("調べた " + rows.length + " 枚 / 旧骨格のまま " + old + " 枚 / 左メニュー無し " + rows.filter(r => !r.leftmenu).length + " 枚");
   p.close();
-})().catch(e => { console.error("🔴 " + e.message); process.exit(1); });
+})().catch(e => { console.error("※ " + e.message); process.exit(1); });

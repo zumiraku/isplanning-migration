@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    sp-copy-loss.js — スマホ専用の説明文に、PC版に無い文章があるか（C5）
 
-   🔴 制約台帳で `?` のまま残っていた項目です
+   ※ 制約台帳で `?` のまま残っていた項目です
 
       切替後、スマホのお客様は `/smartphone/` へ飛ばなくなり、PCと同じ
       ページを見ます。つまり出るのは **PC用メイン商品説明文** だけです。
@@ -70,7 +70,7 @@ const iSp = h.findIndex(x => x === "スマホ商品説明1");
 const iPc = h.findIndex(x => x === "PC用メイン商品説明文");
 const iEx = h.findIndex(x => x === "PC用追加商品説明文");
 const iCode = h.findIndex(x => x === "システム商品コード");
-if (iSp < 0 || iPc < 0) { console.error("🔴 列がありません"); process.exit(1); }
+if (iSp < 0 || iPc < 0) { console.error("※ 列がありません"); process.exit(1); }
 
 let identical = 0, contained = 0, extra = 0, empty = 0;
 let extraChunks = 0;
@@ -129,12 +129,12 @@ console.log("一覧: inventory/sp-only-copy.csv（" + (outRows.length - 1) + " �
 console.log("");
 
 if (extra) {
-  console.log("🔴 PC側に出てこない文章が " + extraChunks + " かたまり／" + extra + " 商品");
+  console.log("※ PC側に出てこない文章が " + extraChunks + " かたまり／" + extra + " 商品");
   console.log("");
   sample.forEach(function (s) {
     console.log("  " + s.code + "  " + s.n + " かたまり");
     s.lines.forEach(l => console.log("     " + l.slice(0, 76)));
   });
 } else {
-  console.log("✅ スマホ専用の文章はありません。切替で失われるものはありません");
+  console.log("OK スマホ専用の文章はありません。切替で失われるものはありません");
 }

@@ -8,7 +8,7 @@
      旧URLをキーにして、バックアップ（categories-seo-backup.csv）と
      ct番号の対応表（categories-url.csv）を突き合わせています。
 
-     🔴 このファイルは手で編集しないでください。
+     ※ このファイルは手で編集しないでください。
         tools/build-category-titles.sh が作り直します。
 
      【粗品と景品の発見マーケット】は600回近く出てくるので、分岐の外に

@@ -7,7 +7,7 @@
 #  です。1つでもはみ出す要素があると、ページ全体が横に動き、指で縦に送るたびに
 #  ずれます。
 #
-#  🔴 撮影して人が見る、では見つかりません。
+#  ※ 撮影して人が見る、では見つかりません。
 #
 #     check-responsive.ps1 はスクリーンショットを撮ります。人が見るぶんには
 #     良いのですが、**320px で 340px ぶんの幅がある**ことは、縮小された画像を
@@ -54,7 +54,7 @@ workurl="$root/.overflow-probe"
 mkdir -p "$work"
 trap 'rm -rf "$work"' EXIT
 
-# 🔴 2026-09-09、対象を移植版に差し替えました。
+# ※ 2026-09-09、対象を移植版に差し替えました。
 #
 #    ここに並んでいた category-season / product / components は、
 #    **差し戻された設計の手書きモック**でした。並び替えバーを <select> で
@@ -64,7 +64,7 @@ trap 'rm -rf "$work"' EXIT
 #    いまの preview/*.html は tools/port/build-previews.js が
 #    **出荷するテンプレートを実際に描画して**書き出したものです。
 PAGES="top category detail search cart news-list news-detail company guide contract policy"
-# 🔴 幅を増やしました
+# ※ 幅を増やしました
 #
 #    320 と 375 だけ見ていて、**500px で18pxはみ出している**のを
 #    見逃していました。ヘッドレスの --window-size が効かず、実際は
@@ -75,7 +75,7 @@ WIDTHS="320 375 500 768 960 1024"
 fail=0
 
 # 測るための小さなページを作ります。対象を iframe に入れて、中の
-# 🔴 iframe の高さが 2400px でした（2026-09-10）
+# ※ iframe の高さが 2400px でした（2026-09-10）
 #
 #    ご利用案内は 320px のとき実高さ 34,188px あります。2400px の枠に
 #    押し込むと、中身が違う折り返し方で描かれ、**実際には出ない**
@@ -104,7 +104,7 @@ window.addEventListener('load', function () {
       if (r.width === 0) { continue; }
       if (r.right > vw + 1) {
         var el = all[i];
-        // 🔴 直近の親しか見ていませんでした（2026-09-10）
+        // ※ 直近の親しか見ていませんでした（2026-09-10）
         //    祖先のどこかが overflow で切っていれば、画面には出ません。
         //    CDP側の検査（tools/cdp/exprs/overlap.js）は祖先まで見ます。
         //    規則が違うので、手元だけ 320px の guide で li →592 を出して
@@ -128,7 +128,7 @@ window.addEventListener('load', function () {
       }
     }
   }
-  // 🔴 scrollWidth だけで落としていました（2026-09-10）
+  // ※ scrollWidth だけで落としていました（2026-09-10）
   //    guide は 320px で scrollWidth 322。ところが、はみ出している要素は
   //    1つもありません（祖先まで見る規則にしたあと）。配信ページを同じ
   //    320pxで測ってもはみ出し0です。**2px は iframe に縦スクロールバーが
@@ -155,7 +155,7 @@ for w in $WIDTHS; do
     t=$(probe "$p" "$w")
     case "$t" in
       FIT*)  printf "    OK  %-26s %s\n" "$p" "$t" ;;
-      OVER*) printf "    🔴 %-26s %s\n" "$p" "$t"; fail=1 ;;
+      OVER*) printf "    ※ %-26s %s\n" "$p" "$t"; fail=1 ;;
       *)     printf "    ??  %-26s 測れませんでした\n" "$p"; fail=1 ;;
     esac
   done

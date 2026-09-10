@@ -27,6 +27,6 @@ while ((m = re.exec(s))) {
   }
 }
 console.log(file.split("/").pop());
-if (!stack.length && !over.length) { console.log("  ✅ 釣り合っています"); process.exit(0); }
-stack.forEach(x => console.log("  🔴 閉じ忘れ  " + x.label + "  (" + x.line + " 行目で開いています)"));
-over.forEach(l => console.log("  🔴 閉じすぎ  " + l + " 行目"));
+if (!stack.length && !over.length) { console.log("  OK 釣り合っています"); process.exit(0); }
+stack.forEach(x => console.log("  ※ 閉じ忘れ  " + x.label + "  (" + x.line + " 行目で開いています)"));
+over.forEach(l => console.log("  ※ 閉じすぎ  " + l + " 行目"));
