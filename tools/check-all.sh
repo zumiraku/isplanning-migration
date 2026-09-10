@@ -43,6 +43,11 @@ run "the paste guide counts match the files"      node tools/port/sync-paste-gui
 run "CSS variables all resolve"                    sh tools/check-css-vars.sh
 run "CSS and templates line up"                   sh tools/check-css-coverage.sh
 run "Creator Mode templates parse"                sh tools/check-smarty.sh
+# 追加 2026-09-10: <{$item.group}> と書いて、商品50点が画面に "Array" と
+#   だけ出ていました。見出しは出るので、未展開タグもリンクも位置も通り抜けます。
+run "配列をそのまま出していないか"              node tools/port/check-array-output.js
+# 追加 2026-09-10: コメントの閉じ過ぎで、続くCSSルールが丸ごと消えていました。
+run "CSSのコメントが閉じているか"              node tools/port/check-css-comments.js
 run "tags match the official reference"           sh tools/check-against-reference.sh
 run "text around each Basic tag survived"         sh tools/check-tag-context.sh
 run "page templates are whole documents"          sh tools/check-page-templates.sh

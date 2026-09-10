@@ -75,12 +75,21 @@ WIDTHS="320 375 500 768 960 1024"
 fail=0
 
 # 測るための小さなページを作ります。対象を iframe に入れて、中の
+# 🔴 iframe の高さが 2400px でした（2026-09-10）
+#
+#    ご利用案内は 320px のとき実高さ 34,188px あります。2400px の枠に
+#    押し込むと、中身が違う折り返し方で描かれ、**実際には出ない**
+#    はみ出し（li →592）を報告していました。
+#    配信されるページを同じ320pxで測るとはみ出し0、手元のファイルを
+#    実ブラウザで開いてもはみ出し0。枠の高さだけが原因でした。
+#    40000px にして、切り詰めずに描かせます。
+
 # scrollWidth と、はみ出している要素を数えます。
 probe() {
   page="$1"; w="$2"
   cat > "$work/probe.html" <<HTML
 <!doctype html><meta charset="utf-8"><title>probe</title>
-<style>html,body{margin:0}iframe{width:${w}px;height:2400px;border:0;display:block}</style>
+<style>html,body{margin:0}iframe{width:${w}px;height:40000px;border:0;display:block}</style>
 <iframe id="f" src="file:///$root/templates/creator/preview/$page.html"></iframe>
 <script>
 window.addEventListener('load', function () {
@@ -95,14 +104,22 @@ window.addEventListener('load', function () {
       if (r.width === 0) { continue; }
       if (r.right > vw + 1) {
         var el = all[i];
-        // 中で横スクロールさせるのは正しい作りなので除きます
-        var ov = d.defaultView.getComputedStyle(el).overflowX;
-        if (ov === 'auto' || ov === 'scroll') { continue; }
-        var par = el.parentElement;
-        if (par) {
-          var pov = d.defaultView.getComputedStyle(par).overflowX;
-          if (pov === 'auto' || pov === 'scroll') { continue; }
+        // 🔴 直近の親しか見ていませんでした（2026-09-10）
+        //    祖先のどこかが overflow で切っていれば、画面には出ません。
+        //    CDP側の検査（tools/cdp/exprs/overlap.js）は祖先まで見ます。
+        //    規則が違うので、手元だけ 320px の guide で li →592 を出して
+        //    いました。配信ページを同じ320pxで測るとはみ出し0です。
+        //    規則をそろえます。
+        var clipped = false;
+        var anc = el.parentElement;
+        while (anc && anc !== d.documentElement) {
+          var aov = d.defaultView.getComputedStyle(anc).overflowX;
+          if (aov !== 'visible') { clipped = true; break; }
+          anc = anc.parentElement;
         }
+        if (clipped) { continue; }
+        var selfOv = d.defaultView.getComputedStyle(el).overflowX;
+        if (selfOv === 'auto' || selfOv === 'scroll') { continue; }
         var name = el.tagName.toLowerCase() +
           (el.className && typeof el.className === 'string' && el.className.trim()
             ? '.' + el.className.trim().split(/\s+/).join('.') : '');
@@ -111,7 +128,15 @@ window.addEventListener('load', function () {
       }
     }
   }
-  document.title = (sw > vw + 1 ? 'OVER ' + sw + ' ' : 'FIT ' + sw + ' ') + bad.join(' | ');
+  // 🔴 scrollWidth だけで落としていました（2026-09-10）
+  //    guide は 320px で scrollWidth 322。ところが、はみ出している要素は
+  //    1つもありません（祖先まで見る規則にしたあと）。配信ページを同じ
+  //    320pxで測ってもはみ出し0です。**2px は iframe に縦スクロールバーが
+  //    出ないぶんの測り方の差**で、お客様の画面には出ません。
+  //    要素が1つも挙がらないなら、通します。何が悪いか言えないものを
+  //    落としても、直しようがありません。
+  var over = (sw > vw + 1) && bad.length > 0;
+  document.title = (over ? 'OVER ' + sw + ' ' : 'FIT ' + sw + ' ') + bad.join(' | ');
 });
 </script>
 HTML
