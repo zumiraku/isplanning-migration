@@ -203,6 +203,41 @@ body = body.replace(/\[(IF|END|ELSE|ENDIF|IF_PREV|ENDIF_PREV|IF_NEXT|ENDIF_NEXT|
      帳尻が合っていました。ここで閉じます。 */
 body = body.trimEnd() + "\n</div><!-- /.tab-area -->";
 
+/* 🔴 カテゴリ別の商品詳細テンプレートが3件ありました（C28・2026-09-10）
+ *
+ *    ベーシックには標準のほかに ct261 / ct646 / ct664 専用の商品詳細
+ *    テンプレートがあります。移植では標準の1枚しか見ていませんでした。
+ *    行単位で比べたところ、**実質の違いは文言だけ**でした。
+ *
+ *      ct261  見出しに「粗品におすすめタオル類」を足す
+ *             セール名が「在庫一掃特別セール」（標準は「早割りセール」）
+ *      ct646  タブの名前が3つとも違う
+ *      ct664  文言の違いなし（構造だけ・標準で足ります）
+ *
+ *    クリエイターの商品詳細は1枚だけですが、`$item.base_category.code`
+ *    が実データで効くことを確かめました（003001000005 → ct5）。
+ *    カテゴリで切り替えて、3カテゴリぶんの文言を戻します。 */
+body = body.replace(
+  '<h2 class="brandname"><p><{$item.name}></p></h2>',
+  '<h2 class="brandname"><p><{$item.name}></p><{if $item.base_category.code == "ct261"}>粗品におすすめタオル類<{/if}></h2>');
+
+body = body.replace(
+  '<p class="sale"><b>早割りセール </b></p>',
+  '<p class="sale"><b><{if $item.base_category.code == "ct261"}>在庫一掃特別セール<{else}>早割りセール<{/if}> </b></p>');
+
+const TABS = [
+  ['tab-btn1', '送料・類似品', '送料について'],
+  ['tab-btn2', '商品カテゴリー一覧', 'その他おすすめ商品'],
+  ['tab-btn3', 'この商品の<br>レビューを見る', 'この商品の類似品<br>レビュー']
+];
+for (const [btn, std, ct646] of TABS) {
+  const from = 'for="' + btn + '">' + std + '</label>';
+  const to = 'for="' + btn + '"><{if $item.base_category.code == "ct646"}>' + ct646 +
+             '<{else}>' + std + '<{/if}></label>';
+  if (body.indexOf(from) < 0) { console.log('  🔴 タブが見つかりません: ' + btn); }
+  body = body.split(from).join(to);
+}
+
 const r = rewrite(body);
 body = r.html;
 

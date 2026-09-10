@@ -54,7 +54,7 @@
 	<{/if}>
 	</div>
 	
-	<h2 class="brandname"><p><{$item.name}></p></h2>
+	<h2 class="brandname"><p><{$item.name}></p><{if $item.base_category.code == "ct261"}>粗品におすすめタオル類<{/if}></h2>
 
 
 <!--<div id="NextPage"><span class="PageLeft"><a href=>< 前の商品</a></span><span class="PageRight"><a href=>次の商品 ></a></span></div>-->
@@ -116,7 +116,7 @@
 		</div>
 <{if $item.is_sale}>
 <div class="saleBox">
-<p class="sale"><b>早割りセール </b></p>
+<p class="sale"><b><{if $item.base_category.code == "ct261"}>在庫一掃特別セール<{else}>早割りセール<{/if}> </b></p>
 <p class="price">通常価格 <{$item.original_price_excluded_tax}>円（税別）から</p>
 <p class="saleRate"><b><{$item.sale_rate}>％OFF</b>　名入れ代・版代・送料等除く</p>
 </div>
@@ -164,9 +164,9 @@
 <input id="tab-btn3" class="tab-btn" name="tab" type="radio">
  
 <ul class="tab-list-wrap">
-<li><label id="tab-list1" class="tab-list" for="tab-btn1">送料・類似品</label></li>
-<li><label id="tab-list2" class="tab-list" for="tab-btn2">商品カテゴリー一覧</label></li>
-<li><label id="tab-list3" class="tab-list" for="tab-btn3">この商品の<br>レビューを見る</label></li>
+<li><label id="tab-list1" class="tab-list" for="tab-btn1"><{if $item.base_category.code == "ct646"}>送料について<{else}>送料・類似品<{/if}></label></li>
+<li><label id="tab-list2" class="tab-list" for="tab-btn2"><{if $item.base_category.code == "ct646"}>その他おすすめ商品<{else}>商品カテゴリー一覧<{/if}></label></li>
+<li><label id="tab-list3" class="tab-list" for="tab-btn3"><{if $item.base_category.code == "ct646"}>この商品の類似品<br>レビュー<{else}>この商品の<br>レビューを見る<{/if}></label></li>
 </ul>
 
 <div class="tab-content-wrap">

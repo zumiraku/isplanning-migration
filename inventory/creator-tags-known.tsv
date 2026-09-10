@@ -403,3 +403,6 @@ $category.child_category.list.item_count	confirmed	reference category/index.html
 $module.category_extra	confirmed	当方が追加。カテゴリごとの独自内容（商品一覧の上）。606件・112種類を3つに分割
 $module.category_bottom	confirmed	当方が追加。カテゴリごとの独自内容（商品一覧の下）。598件・49種類
 $module.category_title	confirmed	当方が追加。カテゴリ独自タイトル。$category.name は登録名しか返さない
+$item.base_category.code	confirmed	probed against live data 2026-09-10 (003001000005 returned ct5) — tools/cdp/probes/base-category.tpl
+$item.base_category.name	confirmed	probed 2026-09-10 (returned ～49円)
+$item.base_category.url	confirmed	probed 2026-09-10 (returned /view/category/ct5)
