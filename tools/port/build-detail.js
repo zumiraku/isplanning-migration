@@ -243,16 +243,28 @@ body = body.trimEnd() + "\n</div><!-- /.tab-area -->";
  *
  *    ベーシックには標準のほかに ct261 / ct646 / ct664 専用の商品詳細
  *    テンプレートがあります。移植では標準の1枚しか見ていませんでした。
- *    行単位で比べたところ、**実質の違いは文言だけ**でした。
  *
- *      ct261  見出しに「粗品におすすめタオル類」を足す
- *             セール名が「在庫一掃特別セール」（標準は「早割りセール」）
- *      ct646  タブの名前が3つとも違う
- *      ct664  文言の違いなし（構造だけ・標準で足ります）
+ *      ct261  基本カテゴリーがこれの商品は **0件**（CSV 9,644件で確認）。
+ *             文言だけ戻してあります。実害はありません。
+ *      ct646  **14件**（卓上カレンダー）。タブの名前も**中身も**違います。
+ *      ct664  **2件**（お年賀シール・のしシール）。
  *
  *    クリエイターの商品詳細は1枚だけですが、`$item.base_category.code`
- *    が実データで効くことを確かめました（003001000005 → ct5）。
- *    カテゴリで切り替えて、3カテゴリぶんの文言を戻します。 */
+ *    が実データで効くことを確かめました（003001000005 → ct5、
+ *    051000000001 → ct646 でタブ名が切り替わるのを実測）。
+ *
+ *    🔴 最初は「実質の違いは文言だけ」と書いていました。**間違いです。**
+ *       行の差だけを見て、行がどのタブに入っているかを見ていませんでした。
+ *       実測（tools/cdp/pair-eval.js）で分かった ct646 の中身:
+ *
+ *              現行 ct646                    移植版（標準のまま）
+ *         tab1  送料＋最近チェックした商品      送料＋イーレコメンド＋商品グループ
+ *         tab2  イーレコメンド                季節・予算などのカテゴリ画像
+ *         tab3  商品グループ＋レビュー         レビューのみ
+ *
+ *       タブ名は「その他おすすめ商品」「この商品の類似品／レビュー」なのに、
+ *       中身がカテゴリ画像とレビューだけ、という食い違いになっていました。
+ *       いまは卓上カレンダーの時期です。14件でも目に付きます。 */
 body = body.replace(
   '<h2 class="brandname"><p><{$item.name}></p></h2>',
   '<h2 class="brandname"><p><{$item.name}></p><{if $item.base_category.code == "ct261"}>粗品におすすめタオル類<{/if}></h2>');
@@ -272,6 +284,93 @@ for (const [btn, std, ct646] of TABS) {
              '<{else}>' + std + '<{/if}></label>';
   if (body.indexOf(from) < 0) { console.log('  🔴 タブが見つかりません: ' + btn); }
   body = body.split(from).join(to);
+}
+
+/* --- ct646 だけ、3つのタブの中身を入れ替えます -----------------------------
+ *
+ *    現行の「最近チェックした商品」は table#recent、商品グループは
+ *    table#M_group で、**中の形は同じ**です（実測）。カートの
+ *    $recently_item を同じ形で使います。 */
+const IS646 = '$item.base_category.code == "ct646"';
+const IS_SOLO_IMAGE = '$item.base_category.code == "ct646" or $item.base_category.code == "ct664"';
+
+/* 🔴 ct646 / ct664 は画像の枠のidが違います（現行を実測）
+ *
+ *      既定    <div id="itemImg">      … [MAIN_IMAGE] + [THUMBNAIL]
+ *      この2つ <div id="Item_detail_Image"> … [RESIZE_IMAGE_500] 1枚
+ *
+ *    CSSは #O_itemDetailL #Item_detail_Image に margin:0 0 20px 0 を
+ *    持っています。idが違うぶんだけ**下の余白が18px足りません**でした。
+ *    中身（枠内2枚・サムネイル0・#Other_img 3枚）は16商品とも一致して
+ *    いるので、変えるのはidだけです。 */
+body = body.replace('<div id="itemImg">',
+  '<div id="<{if ' + IS_SOLO_IMAGE + '}>Item_detail_Image<{else}>itemImg<{/if}>">');
+
+const RECENT = [
+  '<div class="M_section border" id="middle_recent">',
+  '<h2 class="main-ttl">最近チェックした商品</h2>',
+  '<{if $recently_item.has_item}>',
+  '<table id="recent"><tr>',
+  '<{section name=rc loop=$recently_item.list}>',
+  '<{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>',
+  '<td class="itemBox">',
+  '<table width="100%">',
+  '<tr><td height="100" class="itemImg">',
+  '<a href="<{$recently_item.list[rc].url}>"><img alt="<{$recently_item.list[rc].name}>" src="<{$recently_item.list[rc].image_M}>" border="0" width="220"></a>',
+  '</td></tr>',
+  '<tr><td>',
+  '<p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p>',
+  '<p class="price"><{$recently_item.list[rc].price}>円（税込）</p>',
+  '</td></tr>',
+  '</table>',
+  '</td>',
+  '<{/section}>',
+  '</tr></table>',
+  '<{/if}>',
+  '</div>'
+].join("");
+
+const RC_MARK = "<!-- イーレコメンド設置タグ -->";
+const GRP_MARK = "<!--商品グループ-->";
+const TAB2 = '<div id="tab-content2" class="tab-content">';
+const TAB3 = '<div id="tab-content3" class="tab-content">';
+
+const iRc = body.indexOf(RC_MARK), iGrp = body.indexOf(GRP_MARK);
+const iTab2 = body.indexOf(TAB2), iTab3 = body.indexOf(TAB3);
+if (iRc < 0 || iGrp < 0 || iTab2 < 0 || iTab3 < 0 || !(iRc < iGrp && iGrp < iTab2 && iTab2 < iTab3)) {
+  console.log("  🔴 タブの目印が見つからないので、ct646 の入れ替えを飛ばしました");
+} else {
+  /* tab1 の中の「イーレコメンド」と「商品グループ」を切り出します。
+     iRc〜iTab2 は  イーレコメンド + 商品グループ + tab1の閉じ</div>  です。 */
+  const between = body.slice(iRc, iTab2);
+  const cutG = between.indexOf(GRP_MARK);
+  const rcmdBlock = between.slice(0, cutG);
+  const rest = between.slice(cutG);
+  const cutClose = rest.lastIndexOf("</div>");        /* tab1 を閉じる </div> */
+  const groupBlock = rest.slice(0, cutClose);
+  const tab1Close = rest.slice(cutClose);
+
+  /* tab2 の中身（既定＝季節・予算などのカテゴリ画像）を切り出します */
+  const tab2Inner = body.slice(iTab2 + TAB2.length, iTab3);
+  const cutT2 = tab2Inner.lastIndexOf("</div>");      /* tab2 を閉じる </div> */
+  const tab2Body = tab2Inner.slice(0, cutT2);
+  const tab2Close = tab2Inner.slice(cutT2);
+
+  const head = body.slice(0, iRc);
+  const tail = body.slice(iTab3 + TAB3.length);
+
+  body = head +
+    /* tab1: ct646 は最近チェックした商品、それ以外はイーレコメンド＋商品グループ */
+    "<{if " + IS646 + "}>\n" + RECENT + "\n<{else}>\n" +
+    rcmdBlock + groupBlock +
+    "<{/if}>\n" + tab1Close +
+    /* tab2: ct646 はイーレコメンド、それ以外は既定のまま */
+    TAB2 + "\n<{if " + IS646 + "}>\n" + rcmdBlock + "<{else}>" +
+    tab2Body + "<{/if}>\n" + tab2Close +
+    /* tab3: ct646 だけ、先頭に商品グループを足します */
+    TAB3 + "\n<{if " + IS646 + "}>\n" + groupBlock + "<{/if}>\n" + tail;
+  console.log("  ct646: タブの中身を入れ替えました（最近チェック" + RECENT.length +
+              "字 / イーレコメンド" + rcmdBlock.length + "字 / グループ" + groupBlock.length + "字）");
 }
 
 const r = rewrite(body);

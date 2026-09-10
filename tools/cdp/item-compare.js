@@ -34,7 +34,9 @@ const ITEMS = [
   ["003003000870", "セール中"],
   ["003002000091", "スマホ側にだけ品番がある"],
   ["003002000179", "入荷予定の記載あり"],
-  ["003001000055", "スマホ側にだけ商品説明がある"]
+  ["003001000055", "スマホ側にだけ商品説明がある"],
+  ["051000000001", "ct646・専用テンプレ（14件）"],
+  ["000000018061", "ct664・専用テンプレ（2件）"]
 ];
 
 const only = process.argv[2];
@@ -57,6 +59,9 @@ const LOOK = `(function () {
     images: n("#itemImg img, .M_imageThumbnail img, [data-zoom]"),
     tabs: n(".tab-list"),
     review: n(".review-container, #u_komi"),
+    nativeReview: n("div.Review"),
+    thumbs: n(".M_imageThumbnail img"),
+    mainImg: n("#itemImg img, #Item_detail_Image img"),
     soldout: /品切れ|再入荷/.test(txt),
     sale: /セール|OFF/.test(txt),
     quote: n('a[href*="contact"], a[href*="mitsumori"], a[href*="#makeshop-item-contact-url"]'),
@@ -103,6 +108,9 @@ const LOOK = `(function () {
     cmp("options", "選択肢", "atLeast");
     cmp("images", "画像", "atLeast");
     cmp("review", "レビュー枠", "atLeast");
+    cmp("nativeReview", "純正レビュー枠", "atLeast");
+    cmp("thumbs", "サムネイル", "atLeast");
+    cmp("mainImg", "主画像", "atLeast");
     cmp("quote", "見積・問合せ", "atLeast");
     cmp("soldout", "品切れ表示", "bool");
     cmp("sale", "セール表示", "bool");

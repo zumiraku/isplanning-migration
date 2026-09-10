@@ -60,7 +60,7 @@
 <!--<div id="NextPage"><span class="PageLeft"><a href=>< 前の商品</a></span><span class="PageRight"><a href=>次の商品 ></a></span></div>-->
 	<div class="O_itemDetailTop">	
 		<div id="O_itemDetailL">
-		<div id="itemImg">
+		<div id="<{if $item.base_category.code == "ct646" or $item.base_category.code == "ct664"}>Item_detail_Image<{else}>itemImg<{/if}>">
             <a href="<{$item.image_L}>" data-zoom><img src="<{$item.image_L}>" alt="<{$item.name}>" border="0" class="M_cl_img"></a>
 			<{if $item.multi_image.has_item}>
 			<div class="M_imageThumbnail">
@@ -191,6 +191,9 @@
 	</div>
     -->
 	
+<{if $item.base_category.code == "ct646"}>
+<div class="M_section border" id="middle_recent"><h2 class="main-ttl">最近チェックした商品</h2><{if $recently_item.has_item}><table id="recent"><tr><{section name=rc loop=$recently_item.list}><{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$recently_item.list[rc].url}>"><img alt="<{$recently_item.list[rc].name}>" src="<{$recently_item.list[rc].image_M}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$recently_item.list[rc].url}>"><{$recently_item.list[rc].name}></a></p><p class="price"><{$recently_item.list[rc].price}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}></div>
+<{else}>
 <!-- イーレコメンド設置タグ -->
 <script type="text/javascript">
 if (!window._rcmdjp) document.write(unescape("%3Cscript src='" + document.location.protocol + "//d.rcmd.jp/isplanning/item/recommend.js' type='text/javascript' charset='UTF-8'%3E%3C/script%3E"));
@@ -221,9 +224,38 @@ try{
 <div class="M_section" id="middle_recent">
         <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
 </div>
+<{/if}>
 </div>
 
 <div id="tab-content2" class="tab-content">
+<{if $item.base_category.code == "ct646"}>
+<!-- イーレコメンド設置タグ -->
+<script type="text/javascript">
+if (!window._rcmdjp) document.write(unescape("%3Cscript src='" + document.location.protocol + "//d.rcmd.jp/isplanning/item/recommend.js' type='text/javascript' charset='UTF-8'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+  _rcmdjp._displayHistory({
+    template: 'deco_history_scroll2-copy'
+  });
+  _rcmdjp._displayRecommend({
+    type: 'pv',
+    template: 'deco_recommend_scroll1-copy'
+  });
+  _rcmdjp._displayRanking({
+    type: 'pv',
+    span: 'week',
+    template: 'deco_ranking_scroll3-copy'
+  });
+  _rcmdjp._displayPickup({
+    label: 'pickup-1',
+    template: 'deco_pikup_2018-copy'
+  });
+} catch(err) {}
+</script>
+
+
+<{else}>
 
 <div class="PageArea">
 <p>販売単位はほとんどの商品でご相談できますのでお問い合わせください。</p>
@@ -299,9 +331,17 @@ src="https://gigaplus.makeshop.jp/isplanning/images/i_color-1.jpg"><div class="t
 <li><a href="/view/category/ct646"><img alt="卓上カレンダー" src="https://gigaplus.makeshop.jp/isplanning/images/i_calendar.jpg"><div class="textboxisp">卓上カレンダー</div></a></li>
 </ul>
 </div>
+<{/if}>
 </div>
 
 <div id="tab-content3" class="tab-content">
+<{if $item.base_category.code == "ct646"}>
+<!--商品グループ--><div id="brandgroupsend"></div>
+<div class="M_section" id="middle_recent">
+        <{if $item.group.has_item}><h3><{$item.group.name}></h3><table id="M_group"><tr><{section name=g loop=$item.group.list}><{if $smarty.section.g.index > 0 and $smarty.section.g.index % 4 == 0}></tr><tr><{/if}><td class="itemBox"><table width="100%"><tr><td height="100" class="itemImg"><a href="<{$item.group.list[g].url}>"><img alt="<{$item.group.list[g].name}>" src="<{$item.group.list[g].image_S}>" border="0" width="220"></a></td></tr><tr><td><p class="name"><a href="<{$item.group.list[g].url}>"><{$item.group.list[g].name}></a></p><{if $item.group.list[g].special_display}><p class="spe"><{$item.group.list[g].special_display}></p><{/if}><p class="price"><{$item.group.list[g].price}>円（税込）</p></td></tr></table></td><{/section}></tr></table><{/if}>
+</div>
+<{/if}>
+
 <!--<div class="Review">
 	
 			<h4>この商品のレビュー</h4>
