@@ -37,7 +37,8 @@ const fs = require("fs");
 const { shell } = require("./shell.js");
 
 function write(name, from, body) {
-  const out = shell({ name: name.label, from: from, slider: false, body: body.trim() });
+  const out = shell({ name: name.label, from: from, slider: false,
+                      title: name.title, body: body.trim() });
   fs.writeFileSync("templates/creator/mode/" + name.file + ".tpl", out);
   console.log("  " + name.label.padEnd(16) + String(out.split("\n").length).padStart(4) + " 行");
 }
@@ -159,7 +160,8 @@ write({ file: "policy", label: "プライバシー" }, "（現行の文面）", 
 ].join("\n"));
 
 /* --- お知らせ一覧 ---------------------------------------------------------- */
-write({ file: "news-list", label: "お知らせ一覧" }, "（タグのみ）", [
+/* 🔴 現行のタイトルは「お知らせ一覧ページ」です。$page.title は店名しか返しません */
+write({ file: "news-list", label: "お知らせ一覧", title: "お知らせ一覧ページ" }, "（タグのみ）", [
   '<div id="O_adminPagearea" class="company">',
   '\t<h2>お知らせ一覧</h2>',
   '\t<{if $news.has_item}>',

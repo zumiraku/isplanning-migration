@@ -11,12 +11,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title><{$page.title}></title>
-<meta name="description" content="<{$page.description}>">
+<{if $page.description}><meta name="description" content="<{$page.description}>"><{/if}>
 <link rel="canonical" href="<{$page.canonical_url}>">
 <meta property="og:type" content="website">
 <meta property="og:title" content="<{$page.title}>">
 <meta property="og:description" content="<{$page.description}>">
 <meta property="og:site_name" content="<{$shop.name}>">
+
 <link rel="icon" href="<{$shop.favicon_url}>">
 <meta name="googlebot" content="NOODP">
 <meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">

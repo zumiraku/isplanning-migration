@@ -207,7 +207,9 @@ const r = rewrite(body);
 body = r.html;
 
 /* 🔴 id="O_itemDetail" も同じく落としていました。現行の骨格に戻します。 */
-const out = shell({ name: "商品詳細", from: "detailpage", slider: false, mainId: "O_itemDetail", body: body.trim() });
+/* 🔴 og:image を戻します。現行はプラットフォームが商品画像を入れています */
+const out = shell({ name: "商品詳細", from: "detailpage", slider: false, mainId: "O_itemDetail",
+                    ogImage: "<{$item.image_L}>", ogType: "product", body: body.trim() });
 fs.writeFileSync("templates/creator/mode/detail.tpl", out);
 
 console.log("商品詳細: " + out.split("\n").length + " 行");

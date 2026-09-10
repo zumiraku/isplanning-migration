@@ -41,6 +41,34 @@ const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
  *    商品詳細も同じで、id="O_itemDetail" を落としていました。
  *
  *    シェルに id を渡せるようにします。 */
+/* 🔴 お知らせ一覧のタイトルが、店名に化けていました（2026-09-10 実測）
+ *
+ *      現行    お知らせ一覧ページ
+ *      移植版  粗品と景品の発見マーケット　ISPLANNING
+ *
+ *    `$page.title` は、お知らせ一覧では**店名しか返しません。** 現行の
+ *    「お知らせ一覧ページ」は管理画面の設定から来ていて、デザインの
+ *    ファイルには入っていません。ページ種別ごとに持たせます。
+ *
+ * 🔴 空の meta description を出していました
+ *
+ *    現行はカゴとお知らせ一覧に description がありません。こちらは
+ *    `content=""` の空タグを出していました。中身が無いなら出しません。
+ */
+
+/* 🔴 商品ページの og:image が消えていました（2026-09-10 実測）
+ *
+ *    現行の商品ページには、プラットフォームが og:image を入れています。
+ *
+ *      https://makeshop-multi-images.akamaized.net/isplanning/itemimages/…jpg
+ *
+ *    こちらのシェルは og:title / og:description / og:site_name / og:type は
+ *    出していましたが、**og:image を出していませんでした。**
+ *    SNSやLINEで商品ページを共有したときに、画像が出ません。
+ *    お客様の販促に直結します。画面に出ないので、見た目の検査では
+ *    永久に見つかりませんでした。
+ *
+ *    ページ種別ごとに出す画像が違うので、シェルに渡す形にします。 */
 function shell(opts) {
   const slider = opts.slider
     ? '\n<div class="slider">\n<{$shop.mainvisual}>\n</div>\n'
@@ -57,13 +85,15 @@ function shell(opts) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title><{$page.title}></title>
-<meta name="description" content="<{$page.description}>">
+<title>${opts.title || "<{$page.title}>"}</title>
+<{if $page.description}><meta name="description" content="<{$page.description}>"><{/if}>
 <link rel="canonical" href="<{$page.canonical_url}>">
-<meta property="og:type" content="website">
-<meta property="og:title" content="<{$page.title}>">
+<meta property="og:type" content="${opts.ogType || "website"}">
+<meta property="og:title" content="${opts.title || "<{$page.title}>"}">
 <meta property="og:description" content="<{$page.description}>">
 <meta property="og:site_name" content="<{$shop.name}>">
+${opts.ogImage ? `<meta property="og:image" content="${opts.ogImage}">
+` : ""}
 <link rel="icon" href="<{$shop.favicon_url}>">
 ${HEAD_EXTRA}
 <link rel="stylesheet" href="<{$page.css}>">
