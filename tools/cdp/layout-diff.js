@@ -25,6 +25,16 @@ const PAGES = {
   detail:   { type: 3,  live: "https://www.isp-sp.com/shopdetail/003001000005/" },
   category: { type: 4,  live: "https://www.isp-sp.com/shopbrand/all_items/" },
   cart:     { type: 6,  live: "https://www.isp-sp.com/shop/basket.html" },
+  search:   { type: 5,  live: "https://www.isp-sp.com/shop/shopbrand.html?search=%A5%BF%A5%AA%A5%EB" },
+  "news-list":   { type: 9,  live: "https://www.isp-sp.com/new/index.html" },
+  /* 🔴 プライバシーは比べられません
+   *
+   *    現行の /html/privacy.html は、フッターのJavaScriptから開く
+   *    **ポップアップ専用のページ**です。実測でヘッダーも左メニューも
+   *    フッターもありません（本文2,477文字だけ）。
+   *    移植版はフッター付きの通常ページなので、引き算すると
+   *    フッターのコラム8本がまるごと「移植版にだけ出る」と出ます。
+   *    比較の意味が無いので外します。位置は geometry.js で見ています。 */
   guide:    { type: 11, live: "https://www.isp-sp.com/html/info.html" },
   company:  { type: 12, live: "https://www.isp-sp.com/html/company.html" },
   contract: { type: 13, live: "https://www.isp-sp.com/html/ordercontract.html" }

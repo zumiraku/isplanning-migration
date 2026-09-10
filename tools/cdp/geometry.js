@@ -23,6 +23,9 @@ const PAGES = {
   detail:      { type: 3,  live: "https://www.isp-sp.com/shopdetail/003001000005/" },
   category:    { type: 4,  live: "https://www.isp-sp.com/shopbrand/all_items/" },
   cart:        { type: 6,  live: "https://www.isp-sp.com/shop/basket.html" },
+  search:      { type: 5,  live: "https://www.isp-sp.com/shop/shopbrand.html?search=%A5%BF%A5%AA%A5%EB" },
+  "news-list": { type: 9,  live: "https://www.isp-sp.com/new/index.html" },
+  policy:      { type: 14, live: "https://www.isp-sp.com/html/privacy.html" },
   guide:       { type: 11, live: "https://www.isp-sp.com/html/info.html" },
   company:     { type: 12, live: "https://www.isp-sp.com/html/company.html" },
   contract:    { type: 13, live: "https://www.isp-sp.com/html/ordercontract.html" }
