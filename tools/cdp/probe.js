@@ -1,7 +1,11 @@
 /* ---------------------------------------------------------------------------
    probe.js — 商品詳細のテンプレートに一時的な印を差し込み、実データを読む
 
-     node tools/cdp/probe.js tools/cdp/probes/<名前>.tpl
+     node tools/cdp/probe.js tools/cdp/probes/<名前>.tpl [商品コード]
+
+   商品コードを付けると、プレビューではなく
+   /view/item/<コード>?ptk=… を開いて読みます。カテゴリ専用テンプレート
+   （ct646 / ct664）に当たる商品を名指しで見るために要ります。
 
    🔴 プレビューは「保存済みの内容」を描きます
 
@@ -20,8 +24,10 @@ const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_edi
 const SET = 5, TYPE = 3;
 const ORIG = "package/templates/detail.tpl";
 
+const PTK = "45bdf24edcff928f2fc86d299ab4a0dd03aeee10";
 const probeFile = process.argv[2];
-if (!probeFile) { console.error("使い方: node tools/cdp/probe.js <印のファイル>"); process.exit(1); }
+const itemCode = process.argv[3] || "";
+if (!probeFile) { console.error("使い方: node tools/cdp/probe.js <印のファイル> [商品コード]"); process.exit(1); }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function lf(s) { return s.split(String.fromCharCode(13) + String.fromCharCode(10)).join(String.fromCharCode(10)); }
@@ -54,14 +60,20 @@ async function save(p, body) {
   try {
     await save(p, withProbe);
     if (!await editor(p)) { throw new Error("読み直せません"); }
-    await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
     let url = "";
-    for (let i = 0; i < 30; i++) {
-      await sleep(700);
+    if (itemCode) {
+      await p.navigate("https://www.isp-sp.com/view/item/" + itemCode + "?ptk=" + PTK + "&zq=" + Date.now());
+      await sleep(4500);
       url = await p.evaluate("location.href");
-      if (url.indexOf("isp-sp.com") >= 0) { break; }
+    } else {
+      await p.evaluate("document.formPreview.target = '_self'; previewContent(); 1");
+      for (let i = 0; i < 30; i++) {
+        await sleep(700);
+        url = await p.evaluate("location.href");
+        if (url.indexOf("isp-sp.com") >= 0) { break; }
+      }
+      await sleep(2000);
     }
-    await sleep(2000);
     const html = await p.evaluate("document.documentElement.outerHTML");
     fs.writeFileSync("tools/cdp/preview-out/_probe.html", html);
 
