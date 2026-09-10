@@ -1183,3 +1183,80 @@ matters is the console login (`isplanning_mssvti`).
 **So a pasted preview URL cannot be checked from here.** Either the session
 cookie comes across, or the page is saved from the browser that can see it
 (Ctrl+S, "Webpage, HTML Only") and read from disk.
+
+---
+
+## 🔴 console.makeshop.jp を開かないでください — 2026-09-10
+
+`find-setting.js` が `https://console.makeshop.jp/dashboard?shopId=isplanning`
+を開いたところ、**レンダラーが固まりました。**
+
+見分け方（実測）:
+
+```
+/json/list                     応答あり（タブ一覧は取れる）
+Page.handleJavaScriptDialog    応答あり（ブラウザ側の処理）
+Page.enable                    無応答
+Runtime.evaluate               無応答
+```
+
+ブラウザ本体は生きていて、**そのタブの中だけ**が止まります。だから
+「CDPが壊れた」ように見えます。node のプロセスは待ち続けます（CPU 0.4秒で
+20分）。
+
+### 直すと、ログインが落ちます
+
+固まったタブは閉じるしかありません。**閉じるとログインも落ちます。**
+実際、今日2回それをやって、2回とも 401 になりました。
+
+```
+node "$TEMP/newtab2.js"     新しいタブを開いてから、固まったタブを閉じる
+                            （/json/new は PUT でないと弾かれます）
+```
+
+そのあと管理画面は再ログインが要ります。**パスワードは預かっていないので、
+大山さんにお願いすることになります。** 1回で20〜30分止まります。
+
+**設定を探すときは、旧管理画面（shop1.makeshop.jp/makeshop/newmanager/）の
+中だけで探してください。**
+
+## 🔴 独自ページのタイトルは、HTMLに書いても出ません — 2026-09-10
+
+82枚の独自ページは、こちらのテンプレートに `<title>` を literal で
+書いてあります。**保存もされています**（82枚を貼り直して1文字ずつ一致）。
+ところが配信されると空です。
+
+```
+保存されている  <title>粗品と景品の発見マーケット　ご注文用紙ダウンロード</title>
+                <meta property="og:title" content="粗品と景品の発見マーケット　…">
+
+配信される      <title></title>
+                <meta property="og:title" content="">
+```
+
+**その2つだけ**が空にされます。同じ head の中の
+`google-site-verification` も `og:site_name` も `og:type` も、こちらが
+書いたとおりに出ています。つまりプラットフォームが **`<title>` と
+`og:title` の中身だけを、SEOの記録で上書き**しています。その記録が
+空なので空になります。
+
+編集画面（`flex_design_freepage_editor.html`）の項目は6つだけで、
+タイトルはありません。
+
+```
+page_id / URL / name（管理用名称）/ is_public / content_pc / content_smartphone
+```
+
+`package/url-bulk/freepages-url.csv` の「名称」は 82枚とも入っていますが、
+これは管理用名称で、タイトルにはなりません。
+
+### だから、これは管理画面のデータ作業です
+
+現行の独自ページにはタイトルが付いています（例
+「粗品と景品の発見マーケット　ご注文用紙ダウンロード」）。**移行後は
+82枚とも空になります。** ブラウザのタブにも検索結果にも何も出ません。
+
+置く先は「ショップ構築 → 設定 → SEO設定 → その他のページ」（URLごとの
+フォーム）と思われます。**まだ実物を見ていません。** 旧管理画面の中から
+たどって確かめてください。入れる文言は
+`inventory/freepage-seo-plan.csv` に用意してあります。
