@@ -136,7 +136,7 @@ const rows = `<{section name=i loop=$category.item.list}>
 					<td class="itemtext">
 						<div style="padding-left:10px;">
 							<{* 🔴 ここは description ではありません（実測・2026-09-10）
-							     一覧の [DETAIL] は「商品カテゴリー用商品説明文」です。
+							     一覧の ［DETAIL］ は「商品カテゴリー用商品説明文」です（角かっこは全角にしてあります。半角だと未変換タグの検査が拾います）。
 							     商品CSVに専用の列（商品カテゴリー用商品説明文／
 							     同 表示可否）があります。description を出していたので、
 							     **1件ごとに商品仕様の全文**が並んでいました。
@@ -210,18 +210,46 @@ if (dbs < 0 || dbe < 0 || dbs > dbe) {
     String.fromCharCode(10) + String.fromCharCode(10) + body.slice(dbe);
 }
 
-/* --- おすすめ商品 ---------------------------------------------------------- */
+/* --- おすすめ商品 ----------------------------------------------------------
+ *
+ * 🔴 [SUISEN4_2] は、こちらの商品一覧とは別のマークアップでした
+ *    （公開ページから写した実物・2026-09-10）
+ *
+ *      130px幅の小さな表が横に並びます。画像は width="100"。
+ *      名前のうしろにアイコン、その下に価格をオレンジの太字で。
+ *      商品と商品のあいだは sero.gif の細い区切り列です。
+ *
+ *    こちらは `table.tbl02` の大きなタイル（画像220px・単価・販売価格）で
+ *    出していました。**現行より多く、大きく出ていました。**
+ *
+ *      現行    カバー付フセンメモ  16,500円（税込）
+ *      移植版  カバー付フセンメモ  単価 30円（税別） 500個入
+ *              販売価格16,500円（税込）
+ *
+ *    606カテゴリすべての下端です。現行の形に戻します。
+ *
+ *    ⚠️ 現行は商品によって「16,500円～」と出ます（オプションで価格が
+ *       変わるもの）。クリエイターにその判定を返すタグがありません。
+ *       has_option で当ててみたら6件中1件外れたので、当て推量はやめ、
+ *       全部「（税込）」で出します。inventory/class-parity-allow.tsv 参照。 */
 const RC = "$category.recommend_item.list[rc]";
 body = body.replace("[SUISEN4_2]",
 `<{if $category.recommend_item.has_item}>
-	<table class="tbl02"><tr>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
 	<{section name=rc loop=$category.recommend_item.list}>
-	  <{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>
-	  <td class="categorylist">
-	    <a href="<{${RC}.url}>"><img src="<{${RC}.image_S}>" alt="<{${RC}.name}>" border="0" class="M_cl_img"></a>
-	    <p class="item-name"><a href="<{${RC}.url}>"><{${RC}.name}></a></p>
-	    <{if ${RC}.special_display}><p class="red"><{${RC}.special_display}></p><{/if}>
-	    <p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{${RC}.price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
+	  <{if $smarty.section.rc.index > 0}><td class="line" width="4" align="center"><img src="/images/common/sero.gif"></td><{/if}>
+	  <td align="center">
+	    <table border="0" cellpadding="0" cellspacing="0" width="130">
+	      <tr><td align="center" height="100">
+	        <a href="<{${RC}.url}>"><img src="<{${RC}.image_S}>" border="0" width="100" align="center" alt="<{${RC}.name}>"></a>
+	      </td></tr>
+	      <tr><td class="line" height="3">&nbsp;</td></tr>
+	      <tr><td align="center" height="30" valign="top">
+	        <a href="<{${RC}.url}>"><{${RC}.name}></a>
+	        <{if ${RC}.icon.has_item}><{section name=ri loop=${RC}.icon.list}> <img src="<{${RC}.icon.list[ri].image_url}>" align="absmiddle" border="0"><{/section}><{/if}>
+	      </td></tr>
+	      <tr><td align="center"><font color="#F89B22"><b><{${RC}.price|number_format}>円（税込）</b></font></td></tr>
+	    </table>
 	  </td>
 	<{/section}>
 	</tr></table>

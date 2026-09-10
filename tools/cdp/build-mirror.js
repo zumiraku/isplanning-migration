@@ -78,11 +78,29 @@ function localFor(u) {
 }
 
 function rewrite(html, css, js) {
-  /* こちらのCSSとJavaScriptを埋め込みます（Cookie無しでは空で返るため） */
-  html = html.replace(/<link[^>]+href="\/view\/asset\/user-[^"]*\.css"[^>]*>/g,
+  /* こちらのCSSとJavaScriptを埋め込みます（Cookie無しでは空で返るため）
+     🔴 資産のURLには問合せが付きます。
+
+          /view/asset/user-5-1-2-….css?ptk=…&6aa265d36467f
+
+        最初 `\.css"` で終わる形だけを見ていたので1つも置き換わらず、
+        **写しが丸ごと素のHTML**になっていました（CSSの規則0本）。 */
+  html = html.replace(/<link[^>]+href="\/view\/asset\/user-[^"]*"[^>]*>/g,
     "<style>\n" + css + "\n</style>");
-  html = html.replace(/<script[^>]+src="\/view\/asset\/user-[^"]*\.js"[^>]*><\/script>/g,
+  html = html.replace(/<script[^>]+src="\/view\/asset\/user-[^"]*"[^>]*><\/script>/g,
     "<script>\n" + js + "\n</script>");
+
+  /* 🔴 document.write を呼ぶスクリプトを外します
+   *
+   *    イーレコメンド（rcmd.jp）の設置タグは document.write でスクリプトを
+   *    足します。読み込みが終わったあとの document.write は**ページを
+   *    まるごと消します。** 写しを開くと、商品詳細だけ本文が2,431文字・
+   *    画像13枚になっていました（本来は約8,000文字・116枚）。
+   *
+   *    出た中身は取り込んだ時点のDOMに入っているので、**もう一度
+   *    走らせる必要がありません。** 呼ぶ側だけ外します。 */
+  html = html.replace(/<script\b[^>]*>[\s\S]*?document\.write[\s\S]*?<\/script>/gi, "");
+  html = html.replace(/<script\b[^>]+src="[^"]*(rcmd|komi)[^"]*"[^>]*><\/script>/gi, "");
 
   /* href / src の中を1つずつ見ます */
   html = html.replace(/\b(href|src)="(\/[^"]*)"/g, function (all, attr, u) {
@@ -116,7 +134,7 @@ function rewrite(html, css, js) {
   for (const [name, livePath, portPath, type] of PAGES) {
     const file = FILE[name];
     if (!file) { console.log("   " + name + " は写しに入れません（対応表に無い）"); continue; }
-    const bound = await openAt(p, type, portPath, 5000);
+    const bound = await openAt(p, type, portPath, 9000);
     if (!bound.ok) { console.log("🔴 " + name + " ── " + bound.why); continue; }
     const html = await p.evaluate("document.documentElement.outerHTML");
     const out = rewrite(html, css, js);
@@ -126,7 +144,7 @@ function rewrite(html, css, js) {
   }
 
   /* 検索は pages.js に無いので、種別5を足します */
-  const bound = await openAt(p, 5, "/view/search?search_keyword=ND-P3841", 5000);
+  const bound = await openAt(p, 5, "/view/search?search_keyword=ND-P3841", 9000);
   if (bound.ok) {
     const html = await p.evaluate("document.documentElement.outerHTML");
     const out = rewrite(html, css, js);

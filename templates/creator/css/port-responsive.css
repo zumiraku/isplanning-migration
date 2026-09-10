@@ -884,3 +884,106 @@ a[data-zoom] { cursor: zoom-in; }
     margin-right: 0;
   }
 }
+
+/* 🔴 商品グループと「最近チェックした商品」が、狭い画面で画面外へ出ます
+      （2026-09-10 実測。写し mirror/detail.html を375pxで測定）
+
+        画面 360px に対して table#M_group の幅が **818px**
+
+      商品グループの枠は、今日こちらで組み直したものです（それまでは
+      "Array" という文字しか出ていませんでした）。現行のPCページに
+      合わせて4列にしたので、セルの中の `<img width="220">` が最低幅を
+      作り、**4列 × 220px は 360px に入りません。**
+
+      現行のPCサイトはそもそも横幅が固定なので、狭い画面での正解が
+      ありません。ここはカテゴリの `table.tbl02` と同じ扱いにします。
+      767px 以下で2列に折り返します。順番も区切りも変わりません。
+
+      同じ形の表が3つあります。
+        #M_group   商品グループ（商品詳細）
+        #recent    最近チェックした商品（ct646 の商品詳細のタブ1）
+        #M_recent  最近チェックした商品（買い物かご）
+--------------------------------------------------------------------------- */
+@media screen and (max-width: 767px) {
+  table#M_group,
+  table#recent,
+  #M_recent table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  table#M_group > tbody,
+  table#recent > tbody { display: block; width: 100%; }
+  table#M_group > tbody > tr,
+  table#recent > tbody > tr {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  table#M_group > tbody > tr > td.itemBox,
+  table#recent > tbody > tr > td.itemBox {
+    display: block;
+    width: 50% !important;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  table#M_group td.itemBox > table,
+  table#recent td.itemBox > table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  table#M_group td.itemImg img,
+  table#recent td.itemImg img,
+  #M_recent td img {
+    width: 100% !important;
+    max-width: 220px;
+    height: auto;
+  }
+}
+
+/* 768〜1024px でも、商品グループの4列は入りません（2026-09-10 実測）
+   画面 753px に対して table#M_group が 818px。1セル約205pxの4列です。
+   この幅では2列にすると隙間が目立つので、表を固定幅にして画像を縮めます。 */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  table#M_group,
+  table#recent {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed;
+  }
+  table#M_group td.itemBox,
+  table#recent td.itemBox { width: 25% !important; }
+  table#M_group td.itemImg,
+  table#recent td.itemImg { width: auto !important; }
+  /* 🔴 内側の表も止めないと、画像が外側のセルより広くなります。
+     外側だけ table-layout:fixed にしたら、セル186pxの中に198pxの画像が
+     残りました（#M_group td.itemImg img の max-width:198px がそのまま
+     効いていました）。内側の表を100%に閉じ、画像は 100% で頭打ちにします。 */
+  table#M_group td.itemBox > table,
+  table#recent td.itemBox > table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed;
+  }
+  table#M_group td.itemImg img,
+  table#recent td.itemImg img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+  }
+}
+
+/* 🔴 セルの中の文字も 198px で固定されています（2026-09-10 実測）
+
+     .itemBox table tr td p.name / p.spe / p.price  →  width: 198px
+
+   表とセルと画像を100%にしても、この3つが198pxのまま残り、768pxで
+   12px はみ出していました。狭い画面では幅の指定を外します。 */
+@media screen and (max-width: 1024px) {
+  .itemBox table tr td p.name,
+  .itemBox table tr td p.spe,
+  .itemBox table tr td p.price {
+    width: auto !important;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}

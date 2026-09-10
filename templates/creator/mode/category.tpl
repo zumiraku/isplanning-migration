@@ -86,7 +86,7 @@
 					<td class="itemtext">
 						<div style="padding-left:10px;">
 							<{* 🔴 ここは description ではありません（実測・2026-09-10）
-							     一覧の [DETAIL] は「商品カテゴリー用商品説明文」です。
+							     一覧の ［DETAIL］ は「商品カテゴリー用商品説明文」です（角かっこは全角にしてあります。半角だと未変換タグの検査が拾います）。
 							     商品CSVに専用の列（商品カテゴリー用商品説明文／
 							     同 表示可否）があります。description を出していたので、
 							     **1件ごとに商品仕様の全文**が並んでいました。
@@ -136,14 +136,21 @@
 <h3>こちらの商品もおすすめです。</h3>
 <div class="section" id="r_recommend_ct">
 	<{if $category.recommend_item.has_item}>
-	<table class="tbl02"><tr>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>
 	<{section name=rc loop=$category.recommend_item.list}>
-	  <{if $smarty.section.rc.index > 0 and $smarty.section.rc.index % 4 == 0}></tr><tr><{/if}>
-	  <td class="categorylist">
-	    <a href="<{$category.recommend_item.list[rc].url}>"><img src="<{$category.recommend_item.list[rc].image_S}>" alt="<{$category.recommend_item.list[rc].name}>" border="0" class="M_cl_img"></a>
-	    <p class="item-name"><a href="<{$category.recommend_item.list[rc].url}>"><{$category.recommend_item.list[rc].name}></a></p>
-	    <{if $category.recommend_item.list[rc].special_display}><p class="red"><{$category.recommend_item.list[rc].special_display}></p><{/if}>
-	    <p class="M_cl_price red">販売価格<span class="M_cl_taxPrice"><{$category.recommend_item.list[rc].price|number_format}></span>円<span class="M_outtax">（税込）</span></p>
+	  <{if $smarty.section.rc.index > 0}><td class="line" width="4" align="center"><img src="/images/common/sero.gif"></td><{/if}>
+	  <td align="center">
+	    <table border="0" cellpadding="0" cellspacing="0" width="130">
+	      <tr><td align="center" height="100">
+	        <a href="<{$category.recommend_item.list[rc].url}>"><img src="<{$category.recommend_item.list[rc].image_S}>" border="0" width="100" align="center" alt="<{$category.recommend_item.list[rc].name}>"></a>
+	      </td></tr>
+	      <tr><td class="line" height="3">&nbsp;</td></tr>
+	      <tr><td align="center" height="30" valign="top">
+	        <a href="<{$category.recommend_item.list[rc].url}>"><{$category.recommend_item.list[rc].name}></a>
+	        <{if $category.recommend_item.list[rc].icon.has_item}><{section name=ri loop=$category.recommend_item.list[rc].icon.list}> <img src="<{$category.recommend_item.list[rc].icon.list[ri].image_url}>" align="absmiddle" border="0"><{/section}><{/if}>
+	      </td></tr>
+	      <tr><td align="center"><font color="#F89B22"><b><{$category.recommend_item.list[rc].price|number_format}>円（税込）</b></font></td></tr>
+	    </table>
 	  </td>
 	<{/section}>
 	</tr></table>
