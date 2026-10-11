@@ -9,7 +9,6 @@
     broken.push(short(i.currentSrc || i.src) + "  ⟨" + (i.getAttribute("alt") || "") + "⟩");
   });
 
-  /* 背景画像も拾います（url(...) が入っている要素だけ） */
   var bg = {};
   Array.prototype.forEach.call(document.querySelectorAll("body *"), function (e) {
     var v = getComputedStyle(e).backgroundImage;
@@ -21,7 +20,6 @@
     });
   });
 
-  /* 読めなかったスタイルシート */
   var css = [], cssBad = [];
   Array.prototype.forEach.call(document.querySelectorAll('link[rel="stylesheet"]'), function (l) {
     css.push(short(l.href));

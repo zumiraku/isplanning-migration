@@ -1,4 +1,3 @@
-/* category-title.js — カテゴリ独自タイトルをモジュールにする */
 const fs = require("fs");
 
 const SRC = "tools/cdp/category-src";

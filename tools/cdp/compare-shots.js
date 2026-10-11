@@ -1,4 +1,3 @@
-/* compare-shots.js — 現行サイトと移植版を、同じ幅・同じ位置で撮って並べます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

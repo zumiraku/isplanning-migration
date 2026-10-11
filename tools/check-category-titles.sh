@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-category-titles.sh — do the restored titles actually come out right?
 set -e
 cd "$(dirname "$0")/.."
 

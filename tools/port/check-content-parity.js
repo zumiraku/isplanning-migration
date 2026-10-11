@@ -1,4 +1,3 @@
-/* check-content-parity.js — 現行サイトにあって、移植版に無い文言を出す */
 const fs = require("fs");
 
 function decode(buf) {

@@ -1,4 +1,3 @@
-/* url-map.js — 旧URL → クリエイターURL の対応表 */
 const fs = require("fs");
 
 function readCsv(p) {

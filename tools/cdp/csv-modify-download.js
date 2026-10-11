@@ -1,4 +1,3 @@
-/* csv-modify-download.js — 「商品一括修正」用のCSVを落とす */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

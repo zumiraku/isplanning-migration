@@ -6,7 +6,7 @@
     var r = e.getBoundingClientRect();
     if (r.width === 0 || r.height === 0) { continue; }
     if (r.right <= window.innerWidth + 1) { continue; }
-    /* いちばん外側の犯人だけ知りたいので、親がすでにはみ出していたら飛ばします */
+    /* 一番外側だけ。親がはみ出していたら飛ばす */
     var pr = e.parentElement ? e.parentElement.getBoundingClientRect() : null;
     if (pr && pr.right > window.innerWidth + 1) { continue; }
     var cs = getComputedStyle(e);

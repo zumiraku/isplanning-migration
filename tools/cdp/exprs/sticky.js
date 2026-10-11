@@ -8,10 +8,8 @@
     bodyOverflow: getComputedStyle(document.body).overflowY,
     bodyHeight: getComputedStyle(document.body).height
   };
-  /* JS の代わりに、こちらで直接スクロールさせて確かめます */
   window.scrollTo(0, 400);
   out.afterScrollTo = { y: Math.round(window.pageYOffset), cls: h ? h.className : "" };
-  /* scroll イベントを自分で出したらどうなるか */
   window.dispatchEvent(new Event("scroll"));
   out.afterEvent = { y: Math.round(window.pageYOffset), cls: h ? h.className : "" };
   window.scrollTo(0, 0);

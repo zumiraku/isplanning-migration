@@ -1,6 +1,4 @@
 #!/bin/sh
-# rewrite-internal-links.sh — /html/pageNN.html を /view/page/pageNN.html に
-
 changed=0
 files=0
 

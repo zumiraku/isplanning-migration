@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-privacy-body.sh — プライバシーポリシーの本文をテンプレートに起こす
 set -e
 cd "$(dirname "$0")/.."
 

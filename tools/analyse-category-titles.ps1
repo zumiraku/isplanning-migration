@@ -1,5 +1,3 @@
-# analyse-category-titles.ps1 — C4 / Gate A decision (A)
-
 [CmdletBinding()]
 param()
 

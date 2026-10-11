@@ -1,5 +1,3 @@
-# build-freepage-previews.ps1 — Stage 5 review build
-
 [CmdletBinding()]
 param()
 

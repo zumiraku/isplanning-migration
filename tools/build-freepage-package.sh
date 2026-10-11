@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-freepage-package.sh — the 86 free pages, ready for フリーページ管理
-
 src="templates/creator/freepages"
 list="inventory/freepages-admin-list.csv"
 out="package/freepages"

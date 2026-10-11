@@ -1,5 +1,3 @@
-# build-news-previews.ps1 — the ニュース一覧 / ニュース詳細 templates
-
 [CmdletBinding()]
 param([int]$PerPage = 20)
 

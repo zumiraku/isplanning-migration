@@ -1,4 +1,3 @@
-/* bind.js — 測りたいページを、そのページ種別の設計で描かせます */
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";
 const SET = 5;
 

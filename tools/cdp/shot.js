@@ -1,4 +1,3 @@
-/* shot.js — 山口様が見たのと同じ画面を、そのまま画像で取ります */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

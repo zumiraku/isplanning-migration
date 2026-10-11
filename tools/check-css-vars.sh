@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-css-vars.sh — is every var() actually defined?
-
 files="templates/creator/css/tokens.css templates/creator/css/components.css templates/creator/css/freepage.css"
 
 defined=$(perl -CSD -0777 -ne 'while(/(--[a-z0-9-]+)\s*:/g){ print "$1\n" }' $files 2>/dev/null | sort -u)

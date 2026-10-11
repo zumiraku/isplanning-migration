@@ -1,4 +1,3 @@
-/* cookies.js — 写したプロファイルに、セッションが乗っているかを見る */
 const { page } = require("./cdp.js");
 (async () => {
   const p = await page("makeshop.jp");

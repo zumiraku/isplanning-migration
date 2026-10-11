@@ -1,4 +1,3 @@
-/* csv-fetch.js — 出来上がったCSVジョブを取りに行く */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

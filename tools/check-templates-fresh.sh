@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-templates-fresh.sh — 貼るテンプレートが、手元から作り直されているか
 set -e
 cd "$(dirname "$0")/.."
 

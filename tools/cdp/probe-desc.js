@@ -1,4 +1,3 @@
-/* probe-desc.js — 商品詳細の説明タグ4つに、実際に何が入るのかを確かめる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

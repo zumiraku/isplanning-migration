@@ -1,4 +1,3 @@
-/* verify.js — 配信されたプレビューを、機械で点検する */
 const fs = require("fs");
 
 const DIR = "tools/cdp/preview-out";

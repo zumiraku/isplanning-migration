@@ -1,4 +1,3 @@
-/* diff-csv-columns.js — 流すCSVが、狙った列以外を触っていないか */
 const fs = require("fs");
 
 const BACKUP = "tools/cdp/csv/20260909181742.csv";

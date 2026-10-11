@@ -1,4 +1,3 @@
-/* width-check.js — 実際に配信されるページを、幅を変えて測る */
 const { page } = require("./cdp.js");
 
 const WIDTHS = [320, 375, 414, 768, 960, 1280];

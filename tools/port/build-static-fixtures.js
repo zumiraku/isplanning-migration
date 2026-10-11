@@ -1,4 +1,3 @@
-/* build-static-fixtures.js — 会社概要・特商法・ご利用案内の中身を実データにする */
 const fs = require("fs");
 
 const SRC = process.argv[2];

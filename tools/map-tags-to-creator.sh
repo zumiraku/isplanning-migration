@@ -1,6 +1,4 @@
 #!/bin/sh
-# map-tags-to-creator.sh — Basic Mode tag -> Creator Mode tag
-
 src="inventory/basic-mode-tags.csv"
 out="${1:-inventory/tag-mapping.csv}"
 

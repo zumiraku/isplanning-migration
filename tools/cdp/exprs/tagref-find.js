@@ -8,7 +8,6 @@
       if (ev && ev.click) { out.click = ev.click.map(function (h) { return String(h.handler).slice(0, 500); }).join(" | "); }
     } catch (e) { out.click = "(読めません)"; }
   }
-  /* 画面のどこかに参照用の枠が隠れていないか */
   out.dialogs = Array.from(document.querySelectorAll("[id*=reference], [class*=reference], [id*=tag], dialog, .modal"))
     .slice(0, 12).map(function (e) { return e.tagName + "#" + e.id + "." + e.className; });
   out.iframes = Array.from(document.querySelectorAll("iframe")).map(function (f) { return f.src; });

@@ -1,20 +1,5 @@
 #!/usr/bin/perl
-# -----------------------------------------------------------------------------
-#  _check-category-title.pl — does the generated template actually produce the
-#  titles the shop had before the migration?
-#
-#  ※ This has to ask a DIFFERENT question from the generator, or it proves
-#     nothing. The earlier caption check compared an extraction against the
-#     same extraction and reported 34/34 identical while 10 were truncated.
-#
-#     So this does not look at any intermediate file. It reads
-#     _category-title.tpl the way Smarty would - walking the if/elseif chain,
-#     picking the first branch whose ct code matches, and assembling whatever
-#     that branch emits, including the suffix that was folded out of the branch
-#     bodies - and compares the result to the original title in
-#     categories-seo-backup.csv, joined through the ct code in
-#     categories-url.csv. If the folding is wrong by one character, this fails.
-# -----------------------------------------------------------------------------
+# reads the generated tpl like Smarty would, never the generator's intermediates, else it proves nothing
 use strict;
 use warnings;
 use utf8;
@@ -56,29 +41,22 @@ my ($TPL, $SEO, $URLC, $OVERRIDE, $REPORT) = @ARGV;
 die "usage: _check-category-title.pl <tpl> <seo.csv> <url.csv> <overrides.csv> <report.csv>\n"
     unless $REPORT;
 
-# ---- 1. render the template for every ct code it mentions -------------------
 my $tpl = slurp($TPL);
 
-# The header comment talks ABOUT <title>, so Smarty comments come out first -
-# otherwise the "exactly one <title>" check trips over the documentation.
+# header comment mentions <title>
 $tpl =~ s{<\{\*.*?\*\}>}{}gs;
 
-# The document must be a single <title>…</title> with the chain inside it.
 my ($inner) = $tpl =~ m{<title>(.*?)</title>}s;
 die "FAIL: the template does not contain exactly one <title> element\n"
     unless defined $inner;
 die "FAIL: more than one <title> in the template\n"
     if scalar(() = $tpl =~ m{<title>}g) != 1;
 
-# Everything from the first <{else}> onward is the fallback for categories added
-# after the migration. It has its own nested if/section inside it, so it is cut
-# away before the chain is split - otherwise its internals get read as branches.
+# cut the fallback first; its nested if would read as branches
 my $i = index($inner, '<{else}>');
 die "FAIL: no <{else}> fallback in the chain\n" if $i < 0;
 my $chain = substr($inner, 0, $i);
 
-# Split the chain into branches. A branch begins at an <{if}>/<{elseif}> and
-# runs to the next one.
 my @parts = split /(?=<\{(?:if|elseif)\b)/, $chain;
 my @branch;
 for my $p (@parts) {
@@ -98,7 +76,6 @@ for my $b (@branch) {
     my ($c, $body) = @$b;
     die "FAIL: ct code $c appears in two branches; the second can never run\n"
         if $dup{$c}++;
-    # undo the escaping the generator applied on the way out
     $body =~ s/&lt;/</g;
     $body =~ s/&gt;/>/g;
     $body =~ s/&amp;/&/g;
@@ -107,7 +84,6 @@ for my $b (@branch) {
     $rendered{$c} = $body;
 }
 
-# ---- 2. what the titles were, straight from the two source files ------------
 my %title;
 my @seo = split /\n/, slurp($SEO); shift @seo;
 for my $l (@seo) {
@@ -129,7 +105,6 @@ for my $l (@u) {
     next unless $f[1] =~ m{/view/category/(ct\d+)};
     $code{$f[4]} = $1;
 }
-# categories whose code is not a ct number, with the evidence for each
 {
     my @o = split /\n/, slurp($OVERRIDE); shift @o;
     for my $l (@o) {
@@ -140,7 +115,6 @@ for my $l (@u) {
     }
 }
 
-# ---- 3. what the report says was deliberately not restored ------------------
 my %excused;
 if (-f $REPORT) {
     my @r = split /\n/, slurp($REPORT); shift @r;
@@ -151,7 +125,6 @@ if (-f $REPORT) {
     }
 }
 
-# ---- 4. compare -------------------------------------------------------------
 my ($ok, @bad, @missing, @extra) = (0);
 my %expected;
 for my $url (sort keys %title) {

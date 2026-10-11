@@ -1,4 +1,3 @@
-/* open.js — URLを開いて、中身の骨格を報告する */
 const { page } = require("./cdp.js");
 
 const url = process.argv[2];

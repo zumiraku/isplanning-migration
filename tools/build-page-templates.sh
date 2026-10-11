@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-page-templates.sh — 貼り付け用のページを package/templates に配る
 set -e
 cd "$(dirname "$0")/.."
 

@@ -12,8 +12,7 @@
   var fmt = inputs[inputs.length - 1];
   if (!fmt) { return "(フォーマット欄がありません)"; }
 
-  /* Vuetify の選択欄は、input ではなく外側の枠が開閉を持っています。
-     本物の押下に近い順番でイベントを出します。 */
+  /* Vuetify の選択欄は input でなく外枠が開閉を持つ。実クリックの順でイベントを出す */
   var field = fmt.closest(".v-field") || fmt.parentElement;
   ["pointerdown", "mousedown", "mouseup", "click"].forEach(function (t) {
     field.dispatchEvent(new MouseEvent(t, { bubbles: true, cancelable: true }));

@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-review-unified.sh — レビューが u-komi 一本になっているか
 set -e
 cd "$(dirname "$0")/.."
 

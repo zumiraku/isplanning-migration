@@ -1,5 +1,3 @@
-/* strip-comments.js — 自作ファイルの説明コメントを落とし、1行の見出しだけ残します */
-
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
@@ -25,12 +23,11 @@ const KEEP = [
 
 const dry = process.argv.indexOf("--check") >= 0;
 
-/* --- 文字列と正規表現を避けながら JS のコメントを消します ------------------ */
 function stripJs(src) {
   let out = "";
   let i = 0;
   const n = src.length;
-  let prev = "";           /* 直前の意味のある文字。正規表現かどうかの判定に使います */
+  let prev = "";           /* 正規表現判定用 */
   while (i < n) {
     const c = src[i];
     const d = src[i + 1];
@@ -52,7 +49,7 @@ function stripJs(src) {
     if (c === "/" && d === "*") {
       const end = src.indexOf("*/", i + 2);
       const stop = end < 0 ? n : end + 2;
-      /* 行頭からのブロックなら、続く改行も一緒に落とします */
+      /* 行頭からなら改行ごと */
       const lineStart = out.lastIndexOf("\n") + 1;
       const onlySpace = /^[ \t]*$/.test(out.slice(lineStart));
       if (onlySpace) {
@@ -79,7 +76,7 @@ function stripJs(src) {
     }
 
     if (c === "/" && !/[A-Za-z0-9_$)\]]/.test(prev)) {
-      /* 正規表現リテラル。中の / は割り算ではありません */
+      /* 正規表現リテラル */
       let j = i + 1;
       let cls = false;
       while (j < n) {
@@ -106,7 +103,7 @@ function stripJs(src) {
   return out;
 }
 
-/* --- CSS。文字列の中の /* は無視します ------------------------------------- */
+/* 文字列中の /* は無視 */
 function stripCss(src) {
   let out = "";
   let i = 0;
@@ -145,7 +142,7 @@ function stripCss(src) {
   return out;
 }
 
-/* --- シェルと PowerShell。行頭の # だけ落とします -------------------------- */
+/* 行頭の # だけ */
 function stripHash(src) {
   const lines = src.split("\n");
   const out = [];
@@ -161,7 +158,6 @@ function stripHash(src) {
   return out.join("\n");
 }
 
-/* もとの見出しから「名前 — 説明」を拾います */
 function headline(src, base) {
   const m = src.match(new RegExp("^\\s*(?:#|\\*|/\\*)?\\s*" +
     base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s+[—-]\\s+(.+)$", "m"));

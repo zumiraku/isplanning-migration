@@ -1,5 +1,3 @@
-# extract-news.ps1 — the /new/ archive
-
 [CmdletBinding()]
 param()
 

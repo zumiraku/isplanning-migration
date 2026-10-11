@@ -1,6 +1,4 @@
 #!/bin/sh
-# inventory-internal-links.sh — every internal link that the URL change breaks
-
 dir="templates/creator/freepages"
 out="${1:-inventory/internal-links.csv}"
 

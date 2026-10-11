@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-against-reference.sh — compare every tag we use to the official list
 set -e
 cd "$(dirname "$0")/.."
 

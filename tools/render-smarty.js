@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* render-smarty.js — run a Creator Mode template against made-up data and */
 'use strict';
 
 const fs = require('fs');

@@ -1,4 +1,3 @@
-/* freepage-width.js — 独自ページ82枚に、はみ出しそうな固定幅がないか */
 const fs = require("fs");
 
 const DIR = "tools/cdp/freepage-out";

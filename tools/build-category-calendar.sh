@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-category-calendar.sh — ct646（卓上カレンダー）の営業日カレンダー
 set -e
 cd "$(dirname "$0")/.."
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* make-paste-file.js — コンソールの箱に貼る「1枚のファイル」を作る */
 'use strict';
 const fs = require('fs');
 const path = require('path');

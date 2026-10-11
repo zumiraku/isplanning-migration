@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-url-csv-news.sh — お知らせ101件のURL対応表
 set -e
 cd "$(dirname "$0")/.."
 

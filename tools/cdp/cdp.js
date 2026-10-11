@@ -1,4 +1,3 @@
-/* cdp.js — Chrome を操作するための最小限の道具 */
 const http = require("http");
 const net = require("net");
 const crypto = require("crypto");

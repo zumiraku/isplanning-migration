@@ -1,4 +1,3 @@
-/* eval.js — 開いているタブで、ファイルに書いた式を評価する */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

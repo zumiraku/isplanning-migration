@@ -1,4 +1,3 @@
-/* box-clear.js — ページ種別ごとの CSS / JavaScript 欄を空にする */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

@@ -1,4 +1,3 @@
-/* modules.js — モジュールを1つずつ開いて、IDと中身を読む／書き込む */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-category-captions.sh — the 34 per-category captions, as a Smarty include
-
 src="inventory/category-data.csv"
 out="${1:-templates/creator/mode/category-captions.tpl}"
 

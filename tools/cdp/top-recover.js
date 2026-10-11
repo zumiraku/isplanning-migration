@@ -1,4 +1,3 @@
-/* top-recover.js — トップのプレビューが会員制ページを返す件の切り分け */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

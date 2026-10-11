@@ -1,4 +1,3 @@
-/* diff-detailpages.js — カテゴリ別の商品詳細テンプレート3件が、標準と何が違うか */
 const fs = require("fs");
 const path = require("path");
 

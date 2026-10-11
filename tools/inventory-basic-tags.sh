@@ -1,6 +1,4 @@
 #!/bin/sh
-# inventory-basic-tags.sh — every Basic Mode variable tag the shop's templates use
-
 dir="templates/basic-export/design"
 out="${1:-inventory/basic-mode-tags.csv}"
 

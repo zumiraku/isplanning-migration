@@ -1,4 +1,3 @@
-/* freepage-fetch.js — 独自ページ82枚を、公開中のサイトから取ってくる */
 const fs = require("fs");
 const https = require("https");
 

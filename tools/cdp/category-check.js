@@ -1,4 +1,3 @@
-/* category-check.js — カテゴリごとの独自内容が、移行後も出るか */
 const fs = require("fs");
 const https = require("https");
 const { page } = require("./cdp.js");

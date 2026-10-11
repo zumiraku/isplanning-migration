@@ -1,4 +1,3 @@
-/* csv-build.js — 商品CSVを作り直す（説明文の移し替え） */
 const fs = require("fs");
 const iconv = require("iconv-lite");
 const { decode, parse, build } = require("./csv-lib.js");

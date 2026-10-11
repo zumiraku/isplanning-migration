@@ -1,4 +1,3 @@
-/* plain-markers.js — コメントと画面出力の記号を、普通の書き方にそろえます */
 const fs = require("fs");
 const { execFileSync } = require("child_process");
 

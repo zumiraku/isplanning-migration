@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-category-titles.sh — restore the 606 per-category page titles
 set -e
 cd "$(dirname "$0")/.."
 

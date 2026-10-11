@@ -1,4 +1,3 @@
-/* paste-all.js — 11ページ種別と全ページ共通を、まとめて流し込んで確かめる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

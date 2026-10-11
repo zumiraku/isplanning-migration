@@ -1,5 +1,3 @@
-# build-category-calendar.ps1 — the calendar category page (C25)
-
 [CmdletBinding()]
 param()
 

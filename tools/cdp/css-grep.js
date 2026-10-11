@@ -1,4 +1,3 @@
-/* css-grep.js — 配信されている自前CSSを取ってきて、文字で探します */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

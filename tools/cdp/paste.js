@@ -1,4 +1,3 @@
-/* paste.js — ページ種別のHTMLを流し込んで保存し、**届いたかどうかを読み直す** */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

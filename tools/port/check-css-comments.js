@@ -1,4 +1,3 @@
-/* check-css-comments.js — CSSのコメントが正しく閉じているか */
 const fs = require("fs");
 const path = require("path");
 

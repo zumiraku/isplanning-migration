@@ -19,7 +19,7 @@
     var r = e.getBoundingClientRect();
     if (r.width <= 0 || r.right <= view + 2 || clipped(e)) { return; }
     var p = e.parentElement;
-    /* 親もはみ出しているなら、名指しするのは親のほうです */
+    /* 親もはみ出していたら親のほうを挙げる */
     if (p && p.getBoundingClientRect().right > view + 2 && !clipped(p)) { return; }
     var cs = getComputedStyle(e);
     out.一覧.push({

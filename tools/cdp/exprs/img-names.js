@@ -5,7 +5,6 @@
     if (!u) { u = "(srcなし)"; }
     count[u] = (count[u] || 0) + 1;
   });
-  /* 背景画像も拾います */
   Array.prototype.forEach.call(document.querySelectorAll("body *"), function (e) {
     var v = getComputedStyle(e).backgroundImage;
     if (!v || v === "none" || v.indexOf("url(") < 0) { return; }

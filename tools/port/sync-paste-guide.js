@@ -1,4 +1,3 @@
-/* sync-paste-guide.js — 貼り付け手順書の「行数」を、実物に合わせる */
 const fs = require("fs");
 
 const MD = "docs/paste-guide.md";

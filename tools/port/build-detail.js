@@ -1,4 +1,3 @@
-/* build-detail.js — 商品詳細ページを移植する */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");

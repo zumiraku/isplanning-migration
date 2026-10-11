@@ -12,7 +12,6 @@
     }
     return sel + " : " + out.join("  <  ");
   }
-  /* #O_container の兄弟に何が並んでいるか */
   var oc = document.querySelector("#O_container");
   var sibs = oc && oc.parentElement
     ? Array.from(oc.parentElement.children).map(function (c) {

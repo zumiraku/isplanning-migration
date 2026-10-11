@@ -1,6 +1,4 @@
 #!/bin/sh
-# extract-category-data.sh — turn 53 templates into one data table
-
 dir="templates/basic-export/design/design_categorypages"
 out="${1:-inventory/category-data.csv}"
 tile="tools/_category-tile.pl"

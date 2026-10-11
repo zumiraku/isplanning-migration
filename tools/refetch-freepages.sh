@@ -1,5 +1,4 @@
 #!/bin/sh
-# refetch-freepages.sh — 山口様が直されたフリーページを取り直す
 set -e
 cd "$(dirname "$0")/.."
 

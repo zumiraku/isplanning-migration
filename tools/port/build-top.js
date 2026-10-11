@@ -1,4 +1,3 @@
-/* build-top.js — トップページを移植する */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { grid, ranking, news } = require("./items.js");

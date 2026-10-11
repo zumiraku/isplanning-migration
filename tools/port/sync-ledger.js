@@ -1,4 +1,3 @@
-/* sync-ledger.js — タグ台帳を公式リファレンスに追いつかせる */
 const fs = require("fs");
 
 const norm = s => s.replace(/\[[^\]]*\]/g, "");

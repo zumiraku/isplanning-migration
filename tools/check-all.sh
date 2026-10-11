@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-all.sh — every automated check, in the order that fails cheapest first
-
 fail=0
 run() {
   name="$1"; shift

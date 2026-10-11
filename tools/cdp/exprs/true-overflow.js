@@ -2,9 +2,7 @@
   var doc = document.documentElement;
   var view = doc.clientWidth;
 
-  /* 祖先が overflow で切っている要素は、はみ出しになりません。
-     いままでの数え方はそれを見ていなかったので、スライダーの中身を
-     51件も数えていました。**切られているものは除きます。** */
+  /* 祖先が overflow で切っている要素ははみ出しに数えない（スライダーの中身など） */
   function clipped(e) {
     var n = e.parentElement;
     while (n && n !== doc) {
@@ -31,7 +29,6 @@
     });
   });
   out.count = out.list.length;
-  /* 深いものより浅いもの（元凶に近い）を先に */
   out.list = out.list.slice(0, 14);
   return out;
 })()

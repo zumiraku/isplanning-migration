@@ -1,4 +1,3 @@
-/* check-class-parity.js — 現行テンプレートの class と id が、移植版にもあるか */
 const fs = require("fs");
 
 const D = "templates/basic-export/design/";

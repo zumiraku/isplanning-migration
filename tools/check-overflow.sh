@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-overflow.sh — 狭い画面で横にはみ出していないか
 set -e
 cd "$(dirname "$0")/.."
 

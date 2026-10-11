@@ -1,4 +1,3 @@
-/* fix-mojibake.js — 二重エンコードした行だけを直す */
 const fs = require("fs");
 
 const file = process.argv[2];

@@ -1,4 +1,3 @@
-/* assets-check.js — 画像・CSS・JSが本当に読めているかを、現行と比べます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { PAGES, landed } = require("./pages.js");

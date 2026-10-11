@@ -1,5 +1,4 @@
 #!/bin/sh
-# fetch-sitemap.sh — サイトマップを取り直す
 set -e
 cd "$(dirname "$0")/.."
 

@@ -1,4 +1,3 @@
-/* build-cart.js — 買い物かごページを移植する */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");

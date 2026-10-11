@@ -1,5 +1,4 @@
 (function () {
-  /* 「税込」を含む要素が、どの区画に属しているかを数えます */
   var marks = [
     ["#r_new", "新着商品"],
     ["#r_recommend", "おすすめ商品"],
@@ -15,7 +14,7 @@
   var out = { total: 0, zones: {}, outside: 0 };
   var all = Array.prototype.slice.call(document.querySelectorAll("*"));
   all.forEach(function (e) {
-    if (e.children.length) { return; }              /* 末端だけ数えます */
+    if (e.children.length) { return; }
     var t = e.textContent || "";
     if (t.indexOf("税込") < 0) { return; }
     out.total++;

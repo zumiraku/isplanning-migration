@@ -1,4 +1,3 @@
-/* build-previews.js — 移植版のプレビューHTMLを作る */
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");

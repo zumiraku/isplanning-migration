@@ -1,5 +1,3 @@
-# convert-freepages.ps1 — Stage 5
-
 [CmdletBinding()]
 param(
   [string]$Only = '',

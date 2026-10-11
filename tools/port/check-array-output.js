@@ -1,4 +1,3 @@
-/* check-array-output.js — 配列をそのまま出している箇所を探します */
 const fs = require("fs");
 const path = require("path");
 

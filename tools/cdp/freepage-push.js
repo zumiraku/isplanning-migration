@@ -1,4 +1,3 @@
-/* freepage-push.js — 作り直した独自ページ82枚を流し込んで、読み直して確かめる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

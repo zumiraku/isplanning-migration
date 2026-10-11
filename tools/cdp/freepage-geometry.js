@@ -1,4 +1,3 @@
-/* freepage-geometry.js — 独自ページを、現行と同じ幅で並べて位置を突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

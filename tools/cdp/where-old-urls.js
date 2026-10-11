@@ -1,4 +1,3 @@
-/* where-old-urls.js — 配信ページに残る旧URLが、どこから来ているか */
 const fs = require("fs");
 
 const FILES = [

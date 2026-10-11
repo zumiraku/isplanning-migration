@@ -1,4 +1,3 @@
-/* build-search.js — 商品検索結果ページを移植する */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 const { rewrite } = require("./url-map.js");

@@ -1,11 +1,5 @@
 #!/usr/bin/perl
-# -----------------------------------------------------------------------------
-#  _rewrite-links.pl — 残っている旧URLを新URLに書き換える
-#
-#  rewrite-remaining-links.sh から呼ばれます。対応が取れないものは書き換えず、
-#  一覧にして返します。推測で当てると、別の商品やカテゴリへ誘導することに
-#  なります。
-# -----------------------------------------------------------------------------
+# 対応が取れないURLは推測で当てず、そのまま残して一覧に出す
 use strict;
 use warnings;
 use utf8;
@@ -36,7 +30,6 @@ sub fields {
 my ($csv, @files) = @ARGV;
 die "usage: _rewrite-links.pl <categories-url.csv> <file>...\n" unless @files;
 
-# ---- カテゴリ 旧URL -> 新URL ------------------------------------------------
 my %cat;
 open my $c, '<:raw', $csv or die "$csv: $!";
 my $b = do { local $/; <$c> };
@@ -57,8 +50,7 @@ for my $l (@lines) {
     $cat{"$bare/"} = $f[1];
 }
 
-# ---- ページ種別になった旧システムページ -------------------------------------
-# フリーページではありません。クリエイターモードのページ種別に変わったものです。
+# フリーページではなくページ種別になったもの
 my %page = (
     '/html/company.html'       => '/view/company',
     '/html/ordercontract.html' => '/view/contract',
@@ -74,11 +66,7 @@ for my $f (@files) {
     close $i;
     my $before = $src;
 
-    # ※ 引用符なしの href も拾います。
-    #    会社概要に <A href=https://www.isp-sp.com/html/ordercontract.html> と
-    #    書かれた行があり、`href="…"` だけを見ていた最初の版はこれを素通り
-    #    しました。お店が10年以上前に手で書いたHTMLなので、引用符の有無は
-    #    揃っていません。
+    # 引用符なしの href もある（会社概要の手書きHTML）
     $src =~ s{(href=)(")([^"]*)(")|(href=)([^"'\s>]+)}{
         my ($a, $u, $z);
         if (defined $2) { ($a, $u, $z) = ($1 . $2, $3, $4) }

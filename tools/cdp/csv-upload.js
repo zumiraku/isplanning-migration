@@ -1,4 +1,3 @@
-/* csv-upload.js — 商品CSVを流し込む */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

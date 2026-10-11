@@ -1,5 +1,5 @@
 (function () {
-  /* 「全て非表示」を押しても外れないことがあるので、1つずつ揃えます。 */
+  /* 「全て非表示」で外れないことがあるので1つずつ揃える */
   var WANT = [0, 2, 44, 46, 87, 90];
   var boxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
   var changed = 0;

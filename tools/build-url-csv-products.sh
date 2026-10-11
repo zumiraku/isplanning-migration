@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-url-csv-products.sh — 商品9,514件のURL対応CSV
-
 out="package/url-bulk/products-url.csv"
 mkdir -p "$(dirname "$out")"
 

@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-tag-balance.sh — the one failure this whole project exists to prevent
-
 strict=0
 case "$1" in -Strict|--strict) strict=1; shift ;; esac
 out="${1:-inventory/tag-balance.csv}"

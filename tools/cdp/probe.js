@@ -1,4 +1,3 @@
-/* probe.js — 商品詳細のテンプレートに一時的な印を差し込み、実データを読む */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

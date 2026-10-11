@@ -1,5 +1,4 @@
 #!/bin/sh
-# compare-sp-content.sh — does the smartphone document carry content the desktop
 out="${1:-inventory/sp-only-raw.tsv}"
 
 norm() {

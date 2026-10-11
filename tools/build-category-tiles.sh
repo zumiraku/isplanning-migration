@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-category-tiles.sh — the 46 tiles in the product page's second tab
-
 src="templates/basic-export/design/design_detailpage.txt"
 out="${1:-templates/creator/mode/category-tiles.tpl}"
 

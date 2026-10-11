@@ -1,5 +1,4 @@
 #!/bin/sh
-# find-missing-products.sh — サイトマップに載っていない商品を見つける
 set -e
 cd "$(dirname "$0")/.."
 

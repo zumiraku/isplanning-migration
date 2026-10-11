@@ -1,5 +1,3 @@
-# check-responsive.ps1 — Stage 5 verification
-
 [CmdletBinding()]
 param(
   [string]$Only = '',

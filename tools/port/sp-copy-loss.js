@@ -1,4 +1,3 @@
-/* sp-copy-loss.js — スマホ専用の説明文に、PC版に無い文章があるか（C5） */
 const fs = require("fs");
 
 const CSV = "tools/cdp/csv/20260909181742.csv";

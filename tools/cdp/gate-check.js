@@ -1,4 +1,3 @@
-/* gate-check.js — 会員制・年齢確認が本当に入っているのか */
 const { page } = require("./cdp.js");
 
 const TRY = [

@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-content-preserved.sh — did the conversion damage any text?
-
 frag_dir="templates/creator/freepages"
 src_dir="templates/basic-export/freepages"
 out="${1:-inventory/content-preserved.csv}"

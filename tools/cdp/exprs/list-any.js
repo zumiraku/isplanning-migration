@@ -1,6 +1,5 @@
 (function () {
   function flat(s) { return String(s || "").replace(/\s+/g, " ").trim(); }
-  /* 一覧の1件を、ページ種別に関係なく拾います */
   var cells = document.querySelectorAll("td.itemtext, td.categorylist, li.itemBox, td.itemBox");
   var total = document.querySelector("p.total, p.searchResult");
   var first = cells[0] || null;

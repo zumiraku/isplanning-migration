@@ -1,4 +1,3 @@
-/* build-chrome.js — 上段メニュー・左メニュー・下段メニューを移植する */
 const fs = require("fs");
 const { rewrite } = require("./url-map.js");
 

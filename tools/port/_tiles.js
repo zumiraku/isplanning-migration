@@ -1,5 +1,3 @@
-/* _tiles.js — 「商品グループ」「最近チェックした商品」の並び */
-
 const LINE = '<td class="line"><img height="100" width="4" border="0" ' +
   'src="https://shop1-makeshop.akamaized.net/images/01/mk_main_p_line.gif"></td>';
 

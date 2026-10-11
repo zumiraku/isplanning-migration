@@ -1,4 +1,3 @@
-/* freepages.js — 独自ページ82枚が、どちらの版で入っているかを調べる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

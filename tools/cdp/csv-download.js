@@ -1,4 +1,3 @@
-/* csv-download.js — 商品CSVを丸ごと落とす（まず控えを取る） */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

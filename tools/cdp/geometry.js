@@ -1,4 +1,3 @@
-/* geometry.js — 現行サイトと移植版で、同じ部品の位置と大きさを突き合わせます */
 const { page } = require("./cdp.js");
 
 const EDITOR = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

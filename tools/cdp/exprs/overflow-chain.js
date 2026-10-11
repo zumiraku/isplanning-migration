@@ -25,7 +25,7 @@
     if (seen >= 3) { return; }
     var r = e.getBoundingClientRect();
     if (r.width <= 0 || r.right <= view + 2 || clipped(e)) { return; }
-    /* 親も同じだけはみ出しているなら、親のほうが元です。子は飛ばします */
+    /* 親も同じだけはみ出していたら親が元。子は飛ばす */
     var p = e.parentElement;
     if (p && p.getBoundingClientRect().right > view + 2 && !clipped(p)) { return; }
     seen++;

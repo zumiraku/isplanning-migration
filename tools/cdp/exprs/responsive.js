@@ -11,7 +11,6 @@
     return label + " = " + (c.checked ? "入" : "切");
   }).filter(function (x) { return x.indexOf("レスポンシブ") >= 0; });
 
-  /* PC / スマホ の切り替えがどこにあるか */
   var tabs = Array.from(document.querySelectorAll("a, button")).map(function (e) {
     return (e.innerText || "").replace(/\s+/g, " ").trim();
   }).filter(function (s) { return s === "PC" || s === "スマホ" || s === "スマートフォン"; });

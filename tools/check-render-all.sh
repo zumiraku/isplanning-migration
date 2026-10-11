@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-render-all.sh — 全ページ種別をここで描画して、出力を検査する
 set -e
 cd "$(dirname "$0")/.."
 

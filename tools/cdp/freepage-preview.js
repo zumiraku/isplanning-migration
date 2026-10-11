@@ -1,4 +1,3 @@
-/* freepage-preview.js — 独自ページのプレビューを押して、配信されるHTMLを見る */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

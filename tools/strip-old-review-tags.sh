@@ -1,6 +1,4 @@
 #!/bin/sh
-# strip-old-review-tags.sh — remove the retired review feature from the templates
-
 src="templates/basic-export/design"
 dst="templates/basic-export/design-cleaned"
 

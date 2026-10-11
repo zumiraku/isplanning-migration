@@ -1,4 +1,3 @@
-/* js-audit.js — 配信されるページで、JavaScript が実際に動くか */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

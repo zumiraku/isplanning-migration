@@ -1,4 +1,3 @@
-/* goto.js — 旧管理画面の中を、名前で呼んで開く */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/";

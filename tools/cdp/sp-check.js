@@ -1,4 +1,3 @@
-/* sp-check.js — 全ページ共通の中身と、スマートフォンの扱い */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/";

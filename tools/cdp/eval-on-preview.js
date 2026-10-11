@@ -1,4 +1,3 @@
-/* eval-on-preview.js — 式のファイルを、配信されるページの上で走らせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

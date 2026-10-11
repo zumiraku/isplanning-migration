@@ -1,4 +1,3 @@
-/* to-utf8.js — ベーシックの書き出しを、扱える形に揃える */
 const fs = require("fs");
 const path = require("path");
 

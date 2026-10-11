@@ -1,4 +1,3 @@
-/* find-setting.js — 管理画面のメニューから、探している設定の入口を見つけます */
 const { page } = require("./cdp.js");
 
 const WORDS = process.argv.slice(2);

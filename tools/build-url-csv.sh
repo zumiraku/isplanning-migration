@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-url-csv.sh — URL一括設定 にアップロードするCSVを作る
-
 man="package/freepages/MANIFEST.csv"
 out="package/url-bulk/freepages-url.csv"
 

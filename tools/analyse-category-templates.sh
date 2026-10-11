@@ -1,6 +1,4 @@
 #!/bin/sh
-# analyse-category-templates.sh — what is actually different about the 53
-
 std="templates/basic-export/design/design_brandpage.txt"
 dir="templates/basic-export/design/design_categorypages"
 out="${1:-inventory/category-templates.csv}"

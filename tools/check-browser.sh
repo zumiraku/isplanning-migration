@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-browser.sh — JavaScript が本当に動くかを、ブラウザで数える
 set -e
 cd "$(dirname "$0")/.."
 

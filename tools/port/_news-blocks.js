@@ -1,5 +1,3 @@
-/* _news-blocks.js — お知らせ一覧・詳細のマークアップ */
-
 function pad(expr) { return "<{" + expr + "}>"; }
 
 const N = "$news.list[n]";

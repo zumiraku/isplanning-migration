@@ -1,4 +1,3 @@
-/* file-eval.js — 手元のHTMLファイルを実ブラウザで開いて、式を走らせます */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

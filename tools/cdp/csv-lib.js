@@ -1,4 +1,3 @@
-/* csv-lib.js — 商品CSVを読み書きする */
 const fs = require("fs");
 
 function decode(buf) { return new TextDecoder("shift_jis").decode(buf); }

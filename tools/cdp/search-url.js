@@ -1,4 +1,3 @@
-/* search-url.js — クリエイターの検索URLが、キーワード付きで効くか */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

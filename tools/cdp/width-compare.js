@@ -1,4 +1,3 @@
-/* width-compare.js — 現行サイトと移植版を、同じ幅で並べて測る */
 const { page } = require("./cdp.js");
 
 const WIDTHS = [768, 960, 1280, 1440];

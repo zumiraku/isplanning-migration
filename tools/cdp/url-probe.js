@@ -1,4 +1,3 @@
-/* url-probe.js — URLの形ごとに、いまの本番で何が返るかを測ります */
 const { page } = require("./cdp.js");
 
 const PAIRS = [

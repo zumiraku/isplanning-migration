@@ -1,5 +1,4 @@
 #!/bin/sh
-# fetch-reference.sh — pull the official tag list into the repository
 set -e
 cd "$(dirname "$0")/.."
 

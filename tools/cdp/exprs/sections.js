@@ -8,7 +8,6 @@
     var n = 0, seen = {};
     var node = h;
     while (node) {
-      /* 次の見出しまでの範囲を、文書順にたどります */
       var walker = node.nextElementSibling;
       if (!walker) { node = node.parentElement; if (!node || node === main.parentElement) { break; } continue; }
       node = walker;

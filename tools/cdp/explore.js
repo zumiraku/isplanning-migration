@@ -1,4 +1,3 @@
-/* explore.js — クリエイターモードの編集画面がどう出来ているかを見る */
 const { page } = require("./cdp.js");
 
 const URL = "https://console.makeshop.jp/design/editor?shopId=isplanning";

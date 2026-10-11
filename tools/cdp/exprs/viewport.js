@@ -14,7 +14,6 @@
   if (h) {
     out.headerWidth = Math.round(h.getBoundingClientRect().width);
     out.inlineBefore = h.style.width || "(なし)";
-    /* 幅を明示したら収まるかを、その場で試します */
     h.style.width = "100vw";
     out.with100vw = Math.round(h.getBoundingClientRect().width);
     h.style.width = "";

@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-category-title-render.sh — run the title table and read what comes out
 set -e
 cd "$(dirname "$0")/.."
 

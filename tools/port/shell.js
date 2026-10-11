@@ -1,4 +1,3 @@
-/* shell.js — 全ページ共通の文書の外側 */
 const HEAD_EXTRA = `<meta name="googlebot" content="NOODP">
 <meta name="google-site-verification" content="L9LBYhUrWwhjZ0gO7jQg6ET8BNBqWbwWlCkeo2ZyP_s">
 <meta name="google-site-verification" content="D6YaDg_WQObAhN2-bDzeZpr-rdLLeCzVZFLi1-MuCPo">
@@ -76,7 +75,7 @@ ${opts.body}
 `;
 }
 
-/* Smarty のコメントは貼り付ける中身を膨らませるだけなので、書き出す前に落とします */
+/* 貼る中身が膨らむだけ */
 function stripSmartyComments(s) {
   return s.replace(/<\{\*[\s\S]*?\*\}>[ \t]*\r?\n?/g, "")
           .replace(/\n{3,}/g, "\n\n");

@@ -1,22 +1,13 @@
 #!/usr/bin/perl
-# -----------------------------------------------------------------------------
-#  _category-title.pl — joins the title backup to the ct codes and writes the
-#  <title> conditional. Driven by tools/build-category-titles.sh, which carries
-#  the explanation of why this exists at all.
-#
-#  Kept as a file rather than a -e one-liner because the program quotes both
-#  ' and " and emits Smarty tags. Passing that through a shell quote is how you
-#  get a script that works today and breaks the next time someone edits it.
-# -----------------------------------------------------------------------------
+# called from build-category-titles.sh; a file, not perl -e, because of the ' and " quoting
 use strict;
 use warnings;
-use utf8;                       # the Japanese below is text, not bytes
+use utf8;
 use Encode qw(decode_utf8);
 binmode STDERR, ':encoding(UTF-8)';
 
 my $SUFFIX = '【粗品と景品の発見マーケット】';
 
-# --- minimal CSV field splitter: quoted fields, doubled quotes inside --------
 sub fields {
     my ($line) = @_;
     my @f; my $cur = ''; my $inq = 0;
@@ -42,7 +33,7 @@ sub slurp {
     my ($p) = @_;
     open my $fh, '<:raw', $p or die "$p: $!";
     local $/; my $b = <$fh>; close $fh;
-    $b =~ s/^\xEF\xBB\xBF//;            # the console hands these back with a BOM
+    $b =~ s/^\xEF\xBB\xBF//;            # console exports carry a BOM
     my $t = decode_utf8($b);
     $t =~ s/\r\n/\n/g;
     $t =~ s/\r/\n/g;
@@ -53,7 +44,6 @@ my ($SEO, $URLC, $OVERRIDE, $MODULE, $REF, $REPORT) = @ARGV;
 die "usage: _category-title.pl <seo.csv> <url.csv> <overrides.csv> <module.tpl> <ref.tpl> <report.csv>\n"
     unless $REPORT;
 
-# ---- old URL -> the exact title it had before the migration -----------------
 my %title;
 my @seo = slurp($SEO); shift @seo;
 for my $l (@seo) {
@@ -61,13 +51,12 @@ for my $l (@seo) {
     my @f = fields($l);
     my ($url, $t) = ($f[0], $f[1]);
     next unless defined $url && defined $t;
-    $url =~ s{^https?://[^/]+}{};       # keep the path; that is the join key
+    $url =~ s{^https?://[^/]+}{};       # path is the join key
     next unless $url =~ m{^/shopbrand/};
     next unless $t =~ /\S/;
     $title{$url} = $t;
 }
 
-# ---- old URL -> the ct code it becomes --------------------------------------
 my %code;
 my @u = slurp($URLC); shift @u;
 for my $l (@u) {
@@ -79,19 +68,7 @@ for my $l (@u) {
     $code{$add} = $1;
 }
 
-# ---- pages whose code is not a ct number ------------------------------------
-# The URL CSV only carries categories that were given a ct number, so anything
-# without one dropped out of the join entirely. 全商品 is the case: it has a
-# backed-up title (「すべての商品」) but no ct code, so it was reported as "not a
-# category" and left to the composed fallback.
-#
-# The preview URL settles it. /view/category/all_items - the last segment of a
-# category URL is $category.code, so the code is all_items. It was never
-# missing, it just is not numbered.
-#
-# Each row here needs its evidence written down. A wrong code does not fail
-# loudly: the branch simply never matches, and the page quietly keeps the
-# fallback title while the table claims to cover it.
+# codes without a ct number (all_items etc.); a wrong code fails silently, so note the evidence per row
 {
     my @o = slurp($OVERRIDE); shift @o;
     for my $l (@o) {
@@ -102,7 +79,6 @@ for my $l (@u) {
     }
 }
 
-# ---- join -------------------------------------------------------------------
 my (%seen, @rows, @nocode, @dropped);
 for my $url (sort keys %title) {
     my $c = $code{$url};
@@ -114,12 +90,7 @@ for my $url (sort keys %title) {
     $t =~ s/^\s+//;
     $t =~ s/\s+$//;
 
-    # A title with no letter or digit in it is not a title. ct668 carries ■■■
-    # on the live site today. Reproducing that faithfully would be restoring a
-    # defect, and "ページタイトルを直したい" is one of the three things the
-    # client actually asked for. It is dropped from the table so the fallback
-    # rule composes a real title from the breadcrumb instead - and it is
-    # written into the report, because a silent content change is not a fix.
+    # e.g. ct668 is ■■■ live; drop it to the fallback title and report it
     if ($t !~ /[ぁ-んァ-ヶ一-龥A-Za-z0-9]/) {
         push @dropped, [$c, $url, $t, 'no letters or digits - falls back to the composed title'];
         next;
@@ -129,10 +100,6 @@ for my $url (sort keys %title) {
 my @notitle;
 for my $url (sort keys %code) { push @notitle, $url unless exists $title{$url}; }
 
-# Titles are printed inside <title>…</title>, and the ct code is printed inside
-# a Smarty string comparison. Anything that could close either one is escaped.
-# None of the 606 are expected to contain such a character; the escaping is here
-# so that a later hand-edit of the source data cannot emit a broken document.
 sub esc_text {
     my $s = shift;
     $s =~ s/&/&amp;/g;
@@ -141,9 +108,7 @@ sub esc_text {
     return $s;
 }
 
-# Written as a character loop rather than s///, because the backslash and the
-# apostrophe are exactly the two characters that do not survive being written
-# through several layers of quoting.
+# char loop, not s///: \ and ' don't survive the layers of quoting
 sub esc_str {
     my $s = shift;
     my $bs = chr(92);
@@ -157,11 +122,7 @@ sub esc_str {
 }
 sub q_ { return chr(39) . esc_str($_[0]) . chr(39); }
 
-# ---- split by whether the shop's standard suffix is on the end --------------
-# 【粗品と景品の発見マーケット】 is 15 characters and appears on nearly every
-# title. Emitting it 600 times costs more than the entire rest of the file, so
-# it is written once, outside the branch. The titles that do NOT end with it go
-# in a separate group that is tested first.
+# suffix written once outside the branches (600x would dwarf the file); titles without it are tested first
 my (@with, @without);
 for my $r (@rows) {
     my ($c, $t) = @$r;
@@ -174,16 +135,7 @@ for my $r (@rows) {
 
 my $n = scalar @rows;
 
-# ---- why this is a module and not part of category.tpl ----------------------
-# The table is ~86KB. The largest box known to paste cleanly in this console so
-# far is the 10KB category_captions module, so 86KB is eight times past anything
-# proven. Putting it inside category.tpl would stake the whole category page -
-# all 606 URLs, the product grid, the pager, the tiles - on that size being
-# accepted.
-#
-# As its own module, category.tpl stays at the ~10KB already known to work, and
-# the only thing at risk is the title. If the box refuses 86KB, the titles are
-# what is lost, not the pages.
+# separate module: ~86KB is unproven in the console box (10KB known OK); if refused, only titles are lost
 open my $o, '>:encoding(UTF-8)', $MODULE or die "$MODULE: $!";
 
 print $o <<"HEAD";
@@ -235,7 +187,6 @@ FALLBACK
 
 close $o;
 
-# ---- the one line that goes into <head> in place of <title> -----------------
 open my $ref, '>:encoding(UTF-8)', $REF or die "$REF: $!";
 print $ref <<"REF";
 <{* カテゴリページのタイトルは module「category_title」が出します。
@@ -245,9 +196,8 @@ print $ref <<"REF";
 REF
 close $ref;
 
-# ---- the report the client and the runbook both read ------------------------
 open my $r, '>:encoding(UTF-8)', $REPORT or die "$REPORT: $!";
-print $r "\x{feff}";                    # Excel opens this; it needs the BOM
+print $r "\x{feff}";                    # BOM for Excel
 print $r "区分,ct番号,旧URL,内容,理由\n";
 sub csv { my $s = shift // ''; $s =~ s/"/""/g; return '"' . $s . '"'; }
 for my $d (@dropped) {

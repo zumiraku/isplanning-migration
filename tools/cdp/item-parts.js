@@ -1,4 +1,3 @@
-/* item-parts.js — 1商品を、部品ごとに現行と突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

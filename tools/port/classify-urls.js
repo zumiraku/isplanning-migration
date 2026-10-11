@@ -1,4 +1,3 @@
-/* classify-urls.js — サイトマップの全URLを形ごとに分けて、実測済みかを見ます */
 const fs = require("fs");
 
 const FILE = "inventory/urls-sitemap.csv";

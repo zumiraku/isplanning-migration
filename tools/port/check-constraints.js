@@ -1,4 +1,3 @@
-/* check-constraints.js — 制約台帳で `?` のまま残っている項目を、実データで答えます */
 const fs = require("fs");
 const path = require("path");
 

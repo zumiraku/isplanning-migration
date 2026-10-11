@@ -1,4 +1,3 @@
-/* tiles.js — 1ページを、読める大きさに切って撮ります */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

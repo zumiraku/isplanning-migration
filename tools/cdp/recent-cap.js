@@ -1,4 +1,3 @@
-/* recent-cap.js — 「最近チェックした商品」が何件まで出るかを確かめます */
 const { page } = require("./cdp.js");
 const { openAt, sleep } = require("./bind.js");
 

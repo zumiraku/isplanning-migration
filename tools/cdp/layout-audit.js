@@ -1,4 +1,3 @@
-/* layout-audit.js — 重なり・親からのはみ出し・文字切れ・つぶれ を全ページで拾う */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

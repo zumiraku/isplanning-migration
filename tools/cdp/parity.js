@@ -1,4 +1,3 @@
-/* parity.js — 現行のページと移植版のページを取り込んで、文言の欠落を数えます */
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");

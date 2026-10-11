@@ -1,4 +1,3 @@
-/* css-for.js — 配信されるページで、あるセレクタに効いているCSSを全部並べます */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

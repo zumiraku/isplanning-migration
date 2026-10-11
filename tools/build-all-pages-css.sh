@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-all-pages-css.sh — 全ページ共通 CSS の箱を1本にまとめる
 set -e
 cd "$(dirname "$0")/.."
 

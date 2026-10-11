@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-freepage-coverage.sh — 独自ページを1ページも落としていないか
 set -e
 cd "$(dirname "$0")/.."
 

@@ -1,4 +1,3 @@
-/* top-probe.js — トップのプレビューが 52文字しか返さない件を突き止めます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

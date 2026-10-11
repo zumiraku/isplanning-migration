@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-gallery.sh — does 商品詳細 put every sub-image into the gallery?
 set -e
 cd "$(dirname "$0")/.."
 

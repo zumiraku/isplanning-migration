@@ -1,4 +1,3 @@
-/* box-audit.js — ページ種別ごとの CSS / JavaScript 欄に何が残っているか */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

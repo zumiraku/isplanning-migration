@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-tax-display.sh — 税抜価格を「税込」と書いて出していないか
 set -e
 cd "$(dirname "$0")/.."
 

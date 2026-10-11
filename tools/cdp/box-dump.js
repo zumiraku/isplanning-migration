@@ -1,4 +1,3 @@
-/* box-dump.js — ページ種別のHTML欄の中身を、そのまま取り出します */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

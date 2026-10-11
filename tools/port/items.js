@@ -1,5 +1,3 @@
-/* items.js — 商品一覧のマークアップ */
-
 function grid(listVar, name, max) {
   const it = listVar + ".list[" + name + "]";
   const cap = max ? " max=" + max : "";

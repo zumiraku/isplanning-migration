@@ -1,4 +1,3 @@
-/* head-audit.js — <head> の中身を、現行と1項目ずつ突き合わせます */
 const { page } = require("./cdp.js");
 
 const EDITOR = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

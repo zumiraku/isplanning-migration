@@ -7,7 +7,7 @@
     saveClick: (function () {
       var a = document.querySelector("a.save-button");
       if (!a) { return "(保存ボタンが見つかりません)"; }
-      /* jQuery で束ねられている場合は、そちらを覗きます */
+      /* jQuery で束ねられていればそちらを覗く */
       try {
         var ev = window.jQuery && window.jQuery._data ? window.jQuery._data(a, "events") : null;
         if (ev && ev.click) { return ev.click.map(function (h) { return String(h.handler).slice(0, 900); }).join("\n---\n"); }

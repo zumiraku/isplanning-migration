@@ -1,4 +1,3 @@
-/* pair-eval.js — 同じ式を、現行と移植版の同じ商品で走らせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

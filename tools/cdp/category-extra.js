@@ -1,4 +1,3 @@
-/* category-extra.js — カテゴリごとの独自内容を、モジュールに集める */
 const fs = require("fs");
 const https = require("https");
 const { rewrite } = require("../port/url-map.js");

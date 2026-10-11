@@ -1,4 +1,3 @@
-/* preview.js — ページ種別ごとに「プレビュー」を押して、配信されるHTMLを保存する */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

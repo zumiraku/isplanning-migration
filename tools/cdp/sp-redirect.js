@@ -1,4 +1,3 @@
-/* sp-redirect.js — スマホの名乗りで /smartphone/ へ飛ぶページ種別を洗います */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-smarty.sh — do the Creator Mode templates parse?
-
 dir="templates/creator/mode"
 fail=0
 

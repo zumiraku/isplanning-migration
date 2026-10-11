@@ -1,4 +1,3 @@
-/* build-mirror.js — 移植版を、そのまま開ける静的な写しにします */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

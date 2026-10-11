@@ -1,4 +1,3 @@
-/* scan-product-html.js — 商品説明文9,643件の中身を調べます */
 const fs = require("fs");
 
 const FILE = "tools/cdp/csv/20260909181742.csv";

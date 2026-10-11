@@ -1,4 +1,3 @@
-/* freepage-build.js — 独自ページ82枚を、11ページと同じ骨格に入れ直す */
 const fs = require("fs");
 const { shell } = require("../port/shell.js");
 const { rewrite } = require("../port/url-map.js");

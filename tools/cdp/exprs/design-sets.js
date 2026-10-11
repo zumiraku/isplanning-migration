@@ -3,7 +3,7 @@
   Array.from(document.querySelectorAll("a")).forEach(function (a) {
     var t = (a.innerText || "").replace(/\s+/g, " ").trim();
     if (t.indexOf("コードを編集") < 0) { return; }
-    /* セット名は、同じ塊の中のどこかにあります。上へたどって拾います。 */
+    /* セット名は同じ塊の上のほうにある */
     var box = a, name = "";
     for (var i = 0; i < 6 && box; i++) {
       box = box.parentElement;

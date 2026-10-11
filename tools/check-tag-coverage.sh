@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-tag-coverage.sh — ベーシックで生きているタグが、こちらに在るか
 set -e
 cd "$(dirname "$0")/.."
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* _prune-dead-css.js — 使われていないCSS規則を落とす */
 'use strict';
 
 const fs = require('fs');

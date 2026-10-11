@@ -1,4 +1,3 @@
-/* build-calendar.js — 左メニューの営業日カレンダーをモジュールにする */
 const fs = require("fs");
 
 const src = process.argv[2];

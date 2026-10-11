@@ -1,4 +1,3 @@
-/* build-static.js — 残り6ページ種別を移植する */
 const fs = require("fs");
 const { shell } = require("./shell.js");
 

@@ -1,5 +1,4 @@
 #!/bin/sh
-# identify-preview.sh — そのプレビュー、本当にそのページ種別ですか
 set -e
 cd "$(dirname "$0")/.."
 

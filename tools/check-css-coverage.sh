@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-css-coverage.sh — CSSとテンプレートが噛み合っているか
 set -e
 cd "$(dirname "$0")/.."
 

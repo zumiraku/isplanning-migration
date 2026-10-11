@@ -1,5 +1,3 @@
-# build-sp-redirects.ps1 — targets for the 912 /smartphone/ URLs
-
 [CmdletBinding()]
 param()
 

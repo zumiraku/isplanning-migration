@@ -1,4 +1,3 @@
-/* item-compare.js — 商品ページを、型ごとに現行と突き合わせます */
 const { page } = require("./cdp.js");
 
 const PTK = "45bdf24edcff928f2fc86d299ab4a0dd03aeee10";

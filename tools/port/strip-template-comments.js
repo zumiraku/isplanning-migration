@@ -1,5 +1,3 @@
-/* strip-template-comments.js — 貼り付ける中身から Smarty のコメントを落とします */
-
 const fs = require("fs");
 const path = require("path");
 

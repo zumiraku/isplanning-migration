@@ -1,4 +1,3 @@
-/* module-diff.js — モジュールの中身を取り出して、手元のファイルと突き合わせる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

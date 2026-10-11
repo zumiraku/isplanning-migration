@@ -1,4 +1,3 @@
-/* module-add.js — モジュールを新しく作って、中身を入れる */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

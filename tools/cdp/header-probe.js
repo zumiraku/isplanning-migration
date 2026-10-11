@@ -1,4 +1,3 @@
-/* header-probe.js — 375px でヘッダーがはみ出す理由を、その場で見ます */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

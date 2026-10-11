@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-page-templates.sh — is each assembled page a valid, complete document?
-
 dir="${1:-package/templates}"
 fail=0
 

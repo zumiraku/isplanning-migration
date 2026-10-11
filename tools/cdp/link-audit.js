@@ -1,4 +1,3 @@
-/* link-audit.js — 切り替え後に壊れるリンクが残っていないか */
 const fs = require("fs");
 const path = require("path");
 

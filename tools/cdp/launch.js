@@ -1,4 +1,3 @@
-/* launch.js — ログイン済みのセッションを持ったChromeを、操作できる状態で立てる */
 const { execSync, spawn } = require("child_process");
 const fs = require("fs");
 const http = require("http");

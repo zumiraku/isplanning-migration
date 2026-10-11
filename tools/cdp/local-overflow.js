@@ -1,4 +1,3 @@
-/* local-overflow.js — 手元の静的プレビューを、実ブラウザで測ります */
 const fs = require("fs");
 const path = require("path");
 const { page } = require("./cdp.js");

@@ -21,9 +21,7 @@
 
   var out = { view: view, overlaps: [], outOfParent: [], clipped: [], tiny: [] };
 
-  /* ── ① 重なり ──────────────────────────────────────────────
-     兄弟どうしが重なっているものだけ見ます。親子は当然重なるので除外。
-     位置指定（absolute/fixed）は重ねるのが目的なので除外します。 */
+  /* 兄弟どうしだけ。absolute/fixed は重ねるのが目的なので除外 */
   var parents = new Set();
   Array.from(document.querySelectorAll("body *")).forEach(function (e) {
     if (e.parentElement) { parents.add(e.parentElement); }
@@ -39,14 +37,7 @@
     });
     for (var i = 0; i < kids.length; i++) {
       for (var j = i + 1; j < kids.length; j++) {
-        /* ※ インラインどうしは重なりません
-         *
-         *    折り返したインライン要素の外接ボックスは、複数行をまとめた
-         *    大きな箱になります。同じ段落の中の
-         *    `<span class="M_cl_taxPrice">44572</span>` と
-         *    `<span class="M_outtax">（税込）</span>` が「84%重なっている」
-         *    と出ていましたが、**実際には横に並んでいるだけ**でした。
-         *    カテゴリのスマホ表示で39件、これを不具合として挙げていました。 */
+        /* インラインどうしは見ない: 折り返すと外接ボックスが複数行を包み、横並びでも重なって出る */
         var da = getComputedStyle(kids[i]).display;
         var db = getComputedStyle(kids[j]).display;
         if (da === "inline" && db === "inline") { continue; }
@@ -55,7 +46,7 @@
         if (over < 40) { continue; }
         var small = Math.min(area(ra), area(rb));
         if (small <= 0) { continue; }
-        /* 面積の 12% 以上かぶっていたら「重なり」と見ます */
+        /* 小さいほうの面積の12%以上で重なり扱い */
         if (over / small < 0.12) { continue; }
         out.overlaps.push({
           a: label(kids[i]) + " [" + text(kids[i]) + "]",
@@ -68,31 +59,19 @@
     }
   });
 
-  /* ── ② 親の箱からはみ出している中身 ───────────────────────
-     これが「ズレ」の正体になりやすいところです。 */
   Array.from(document.querySelectorAll("body *")).forEach(function (e) {
     var par = e.parentElement;
     if (!par || par === document.body) { return; }
     var pcs = getComputedStyle(par);
     if (pcs.overflowX !== "visible" || pcs.overflowY !== "visible") { return; }
-    /* ※ 祖先のどこかで切られていれば、はみ出しては見えません
-     *
-     *    親だけ見ていたので、スライダーの複製（UL#M_slider の中の LI）を
-     *    毎ページ数十件ずつ挙げていました。UL 自体は overflow:visible ですが、
-     *    その親の .bx-viewport が hidden で切っています。**画面には出ません。**
-     *    合計1,921件のうち、大半がこれでした。 */
+    /* 祖先のどこかで切られていれば見えない（.bx-viewport が hidden のスライダー等） */
     var anc = par;
     while (anc && anc !== doc) {
       var acs = getComputedStyle(anc);
       if (acs.overflowX !== "visible" || acs.overflowY !== "visible") { return; }
       anc = anc.parentElement;
     }
-    /* ※ インラインの親は「箱」ではありません
-     *
-     *    <a><img></a> のような形だと、a の高さは行の高さしかないので、
-     *    画像が必ず「下にはみ出して」見えます。実際には正しく表示されて
-     *    います。商品詳細で2件、これを不具合として挙げていました。
-     *    親がインラインなら見ません。 */
+    /* インラインの親は行の高さしかない（<a><img></a>）ので見ない */
     if (pcs.display === "inline") { return; }
     var cs = getComputedStyle(e);
     if (cs.position === "absolute" || cs.position === "fixed") { return; }
@@ -111,7 +90,6 @@
     }
   });
 
-  /* ── ③ 文字が切れている ──────────────────────────────────── */
   Array.from(document.querySelectorAll("body *")).forEach(function (e) {
     var cs = getComputedStyle(e);
     if (cs.overflow === "visible") { return; }
@@ -121,7 +99,6 @@
     }
   });
 
-  /* ── ④ つぶれた要素（高さ0なのに中身がある） ───────────── */
   Array.from(document.querySelectorAll("body *")).forEach(function (e) {
     var r = rect(e);
     if (r.height > 2 || r.width < 20) { return; }

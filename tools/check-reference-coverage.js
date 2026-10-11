@@ -1,4 +1,3 @@
-/* check-reference-coverage.js — 公式にあるのに書いていないタグを見つける */
 const fs = require("fs");
 
 const EXPECTED = [

@@ -1,4 +1,3 @@
-/* verify-caption-move.js — 流す予定のCSVが、既存の中身を消さないか */
 const fs = require("fs");
 
 const BACKUP = "tools/cdp/csv/20260909181742.csv";

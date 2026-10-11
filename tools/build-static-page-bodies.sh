@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-static-page-bodies.sh — 会社概要 / 利用案内 / 特定商取引法 / プライバシー
-
 src="templates/creator/freepages"
 out="templates/creator/mode"
 

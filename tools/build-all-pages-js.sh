@@ -1,5 +1,4 @@
 #!/bin/sh
-# build-all-pages-js.sh — 全ページ共通の JavaScript を組み立てる
 set -e
 cd "$(dirname "$0")/.."
 

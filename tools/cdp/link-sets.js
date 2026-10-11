@@ -1,4 +1,3 @@
-/* link-sets.js — ヘッダー・左メニュー・フッターのリンクを、丸ごと突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { map } = require("../port/url-map.js");

@@ -1,4 +1,3 @@
-/* preflight.js — 「ショップに適用」を押す前の、最後の確認 */
 const { page } = require("./cdp.js");
 
 const LIST = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_top.html";

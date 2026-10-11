@@ -1,4 +1,3 @@
-/* category-archetypes.js — 606カテゴリを型に分けて、代表を選びます */
 const fs = require("fs");
 
 const SRC = "package/url-bulk/categories-url.csv";

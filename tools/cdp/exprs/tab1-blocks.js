@@ -1,11 +1,9 @@
 (function () {
-  /* タブ1の中を、見出しで区切って商品数を数えます */
   var tab = document.querySelector("#tab-content1");
   if (!tab) { return { err: "#tab-content1 が無い" }; }
 
   var out = { blocks: [] };
   var kids = Array.prototype.slice.call(tab.querySelectorAll("h2, h3, .section, ul, table"));
-  /* 見出しごとに、その直後から次の見出しまでの「税込」を数えます */
   var heads = Array.prototype.slice.call(tab.querySelectorAll("h2, h3"));
   heads.forEach(function (h, i) {
     var next = heads[i + 1] || null;

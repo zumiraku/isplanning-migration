@@ -1,4 +1,3 @@
-/* img-diff.js — 現行と移植版で、どの画像が何枚出ているかを名前で突き合わせます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { openAt, sleep } = require("./bind.js");

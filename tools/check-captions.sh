@@ -1,6 +1,4 @@
 #!/bin/sh
-# check-captions.sh — are the 34 captions complete?
-
 tpl="templates/creator/mode/category-captions.tpl"
 dir="templates/basic-export/design/design_categorypages"
 [ -f "$tpl" ] || { echo "no $tpl"; exit 1; }

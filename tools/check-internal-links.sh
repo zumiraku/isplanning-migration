@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-internal-links.sh — 内部リンクの行き先が本当に存在するか
 set -e
 cd "$(dirname "$0")/.."
 

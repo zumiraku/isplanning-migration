@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-js-fresh.sh — 配信するJavaScriptが、手元のJSから作り直されているか
 set -e
 cd "$(dirname "$0")/.."
 

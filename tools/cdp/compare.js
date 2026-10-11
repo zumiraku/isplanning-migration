@@ -1,4 +1,3 @@
-/* compare.js — 現行と移植版を、同じ式で、同じ回のうちに比べます */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 const { openAt, sleep } = require("./bind.js");

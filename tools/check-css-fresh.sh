@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-css-fresh.sh — 配信するCSSが、手元のCSSから作り直されているか
 set -e
 cd "$(dirname "$0")/.."
 

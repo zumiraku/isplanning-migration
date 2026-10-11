@@ -1,4 +1,3 @@
-/* freepage-check.js — 作った82枚が、現行の文言を落としていないか */
 const fs = require("fs");
 
 const SRC = "tools/cdp/freepage-src";

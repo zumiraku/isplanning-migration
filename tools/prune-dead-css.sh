@@ -1,5 +1,4 @@
 #!/bin/sh
-# prune-dead-css.sh — 使われていないCSS規則を落とす
 set -e
 cd "$(dirname "$0")/.."
 

@@ -5,7 +5,6 @@
   Array.prototype.slice.call(document.querySelectorAll("li, a")).forEach(function (e) {
     var r = e.getBoundingClientRect();
     if (r.width <= 0 || r.right <= view + 2) { return; }
-    /* 祖先が切っているものは見えません */
     var n = e.parentElement, clipped = false;
     while (n && n !== doc) {
       if (getComputedStyle(n).overflowX !== "visible") { clipped = true; break; }

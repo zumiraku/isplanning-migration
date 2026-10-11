@@ -1,4 +1,3 @@
-/* build-static-src.js — ご利用案内・特商法の本文を、公開ページから写す */
 const fs = require("fs");
 const { rewrite } = require("./url-map.js");
 

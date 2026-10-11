@@ -1,5 +1,4 @@
 #!/bin/sh
-# rewrite-remaining-links.sh — フリーページに残っていた旧URLを書き換える
 set -e
 cd "$(dirname "$0")/.."
 

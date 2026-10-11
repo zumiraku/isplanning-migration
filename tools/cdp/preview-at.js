@@ -1,4 +1,3 @@
-/* preview-at.js — 好きなURLを、いまのエディタ内容で描いて測ります */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

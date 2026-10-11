@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-platform-hooks.sh — プラットフォームのフックに正しくつないでいるか
 set -e
 cd "$(dirname "$0")/.."
 

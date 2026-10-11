@@ -1,4 +1,3 @@
-/* build-freespace.js — カテゴリー別フリースペースをモジュールにする */
 const fs = require("fs");
 const { rewrite } = require("./url-map.js");
 

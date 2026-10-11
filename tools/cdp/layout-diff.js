@@ -1,4 +1,3 @@
-/* layout-diff.js — 重なり・ズレを、現行サイトと突き合わせて「増えたぶんだけ」出す */
 const fs = require("fs");
 const { page } = require("./cdp.js");
 

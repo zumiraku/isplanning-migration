@@ -1,4 +1,3 @@
-/* ancestors.js — ある要素の親を根まで辿って、幅と「基準になる指定」を並べます */
 const { page } = require("./cdp.js");
 
 const BASE = "https://shop1.makeshop.jp/makeshop/newmanager/flex_design_page_editor.html";

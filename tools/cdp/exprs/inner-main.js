@@ -20,7 +20,6 @@
       left: Math.round(pr.left), right: Math.round(pr.right), width: Math.round(pr.width),
       paddingLeft: pcs.paddingLeft, display: pcs.display
     } : null,
-    /* どのルールが margin-left を決めているか、その場で試します */
     試し: (function () {
       var before = Math.round(e.getBoundingClientRect().left);
       e.style.marginLeft = "-10px";

@@ -1,5 +1,4 @@
 #!/bin/sh
-# rebuild-paste-files.sh — 全ページ共通の箱に貼るものを用意する
 set -e
 cd "$(dirname "$0")/.."
 

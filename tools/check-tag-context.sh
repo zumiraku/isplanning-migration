@@ -1,5 +1,4 @@
 #!/bin/sh
-# check-tag-context.sh — タグの「まわりの文字」が落ちていないか
 set -e
 cd "$(dirname "$0")/.."
 

@@ -1,6 +1,4 @@
 #!/bin/sh
-# build-url-csv-categories.sh — カテゴリ606件のURL対応CSV
-
 
 src="inventory/pages-categories-desktop.csv"
 ovr="inventory/category-admin-changes.csv"
